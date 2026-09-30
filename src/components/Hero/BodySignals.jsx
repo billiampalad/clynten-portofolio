@@ -41,21 +41,21 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 2. Core Architecture Target on Chest: Line starts at EXACT center (0,0) and connects to left card */}
+      {/* 2. Core Architecture Target on Neck: Line starts at EXACT center (0,0) and connects to left card */}
       <div
         className={`callout-anchor-group core-group ${isCoreActive ? 'active' : 'dimmed'}`}
-        style={{ top: '40%', left: '48%' }}
+        style={{ top: '65%', left: '49%' }}
       >
-        {/* Exact Anchor Point on Chest */}
+        {/* Exact Anchor Point on Neck */}
         <div className="anchor-dot-center-core">
-          <span className="anchor-dot" />
-          <span className="anchor-ping" />
+          <span className="anchor-dot cyan-dot" />
+          <span className="anchor-ping cyan-ping" />
         </div>
 
-        {/* SVG Line: Starts at anchor and angles up-left to card */}
-        <svg className="connector-svg core-svg" viewBox="0 0 130 50">
+        {/* SVG Line: Starts at neck anchor (140, 40) and angles up-left to card */}
+        <svg className="connector-svg core-svg" viewBox="0 0 140 50">
           <path
-            d="M 130 35 L 95 10 L 2 10"
+            d="M 140 40 L 95 10 L 2 10"
             fill="none"
             stroke="#00ffff"
             strokeWidth="1.5"

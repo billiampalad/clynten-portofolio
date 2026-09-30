@@ -67,6 +67,15 @@
   animation: anchor-pulse 2s infinite ease-out;
 }
 
+.anchor-dot.cyan-dot {
+  background: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+}
+
+.anchor-ping.cyan-ping {
+  border-color: rgba(0, 255, 255, 0.8);
+}
+
 @keyframes anchor-pulse {
   0% {
     transform: scale(0.6);
@@ -102,19 +111,19 @@
   left: 128px;
 }
 
-/* 2. Core SVG line on chest (root at 0, 0 anchor, line draws from (130,35) up-left to (2,10)) */
+/* 2. Core SVG line on neck (root at 0, 0 anchor, line draws from (140,40) up-left to (2,10)) */
 .core-svg {
-  top: -35px;
-  left: -130px;
-  width: 130px;
+  top: -40px;
+  left: -140px;
+  width: 140px;
   height: 50px;
 }
 
-/* Card placed on the left end of the line (-130px left, -40px top) */
+/* Card placed on the left end of the line (-140px left, -56px top to align center with horizontal line at -30px) */
 .callout-floating-card.core-card {
   position: absolute;
-  top: -40px;
-  right: 128px;
+  top: -76px;
+  right: 138px;
 }
 
 /* Floating Card Styling */
