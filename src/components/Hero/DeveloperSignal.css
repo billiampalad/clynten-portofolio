@@ -1,28 +1,29 @@
 .developer-signal-container {
   position: absolute;
-  bottom: 48px;
+  bottom: 40px;
   right: 48px;
   z-index: 25;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   pointer-events: none;
-  background: rgba(10, 10, 15, 0.65);
+  background: rgba(10, 10, 15, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 24px 28px;
-  border-radius: 14px;
-  min-width: 360px;
-  max-width: 460px;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8),
-              0 0 30px rgba(0, 255, 170, 0.05);
+  padding: 20px 22px;
+  border-radius: 12px;
+  width: 360px;
+  max-width: calc(100vw - 96px);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8),
+              0 0 25px rgba(0, 255, 170, 0.05);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .signal-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .signal-profile-counter {
@@ -32,13 +33,13 @@
 }
 
 .scanned-label {
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.6);
 }
 
 .scanned-percentage {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #00ffaa;
   letter-spacing: 1px;
@@ -48,10 +49,10 @@
 .signal-status-badge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 10px;
+  gap: 5px;
+  font-size: 9px;
   letter-spacing: 1px;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 9999px;
   font-weight: 600;
 }
@@ -103,8 +104,8 @@
 
 .signal-line-wrapper {
   width: 100%;
-  height: 24px;
-  margin-bottom: 16px;
+  height: 20px;
+  margin-bottom: 12px;
   overflow: hidden;
 }
 
@@ -117,47 +118,46 @@
 .signal-content-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: all 0.25s ease;
-  margin-bottom: 16px;
+  gap: 4px;
+  margin-bottom: 12px;
 }
 
 .signal-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .signal-phase-tag {
-  font-size: 10px;
+  font-size: 9px;
   color: #00ffaa;
   background: rgba(0, 255, 170, 0.08);
   border: 1px solid rgba(0, 255, 170, 0.2);
-  padding: 2px 6px;
+  padding: 1px 5px;
   border-radius: 4px;
 }
 
 .signal-category-label {
-  font-size: 11px;
+  font-size: 10px;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 1px;
 }
 
 .signal-main-title {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: clamp(20px, 2.5vw, 26px);
+  font-size: 22px;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: #ffffff;
-  margin: 4px 0 2px;
+  margin: 2px 0 0;
   line-height: 1.15;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .signal-subtitle {
-  font-size: 12px;
+  font-size: 11px;
   color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   margin: 0;
 }
 
@@ -167,8 +167,8 @@
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 12px;
-  font-size: 10px;
+  padding-top: 10px;
+  font-size: 9px;
 }
 
 .telemetry-item {
@@ -179,22 +179,33 @@
 
 .t-key {
   color: rgba(255, 255, 255, 0.35);
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 1px;
 }
 
 .t-val {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 600;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .developer-signal-container {
-    bottom: 24px;
+    right: 28px;
+    bottom: 32px;
+    width: 320px;
+  }
+}
+
+@media (max-width: 820px) {
+  .developer-signal-container {
+    bottom: 20px;
     right: 20px;
     left: 20px;
-    min-width: auto;
+    width: auto;
     max-width: none;
-    padding: 18px 20px;
+    padding: 14px 16px;
+  }
+  .signal-main-title {
+    font-size: 18px;
   }
 }

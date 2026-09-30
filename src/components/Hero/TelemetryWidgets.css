@@ -9,18 +9,18 @@
 /* 1. Left Vertical Phase Tracker */
 .vertical-phase-tracker {
   position: absolute;
-  top: 50%;
+  top: 42%;
   left: 48px;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .tracker-line-track {
   position: relative;
   width: 2px;
-  height: 180px;
+  height: 120px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
   overflow: hidden;
@@ -40,13 +40,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 180px;
+  height: 120px;
 }
 
 .tracker-step {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   opacity: 0.35;
   transition: opacity 0.3s, transform 0.3s;
 }
@@ -61,8 +61,8 @@
 }
 
 .step-node {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
@@ -77,8 +77,8 @@
 }
 
 .node-inner {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
   background: transparent;
   transition: background 0.3s;
@@ -92,8 +92,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
-  letter-spacing: 1.5px;
+  font-size: 9px;
+  letter-spacing: 1.2px;
 }
 
 .step-num {
@@ -108,24 +108,24 @@
 /* 2. Top Right Radar Card */
 .top-right-radar-card {
   position: absolute;
-  top: 40px;
+  top: 36px;
   right: 48px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(10, 10, 15, 0.45);
+  gap: 14px;
+  background: rgba(10, 10, 15, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 18px;
+  padding: 12px 16px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .radar-circle-wrapper {
   position: relative;
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
 }
 
 .radar-svg {
@@ -149,14 +149,14 @@
 .radar-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .info-badge {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 1px;
   color: #00ffaa;
   font-weight: 700;
@@ -164,8 +164,8 @@
 }
 
 .info-dot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   background: #00ffaa;
   border-radius: 50%;
   box-shadow: 0 0 6px #00ffaa;
@@ -174,8 +174,8 @@
 .info-stat {
   display: flex;
   justify-content: space-between;
-  gap: 14px;
-  font-size: 9px;
+  gap: 12px;
+  font-size: 8px;
 }
 
 .stat-label {
@@ -190,33 +190,33 @@
 /* 3. Center Bottom Ambient Hint */
 .center-scroll-hint {
   position: absolute;
-  bottom: 24px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
   transition: opacity 0.3s;
 }
 
 .hint-arrow {
-  font-size: 14px;
+  font-size: 12px;
   color: #00ffaa;
   animation: bounce-hint 1.5s infinite ease-in-out;
 }
 
 @keyframes bounce-hint {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+  50% { transform: translateY(5px); }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .vertical-phase-tracker {
-    display: none;
+    display: none; /* Hide if horizontal clearance is tight */
   }
 }
 
@@ -225,6 +225,6 @@
     display: none;
   }
   .center-scroll-hint {
-    bottom: 12px;
+    display: none;
   }
 }
