@@ -1,10 +1,8 @@
 import React from 'react'
 
 export default function SignalLine({ progress = 0 }) {
-  // SVG path coordinates: a cyber ECG signal pulse line
-  // Total path length approximately 320px
-  const pathLength = 320
-  const strokeOffset = pathLength * (1 - Math.min(1, Math.max(0, progress)))
+  const normalizedProgress = Math.min(1, Math.max(0, progress))
+  const strokeOffset = 100 * (1 - normalizedProgress)
 
   return (
     <div className="signal-line-wrapper">
@@ -30,7 +28,8 @@ export default function SignalLine({ progress = 0 }) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeDasharray={pathLength}
+          pathLength="100"
+          strokeDasharray="100"
           strokeDashoffset={strokeOffset}
           style={{
             filter: 'drop-shadow(0 0 6px #00ffaa)',
