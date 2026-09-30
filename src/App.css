@@ -15,6 +15,9 @@
   height: 100dvh;
   display: block;
   pointer-events: none;
+  background-color: #000000;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .loading-overlay {
@@ -32,8 +35,8 @@
 }
 
 .loading-bar-container {
-  width: 200px;
-  height: 2px;
+  width: 220px;
+  height: 3px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
   overflow: hidden;
@@ -46,7 +49,7 @@
 }
 
 .loading-text {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
 }

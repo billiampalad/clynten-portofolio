@@ -19,17 +19,17 @@ function App() {
   const targetProgressRef = useRef(0)
   const lastRenderedIndexRef = useRef(0)
 
-  // Render a specific frame onto canvas with full-screen "cover" mode
+  // High-fidelity rendering on canvas
   const renderFrame = useCallback((index) => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { alpha: false })
     if (!ctx) return
 
     const img = imagesRef.current[index]
     if (!img || !img.complete || img.naturalWidth === 0) return
 
-    const dpr = window.devicePixelRatio || 1
+    const dpr = Math.min(window.devicePixelRatio || 1, 2) // Cap at 2 for performance & sharpness
     const width = window.innerWidth
     const height = window.innerHeight
 
@@ -41,36 +41,47 @@ function App() {
       canvas.height = targetCanvasHeight
     }
 
+    // Set maximum image smoothing quality
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
+
     ctx.save()
     ctx.scale(dpr, dpr)
-    ctx.clearRect(0, 0, width, height)
 
-    // Full-screen cover calculation: always fill the screen entirely
+    // Full-screen cover calculation
     const imgRatio = img.naturalWidth / img.naturalHeight
     const screenRatio = width / height
 
     let drawWidth, drawHeight, offsetX, offsetY
 
     if (screenRatio > imgRatio) {
-      // Screen is wider than image (Desktop / Landscape) -> fit width, center vertically
+      // Fit width, crop top/bottom
       drawWidth = width
       drawHeight = width / imgRatio
       offsetX = 0
       offsetY = (height - drawHeight) / 2
     } else {
-      // Screen is taller than image (Mobile / Portrait) -> fit height, center horizontally
+      // Fit height, crop sides
       drawHeight = height
       drawWidth = height * imgRatio
       offsetX = (width - drawWidth) / 2
       offsetY = 0
     }
 
-    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
+    // Round pixel values to avoid subpixel blurriness
+    ctx.drawImage(
+      img,
+      Math.round(offsetX),
+      Math.round(offsetY),
+      Math.round(drawWidth),
+      Math.round(drawHeight)
+    )
+
     ctx.restore()
     lastRenderedIndexRef.current = index
   }, [])
 
-  // Preload all frames
+  // Preload all 4K frames
   useEffect(() => {
     let loadedCount = 0
     const images = []
@@ -100,7 +111,7 @@ function App() {
     }
   }, [renderFrame])
 
-  // Handle scroll and smooth lerped animation loop
+  // Smooth scroll interpolation loop
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset
