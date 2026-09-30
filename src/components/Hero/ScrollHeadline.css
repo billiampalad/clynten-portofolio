@@ -91,7 +91,7 @@
   pointer-events: none;
   /* Wipe reveal from left to right as --reveal goes 0 -> 1 */
   clip-path: inset(0 0 0 calc(var(--reveal, 0) * 100%));
-  transition: clip-path 0.08s linear;
+  will-change: clip-path;
 }
 
 /* 2. Scanning Laser Edge along the reveal frontier */
@@ -109,7 +109,7 @@
   z-index: 3;
   pointer-events: none;
   opacity: calc((1 - var(--reveal, 0)) * 1);
-  transition: opacity 0.15s ease;
+  will-change: left, opacity;
 }
 
 /* Phrase Text styling (matches green glow of all other headline words) */
