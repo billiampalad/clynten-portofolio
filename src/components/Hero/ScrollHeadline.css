@@ -193,6 +193,40 @@
 
 @media (max-width: 768px) {
   .scroll-headline-container {
+    display: block;
+    left: 50%;
+    right: auto;
+    bottom: 215px;
+    transform: translateX(-50%);
+    width: calc(100vw - 36px);
+    max-width: 360px;
+  }
+
+  .headline-badge {
+    margin-bottom: 6px;
+    padding: 2px 8px;
+    font-size: 8.5px;
+    letter-spacing: 1.2px;
+  }
+
+  .badge-signal-dot {
+    width: 4.5px;
+    height: 4.5px;
+  }
+
+  .scroll-headline-text {
+    font-size: clamp(15px, 4.4vw, 19px);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.5px;
+  }
+
+  .headline-highlight-phrase {
+    padding: 0 4px;
+    margin: 0 1px;
+  }
+
+  .headline-subtext {
     display: none;
   }
 }
