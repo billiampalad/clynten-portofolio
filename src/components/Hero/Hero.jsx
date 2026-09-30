@@ -20,13 +20,11 @@ const HERO_CONFIG = {
   gridOpacityEnd: 0,
 }
 
-export default function Hero({ onRevealComplete }) {
+export default function Hero() {
   const heroSectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
   const canvasRef = useRef(null)
   const gridOverlayRef = useRef(null)
-  const contentRef = useRef(null)
-  const scrollIndicatorRef = useRef(null)
 
   const [loading, setLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
@@ -148,8 +146,6 @@ export default function Hero({ onRevealComplete }) {
 
     const canvas = canvasRef.current
     const gridOverlay = gridOverlayRef.current
-    const content = contentRef.current
-    const scrollIndicator = scrollIndicatorRef.current
 
     const playhead = playheadRef.current
     playhead.frame = 0
@@ -162,7 +158,7 @@ export default function Hero({ onRevealComplete }) {
     const trigger = ScrollTrigger.create({
       trigger: heroSectionRef.current,
       start: 'top top',
-      end: '+=250%',
+      end: '+=350%',
       pin: pinWrapperRef.current,
       scrub: 0.6,
       anticipatePin: 1,
@@ -204,24 +200,6 @@ export default function Hero({ onRevealComplete }) {
         if (gridOverlay) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
         }
-
-        // 4. Scroll indicator fade out
-        if (scrollIndicator) {
-          const indOpacity = Math.max(0, 1 - progress * 4)
-          scrollIndicator.style.opacity = indOpacity.toFixed(2)
-          scrollIndicator.style.transform = `translateY(${progress * 40}px)`
-        }
-
-        // 5. Content subtle reveal
-        if (content) {
-          const contentOpacity = gsap.utils.interpolate(0.7, 1, progress)
-          content.style.opacity = contentOpacity.toFixed(2)
-        }
-
-        // 6. Notify parent when reveal is mostly complete (for Navbar)
-        if (onRevealComplete) {
-          onRevealComplete(progress > 0.65)
-        }
       },
     })
 
@@ -238,7 +216,7 @@ export default function Hero({ onRevealComplete }) {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleResize)
     }
-  }, [loading, renderFrame, onRevealComplete])
+  }, [loading, renderFrame])
 
   return (
     <section id="hero" ref={heroSectionRef} className="hero-section">
@@ -258,47 +236,11 @@ export default function Hero({ onRevealComplete }) {
           </div>
         )}
 
-        {/* Cinematic Canvas */}
+        {/* Cinematic Canvas Frame Sequence */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
         {/* Pixel Grid Matrix Overlay */}
         <PixelGrid gridRef={gridOverlayRef} />
-
-        {/* Hero Interactive UI Content */}
-        <div ref={contentRef} className="hero-content">
-          <div className="hero-eyebrow">
-            <span className="eyebrow-badge">PORTFOLIO // 2026</span>
-            <span className="eyebrow-role">FULL STACK DEVELOPER</span>
-          </div>
-
-          <h1 className="hero-title">
-            CLYNTEN PALAD
-          </h1>
-
-          <p className="hero-subtitle">
-            Architecting modern, interactive web applications & cinematic visual experiences.
-          </p>
-
-          <div className="hero-actions">
-            <a href="#projects" className="btn-primary">
-              <span>View Projects</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M7 17l9.2-9.2M17 17V7H7" />
-              </svg>
-            </a>
-            <a href="#about" className="btn-secondary">
-              <span>About Me</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div ref={scrollIndicatorRef} className="hero-scroll-indicator">
-          <span className="scroll-label">SCROLL TO REVEAL</span>
-          <div className="scroll-mouse">
-            <div className="scroll-wheel" />
-          </div>
-        </div>
       </div>
     </section>
   )
