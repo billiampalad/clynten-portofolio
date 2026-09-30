@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PixelGrid from './PixelGrid'
+import DataStream from './DataStream'
+import DeveloperSignal from './DeveloperSignal'
 import frameUrls from '../../frameList.json'
 import './Hero.css'
 
@@ -10,14 +12,14 @@ gsap.registerPlugin(ScrollTrigger)
 const TOTAL_FRAMES = frameUrls.length
 
 const HERO_CONFIG = {
-  blurStart: 8,          // Reduced from 18 to 8px so face is subtly visible at start
+  blurStart: 8,
   blurEnd: 0,
-  brightnessStart: 0.65, // Slightly brighter initial state
-  brightnessEnd: 1,
+  brightnessStart: 0.65,
+  brightnessEnd: 1.02,
   contrastStart: 0.9,
-  contrastEnd: 1,
+  contrastEnd: 1.05,
   gridOpacityStart: 1,
-  gridOpacityEnd: 0,
+  gridOpacityEnd: 0.2,
 }
 
 export default function Hero() {
@@ -28,6 +30,8 @@ export default function Hero() {
 
   const [loading, setLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
   const imagesRef = useRef([])
   const playheadRef = useRef({ frame: 0 })
   const lastRenderedIndexRef = useRef(-1)
@@ -155,6 +159,8 @@ export default function Hero() {
       canvas.style.filter = `blur(${HERO_CONFIG.blurStart}px) brightness(${HERO_CONFIG.brightnessStart}) contrast(${HERO_CONFIG.contrastStart})`
     }
 
+    let lastProgressUpdate = 0
+
     const trigger = ScrollTrigger.create({
       trigger: heroSectionRef.current,
       start: 'top top',
@@ -170,11 +176,11 @@ export default function Hero() {
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
-        // 2. Cinematic Filter calculations (faster gentle blur fade)
+        // 2. Cinematic Filter calculations: transitions smoothly to 0px (sharp)
         const currentBlur = gsap.utils.interpolate(
           HERO_CONFIG.blurStart,
           HERO_CONFIG.blurEnd,
-          Math.min(1, progress / 0.6)
+          progress
         )
         const currentBrightness = gsap.utils.interpolate(
           HERO_CONFIG.brightnessStart,
@@ -188,17 +194,23 @@ export default function Hero() {
         )
 
         if (canvas) {
-          canvas.style.filter = `blur(${currentBlur.toFixed(1)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
+          canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // 3. Scanline dissolve
+        // 3. Scanline dissolve (retains subtle residual texture at the end)
         const gridOpacity = gsap.utils.interpolate(
           HERO_CONFIG.gridOpacityStart,
           HERO_CONFIG.gridOpacityEnd,
-          Math.min(1, progress / 0.7)
+          progress
         )
         if (gridOverlay) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
+        }
+
+        // 4. Update React state for Developer Signal & Data Stream telemetry (throttled for high FPS)
+        if (Math.abs(progress - lastProgressUpdate) > 0.005 || progress === 1 || progress === 0) {
+          setScrollProgress(progress)
+          lastProgressUpdate = progress
         }
       },
     })
@@ -236,11 +248,17 @@ export default function Hero() {
           </div>
         )}
 
-        {/* Cinematic Canvas Frame Sequence */}
+        {/* Layer 1: Cinematic Canvas Frame Sequence */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Digital Scanline Overlay */}
+        {/* Layer 2: Digital Scanline & Vignette Overlay */}
         <PixelGrid gridRef={gridOverlayRef} />
+
+        {/* Layer 3: Decrypting Live Telemetry Data Stream (Left HUD) */}
+        {!loading && <DataStream progress={scrollProgress} />}
+
+        {/* Layer 4: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
+        {!loading && <DeveloperSignal progress={scrollProgress} />}
       </div>
     </section>
   )

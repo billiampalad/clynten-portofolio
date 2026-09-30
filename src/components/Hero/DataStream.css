@@ -1,0 +1,100 @@
+.data-stream-container {
+  position: absolute;
+  top: 40px;
+  left: 48px;
+  z-index: 25;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  pointer-events: none;
+  background: rgba(10, 10, 15, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 20px;
+  border-radius: 8px;
+  max-width: 280px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.data-stream-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 8px;
+}
+
+.data-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ffaa;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ffaa;
+  animation: pulse-stream 1.5s infinite alternate;
+}
+
+@keyframes pulse-stream {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.data-stream-title {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+}
+
+.data-stream-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.data-stream-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.data-idx {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 9px;
+}
+
+.data-stream-row.raw .data-text {
+  color: rgba(0, 255, 255, 0.6);
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+.data-stream-row.resolved .data-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.data-stream-row.final .data-text {
+  color: #00ffaa;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(0, 255, 170, 0.4);
+}
+
+@media (max-width: 900px) {
+  .data-stream-container {
+    top: 24px;
+    left: 20px;
+    padding: 10px 14px;
+    max-width: 220px;
+  }
+  .data-stream-row {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .data-stream-container {
+    display: none; /* Keep mobile view clean & non-blocking */
+  }
+}
