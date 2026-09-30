@@ -10,11 +10,11 @@ gsap.registerPlugin(ScrollTrigger)
 const TOTAL_FRAMES = frameUrls.length
 
 const HERO_CONFIG = {
-  blurStart: 18,
+  blurStart: 8,          // Reduced from 18 to 8px so face is subtly visible at start
   blurEnd: 0,
-  brightnessStart: 0.4,
+  brightnessStart: 0.65, // Slightly brighter initial state
   brightnessEnd: 1,
-  contrastStart: 0.8,
+  contrastStart: 0.9,
   contrastEnd: 1,
   gridOpacityStart: 1,
   gridOpacityEnd: 0,
@@ -170,11 +170,11 @@ export default function Hero() {
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
-        // 2. Cinematic Filter calculations
+        // 2. Cinematic Filter calculations (faster gentle blur fade)
         const currentBlur = gsap.utils.interpolate(
           HERO_CONFIG.blurStart,
           HERO_CONFIG.blurEnd,
-          Math.min(1, progress / 0.85)
+          Math.min(1, progress / 0.6)
         )
         const currentBrightness = gsap.utils.interpolate(
           HERO_CONFIG.brightnessStart,
@@ -191,11 +191,11 @@ export default function Hero() {
           canvas.style.filter = `blur(${currentBlur.toFixed(1)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // 3. Pixel Grid dissolve
+        // 3. Scanline dissolve
         const gridOpacity = gsap.utils.interpolate(
           HERO_CONFIG.gridOpacityStart,
           HERO_CONFIG.gridOpacityEnd,
-          Math.min(1, progress / 0.8)
+          Math.min(1, progress / 0.7)
         )
         if (gridOverlay) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
@@ -239,7 +239,7 @@ export default function Hero() {
         {/* Cinematic Canvas Frame Sequence */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Pixel Grid Matrix Overlay */}
+        {/* Digital Scanline Overlay */}
         <PixelGrid gridRef={gridOverlayRef} />
       </div>
     </section>
