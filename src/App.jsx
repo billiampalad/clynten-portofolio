@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import './App.css'
 
 const TOTAL_FRAMES = 145
@@ -17,6 +17,58 @@ function App() {
   const animationFrameId = useRef(null)
   const currentProgressRef = useRef(0)
   const targetProgressRef = useRef(0)
+  const lastRenderedIndexRef = useRef(0)
+
+  // Render a specific frame onto canvas with full-screen "cover" mode
+  const renderFrame = useCallback((index) => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const img = imagesRef.current[index]
+    if (!img || !img.complete || img.naturalWidth === 0) return
+
+    const dpr = window.devicePixelRatio || 1
+    const width = window.innerWidth
+    const height = window.innerHeight
+
+    const targetCanvasWidth = Math.round(width * dpr)
+    const targetCanvasHeight = Math.round(height * dpr)
+
+    if (canvas.width !== targetCanvasWidth || canvas.height !== targetCanvasHeight) {
+      canvas.width = targetCanvasWidth
+      canvas.height = targetCanvasHeight
+    }
+
+    ctx.save()
+    ctx.scale(dpr, dpr)
+    ctx.clearRect(0, 0, width, height)
+
+    // Full-screen cover calculation: always fill the screen entirely
+    const imgRatio = img.naturalWidth / img.naturalHeight
+    const screenRatio = width / height
+
+    let drawWidth, drawHeight, offsetX, offsetY
+
+    if (screenRatio > imgRatio) {
+      // Screen is wider than image (Desktop / Landscape) -> fit width, center vertically
+      drawWidth = width
+      drawHeight = width / imgRatio
+      offsetX = 0
+      offsetY = (height - drawHeight) / 2
+    } else {
+      // Screen is taller than image (Mobile / Portrait) -> fit height, center horizontally
+      drawHeight = height
+      drawWidth = height * imgRatio
+      offsetX = (width - drawWidth) / 2
+      offsetY = 0
+    }
+
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
+    ctx.restore()
+    lastRenderedIndexRef.current = index
+  }, [])
 
   // Preload all frames
   useEffect(() => {
@@ -30,7 +82,6 @@ function App() {
         loadedCount++
         setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100))
         if (loadedCount === 1) {
-          // Render the first frame immediately
           renderFrame(0)
         }
         if (loadedCount === TOTAL_FRAMES) {
@@ -47,54 +98,9 @@ function App() {
         img.onload = null
       })
     }
-  }, [])
+  }, [renderFrame])
 
-  // Render a specific frame onto the canvas
-  const renderFrame = (index) => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    const img = imagesRef.current[index]
-    if (!img || !img.complete || img.naturalWidth === 0) return
-
-    const dpr = window.devicePixelRatio || 1
-    const width = window.innerWidth
-    const height = window.innerHeight
-
-    if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
-      canvas.width = width * dpr
-      canvas.height = height * dpr
-    }
-
-    ctx.save()
-    ctx.scale(dpr, dpr)
-    ctx.clearRect(0, 0, width, height)
-
-    // Calculate aspect ratio containment/coverage (contain to ensure full visual fidelity)
-    const imgRatio = img.naturalWidth / img.naturalHeight
-    const screenRatio = width / height
-
-    let drawWidth, drawHeight, offsetX, offsetY
-
-    if (screenRatio > imgRatio) {
-      drawHeight = height
-      drawWidth = height * imgRatio
-      offsetX = (width - drawWidth) / 2
-      offsetY = 0
-    } else {
-      drawWidth = width
-      drawHeight = width / imgRatio
-      offsetX = 0
-      offsetY = (height - drawHeight) / 2
-    }
-
-    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
-    ctx.restore()
-  }
-
-  // Handle scroll and lerped animation loop
+  // Handle scroll and smooth lerped animation loop
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset
@@ -107,13 +113,16 @@ function App() {
       targetProgressRef.current = progress
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
+    const handleResize = () => {
+      handleScroll()
+      renderFrame(lastRenderedIndexRef.current)
+    }
 
-    let lastRenderedIndex = -1
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('orientationchange', handleResize)
 
     const animate = () => {
-      // Smooth linear interpolation (lerp)
       const diff = targetProgressRef.current - currentProgressRef.current
       currentProgressRef.current += diff * 0.08
 
@@ -122,9 +131,8 @@ function App() {
         Math.max(0, Math.floor(currentProgressRef.current * (TOTAL_FRAMES - 1)))
       )
 
-      if (frameIndex !== lastRenderedIndex) {
+      if (frameIndex !== lastRenderedIndexRef.current) {
         renderFrame(frameIndex)
-        lastRenderedIndex = frameIndex
       }
 
       animationFrameId.current = requestAnimationFrame(animate)
@@ -134,12 +142,13 @@ function App() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current)
       }
     }
-  }, [])
+  }, [renderFrame])
 
   return (
     <div className="animation-container">
