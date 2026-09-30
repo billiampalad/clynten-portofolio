@@ -132,8 +132,33 @@
     inset: 16px;
   }
 
-  .spectrum-bars,
-  .center-target-box {
+  .spectrum-bars {
     display: none;
+  }
+
+  .center-target-box {
+    display: flex;
+    top: 4px;
+    right: 4px;
+    left: auto;
+    transform: none;
+  }
+
+  .target-id-badge {
+    padding: 5px 12px;
+    background: rgba(10, 10, 15, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .target-label {
+    font-size: 8.5px;
+    letter-spacing: 1.2px;
+  }
+
+  .target-val {
+    font-size: 9px;
   }
 }

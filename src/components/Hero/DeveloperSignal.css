@@ -206,41 +206,51 @@
 
 @media (max-width: 768px) {
   .developer-signal-container {
-    top: 24px;
-    right: 24px;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    width: auto;
-    max-width: calc(100vw - 48px);
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: rgba(10, 10, 15, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
-                0 0 15px rgba(0, 255, 170, 0.08);
+    top: auto;
+    bottom: 24px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100vw - 36px);
+    max-width: 360px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(10, 10, 15, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(0, 255, 170, 0.08);
   }
 
   .signal-top-bar {
-    margin-bottom: 0;
-    gap: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 8px;
   }
 
-  .signal-status-badge,
-  .signal-line-wrapper,
-  .signal-content-card,
+  .signal-line-wrapper {
+    height: 14px;
+    margin-bottom: 8px;
+  }
+
+  .signal-content-card {
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .signal-main-title {
+    font-size: 16px;
+    margin: 1px 0 0;
+  }
+
+  .signal-subtitle {
+    font-size: 9.5px;
+  }
+
   .signal-bottom-telemetry {
-    display: none;
-  }
-
-  .scanned-label {
-    font-size: 8.5px;
-    letter-spacing: 1px;
-  }
-
-  .scanned-percentage {
-    font-size: 13px;
+    padding-top: 6px;
   }
 }
