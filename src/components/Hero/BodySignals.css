@@ -23,8 +23,22 @@
   filter: grayscale(0.5);
 }
 
-/* Center Anchor Point */
+/* Center Anchor Point for Face */
 .anchor-dot-center {
+  position: absolute;
+  top: -34px;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+/* Center Anchor Point for Core */
+.anchor-dot-center-core {
   position: absolute;
   top: 0;
   left: 0;
@@ -73,18 +87,18 @@
   z-index: 2;
 }
 
-/* 1. Face SVG line (root at 0, 0 anchor, line draws from (0,35) up-right to (128,10)) */
+/* 1. Face SVG line (Starts at top: -34px matching anchor-dot, angles down to card at top: 4px) */
 .face-svg {
-  top: -15px;
+  top: -34px;
   left: 0;
   width: 130px;
-  height: 50px;
+  height: 60px;
 }
 
-/* Card elevated securely higher up, touching the end of the line (128px right, -25px top) */
+/* Card elevated securely, centered with the end of the line (128px right, -14px top) */
 .callout-floating-card.face-card {
   position: absolute;
-  top: -20px;
+  top: -14px;
   left: 128px;
 }
 

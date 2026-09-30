@@ -7,21 +7,21 @@ export default function BodySignals({ progress = 0 }) {
 
   return (
     <div className="face-signals-overlay">
-      {/* 1. Face Biometric Target: Line starts at EXACT center (0,0) and connects to card */}
+      {/* 1. Biometric Target Positioned Above Hair/Head */}
       <div
         className={`callout-anchor-group face-group ${isFaceActive ? 'active' : 'dimmed'}`}
-        style={{ top: '22%', left: '50%' }}
+        style={{ top: '20%', left: '50%' }}
       >
-        {/* Exact Anchor Point on Face */}
+        {/* Anchor Point above hair */}
         <div className="anchor-dot-center">
           <span className="anchor-dot" />
           <span className="anchor-ping" />
         </div>
 
-        {/* SVG Line: Starts exactly at (0, 0), angles up-right to (40, -25), extends to (120, -25) */}
-        <svg className="connector-svg face-svg" viewBox="0 0 130 50">
+        {/* SVG Line: Starts at anchor (0,0), angles down-right and connects to Biometric Card */}
+        <svg className="connector-svg face-svg" viewBox="0 0 130 60">
           <path
-            d="M 0 35 L 35 10 L 128 10"
+            d="M 0 0 L 30 0 L 65 38 L 128 38"
             fill="none"
             stroke="#00ffaa"
             strokeWidth="1.5"
@@ -30,7 +30,7 @@ export default function BodySignals({ progress = 0 }) {
           />
         </svg>
 
-        {/* Floating Callout Card securely elevated (avoiding Profile Scanned below) */}
+        {/* Floating Callout Card connected directly to the line */}
         <div className="callout-floating-card face-card">
           <div className="card-top-row">
             <span className="card-code">BIOMETRIC // 01</span>
@@ -47,7 +47,7 @@ export default function BodySignals({ progress = 0 }) {
         style={{ top: '40%', left: '48%' }}
       >
         {/* Exact Anchor Point on Chest */}
-        <div className="anchor-dot-center">
+        <div className="anchor-dot-center-core">
           <span className="anchor-dot" />
           <span className="anchor-ping" />
         </div>
