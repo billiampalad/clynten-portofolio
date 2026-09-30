@@ -24,23 +24,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  gap: 8px;
 }
 
 .signal-profile-counter {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .scanned-label {
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .scanned-percentage {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: #00ffaa;
   letter-spacing: 1px;
@@ -48,19 +50,21 @@
 }
 
 .signal-status-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 9px;
-  letter-spacing: 1px;
+  font-size: 8.5px;
+  letter-spacing: 0.8px;
   padding: 3px 8px;
   border-radius: 9999px;
-  font-weight: 600;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .signal-status-badge.cyan {
   background: rgba(0, 255, 255, 0.12);
-  border: 1px solid rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 255, 0.35);
   color: #00ffff;
 }
 
@@ -71,7 +75,7 @@
 
 .signal-status-badge.orange {
   background: rgba(255, 165, 0, 0.12);
-  border: 1px solid rgba(255, 165, 0, 0.3);
+  border: 1px solid rgba(255, 165, 0, 0.35);
   color: #ffa500;
 }
 
@@ -80,10 +84,12 @@
   box-shadow: 0 0 6px #ffa500;
 }
 
+/* Polished Verified Identity Emerald Badge */
 .signal-status-badge.green {
-  background: rgba(0, 255, 170, 0.15);
-  border: 1px solid rgba(0, 255, 170, 0.4);
+  background: rgba(0, 255, 170, 0.18);
+  border: 1px solid rgba(0, 255, 170, 0.5);
   color: #00ffaa;
+  box-shadow: 0 0 12px rgba(0, 255, 170, 0.2);
 }
 
 .signal-status-badge.green .status-dot {
@@ -92,10 +98,11 @@
 }
 
 .status-dot {
-  width: 5px;
-  height: 5px;
+  width: 4.5px;
+  height: 4.5px;
   border-radius: 50%;
   animation: pulse-dot 1.2s infinite ease-in-out;
+  flex-shrink: 0;
 }
 
 @keyframes pulse-dot {
@@ -130,7 +137,7 @@
 }
 
 .signal-phase-tag {
-  font-size: 9px;
+  font-size: 8.5px;
   color: #00ffaa;
   background: rgba(0, 255, 170, 0.08);
   border: 1px solid rgba(0, 255, 170, 0.2);
@@ -139,7 +146,7 @@
 }
 
 .signal-category-label {
-  font-size: 10px;
+  font-size: 9.5px;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 1px;
 }

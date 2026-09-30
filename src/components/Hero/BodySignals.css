@@ -21,7 +21,7 @@
   filter: grayscale(0.5);
 }
 
-/* Anchor point right on the face/body */
+/* Single clean anchor point on face and chest */
 .callout-anchor-point {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -53,13 +53,6 @@
   100% { transform: scale(2.4); opacity: 0; }
 }
 
-.anchor-crosshair {
-  position: absolute;
-  width: 20px;
-  height: 1px;
-  background: rgba(0, 255, 170, 0.4);
-}
-
 /* Angled Pointer SVG Lines */
 .callout-line-svg {
   position: absolute;
@@ -67,37 +60,37 @@
   overflow: visible;
 }
 
-/* 1. Face Callout Positioning: Anchor at (50%, 24%), Line leads up-right to (58%, 15%) */
+/* 1. Face Callout: Anchor at (50%, 24%), Card placed below top radar at (25% top) */
 .face-callout .callout-line-svg {
-  top: 15%;
+  top: 24%;
   left: 50%;
-  width: 140px;
-  height: 70px;
+  width: 120px;
+  height: 35px;
 }
 
 .callout-floating-card.face-card {
   position: absolute;
-  top: 13%;
-  left: calc(50% + 140px);
+  top: 25.5%;
+  left: calc(50% + 120px);
 }
 
-/* 2. Core Callout Positioning: Anchor at (48%, 44%), Line leads up-left to (32%, 36%) */
+/* 2. Core Callout: Anchor at (48%, 44%), Line leads to left at (38% top) */
 .core-callout .callout-line-svg.core-line {
-  top: 36%;
+  top: 44%;
   right: 52%;
-  width: 140px;
-  height: 70px;
+  width: 120px;
+  height: 35px;
 }
 
 .callout-floating-card.core-card {
   position: absolute;
-  top: 34%;
-  right: calc(52% + 140px);
+  top: 45.5%;
+  right: calc(52% + 120px);
 }
 
 /* Floating Card Styling */
 .callout-floating-card {
-  background: rgba(10, 10, 15, 0.75);
+  background: rgba(10, 10, 15, 0.8);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(0, 255, 170, 0.3);
@@ -157,24 +150,22 @@
 
 @media (max-width: 1024px) {
   .callout-floating-card.face-card {
-    left: calc(50% + 40px);
-    top: 10%;
+    left: calc(50% + 30px);
   }
   .face-callout .callout-line-svg {
-    width: 60px;
+    width: 40px;
   }
   .callout-floating-card.core-card {
-    right: calc(52% + 40px);
-    top: 30%;
+    right: calc(52% + 30px);
   }
   .core-callout .callout-line-svg.core-line {
-    width: 60px;
+    width: 40px;
   }
 }
 
 @media (max-width: 768px) {
   .callout-floating-card {
-    display: none; /* Keep the face completely clear and only show the targeting dot on mobile */
+    display: none;
   }
   .callout-line-svg {
     display: none;

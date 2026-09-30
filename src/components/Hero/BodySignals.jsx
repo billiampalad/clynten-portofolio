@@ -4,34 +4,30 @@ import './BodySignals.css'
 export default function BodySignals({ progress = 0 }) {
   const isFaceActive = progress >= 0.1
   const isCoreActive = progress >= 0.35
-  const isStackActive = progress >= 0.65
 
   return (
     <div className="face-signals-overlay">
-      {/* 1. Face / Optical Biometric Target with Angled Leader Line to Top-Right */}
+      {/* 1. Face / Optical Biometric Target with Angled Leader Line to Right (Lowered away from top radar) */}
       <div className={`cyber-callout-wrapper face-callout ${isFaceActive ? 'active' : 'dimmed'}`}>
-        {/* Target Anchor on Face (No card over face!) */}
+        {/* Single Single Target Anchor on Face (No duplicate dots!) */}
         <div className="callout-anchor-point" style={{ top: '24%', left: '50%' }}>
           <span className="anchor-dot" />
           <span className="anchor-ping" />
-          <span className="anchor-crosshair" />
         </div>
 
-        {/* Angled SVG Cyber Pointer Line from Face to Floating Badge */}
-        <svg className="callout-line-svg" viewBox="0 0 160 80">
+        {/* Clean Angled Pointer Line without duplicate circle dots */}
+        <svg className="callout-line-svg" viewBox="0 0 140 40">
           <path
-            d="M 10 70 L 60 20 L 155 20"
+            d="M 2 10 L 40 25 L 138 25"
             fill="none"
             stroke="#00ffaa"
             strokeWidth="1.5"
             strokeDasharray="4 2"
             style={{ filter: 'drop-shadow(0 0 6px rgba(0, 255, 170, 0.6))' }}
           />
-          <circle cx="10" cy="70" r="3" fill="#00ffaa" />
-          <circle cx="155" cy="20" r="3" fill="#00ffaa" />
         </svg>
 
-        {/* Floating Callout Card Placed Outside The Face Area */}
+        {/* Floating Callout Card positioned comfortably at 25% height */}
         <div className="callout-floating-card face-card">
           <div className="card-top-row">
             <span className="card-code">BIOMETRIC // 01</span>
@@ -42,26 +38,24 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 2. Left Core Architecture Callout Pointer (Angled away from chest to Left) */}
+      {/* 2. Core Architecture Callout Pointer to Left */}
       <div className={`cyber-callout-wrapper core-callout ${isCoreActive ? 'active' : 'dimmed'}`}>
-        {/* Anchor point on chest */}
+        {/* Single Target Anchor on chest */}
         <div className="callout-anchor-point" style={{ top: '44%', left: '48%' }}>
           <span className="anchor-dot" />
           <span className="anchor-ping" />
         </div>
 
-        {/* Angled SVG Pointer Line from chest to Left */}
-        <svg className="callout-line-svg core-line" viewBox="0 0 160 80">
+        {/* Clean Angled Pointer Line without duplicate circle dots */}
+        <svg className="callout-line-svg core-line" viewBox="0 0 140 40">
           <path
-            d="M 150 70 L 100 20 L 5 20"
+            d="M 138 10 L 100 25 L 2 25"
             fill="none"
             stroke="#00ffff"
             strokeWidth="1.5"
             strokeDasharray="4 2"
             style={{ filter: 'drop-shadow(0 0 6px rgba(0, 255, 255, 0.6))' }}
           />
-          <circle cx="150" cy="70" r="3" fill="#00ffff" />
-          <circle cx="5" cy="20" r="3" fill="#00ffff" />
         </svg>
 
         {/* Floating Card on the Left */}
