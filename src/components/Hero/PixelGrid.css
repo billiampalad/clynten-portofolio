@@ -1,0 +1,73 @@
+.pixel-grid-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+  transition: opacity 0.1s ease-out;
+}
+
+.pixel-grid-mesh {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 100%;
+  height: 100%;
+}
+
+.pixel-cell {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 70%
+  );
+}
+
+.pixel-crosshair {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: monospace;
+  font-weight: 300;
+  user-select: none;
+}
+
+.digital-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.25) 51%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .pixel-grid-mesh {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+  }
+}
