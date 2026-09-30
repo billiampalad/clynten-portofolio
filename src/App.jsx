@@ -1,74 +1,68 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import frameUrls from './frameList.json'
 import './App.css'
 
-const TOTAL_FRAMES = 145
-const START_FRAME_INDEX = 11
+gsap.registerPlugin(ScrollTrigger)
 
-const getFrameUrl = (index) => {
-  const frameNum = String(START_FRAME_INDEX + index).padStart(3, '0')
-  return `/gif/ezgif-frame-${frameNum}.jpg`
-}
+const TOTAL_FRAMES = frameUrls.length
 
 function App() {
+  const containerRef = useRef(null)
   const canvasRef = useRef(null)
   const [loading, setLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
   const imagesRef = useRef([])
-  const animationFrameId = useRef(null)
-  const currentProgressRef = useRef(0)
-  const targetProgressRef = useRef(0)
-  const lastRenderedIndexRef = useRef(0)
+  const playheadRef = useRef({ frame: 0 })
+  const lastRenderedIndexRef = useRef(-1)
 
-  // High-fidelity rendering on canvas
-  const renderFrame = useCallback((index) => {
+  // Draw current frame to canvas
+  const renderFrame = useCallback((rawIndex) => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d', { alpha: false })
+    const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true })
     if (!ctx) return
 
+    const index = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(rawIndex)))
     const img = imagesRef.current[index]
     if (!img || !img.complete || img.naturalWidth === 0) return
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2) // Cap at 2 for performance & sharpness
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
     const width = window.innerWidth
     const height = window.innerHeight
 
-    const targetCanvasWidth = Math.round(width * dpr)
-    const targetCanvasHeight = Math.round(height * dpr)
+    const targetWidth = Math.round(width * dpr)
+    const targetHeight = Math.round(height * dpr)
 
-    if (canvas.width !== targetCanvasWidth || canvas.height !== targetCanvasHeight) {
-      canvas.width = targetCanvasWidth
-      canvas.height = targetCanvasHeight
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+      canvas.width = targetWidth
+      canvas.height = targetHeight
     }
 
-    // Set maximum image smoothing quality
     ctx.imageSmoothingEnabled = true
     ctx.imageSmoothingQuality = 'high'
 
     ctx.save()
     ctx.scale(dpr, dpr)
 
-    // Full-screen cover calculation
     const imgRatio = img.naturalWidth / img.naturalHeight
     const screenRatio = width / height
 
     let drawWidth, drawHeight, offsetX, offsetY
 
     if (screenRatio > imgRatio) {
-      // Fit width, crop top/bottom
       drawWidth = width
       drawHeight = width / imgRatio
       offsetX = 0
       offsetY = (height - drawHeight) / 2
     } else {
-      // Fit height, crop sides
       drawHeight = height
       drawWidth = height * imgRatio
       offsetX = (width - drawWidth) / 2
       offsetY = 0
     }
 
-    // Round pixel values to avoid subpixel blurriness
     ctx.drawImage(
       img,
       Math.round(offsetX),
@@ -81,88 +75,92 @@ function App() {
     lastRenderedIndexRef.current = index
   }, [])
 
-  // Preload all 4K frames
+  // Preload and GPU-decode all frames
   useEffect(() => {
     let loadedCount = 0
     const images = []
+    let isMounted = true
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new Image()
-      img.src = getFrameUrl(i)
-      img.onload = () => {
-        loadedCount++
-        setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100))
-        if (loadedCount === 1) {
-          renderFrame(0)
+    const loadImages = async () => {
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        const img = new Image()
+        img.src = frameUrls[i]
+
+        img.onload = async () => {
+          try {
+            if (img.decode) {
+              await img.decode()
+            }
+          } catch {
+            // Ignore decode errors on fallback
+          }
+
+          if (!isMounted) return
+
+          loadedCount++
+          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100))
+
+          if (loadedCount === 1) {
+            renderFrame(0)
+          }
+
+          if (loadedCount === TOTAL_FRAMES) {
+            setLoading(false)
+            renderFrame(0)
+          }
         }
-        if (loadedCount === TOTAL_FRAMES) {
-          setLoading(false)
-        }
+
+        images.push(img)
       }
-      images.push(img)
+      imagesRef.current = images
     }
 
-    imagesRef.current = images
+    loadImages()
 
     return () => {
+      isMounted = false
       images.forEach((img) => {
         img.onload = null
       })
     }
   }, [renderFrame])
 
-  // Smooth scroll interpolation loop
+  // GSAP ScrollTrigger for buttery smooth scrubbing
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-      if (maxScroll <= 0) {
-        targetProgressRef.current = 0
-        return
-      }
-      const progress = Math.min(1, Math.max(0, scrollY / maxScroll))
-      targetProgressRef.current = progress
-    }
+    if (loading) return
+
+    const playhead = playheadRef.current
+    playhead.frame = 0
+
+    const trigger = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.6, // Smooth momentum damping
+      onUpdate: (self) => {
+        const targetFrame = self.progress * (TOTAL_FRAMES - 1)
+        playhead.frame = targetFrame
+        renderFrame(targetFrame)
+      },
+    })
 
     const handleResize = () => {
-      handleScroll()
-      renderFrame(lastRenderedIndexRef.current)
+      ScrollTrigger.refresh()
+      renderFrame(playhead.frame)
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', handleResize)
     window.addEventListener('orientationchange', handleResize)
 
-    const animate = () => {
-      const diff = targetProgressRef.current - currentProgressRef.current
-      currentProgressRef.current += diff * 0.08
-
-      const frameIndex = Math.min(
-        TOTAL_FRAMES - 1,
-        Math.max(0, Math.floor(currentProgressRef.current * (TOTAL_FRAMES - 1)))
-      )
-
-      if (frameIndex !== lastRenderedIndexRef.current) {
-        renderFrame(frameIndex)
-      }
-
-      animationFrameId.current = requestAnimationFrame(animate)
-    }
-
-    animationFrameId.current = requestAnimationFrame(animate)
-
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      trigger.kill()
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleResize)
-      if (animationFrameId.current) {
-        cancelAnimationFrame(animationFrameId.current)
-      }
     }
-  }, [renderFrame])
+  }, [loading, renderFrame])
 
   return (
-    <div className="animation-container">
+    <div ref={containerRef} className="animation-container">
       {loading && (
         <div className="loading-overlay">
           <div className="loading-bar-container">
