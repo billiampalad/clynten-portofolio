@@ -8,6 +8,7 @@ import DeveloperSignal from './DeveloperSignal'
 import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
+import BodySignals from './BodySignals'
 import frameUrls from '../../frameList.json'
 import './Hero.css'
 
@@ -255,25 +256,28 @@ export default function Hero() {
         {/* Layer 1: Cinematic Canvas Frame Sequence */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Layer 2: Matrix Cyber Falling Code Rain */}
-        {!loading && <CodeRain opacity={0.18} />}
+        {/* Layer 2: Matrix Cyber Smooth Falling Code Streams */}
+        {!loading && <CodeRain opacity={0.22} />}
 
         {/* Layer 3: Digital Scanline & Vignette Overlay */}
         <PixelGrid gridRef={gridOverlayRef} />
 
-        {/* Layer 4: Cyber Target Reticle & Corner Brackets HUD */}
+        {/* Layer 4: Interactive Body Anatomy Signal Target Nodes (Overlaid directly on torso/body) */}
+        {!loading && <BodySignals progress={scrollProgress} />}
+
+        {/* Layer 5: Cyber Target Reticle & Corner Brackets HUD */}
         {!loading && <TargetReticle progress={scrollProgress} />}
 
-        {/* Layer 5: Decrypting Live Telemetry Data Stream (Top Left) */}
+        {/* Layer 6: Decrypting Live Telemetry Data Stream (Top Left) */}
         {!loading && <DataStream progress={scrollProgress} />}
 
-        {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry (Left & Top Right) */}
+        {/* Layer 7: Ambient Milestone Tracker & Radar Telemetry (Left & Top Right) */}
         {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-        {/* Layer 7: Large Scroll-Highlighted Narrative Headline (Bottom Left) */}
+        {/* Layer 8: Large Bold Scroll-Highlighted Narrative Headline (Bottom Left) */}
         {!loading && <ScrollHeadline progress={scrollProgress} />}
 
-        {/* Layer 8: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
+        {/* Layer 9: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
         {!loading && <DeveloperSignal progress={scrollProgress} />}
       </div>
     </section>

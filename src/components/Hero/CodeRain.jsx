@@ -1,13 +1,28 @@
 import React, { useEffect, useRef } from 'react'
 import './CodeRain.css'
 
-const CODE_CHARS = [
-  'const', 'async', '0x1F', '=>', '0101', 'import', 'Promise', 'WebGL',
-  'render()', 'return', '{...}', 'System.init()', '0x8A', '&&', 'null',
-  'true', '4K', 'GPU', 'GLSL', 'await', '0x3B', 'Math.sin()', 'state'
+const SNIPPETS = [
+  'const { signal } = useSystem()',
+  'await renderFrame(4K_UHD)',
+  '0x7F8B9A20 // MEM_ALLOC',
+  'WebGL2.createShader(GL_VERTEX)',
+  'sys.telemetry.ping(0.04ms)',
+  'matrix4x4.identity().rotateY()',
+  'interface DeveloperProfile { ... }',
+  'Promise.all([GPU_DECODE, GSAP])',
+  '01000011 01001100 01011001',
+  'function buildDigitalReality()',
+  'export const WD4_SYSTEM = true',
+  'vec4 color = texture2D(uSampler)',
+  '0xDEADBEEF // STACK_TRACE',
+  'requestAnimationFrame(loop)',
+  'ctx.imageSmoothingQuality = "high"',
+  'new Float32Array(bufferSize)',
+  'GIS.coordinate(01.482, 103.851)',
+  'sys.kernel.verifyIdentity()'
 ]
 
-export default function CodeRain({ opacity = 0.22 }) {
+export default function CodeRain({ opacity = 0.25 }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -17,56 +32,85 @@ export default function CodeRain({ opacity = 0.22 }) {
     if (!ctx) return
 
     let animationFrameId
-    let width = (canvas.width = window.innerWidth)
-    let height = (canvas.height = window.innerHeight)
+    let lastTime = performance.now()
 
-    const fontSize = 12
-    const columns = Math.floor(width / 28)
-    const drops = Array.from({ length: columns }, () => Math.random() * -100)
-    const speeds = Array.from({ length: columns }, () => 0.6 + Math.random() * 0.8)
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let width = window.innerWidth
+    let height = window.innerHeight
 
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
+    const resize = () => {
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas.width = Math.round(width * dpr)
+      canvas.height = Math.round(height * dpr)
+      ctx.scale(dpr, dpr)
     }
 
-    window.addEventListener('resize', handleResize)
+    resize()
+    window.addEventListener('resize', resize)
 
-    const draw = () => {
-      // Create trailing fade effect
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)'
-      ctx.fillRect(0, 0, width, height)
+    // Generate smooth continuous particle streams
+    const columnCount = Math.floor(width / 70)
+    const streams = Array.from({ length: columnCount }, (_, i) => ({
+      x: i * 70 + (Math.random() * 20 - 10),
+      y: Math.random() * -height * 1.5,
+      speed: 45 + Math.random() * 55, // pixels per second (smooth continuous velocity)
+      text: SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)],
+      length: 8 + Math.floor(Math.random() * 12),
+      alpha: 0.2 + Math.random() * 0.4,
+      fontSize: 10 + Math.floor(Math.random() * 3),
+    }))
 
-      ctx.font = `11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`
+    const render = (time) => {
+      const dt = Math.min(0.1, (time - lastTime) / 1000)
+      lastTime = time
 
-      for (let i = 0; i < drops.length; i++) {
-        const char = CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]
-        const x = i * 28
-        const y = drops[i] * fontSize
+      // Soft clear with smooth persistence
+      ctx.clearRect(0, 0, width, height)
 
-        // Subtle glow colors (cyan / green tint)
-        if (Math.random() > 0.85) {
-          ctx.fillStyle = 'rgba(0, 255, 170, 0.9)' // Leading bright character
-        } else {
-          ctx.fillStyle = 'rgba(0, 255, 255, 0.35)' // Trailing tail
+      streams.forEach((stream) => {
+        stream.y += stream.speed * dt
+
+        ctx.font = `${stream.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`
+
+        // Draw character chain with smooth fading tail
+        const chars = stream.text.split('')
+        for (let j = 0; j < chars.length; j++) {
+          const charY = stream.y - j * 16
+          if (charY < -20 || charY > height + 20) continue
+
+          const isHead = j === 0
+          const tailFade = Math.max(0, 1 - j / stream.length)
+
+          if (isHead) {
+            ctx.fillStyle = '#ffffff'
+            ctx.shadowColor = '#00ffaa'
+            ctx.shadowBlur = 10
+          } else {
+            ctx.fillStyle = `rgba(0, 255, 170, ${tailFade * stream.alpha})`
+            ctx.shadowBlur = 0
+          }
+
+          ctx.fillText(chars[j % chars.length], stream.x, charY)
         }
 
-        ctx.fillText(char, x, y)
+        ctx.shadowBlur = 0
 
-        if (y > height && Math.random() > 0.975) {
-          drops[i] = 0
+        // Reset to top when passed bottom
+        if (stream.y - stream.length * 16 > height) {
+          stream.y = -40 - Math.random() * 100
+          stream.text = SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)]
+          stream.speed = 45 + Math.random() * 55
         }
+      })
 
-        drops[i] += speeds[i]
-      }
-
-      animationFrameId = requestAnimationFrame(draw)
+      animationFrameId = requestAnimationFrame(render)
     }
 
-    animationFrameId = requestAnimationFrame(draw)
+    animationFrameId = requestAnimationFrame(render)
 
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', resize)
       cancelAnimationFrame(animationFrameId)
     }
   }, [])
