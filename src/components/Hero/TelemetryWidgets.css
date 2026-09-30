@@ -1,0 +1,230 @@
+.telemetry-widgets-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* 1. Left Vertical Phase Tracker */
+.vertical-phase-tracker {
+  position: absolute;
+  top: 50%;
+  left: 48px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tracker-line-track {
+  position: relative;
+  width: 2px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.tracker-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to bottom, #00ffff, #00ffaa);
+  box-shadow: 0 0 10px #00ffaa;
+  transition: height 0.05s linear;
+}
+
+.tracker-steps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+}
+
+.tracker-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.35;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.tracker-step.step-completed {
+  opacity: 0.75;
+}
+
+.tracker-step.step-current {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.step-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.tracker-step.step-current .step-node {
+  border-color: #00ffaa;
+  box-shadow: 0 0 8px #00ffaa;
+}
+
+.node-inner {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.3s;
+}
+
+.tracker-step.step-completed .node-inner {
+  background: #00ffaa;
+}
+
+.step-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.step-num {
+  color: #00ffaa;
+  font-weight: 700;
+}
+
+.step-name {
+  color: #ffffff;
+}
+
+/* 2. Top Right Radar Card */
+.top-right-radar-card {
+  position: absolute;
+  top: 40px;
+  right: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(10, 10, 15, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 18px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.radar-circle-wrapper {
+  position: relative;
+  width: 54px;
+  height: 54px;
+}
+
+.radar-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.radar-angle-badge {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: #00ffff;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.radar-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #00ffaa;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.info-dot {
+  width: 5px;
+  height: 5px;
+  background: #00ffaa;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00ffaa;
+}
+
+.info-stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 9px;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.stat-val {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+
+/* 3. Center Bottom Ambient Hint */
+.center-scroll-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.45);
+  transition: opacity 0.3s;
+}
+
+.hint-arrow {
+  font-size: 14px;
+  color: #00ffaa;
+  animation: bounce-hint 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce-hint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (max-width: 1100px) {
+  .vertical-phase-tracker {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-right-radar-card {
+    display: none;
+  }
+  .center-scroll-hint {
+    bottom: 12px;
+  }
+}

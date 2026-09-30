@@ -1,0 +1,101 @@
+.scroll-headline-container {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  z-index: 24;
+  max-width: 620px;
+  pointer-events: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  user-select: none;
+}
+
+.headline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #00ffaa;
+  background: rgba(0, 255, 170, 0.08);
+  border: 1px solid rgba(0, 255, 170, 0.25);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.badge-signal-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ffaa;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ffaa;
+  animation: pulse-dot 1.5s infinite alternate ease-in-out;
+}
+
+.scroll-headline-text {
+  font-size: clamp(28px, 4.2vw, 56px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin: 0 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.headline-word {
+  display: inline-block;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              text-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headline-word.word-inactive {
+  color: rgba(255, 255, 255, 0.18);
+  transform: translateY(0);
+}
+
+.headline-word.word-active {
+  color: #ffffff;
+  transform: translateY(-2px);
+  text-shadow: 0 0 30px rgba(0, 255, 170, 0.6),
+               0 0 60px rgba(0, 255, 170, 0.3),
+               0 10px 20px rgba(0, 0, 0, 0.9);
+}
+
+.headline-subtext {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.subtext-line {
+  width: 32px;
+  height: 2px;
+  background: #00ffaa;
+  box-shadow: 0 0 8px #00ffaa;
+}
+
+.subtext-content {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 1.5px;
+}
+
+@media (max-width: 900px) {
+  .scroll-headline-container {
+    bottom: 230px; /* Leave room for signal HUD on mobile */
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+  .scroll-headline-text {
+    font-size: 26px;
+    line-height: 1.15;
+  }
+}
