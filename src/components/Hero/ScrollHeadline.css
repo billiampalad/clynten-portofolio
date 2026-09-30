@@ -66,7 +66,7 @@
 }
 
 /* =========================================================
-   Cyber Blue Highlight Cover Block (SignalIQ Concept)
+   Cyber Cyan-to-Emerald Glass Highlight Cover (SignalIQ Concept)
    ========================================================= */
 .headline-highlight-phrase {
   position: relative;
@@ -77,21 +77,45 @@
   border-radius: 4px;
 }
 
-/* 1. Glowing Blue Highlight Cover */
+/* 1. Cyber Cyan-to-Emerald Glass Cover */
 .headline-highlight-phrase.highlight-blue::before {
   content: '';
   position: absolute;
   inset: -3px -6px;
-  background: linear-gradient(90deg, #0055ff, #00b4d8);
-  border: 1px solid rgba(0, 220, 255, 0.9);
+  background: linear-gradient(
+    110deg,
+    rgba(0, 140, 255, 0.45) 0%,
+    rgba(0, 230, 255, 0.35) 45%,
+    rgba(0, 255, 170, 0.42) 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 220, 0.75);
   border-radius: 4px;
-  box-shadow: 0 0 24px rgba(0, 168, 255, 0.75),
-    inset 0 0 12px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 220, 255, 0.45),
+    0 0 40px rgba(0, 255, 170, 0.2),
+    inset 0 0 12px rgba(255, 255, 255, 0.3);
   z-index: 2;
   pointer-events: none;
   /* Wipe reveal from left to right as --reveal goes 0 -> 1 */
   clip-path: inset(0 0 0 calc(var(--reveal, 0) * 100%));
   will-change: clip-path;
+  animation: glass-breath 3.5s infinite alternate ease-in-out;
+}
+
+@keyframes glass-breath {
+  0% {
+    box-shadow: 0 0 16px rgba(0, 220, 255, 0.35),
+      0 0 32px rgba(0, 255, 170, 0.15),
+      inset 0 0 10px rgba(255, 255, 255, 0.2);
+    border-color: rgba(0, 255, 220, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 26px rgba(0, 220, 255, 0.65),
+      0 0 50px rgba(0, 255, 170, 0.35),
+      inset 0 0 16px rgba(255, 255, 255, 0.4);
+    border-color: rgba(0, 255, 220, 0.95);
+  }
 }
 
 /* 2. Scanning Laser Edge along the reveal frontier */
@@ -101,10 +125,11 @@
   top: -5px;
   bottom: -5px;
   left: calc(var(--reveal, 0) * 100% - 2px);
-  width: 3px;
+  width: 2.5px;
   background: #ffffff;
-  box-shadow: 0 0 10px #ffffff,
-    0 0 20px #00e5ff;
+  box-shadow: 0 0 8px #ffffff,
+    0 0 16px #00ffff,
+    0 0 26px #00ffaa;
   border-radius: 2px;
   z-index: 3;
   pointer-events: none;
@@ -121,8 +146,8 @@
 }
 
 .phrase-text.text-covered {
-  color: rgba(255, 255, 255, 0.18);
-  text-shadow: none;
+  color: rgba(255, 255, 255, 0.65);
+  text-shadow: 0 0 12px rgba(0, 255, 200, 0.4);
 }
 
 .phrase-text.text-revealed {
