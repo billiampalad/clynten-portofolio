@@ -6,30 +6,35 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-.cyber-callout-wrapper {
+/* Single coordinate parent container for dot, line, and card */
+.callout-anchor-group {
   position: absolute;
-  inset: 0;
+  width: 0;
+  height: 0;
   transition: opacity 0.4s ease, filter 0.4s ease;
 }
 
-.cyber-callout-wrapper.active {
+.callout-anchor-group.active {
   opacity: 1;
 }
 
-.cyber-callout-wrapper.dimmed {
+.callout-anchor-group.dimmed {
   opacity: 0.25;
   filter: grayscale(0.5);
 }
 
-/* Single clean anchor point on face and chest */
-.callout-anchor-point {
+/* Center Anchor Point */
+.anchor-dot-center {
   position: absolute;
+  top: 0;
+  left: 0;
   transform: translate(-50%, -50%);
   width: 14px;
   height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
 }
 
 .anchor-dot {
@@ -53,55 +58,59 @@
   100% { transform: scale(2.4); opacity: 0; }
 }
 
-/* Angled Pointer SVG Lines */
-.callout-line-svg {
+/* SVG Line Connector perfectly rooted at (0, 0) */
+.connector-svg {
   position: absolute;
   pointer-events: none;
   overflow: visible;
+  z-index: 2;
 }
 
-/* 1. Face Callout: Anchor at (50%, 24%), Card placed below top radar at (25% top) */
-.face-callout .callout-line-svg {
-  top: 24%;
-  left: 50%;
-  width: 120px;
-  height: 35px;
+/* 1. Face SVG line (root at 0, 0 anchor, line draws from (0,35) up-right to (128,10)) */
+.face-svg {
+  top: -35px;
+  left: 0;
+  width: 130px;
+  height: 50px;
 }
 
+/* Card elevated securely higher up, touching the end of the line (128px right, -25px top) */
 .callout-floating-card.face-card {
   position: absolute;
-  top: 25.5%;
-  left: calc(50% + 120px);
+  top: -40px;
+  left: 128px;
 }
 
-/* 2. Core Callout: Anchor at (48%, 44%), Line leads to left at (38% top) */
-.core-callout .callout-line-svg.core-line {
-  top: 44%;
-  right: 52%;
-  width: 120px;
-  height: 35px;
+/* 2. Core SVG line on chest (root at 0, 0 anchor, line draws from (130,35) up-left to (2,10)) */
+.core-svg {
+  top: -35px;
+  left: -130px;
+  width: 130px;
+  height: 50px;
 }
 
+/* Card placed on the left end of the line (-130px left, -40px top) */
 .callout-floating-card.core-card {
   position: absolute;
-  top: 45.5%;
-  right: calc(52% + 120px);
+  top: -40px;
+  right: 128px;
 }
 
 /* Floating Card Styling */
 .callout-floating-card {
-  background: rgba(10, 10, 15, 0.8);
+  background: rgba(10, 10, 15, 0.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(0, 255, 170, 0.3);
+  border: 1px solid rgba(0, 255, 170, 0.35);
   padding: 8px 12px;
   border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8),
-              0 0 20px rgba(0, 255, 170, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85),
+              0 0 20px rgba(0, 255, 170, 0.12);
   display: flex;
   flex-direction: column;
   gap: 3px;
   white-space: nowrap;
+  z-index: 4;
 }
 
 .card-top-row {
@@ -149,17 +158,18 @@
 }
 
 @media (max-width: 1024px) {
-  .callout-floating-card.face-card {
-    left: calc(50% + 30px);
+  .face-svg {
+    width: 60px;
   }
-  .face-callout .callout-line-svg {
-    width: 40px;
+  .callout-floating-card.face-card {
+    left: 60px;
+  }
+  .core-svg {
+    left: -60px;
+    width: 60px;
   }
   .callout-floating-card.core-card {
-    right: calc(52% + 30px);
-  }
-  .core-callout .callout-line-svg.core-line {
-    width: 40px;
+    right: 60px;
   }
 }
 
@@ -167,7 +177,7 @@
   .callout-floating-card {
     display: none;
   }
-  .callout-line-svg {
+  .connector-svg {
     display: none;
   }
 }
