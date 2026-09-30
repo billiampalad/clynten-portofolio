@@ -11,22 +11,22 @@
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .node-anchor-target {
   position: relative;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
 }
 
 .node-center-dot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   background: #00ffaa;
   border-radius: 50%;
   box-shadow: 0 0 8px #00ffaa;
@@ -34,116 +34,83 @@
 
 .node-ring-pulse {
   position: absolute;
-  inset: -2px;
-  border: 1px solid rgba(0, 255, 170, 0.6);
+  inset: -3px;
+  border: 1px solid rgba(0, 255, 170, 0.7);
   border-radius: 50%;
   animation: ring-pulse 2s infinite ease-out;
 }
 
 @keyframes ring-pulse {
-  0% { transform: scale(0.8); opacity: 1; }
+  0% { transform: scale(0.6); opacity: 1; }
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-.node-cross-x {
+/* Compact Floating Cyber Badges */
+.node-compact-badge {
   position: absolute;
-  width: 18px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Connecting Cyber Leader Lines */
-.node-leader-line {
-  position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg, #00ffaa, rgba(0, 255, 255, 0.4));
-  box-shadow: 0 0 6px rgba(0, 255, 170, 0.5);
-  top: 50%;
-  transition: width 0.3s ease;
-}
-
-.node-leader-line.left {
-  right: 14px;
-  width: 36px;
-  transform-origin: right center;
-}
-
-.node-leader-line.right {
-  left: 14px;
-  width: 36px;
-  transform-origin: left center;
-}
-
-/* Floating Telemetry Callout Box */
-.node-callout-card {
-  position: absolute;
-  background: rgba(10, 10, 15, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(0, 255, 170, 0.3);
-  padding: 6px 10px;
-  border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7),
-              0 0 15px rgba(0, 255, 170, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
   white-space: nowrap;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.node-callout-card.left {
-  right: 52px;
-}
-
-.node-callout-card.right {
-  left: 52px;
-}
-
-.callout-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.callout-code {
-  font-size: 8px;
-  color: #00ffff;
-  letter-spacing: 1px;
-  font-weight: 700;
-}
-
-.callout-status {
-  font-size: 7px;
-  background: rgba(0, 255, 170, 0.15);
-  color: #00ffaa;
-  padding: 1px 4px;
-  border-radius: 3px;
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-.callout-label {
+  gap: 6px;
   font-size: 9px;
-  font-weight: 600;
-  color: #ffffff;
   letter-spacing: 0.8px;
 }
 
+.node-compact-badge.pos-top {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-compact-badge.pos-bottom {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-compact-badge.pos-left {
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.node-compact-badge.pos-right {
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.badge-code {
+  color: #00ffff;
+  font-size: 8px;
+  font-weight: 700;
+  background: rgba(0, 255, 255, 0.12);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.badge-name {
+  color: #ffffff;
+  font-weight: 600;
+}
+
 .node-active {
-  filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.3));
+  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.4));
 }
 
 .node-dimmed {
-  filter: grayscale(0.6) brightness(0.6);
+  filter: grayscale(0.8) opacity(0.3);
 }
 
-@media (max-width: 900px) {
-  .node-callout-card {
-    display: none; /* Keep just the pulsing target points on mobile so screen stays clean */
-  }
-  .node-leader-line {
-    display: none;
+@media (max-width: 820px) {
+  .node-compact-badge {
+    display: none; /* Only show the pulsing anchor dots on mobile to keep screen ultra clean */
   }
 }
