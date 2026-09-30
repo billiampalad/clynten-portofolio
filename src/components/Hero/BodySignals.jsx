@@ -5,8 +5,14 @@ export default function BodySignals({ progress = 0 }) {
   const isFaceActive = progress >= 0.1
   const isCoreActive = progress >= 0.35
 
+  // Smooth fade-out on scroll (1 at scroll 0, 0 by progress 0.18)
+  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.18))
+
   return (
-    <div className="face-signals-overlay">
+    <div
+      className="face-signals-overlay"
+      style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
+    >
       {/* 1. Biometric Target Positioned Above Hair/Head */}
       <div
         className={`callout-anchor-group face-group ${isFaceActive ? 'active' : 'dimmed'}`}
