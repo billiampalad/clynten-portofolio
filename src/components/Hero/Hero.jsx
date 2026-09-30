@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PixelGrid from './PixelGrid'
 import DataStream from './DataStream'
 import DeveloperSignal from './DeveloperSignal'
+import TargetReticle from './TargetReticle'
 import frameUrls from '../../frameList.json'
 import './Hero.css'
 
@@ -254,10 +255,13 @@ export default function Hero() {
         {/* Layer 2: Digital Scanline & Vignette Overlay */}
         <PixelGrid gridRef={gridOverlayRef} />
 
-        {/* Layer 3: Decrypting Live Telemetry Data Stream (Left HUD) */}
+        {/* Layer 3: Cyber Target Reticle & Spectrum HUD */}
+        {!loading && <TargetReticle progress={scrollProgress} />}
+
+        {/* Layer 4: Decrypting Live Telemetry Data Stream (Left HUD) */}
         {!loading && <DataStream progress={scrollProgress} />}
 
-        {/* Layer 4: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
+        {/* Layer 5: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
         {!loading && <DeveloperSignal progress={scrollProgress} />}
       </div>
     </section>
