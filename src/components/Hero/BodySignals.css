@@ -207,11 +207,7 @@
 }
 
 @media (max-width: 768px) {
-  .callout-floating-card {
-    display: none;
-  }
-
-  .connector-svg {
+  .face-signals-overlay {
     display: none;
   }
 }

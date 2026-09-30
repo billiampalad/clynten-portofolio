@@ -221,10 +221,7 @@
 }
 
 @media (max-width: 768px) {
-  .top-right-radar-card {
-    display: none;
-  }
-  .center-scroll-hint {
+  .telemetry-widgets-wrapper {
     display: none;
   }
 }

@@ -129,6 +129,11 @@
 
 @media (max-width: 768px) {
   .target-reticle-container {
-    inset: 8px;
+    inset: 16px;
+  }
+
+  .spectrum-bars,
+  .center-target-box {
+    display: none;
   }
 }
