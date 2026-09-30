@@ -26,8 +26,14 @@ function DataRow({ item, index, progress }) {
 }
 
 export default function DataStream({ progress = 0 }) {
+  // Smooth fade-out on scroll (1 at scroll 0, 0 by progress 0.18)
+  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.18))
+
   return (
-    <div className="data-stream-container">
+    <div
+      className="data-stream-container"
+      style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
+    >
       <div className="data-stream-header">
         <span className="data-pulse-dot" />
         <span className="data-stream-title">LIVE TELEMETRY STREAM</span>

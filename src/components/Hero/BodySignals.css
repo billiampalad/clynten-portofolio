@@ -228,15 +228,15 @@
   }
 
   .callout-anchor-group.face-group {
-    top: 16% !important;
-    left: 20px !important;
-    right: auto !important;
+    top: 24% !important;
+    right: 20px !important;
+    left: auto !important;
   }
 
   .callout-anchor-group.core-group {
-    top: 40% !important;
-    right: 20px !important;
-    left: auto !important;
+    top: 48% !important;
+    left: 20px !important;
+    right: auto !important;
   }
 
   .callout-floating-card {

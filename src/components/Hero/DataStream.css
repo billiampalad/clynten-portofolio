@@ -95,6 +95,49 @@
 
 @media (max-width: 768px) {
   .data-stream-container {
-    display: none; /* Keep clean on small mobile devices */
+    display: block;
+    top: 20px;
+    left: 20px;
+    width: 155px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    opacity: var(--fade-opacity, 1);
+    pointer-events: none;
+    transition: opacity 0.08s linear;
+    background: rgba(10, 10, 15, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  }
+
+  .data-stream-header {
+    margin-bottom: 5px;
+    padding-bottom: 4px;
+    gap: 6px;
+  }
+
+  .data-pulse-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .data-stream-title {
+    font-size: 7.5px;
+    letter-spacing: 1px;
+  }
+
+  .data-stream-list {
+    gap: 3px;
+  }
+
+  .data-stream-row {
+    font-size: 8px;
+    gap: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .data-idx {
+    font-size: 7px;
   }
 }

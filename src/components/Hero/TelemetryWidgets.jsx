@@ -10,9 +10,14 @@ const PHASES = [
 
 export default function TelemetryWidgets({ progress = 0 }) {
   const radarRotation = Math.round(progress * 360)
+  // Smooth fade-out on scroll (1 at scroll 0, 0 by progress 0.18)
+  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.18))
 
   return (
-    <div className="telemetry-widgets-wrapper">
+    <div
+      className="telemetry-widgets-wrapper"
+      style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
+    >
       {/* 1. Left Vertical Scanning Milestone Tracker */}
       <div className="vertical-phase-tracker">
         <div className="tracker-line-track">

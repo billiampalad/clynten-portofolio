@@ -222,6 +222,103 @@
 
 @media (max-width: 768px) {
   .telemetry-widgets-wrapper {
+    display: block;
+    opacity: var(--fade-opacity, 1);
+    pointer-events: none;
+    transition: opacity 0.08s linear;
+  }
+
+  /* 1. Left Vertical Phase Tracker (SYS_SCAN) */
+  .vertical-phase-tracker {
+    display: flex;
+    top: 36%;
+    left: 20px;
+    transform: translateY(-50%);
+    gap: 8px;
+  }
+
+  .tracker-line-track {
+    height: 70px;
+    width: 1.5px;
+  }
+
+  .tracker-steps {
+    height: 70px;
+  }
+
+  .step-node {
+    width: 6px;
+    height: 6px;
+  }
+
+  .node-inner {
+    width: 2.5px;
+    height: 2.5px;
+  }
+
+  .step-label {
+    gap: 4px;
+    font-size: 7.5px;
+    letter-spacing: 0.8px;
+  }
+
+  .step-num {
+    font-size: 7.5px;
+  }
+
+  .step-name {
+    font-size: 7.5px;
+  }
+
+  /* 2. Top Right Radar Card (OPTICAL SENSOR) */
+  .top-right-radar-card {
+    display: flex;
+    top: 48px;
+    right: 20px;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(10, 10, 15, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  }
+
+  .radar-circle-wrapper {
+    width: 32px;
+    height: 32px;
+  }
+
+  .radar-angle-badge {
+    font-size: 6px;
+    padding: 0 2px;
+    bottom: -3px;
+  }
+
+  .radar-info {
+    gap: 2px;
+  }
+
+  .info-badge {
+    font-size: 7.5px;
+    letter-spacing: 0.8px;
+    gap: 4px;
+    margin-bottom: 1px;
+  }
+
+  .info-dot {
+    width: 3.5px;
+    height: 3.5px;
+  }
+
+  .info-stat {
+    font-size: 7px;
+    gap: 8px;
+  }
+
+  /* 3. Center Bottom Ambient Hint */
+  .center-scroll-hint {
     display: none;
   }
 }
