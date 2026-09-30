@@ -65,6 +65,72 @@
     0 6px 20px rgba(0, 0, 0, 0.95);
 }
 
+/* =========================================================
+   Cyber Blue Highlight Cover Block (SignalIQ Concept)
+   ========================================================= */
+.headline-highlight-phrase {
+  position: relative;
+  display: inline-block;
+  padding: 0 8px;
+  margin: 0 2px;
+  vertical-align: baseline;
+  border-radius: 4px;
+}
+
+/* 1. Glowing Blue Highlight Cover */
+.headline-highlight-phrase.highlight-blue::before {
+  content: '';
+  position: absolute;
+  inset: -3px -6px;
+  background: linear-gradient(90deg, #0055ff, #00b4d8);
+  border: 1px solid rgba(0, 220, 255, 0.9);
+  border-radius: 4px;
+  box-shadow: 0 0 24px rgba(0, 168, 255, 0.75),
+              inset 0 0 12px rgba(255, 255, 255, 0.4);
+  z-index: 2;
+  pointer-events: none;
+  /* Wipe reveal from left to right as --reveal goes 0 -> 1 */
+  clip-path: inset(0 0 0 calc(var(--reveal, 0) * 100%));
+  transition: clip-path 0.08s linear;
+}
+
+/* 2. Scanning Laser Edge along the reveal frontier */
+.headline-highlight-phrase.highlight-blue::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  left: calc(var(--reveal, 0) * 100% - 2px);
+  width: 3px;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff,
+              0 0 20px #00e5ff;
+  border-radius: 2px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: calc((1 - var(--reveal, 0)) * 1);
+  transition: opacity 0.15s ease;
+}
+
+/* Phrase Text styling */
+.phrase-text {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.phrase-text.text-covered {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.phrase-text.text-revealed {
+  color: #ffffff;
+  text-shadow: 0 0 35px rgba(0, 220, 255, 0.8),
+              0 0 70px rgba(0, 140, 255, 0.4),
+              0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
 .headline-subtext {
   display: flex;
   align-items: center;
