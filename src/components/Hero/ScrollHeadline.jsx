@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import './ScrollHeadline.css'
 
 const WORDS = [
@@ -12,7 +12,6 @@ const WORDS = [
 ]
 
 export default function ScrollHeadline({ progress = 0 }) {
-  // Map progress (0 to 1) across the word count
   const totalWords = WORDS.length
 
   return (
@@ -24,21 +23,13 @@ export default function ScrollHeadline({ progress = 0 }) {
 
       <h1 className="scroll-headline-text">
         {WORDS.map((word, index) => {
-          // Progress threshold for this specific word
           const wordThreshold = (index + 0.5) / totalWords
           const isActive = progress >= wordThreshold * 0.9
-          const glowIntensity = Math.max(
-            0,
-            1 - Math.abs(progress - wordThreshold) * 3
-          )
 
           return (
             <span
               key={index}
               className={`headline-word ${isActive ? 'word-active' : 'word-inactive'}`}
-              style={{
-                '--glow-opacity': glowIntensity,
-              }}
             >
               {word}{' '}
             </span>

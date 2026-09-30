@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PixelGrid from './PixelGrid'
+import CodeRain from './CodeRain'
 import DataStream from './DataStream'
 import DeveloperSignal from './DeveloperSignal'
 import TargetReticle from './TargetReticle'
@@ -254,22 +255,25 @@ export default function Hero() {
         {/* Layer 1: Cinematic Canvas Frame Sequence */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Layer 2: Digital Scanline & Vignette Overlay */}
+        {/* Layer 2: Matrix Cyber Falling Code Rain */}
+        {!loading && <CodeRain opacity={0.18} />}
+
+        {/* Layer 3: Digital Scanline & Vignette Overlay */}
         <PixelGrid gridRef={gridOverlayRef} />
 
-        {/* Layer 3: Cyber Target Reticle & Corner Brackets HUD */}
+        {/* Layer 4: Cyber Target Reticle & Corner Brackets HUD */}
         {!loading && <TargetReticle progress={scrollProgress} />}
 
-        {/* Layer 4: Decrypting Live Telemetry Data Stream (Top Left) */}
+        {/* Layer 5: Decrypting Live Telemetry Data Stream (Top Left) */}
         {!loading && <DataStream progress={scrollProgress} />}
 
-        {/* Layer 5: Ambient Milestone Tracker & Radar Telemetry (Left & Top Right) */}
+        {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry (Left & Top Right) */}
         {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-        {/* Layer 6: Large Scroll-Highlighted Narrative Headline (Bottom Left) */}
+        {/* Layer 7: Large Scroll-Highlighted Narrative Headline (Bottom Left) */}
         {!loading && <ScrollHeadline progress={scrollProgress} />}
 
-        {/* Layer 7: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
+        {/* Layer 8: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
         {!loading && <DeveloperSignal progress={scrollProgress} />}
       </div>
     </section>
