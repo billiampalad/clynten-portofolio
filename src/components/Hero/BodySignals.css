@@ -1,4 +1,4 @@
-.body-signals-overlay {
+.face-signals-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -6,111 +6,177 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-.body-signal-node {
+.cyber-callout-wrapper {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.cyber-callout-wrapper.active {
+  opacity: 1;
+}
+
+.cyber-callout-wrapper.dimmed {
+  opacity: 0.25;
+  filter: grayscale(0.5);
+}
+
+/* Anchor point right on the face/body */
+.callout-anchor-point {
   position: absolute;
   transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.node-anchor-target {
-  position: relative;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.node-center-dot {
-  width: 4px;
-  height: 4px;
+.anchor-dot {
+  width: 5px;
+  height: 5px;
   background: #00ffaa;
   border-radius: 50%;
   box-shadow: 0 0 8px #00ffaa;
 }
 
-.node-ring-pulse {
+.anchor-ping {
   position: absolute;
-  inset: -3px;
-  border: 1px solid rgba(0, 255, 170, 0.7);
+  inset: -4px;
+  border: 1px solid rgba(0, 255, 170, 0.8);
   border-radius: 50%;
-  animation: ring-pulse 2s infinite ease-out;
+  animation: anchor-pulse 2s infinite ease-out;
 }
 
-@keyframes ring-pulse {
+@keyframes anchor-pulse {
   0% { transform: scale(0.6); opacity: 1; }
-  100% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.4); opacity: 0; }
 }
 
-/* Compact Floating Cyber Badges */
-.node-compact-badge {
+.anchor-crosshair {
   position: absolute;
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  width: 20px;
+  height: 1px;
+  background: rgba(0, 255, 170, 0.4);
+}
+
+/* Angled Pointer SVG Lines */
+.callout-line-svg {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* 1. Face Callout Positioning: Anchor at (50%, 24%), Line leads up-right to (58%, 15%) */
+.face-callout .callout-line-svg {
+  top: 15%;
+  left: 50%;
+  width: 140px;
+  height: 70px;
+}
+
+.callout-floating-card.face-card {
+  position: absolute;
+  top: 13%;
+  left: calc(50% + 140px);
+}
+
+/* 2. Core Callout Positioning: Anchor at (48%, 44%), Line leads up-left to (32%, 36%) */
+.core-callout .callout-line-svg.core-line {
+  top: 36%;
+  right: 52%;
+  width: 140px;
+  height: 70px;
+}
+
+.callout-floating-card.core-card {
+  position: absolute;
+  top: 34%;
+  right: calc(52% + 140px);
+}
+
+/* Floating Card Styling */
+.callout-floating-card {
+  background: rgba(10, 10, 15, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(0, 255, 170, 0.3);
-  padding: 3px 8px;
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(0, 255, 170, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
   white-space: nowrap;
+}
+
+.card-top-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 9px;
-  letter-spacing: 0.8px;
+  gap: 8px;
 }
 
-.node-compact-badge.pos-top {
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.node-compact-badge.pos-bottom {
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.node-compact-badge.pos-left {
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.node-compact-badge.pos-right {
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.badge-code {
-  color: #00ffff;
+.card-code {
   font-size: 8px;
+  color: #00ffff;
   font-weight: 700;
-  background: rgba(0, 255, 255, 0.12);
-  padding: 1px 4px;
-  border-radius: 2px;
+  letter-spacing: 1px;
 }
 
-.badge-name {
-  color: #ffffff;
+.card-status {
+  font-size: 8px;
+  background: rgba(0, 255, 170, 0.15);
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  color: #00ffaa;
+  padding: 1px 5px;
+  border-radius: 3px;
   font-weight: 600;
+  letter-spacing: 1px;
 }
 
-.node-active {
-  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.4));
+.card-status.cyan {
+  background: rgba(0, 255, 255, 0.15);
+  border-color: rgba(0, 255, 255, 0.3);
+  color: #00ffff;
 }
 
-.node-dimmed {
-  filter: grayscale(0.8) opacity(0.3);
+.card-main-title {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
 }
 
-@media (max-width: 820px) {
-  .node-compact-badge {
-    display: none; /* Only show the pulsing anchor dots on mobile to keep screen ultra clean */
+.card-sub-info {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1024px) {
+  .callout-floating-card.face-card {
+    left: calc(50% + 40px);
+    top: 10%;
+  }
+  .face-callout .callout-line-svg {
+    width: 60px;
+  }
+  .callout-floating-card.core-card {
+    right: calc(52% + 40px);
+    top: 30%;
+  }
+  .core-callout .callout-line-svg.core-line {
+    width: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .callout-floating-card {
+    display: none; /* Keep the face completely clear and only show the targeting dot on mobile */
+  }
+  .callout-line-svg {
+    display: none;
   }
 }

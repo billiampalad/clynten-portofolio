@@ -1,10 +1,10 @@
 .scroll-headline-container {
   position: absolute;
-  bottom: 36px;
+  bottom: 40px;
   left: 48px;
-  z-index: 22;
-  width: calc(100% - 440px);
-  max-width: 500px;
+  z-index: 24;
+  width: calc(100% - 96px);
+  max-width: 1000px;
   pointer-events: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   user-select: none;
@@ -15,32 +15,32 @@
   align-items: center;
   gap: 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 2px;
   color: #00ffaa;
   background: rgba(0, 255, 170, 0.08);
   border: 1px solid rgba(0, 255, 170, 0.25);
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 9999px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   backdrop-filter: blur(10px);
 }
 
 .badge-signal-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   background: #00ffaa;
   border-radius: 50%;
   box-shadow: 0 0 8px #00ffaa;
   animation: pulse-dot 1.5s infinite alternate ease-in-out;
 }
 
-/* Bold, impactful typography firmly bounded on bottom-left */
+/* Truly Massive, Bold Cinema Typography Spanning Across */
 .scroll-headline-text {
-  font-size: clamp(24px, 3.2vw, 42px);
+  font-size: clamp(36px, 5.2vw, 76px);
   font-weight: 900;
-  line-height: 1.06;
-  letter-spacing: -1.2px;
+  line-height: 1.02;
+  letter-spacing: -2px;
   margin: 0;
   display: inline;
   word-break: break-word;
@@ -54,25 +54,25 @@
 }
 
 .headline-word.word-inactive {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.18);
 }
 
 .headline-word.word-active {
   color: #ffffff;
-  text-shadow: 0 0 30px rgba(0, 255, 170, 0.6),
-               0 0 60px rgba(0, 255, 170, 0.25),
-               0 4px 14px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 0 40px rgba(0, 255, 170, 0.65),
+               0 0 80px rgba(0, 255, 170, 0.3),
+               0 6px 20px rgba(0, 0, 0, 0.95);
 }
 
 .headline-subtext {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .subtext-line {
-  width: 28px;
+  width: 36px;
   height: 2px;
   background: #00ffaa;
   box-shadow: 0 0 8px #00ffaa;
@@ -80,18 +80,20 @@
 
 .subtext-content {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 1.2px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 1.5px;
   font-weight: 500;
 }
 
 @media (max-width: 1100px) {
   .scroll-headline-container {
-    width: auto;
-    max-width: 420px;
     left: 28px;
     bottom: 32px;
+    width: calc(100% - 56px);
+  }
+  .scroll-headline-text {
+    font-size: clamp(28px, 4.5vw, 54px);
   }
 }
 
@@ -100,11 +102,11 @@
     left: 20px;
     right: 20px;
     bottom: 220px;
-    max-width: none;
     width: auto;
   }
   .scroll-headline-text {
-    font-size: 22px;
+    font-size: 28px;
+    letter-spacing: -1px;
   }
   .headline-subtext {
     display: none;
