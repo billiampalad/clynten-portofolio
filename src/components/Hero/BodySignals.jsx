@@ -23,12 +23,6 @@ function HudHeader({ text, squareClass, speed = 18 }) {
 }
 
 export default function BodySignals({ progress = 0 }) {
-  const isFaceActive = progress >= 0.05
-  const isCoreActive = progress >= 0.25
-
-  // Smooth opacity curve for hero scrub
-  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.28))
-
   // Dynamic stages based on scroll progress (decrypting stream like Live Telemetry)
   const isBiometricResolved = progress >= 0.12
   const isSysEngineResolved = progress >= 0.4
@@ -50,14 +44,9 @@ export default function BodySignals({ progress = 0 }) {
   const sysSignal = isSysEngineResolved ? 'OPTIMAL — 0.04ms' : 'SYNC_CHANNEL'
 
   return (
-    <div
-      className="face-signals-overlay"
-      style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
-    >
-      {/* 1. Biometric HUD Card (Upper Right Area) */}
-      <div
-        className={`callout-card-wrapper face-wrapper ${isFaceActive ? 'active' : 'dimmed'}`}
-      >
+    <div className="face-signals-overlay">
+      {/* 1. Biometric HUD Card (Upper Right Area) - Always 100% visible */}
+      <div className="callout-card-wrapper face-wrapper">
         <div className="signaliq-hud-card face-card theme-red">
           {/* Header Row: Solid Square + Scrambled Text Title */}
           <HudHeader
@@ -81,10 +70,8 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 2. Sys-Engine HUD Card (Left Mid Area) */}
-      <div
-        className={`callout-card-wrapper core-wrapper ${isCoreActive ? 'active' : 'dimmed'}`}
-      >
+      {/* 2. Sys-Engine HUD Card (Left Mid Area) - Always 100% visible */}
+      <div className="callout-card-wrapper core-wrapper">
         <div className="signaliq-hud-card core-card theme-cyan">
           {/* Header Row: Solid Square + Scrambled Text Title */}
           <HudHeader

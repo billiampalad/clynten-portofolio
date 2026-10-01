@@ -9,19 +9,8 @@
 /* Card wrappers for positioning */
 .callout-card-wrapper {
   position: absolute;
-  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-}
-
-.callout-card-wrapper.active {
   opacity: 1;
-  transform: translateY(0);
-}
-
-.callout-card-wrapper.dimmed {
-  opacity: 0.3;
-  filter: grayscale(0.4);
-  transform: translateY(4px);
+  pointer-events: none;
 }
 
 /* 1. Biometric Card Position (Upper Right / Center-Right on Desktop & Laptop) */
@@ -303,9 +292,7 @@
 @media (max-width: 1023px) {
   .face-signals-overlay {
     display: block;
-    opacity: var(--fade-opacity, 1);
     pointer-events: none;
-    transition: opacity 0.08s linear;
   }
 
   .callout-card-wrapper.face-wrapper {
