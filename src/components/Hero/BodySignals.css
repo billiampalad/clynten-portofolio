@@ -37,42 +37,35 @@
 }
 
 /* ==========================================================================
-   SignalIQ / Cyber HUD Telemetry Card Style (Matching Reference Screenshot)
+   SignalIQ / Cyber HUD Telemetry (Pure Transparent Telemetry)
    ========================================================================== */
 .signaliq-hud-card {
   position: relative;
-  background:
-    repeating-linear-gradient(0deg,
-      rgba(4, 12, 16, 0.88),
-      rgba(4, 12, 16, 0.88) 2px,
-      rgba(8, 20, 28, 0.94) 2px,
-      rgba(8, 20, 28, 0.94) 4px);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 10px 14px 12px 14px;
-  border-radius: 2px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  padding: 4px 6px 6px 6px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-width: 250px;
+  min-width: 240px;
   white-space: nowrap;
   z-index: 4;
   letter-spacing: 0.8px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
+  box-shadow: none;
 }
 
 /* Theme Red (Biometric Scan) */
 .signaliq-hud-card.theme-red {
-  border: 1px solid rgba(255, 51, 85, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(255, 51, 85, 0.15);
+  border: none;
+  box-shadow: none;
 }
 
 /* Theme Cyan (Sys Engine) */
 .signaliq-hud-card.theme-cyan {
-  border: 1px solid rgba(0, 240, 255, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(0, 240, 255, 0.15);
+  border: none;
+  box-shadow: none;
 }
 
 /* HUD Top Corner Accents */
@@ -329,8 +322,9 @@
 
   .signaliq-hud-card {
     min-width: 190px;
-    padding: 7px 10px 9px 10px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+    padding: 4px 6px;
+    box-shadow: none;
+    background: transparent;
   }
 
   .hud-header-title {
