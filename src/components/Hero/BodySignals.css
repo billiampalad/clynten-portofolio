@@ -163,6 +163,7 @@
   color: rgba(255, 255, 255, 0.5);
   font-weight: 600;
 }
+
 .theme-white .hud-val {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
@@ -175,6 +176,7 @@
   opacity: 0.65;
   font-weight: 600;
 }
+
 .theme-cyan .hud-val {
   color: #38bdf8;
   font-weight: 600;
@@ -187,6 +189,7 @@
   opacity: 0.65;
   font-weight: 600;
 }
+
 .theme-green .hud-val {
   color: #34d399;
   font-weight: 600;
@@ -219,14 +222,14 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 18%;
-    left: max(28px, calc(50% - 390px));
+    top: 30px;
+    left: max(28px, calc(50% - 600px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 46%;
-    left: max(28px, calc(50% - 390px));
+    top: 26%;
+    left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
