@@ -18,10 +18,6 @@ export default function BodySignals({ progress = 0 }) {
         className={`callout-card-wrapper face-wrapper ${isFaceActive ? 'active' : 'dimmed'}`}
       >
         <div className="signaliq-hud-card face-card theme-red">
-          {/* HUD Top Corner Accents */}
-          <div className="hud-corner top-left" />
-          <div className="hud-corner top-right" />
-          
           {/* Header Row: Solid Square + Monospace Label */}
           <div className="hud-card-header">
             <span className="hud-square-indicator red-square">■</span>
@@ -51,7 +47,7 @@ export default function BodySignals({ progress = 0 }) {
             </div>
           </div>
 
-          {/* Bottom HUD Bracket */}
+          {/* Bottom HUD Bracket (L-corner) */}
           <div className="hud-bottom-bracket red-bracket" />
         </div>
       </div>
@@ -61,10 +57,6 @@ export default function BodySignals({ progress = 0 }) {
         className={`callout-card-wrapper core-wrapper ${isCoreActive ? 'active' : 'dimmed'}`}
       >
         <div className="signaliq-hud-card core-card theme-cyan">
-          {/* HUD Top Corner Accents */}
-          <div className="hud-corner top-left" />
-          <div className="hud-corner top-right" />
-
           {/* Header Row: Solid Square + Monospace Label */}
           <div className="hud-card-header">
             <span className="hud-square-indicator cyan-square">■</span>
@@ -94,7 +86,7 @@ export default function BodySignals({ progress = 0 }) {
             </div>
           </div>
 
-          {/* Bottom HUD Bracket */}
+          {/* Bottom HUD Bracket (L-corner) */}
           <div className="hud-bottom-bracket cyan-bracket" />
         </div>
       </div>
