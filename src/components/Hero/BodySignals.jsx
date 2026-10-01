@@ -3,10 +3,11 @@ import { useTextScramble } from '../../hooks/useTextScramble'
 import './BodySignals.css'
 
 function HudRow({ label, value, highlightClass = '', speed = 20, isContinuous = false }) {
+  const scrambledLabel = useTextScramble(label, speed, isContinuous)
   const scrambledVal = useTextScramble(value, speed, isContinuous)
   return (
     <div className="hud-row">
-      <span className="hud-key">{label}</span>
+      <span className="hud-key">{scrambledLabel}</span>
       <span className={`hud-val ${highlightClass}`}>{scrambledVal}</span>
     </div>
   )
@@ -23,11 +24,22 @@ function HudHeader({ text, squareClass, speed = 18, isContinuous = false }) {
 }
 
 export default function BodySignals({ progress = 0 }) {
-  // Continuous real-time scrambling when idle / scroll is at 0 (SignalIQ style)
-  const isIdleBiometric = progress < 0.05
-  const isIdleSysEngine = progress < 0.25
+  // 1. Idle state at scroll 0 (monochromatic white color + continuous shuffle)
+  const isScrollZero = progress < 0.04
 
-  // Dynamic stages based on scroll progress
+  // 2. Dynamic multi-color phases on scroll (Biru/Cyan, Merah/Red, Hijau/Green)
+  let activeColor = 'white'
+  if (!isScrollZero) {
+    if (progress < 0.35) {
+      activeColor = 'cyan'   // Phase 1: Biru / Cyan
+    } else if (progress < 0.70) {
+      activeColor = 'red'    // Phase 2: Merah / Red
+    } else {
+      activeColor = 'green'  // Phase 3: Hijau / Green
+    }
+  }
+
+  // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.08
   const isSysEngineResolved = progress >= 0.35
 
@@ -51,55 +63,55 @@ export default function BodySignals({ progress = 0 }) {
     <div className="face-signals-overlay">
       {/* 1. Biometric HUD Card (Upper Right Area) */}
       <div className="callout-card-wrapper face-wrapper">
-        <div className="signaliq-hud-card face-card theme-red">
+        <div className={`signaliq-hud-card face-card theme-${activeColor}`}>
           {/* Header Row: Solid Square + Scrambled Text Title */}
           <HudHeader
             text={bioHeader}
-            squareClass="red-square"
+            squareClass={`${activeColor}-square`}
             speed={18}
-            isContinuous={isIdleBiometric}
+            isContinuous={isScrollZero}
           />
 
-          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
+          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values (All text animated) */}
           <div className="hud-telemetry-body">
-            <div className="hud-vertical-line red-line" />
+            <div className={`hud-vertical-line ${activeColor}-line`} />
             <div className="hud-data-rows">
-              <HudRow label="TARGET ID" value={bioTargetId} speed={18} isContinuous={isIdleBiometric} />
-              <HudRow label="CONFIDENCE" value={bioConfidence} highlightClass="highlight-red" speed={22} isContinuous={isIdleBiometric} />
-              <HudRow label="SCAN TYPE" value={bioScanType} speed={20} isContinuous={isIdleBiometric} />
-              <HudRow label="SIGNAL" value={bioSignal} speed={18} isContinuous={isIdleBiometric} />
+              <HudRow label="TARGET ID" value={bioTargetId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={bioConfidence} highlightClass={`highlight-${activeColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="SCAN TYPE" value={bioScanType} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="SIGNAL" value={bioSignal} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
 
           {/* Bottom HUD Bracket */}
-          <div className="hud-bottom-bracket red-bracket" />
+          <div className={`hud-bottom-bracket ${activeColor}-bracket`} />
         </div>
       </div>
 
       {/* 2. Sys-Engine HUD Card (Left Mid Area) */}
       <div className="callout-card-wrapper core-wrapper">
-        <div className="signaliq-hud-card core-card theme-cyan">
+        <div className={`signaliq-hud-card core-card theme-${activeColor}`}>
           {/* Header Row: Solid Square + Scrambled Text Title */}
           <HudHeader
             text={sysHeader}
-            squareClass="cyan-square"
+            squareClass={`${activeColor}-square`}
             speed={18}
-            isContinuous={isIdleSysEngine}
+            isContinuous={isScrollZero}
           />
 
-          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
+          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values (All text animated) */}
           <div className="hud-telemetry-body">
-            <div className="hud-vertical-line cyan-line" />
+            <div className={`hud-vertical-line ${activeColor}-line`} />
             <div className="hud-data-rows">
-              <HudRow label="SYS ID" value={sysId} speed={18} isContinuous={isIdleSysEngine} />
-              <HudRow label="STACK" value={sysStack} highlightClass="highlight-cyan" speed={22} isContinuous={isIdleSysEngine} />
-              <HudRow label="SECURITY" value={sysSecurity} speed={20} isContinuous={isIdleSysEngine} />
-              <HudRow label="SIGNAL" value={sysSignal} speed={18} isContinuous={isIdleSysEngine} />
+              <HudRow label="SYS ID" value={sysId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="STACK" value={sysStack} highlightClass={`highlight-${activeColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="SECURITY" value={sysSecurity} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="SIGNAL" value={sysSignal} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
 
           {/* Bottom HUD Bracket */}
-          <div className="hud-bottom-bracket cyan-bracket" />
+          <div className={`hud-bottom-bracket ${activeColor}-bracket`} />
         </div>
       </div>
     </div>

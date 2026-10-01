@@ -43,18 +43,7 @@
   z-index: 4;
   letter-spacing: 0.8px;
   box-shadow: none;
-}
-
-/* Theme Red (Biometric Scan) */
-.signaliq-hud-card.theme-red {
-  border: none;
-  box-shadow: none;
-}
-
-/* Theme Cyan (Sys Engine) */
-.signaliq-hud-card.theme-cyan {
-  border: none;
-  box-shadow: none;
+  transition: color 0.4s ease;
 }
 
 /* HUD Top Corner Accents */
@@ -63,34 +52,47 @@
   width: 6px;
   height: 6px;
   pointer-events: none;
+  transition: border-color 0.4s ease;
 }
 
+/* White Theme (Scroll 0) */
+.theme-white .hud-corner.top-left {
+  top: -1px; left: -1px;
+  border-top: 2px solid #ffffff; border-left: 2px solid #ffffff;
+}
+.theme-white .hud-corner.top-right {
+  top: -1px; right: -1px;
+  border-top: 2px solid #ffffff; border-right: 2px solid #ffffff;
+}
+
+/* Red Theme */
 .theme-red .hud-corner.top-left {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid #ff3355;
-  border-left: 2px solid #ff3355;
+  top: -1px; left: -1px;
+  border-top: 2px solid #ff3355; border-left: 2px solid #ff3355;
 }
-
 .theme-red .hud-corner.top-right {
-  top: -1px;
-  right: -1px;
-  border-top: 2px solid #ff3355;
-  border-right: 2px solid #ff3355;
+  top: -1px; right: -1px;
+  border-top: 2px solid #ff3355; border-right: 2px solid #ff3355;
 }
 
+/* Cyan Theme */
 .theme-cyan .hud-corner.top-left {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid #00f0ff;
-  border-left: 2px solid #00f0ff;
+  top: -1px; left: -1px;
+  border-top: 2px solid #00f0ff; border-left: 2px solid #00f0ff;
+}
+.theme-cyan .hud-corner.top-right {
+  top: -1px; right: -1px;
+  border-top: 2px solid #00f0ff; border-right: 2px solid #00f0ff;
 }
 
-.theme-cyan .hud-corner.top-right {
-  top: -1px;
-  right: -1px;
-  border-top: 2px solid #00f0ff;
-  border-right: 2px solid #00f0ff;
+/* Green Theme */
+.theme-green .hud-corner.top-left {
+  top: -1px; left: -1px;
+  border-top: 2px solid #00ffaa; border-left: 2px solid #00ffaa;
+}
+.theme-green .hud-corner.top-right {
+  top: -1px; right: -1px;
+  border-top: 2px solid #00ffaa; border-right: 2px solid #00ffaa;
 }
 
 /* Header Row */
@@ -105,6 +107,12 @@
   font-size: 11px;
   line-height: 1;
   display: inline-block;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.white-square {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
 }
 
 .red-square {
@@ -117,11 +125,22 @@
   text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
 }
 
+.green-square {
+  color: #00ffaa;
+  text-shadow: 0 0 8px rgba(0, 255, 170, 0.8);
+}
+
 .hud-header-title {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.theme-white .hud-header-title {
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
 }
 
 .theme-red .hud-header-title {
@@ -132,6 +151,11 @@
 .theme-cyan .hud-header-title {
   color: #00f0ff;
   text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+}
+
+.theme-green .hud-header-title {
+  color: #00ffaa;
+  text-shadow: 0 0 6px rgba(0, 255, 170, 0.4);
 }
 
 /* Telemetry Data Grid Body */
@@ -146,6 +170,12 @@
   width: 1.5px;
   border-radius: 1px;
   flex-shrink: 0;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.white-line {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
 }
 
 .red-line {
@@ -156,6 +186,11 @@
 .cyan-line {
   background: rgba(0, 240, 255, 0.4);
   box-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+}
+
+.green-line {
+  background: rgba(0, 255, 170, 0.4);
+  box-shadow: 0 0 6px rgba(0, 255, 170, 0.3);
 }
 
 .hud-data-rows {
@@ -174,28 +209,66 @@
   line-height: 1.2;
 }
 
+.hud-key {
+  transition: color 0.4s ease;
+}
+
+.hud-val {
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* White Theme Text */
+.theme-white .hud-key {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
+}
+.theme-white .hud-val {
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Red Theme Text */
 .theme-red .hud-key {
   color: #ff8597;
   opacity: 0.75;
   font-weight: 600;
 }
-
 .theme-red .hud-val {
   color: #ff3355;
   font-weight: 700;
   text-shadow: 0 0 6px rgba(255, 51, 85, 0.3);
 }
 
+/* Cyan Theme Text */
 .theme-cyan .hud-key {
   color: #7ceeff;
   opacity: 0.75;
   font-weight: 600;
 }
-
 .theme-cyan .hud-val {
   color: #00f0ff;
   font-weight: 700;
   text-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+}
+
+/* Green Theme Text */
+.theme-green .hud-key {
+  color: #85ffcc;
+  opacity: 0.75;
+  font-weight: 600;
+}
+.theme-green .hud-val {
+  color: #00ffaa;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 255, 170, 0.3);
+}
+
+/* Highlights */
+.highlight-white {
+  color: #ffffff !important;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9) !important;
 }
 
 .highlight-red {
@@ -210,6 +283,12 @@
   text-shadow: 0 0 8px rgba(0, 255, 255, 0.7) !important;
 }
 
+.highlight-green {
+  color: #00ffaa !important;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(0, 255, 170, 0.7) !important;
+}
+
 /* Bottom HUD Corner Bracket */
 .hud-bottom-bracket {
   position: absolute;
@@ -220,6 +299,12 @@
   border-left: 1.5px solid;
   border-bottom: 1.5px solid;
   pointer-events: none;
+  transition: border-color 0.4s ease;
+}
+
+.white-bracket {
+  border-color: #ffffff;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
 }
 
 .red-bracket {
@@ -230,6 +315,11 @@
 .cyan-bracket {
   border-color: #00f0ff;
   filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.6));
+}
+
+.green-bracket {
+  border-color: #00ffaa;
+  filter: drop-shadow(0 0 4px rgba(0, 255, 170, 0.6));
 }
 
 /* ==========================================================================
