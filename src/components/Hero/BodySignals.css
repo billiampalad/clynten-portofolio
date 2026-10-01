@@ -13,16 +13,18 @@
   pointer-events: none;
 }
 
-/* 1. Biometric Card Position (Upper Right / Center-Right on Desktop & Laptop) */
+/* 1. Biometric Card Position (Upper Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.face-wrapper {
-  top: 18%;
-  right: calc(50% - 420px);
+  top: 20%;
+  left: calc(50% - 440px);
+  right: auto;
 }
 
-/* 2. Sys-Engine Card Position (Mid Left / Center-Left on Desktop & Laptop) */
+/* 2. Sys-Engine Card Position (Mid/Lower Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.core-wrapper {
-  top: 54%;
+  top: 48%;
   left: calc(50% - 440px);
+  right: auto;
 }
 
 /* ==========================================================================
@@ -329,13 +331,15 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 16%;
-    right: 24px;
+    top: 18%;
+    left: max(28px, calc(50% - 390px));
+    right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 52%;
-    left: 24px;
+    top: 46%;
+    left: max(28px, calc(50% - 390px));
+    right: auto;
   }
 
   .signaliq-hud-card {
@@ -356,11 +360,15 @@
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
   .callout-card-wrapper.face-wrapper {
-    right: calc(50% - 540px);
+    top: 20%;
+    left: calc(50% - 560px);
+    right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
+    top: 48%;
     left: calc(50% - 560px);
+    right: auto;
   }
 
   .signaliq-hud-card {

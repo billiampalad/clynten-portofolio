@@ -61,7 +61,7 @@ export default function BodySignals({ progress = 0 }) {
 
   return (
     <div className="face-signals-overlay">
-      {/* 1. Biometric HUD Card (Upper Right Area) */}
+      {/* 1. Biometric HUD Card (Upper Left Area) */}
       <div className="callout-card-wrapper face-wrapper">
         <div className={`signaliq-hud-card face-card theme-${activeColor}`}>
           {/* Header Row: Solid Square + Scrambled Text Title */}
