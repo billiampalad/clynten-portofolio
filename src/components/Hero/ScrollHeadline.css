@@ -47,17 +47,16 @@
   word-break: break-word;
 }
 
-/* All Words Fully Illuminated by Default (No Dimming) */
+/* All Words Pure Bright White (No Dimming, Clean Tone) */
 .headline-word {
   display: inline;
   color: #ffffff;
-  text-shadow: 0 0 35px rgba(0, 255, 170, 0.5),
-    0 0 70px rgba(0, 255, 170, 0.25),
-    0 6px 20px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95),
+               0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 /* =========================================================
-   Static Cyber Cyan-to-Emerald Glass Highlight Cover
+   Dynamic Cyber Highlight Cover (Wipes/Covers on Scroll)
    ========================================================= */
 .headline-highlight-phrase {
   position: relative;
@@ -68,7 +67,7 @@
   border-radius: 4px;
 }
 
-/* Static Cyber Gradient Glass Cover (Always Active & Visible) */
+/* Cyber Gradient Glass Cover (Wipes & covers as --cover goes 0 -> 1) */
 .headline-highlight-phrase.highlight-blue::before {
   content: '';
   position: absolute;
@@ -88,6 +87,9 @@
     inset 0 0 12px rgba(255, 255, 255, 0.3);
   z-index: 2;
   pointer-events: none;
+  /* Wipe cover from left to right as scroll progresses */
+  clip-path: inset(0 calc((1 - var(--cover, 0)) * 100%) 0 0);
+  will-change: clip-path;
   animation: glass-breath 3.5s infinite alternate ease-in-out;
 }
 
@@ -106,14 +108,40 @@
   }
 }
 
-/* Highlighted Word Text (Always Glowing & Fully Visible) */
+/* Scanning Laser Edge along the wiping frontier */
+.headline-highlight-phrase.highlight-blue::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  left: calc(var(--cover, 0) * 100% - 2px);
+  width: 2.5px;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff,
+    0 0 16px #00ffff,
+    0 0 26px #00ffaa;
+  border-radius: 2px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: var(--laser-opacity, 0);
+  will-change: left, opacity;
+  transition: opacity 0.15s ease;
+}
+
+/* Highlighted Word Text */
 .phrase-text {
   position: relative;
   z-index: 1;
   color: #ffffff;
-  text-shadow: 0 0 35px rgba(0, 255, 170, 0.5),
-    0 0 70px rgba(0, 255, 170, 0.25),
-    0 6px 20px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95),
+               0 0 30px rgba(255, 255, 255, 0.2);
+  transition: text-shadow 0.3s ease;
+}
+
+.phrase-text.phrase-covered {
+  text-shadow: 0 0 30px rgba(0, 255, 170, 0.5),
+               0 0 60px rgba(0, 255, 170, 0.25),
+               0 6px 20px rgba(0, 0, 0, 0.95);
 }
 
 .headline-subtext {
