@@ -47,7 +47,7 @@
   word-break: break-word;
 }
 
-/* All Words Pure Bright White (No Dimming, Clean Tone) */
+/* All Words Pure Bright White */
 .headline-word {
   display: inline;
   color: #ffffff;
@@ -56,7 +56,7 @@
 }
 
 /* =========================================================
-   Dynamic Cyber Highlight Cover (Wipes/Covers on Scroll)
+   Luxury Dark Maroon & Obsidian Cyber Cover Block
    ========================================================= */
 .headline-highlight-phrase {
   position: relative;
@@ -67,68 +67,73 @@
   border-radius: 4px;
 }
 
-/* Cyber Gradient Glass Cover (Wipes & covers as --cover goes 0 -> 1) */
+/* Solid Opaque Maroon-Black Cover (100% active at scroll 0, uncovers on scroll) */
+.headline-highlight-phrase.highlight-red::before,
 .headline-highlight-phrase.highlight-blue::before {
   content: '';
   position: absolute;
   inset: -3px -6px;
   background: linear-gradient(
-    110deg,
-    rgba(0, 140, 255, 0.45) 0%,
-    rgba(0, 230, 255, 0.35) 45%,
-    rgba(0, 255, 170, 0.42) 100%
+    135deg,
+    #050102 0%,
+    #130307 25%,
+    #2a040e 52%,
+    #4c0519 82%,
+    #700a22 100%
   );
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 255, 220, 0.75);
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 220, 255, 0.45),
-    0 0 40px rgba(0, 255, 170, 0.2),
-    inset 0 0 12px rgba(255, 255, 255, 0.3);
-  z-index: 2;
+  border: 1px solid rgba(190, 18, 60, 0.65);
+  border-radius: 5px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.95),
+              0 0 22px rgba(159, 18, 57, 0.35),
+              inset 0 1px 1px rgba(255, 255, 255, 0.16),
+              inset 0 0 16px rgba(0, 0, 0, 0.85);
+  z-index: 4;
   pointer-events: none;
-  /* Wipe cover from left to right as scroll progresses */
-  clip-path: inset(0 calc((1 - var(--cover, 0)) * 100%) 0 0);
+  /* At scroll 0 (--reveal = 0): inset is 0 0 0 0 (100% covered). As --reveal -> 1, wipes open from left to right */
+  clip-path: inset(0 0 0 calc(var(--reveal, 0) * 100%));
   will-change: clip-path;
-  animation: glass-breath 3.5s infinite alternate ease-in-out;
+  animation: maroon-cover-glow 4s infinite alternate ease-in-out;
 }
 
-@keyframes glass-breath {
+@keyframes maroon-cover-glow {
   0% {
-    box-shadow: 0 0 16px rgba(0, 220, 255, 0.35),
-      0 0 32px rgba(0, 255, 170, 0.15),
-      inset 0 0 10px rgba(255, 255, 255, 0.2);
-    border-color: rgba(0, 255, 220, 0.6);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.95),
+                0 0 16px rgba(159, 18, 57, 0.25),
+                inset 0 1px 1px rgba(255, 255, 255, 0.12),
+                inset 0 0 14px rgba(0, 0, 0, 0.85);
+    border-color: rgba(190, 18, 60, 0.5);
   }
   100% {
-    box-shadow: 0 0 26px rgba(0, 220, 255, 0.65),
-      0 0 50px rgba(0, 255, 170, 0.35),
-      inset 0 0 16px rgba(255, 255, 255, 0.4);
-    border-color: rgba(0, 255, 220, 0.95);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.98),
+                0 0 26px rgba(190, 18, 60, 0.45),
+                inset 0 1px 1px rgba(255, 255, 255, 0.22),
+                inset 0 0 18px rgba(0, 0, 0, 0.75);
+    border-color: rgba(225, 29, 72, 0.85);
   }
 }
 
-/* Scanning Laser Edge along the wiping frontier */
+/* Premium Crimson-White Laser Frontier Edge */
+.headline-highlight-phrase.highlight-red::after,
 .headline-highlight-phrase.highlight-blue::after {
   content: '';
   position: absolute;
   top: -5px;
   bottom: -5px;
-  left: calc(var(--cover, 0) * 100% - 2px);
+  left: calc(var(--reveal, 0) * 100% - 2px);
   width: 2.5px;
   background: #ffffff;
   box-shadow: 0 0 8px #ffffff,
-    0 0 16px #00ffff,
-    0 0 26px #00ffaa;
+              0 0 14px #e11d48,
+              0 0 24px #881337;
   border-radius: 2px;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
   opacity: var(--laser-opacity, 0);
   will-change: left, opacity;
   transition: opacity 0.15s ease;
 }
 
-/* Highlighted Word Text */
+/* Word Text */
 .phrase-text {
   position: relative;
   z-index: 1;
@@ -138,9 +143,9 @@
   transition: text-shadow 0.3s ease;
 }
 
-.phrase-text.phrase-covered {
-  text-shadow: 0 0 30px rgba(0, 255, 170, 0.5),
-               0 0 60px rgba(0, 255, 170, 0.25),
+.phrase-text.text-revealed {
+  text-shadow: 0 0 35px rgba(255, 255, 255, 0.8),
+               0 0 70px rgba(225, 29, 72, 0.4),
                0 6px 20px rgba(0, 0, 0, 0.95);
 }
 
