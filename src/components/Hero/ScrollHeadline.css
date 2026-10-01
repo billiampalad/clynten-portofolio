@@ -47,26 +47,17 @@
   word-break: break-word;
 }
 
+/* All Words Fully Illuminated by Default (No Dimming) */
 .headline-word {
   display: inline;
-  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    text-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.headline-word.word-inactive {
-  color: rgba(255, 255, 255, 0.18);
-}
-
-.headline-word.word-active {
   color: #ffffff;
-  text-shadow: 0 0 40px rgba(0, 255, 170, 0.65),
-    0 0 80px rgba(0, 255, 170, 0.3),
+  text-shadow: 0 0 35px rgba(0, 255, 170, 0.5),
+    0 0 70px rgba(0, 255, 170, 0.25),
     0 6px 20px rgba(0, 0, 0, 0.95);
 }
 
 /* =========================================================
-   Cyber Cyan-to-Emerald Glass Highlight Cover (SignalIQ Concept)
+   Static Cyber Cyan-to-Emerald Glass Highlight Cover
    ========================================================= */
 .headline-highlight-phrase {
   position: relative;
@@ -77,7 +68,7 @@
   border-radius: 4px;
 }
 
-/* 1. Cyber Cyan-to-Emerald Glass Cover */
+/* Static Cyber Gradient Glass Cover (Always Active & Visible) */
 .headline-highlight-phrase.highlight-blue::before {
   content: '';
   position: absolute;
@@ -97,9 +88,6 @@
     inset 0 0 12px rgba(255, 255, 255, 0.3);
   z-index: 2;
   pointer-events: none;
-  /* Wipe reveal from left to right as --reveal goes 0 -> 1 */
-  clip-path: inset(0 0 0 calc(var(--reveal, 0) * 100%));
-  will-change: clip-path;
   animation: glass-breath 3.5s infinite alternate ease-in-out;
 }
 
@@ -118,42 +106,13 @@
   }
 }
 
-/* 2. Scanning Laser Edge along the reveal frontier */
-.headline-highlight-phrase.highlight-blue::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  bottom: -5px;
-  left: calc(var(--reveal, 0) * 100% - 2px);
-  width: 2.5px;
-  background: #ffffff;
-  box-shadow: 0 0 8px #ffffff,
-    0 0 16px #00ffff,
-    0 0 26px #00ffaa;
-  border-radius: 2px;
-  z-index: 3;
-  pointer-events: none;
-  opacity: calc((1 - var(--reveal, 0)) * 1);
-  will-change: left, opacity;
-}
-
-/* Phrase Text styling (matches green glow of all other headline words) */
+/* Highlighted Word Text (Always Glowing & Fully Visible) */
 .phrase-text {
   position: relative;
   z-index: 1;
-  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    text-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.phrase-text.text-covered {
-  color: rgba(255, 255, 255, 0.65);
-  text-shadow: 0 0 12px rgba(0, 255, 200, 0.4);
-}
-
-.phrase-text.text-revealed {
   color: #ffffff;
-  text-shadow: 0 0 40px rgba(0, 255, 170, 0.65),
-    0 0 80px rgba(0, 255, 170, 0.3),
+  text-shadow: 0 0 35px rgba(0, 255, 170, 0.5),
+    0 0 70px rgba(0, 255, 170, 0.25),
     0 6px 20px rgba(0, 0, 0, 0.95);
 }
 
