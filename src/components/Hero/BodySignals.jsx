@@ -1,5 +1,26 @@
 import React from 'react'
+import { useTextScramble } from '../../hooks/useTextScramble'
 import './BodySignals.css'
+
+function HudRow({ label, value, highlightClass = '', speed = 20 }) {
+  const scrambledVal = useTextScramble(value, speed)
+  return (
+    <div className="hud-row">
+      <span className="hud-key">{label}</span>
+      <span className={`hud-val ${highlightClass}`}>{scrambledVal}</span>
+    </div>
+  )
+}
+
+function HudHeader({ text, squareClass, speed = 18 }) {
+  const scrambledText = useTextScramble(text, speed)
+  return (
+    <div className="hud-card-header">
+      <span className={`hud-square-indicator ${squareClass}`}>■</span>
+      <span className="hud-header-title">{scrambledText}</span>
+    </div>
+  )
+}
 
 export default function BodySignals({ progress = 0 }) {
   const isFaceActive = progress >= 0.05
@@ -7,6 +28,26 @@ export default function BodySignals({ progress = 0 }) {
 
   // Smooth opacity curve for hero scrub
   const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.28))
+
+  // Dynamic stages based on scroll progress (decrypting stream like Live Telemetry)
+  const isBiometricResolved = progress >= 0.12
+  const isSysEngineResolved = progress >= 0.4
+
+  const bioHeader = isBiometricResolved
+    ? 'BIOMETRIC // HIGH CONFIDENCE'
+    : 'BIOMETRIC // SCANNING'
+  const bioTargetId = isBiometricResolved ? 'CLYNTEN_DEV_001' : 'DEV_TARGET_INIT'
+  const bioConfidence = isBiometricResolved ? '99.8%' : 'CALCULATING...'
+  const bioScanType = isBiometricResolved ? 'NEURAL / OPTICAL' : 'FACIAL_DETECT'
+  const bioSignal = isBiometricResolved ? 'LOCKED — VERIFIED' : 'ACQUIRING_DATA'
+
+  const sysHeader = isSysEngineResolved
+    ? 'SYS_ENGINE // CORE ARCH'
+    : 'SYS_ENGINE // DIAGNOSTIC'
+  const sysId = isSysEngineResolved ? 'ENGINE_V4_PRO' : 'INIT_CORE_NODE'
+  const sysStack = isSysEngineResolved ? 'MULTI-STACK DEV' : 'LOADING_MODULES'
+  const sysSecurity = isSysEngineResolved ? 'ENCRYPTED // ACTIVE' : 'HANDSHAKE_PENDING'
+  const sysSignal = isSysEngineResolved ? 'OPTIMAL — 0.04ms' : 'SYNC_CHANNEL'
 
   return (
     <div
@@ -18,36 +59,20 @@ export default function BodySignals({ progress = 0 }) {
         className={`callout-card-wrapper face-wrapper ${isFaceActive ? 'active' : 'dimmed'}`}
       >
         <div className="signaliq-hud-card face-card theme-red">
-          {/* HUD Top Corner Accents */}
-          <div className="hud-corner top-left" />
-          <div className="hud-corner top-right" />
-          
-          {/* Header Row: Solid Square + Monospace Label */}
-          <div className="hud-card-header">
-            <span className="hud-square-indicator red-square">■</span>
-            <span className="hud-header-title">BIOMETRIC // HIGH CONFIDENCE</span>
-          </div>
+          {/* Header Row: Solid Square + Scrambled Text Title */}
+          <HudHeader
+            text={bioHeader}
+            squareClass="red-square"
+          />
 
-          {/* Telemetry Data Grid with Left Vertical Bar */}
+          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
           <div className="hud-telemetry-body">
             <div className="hud-vertical-line red-line" />
             <div className="hud-data-rows">
-              <div className="hud-row">
-                <span className="hud-key">TARGET ID</span>
-                <span className="hud-val">CLYNTEN_DEV_001</span>
-              </div>
-              <div className="hud-row">
-                <span className="hud-key">CONFIDENCE</span>
-                <span className="hud-val highlight-red">99.8%</span>
-              </div>
-              <div className="hud-row">
-                <span className="hud-key">SCAN TYPE</span>
-                <span className="hud-val">NEURAL / OPTICAL</span>
-              </div>
-              <div className="hud-row">
-                <span className="hud-key">SIGNAL</span>
-                <span className="hud-val">LOCKED — VERIFIED</span>
-              </div>
+              <HudRow label="TARGET ID" value={bioTargetId} speed={18} />
+              <HudRow label="CONFIDENCE" value={bioConfidence} highlightClass="highlight-red" speed={22} />
+              <HudRow label="SCAN TYPE" value={bioScanType} speed={20} />
+              <HudRow label="SIGNAL" value={bioSignal} speed={18} />
             </div>
           </div>
 
@@ -61,36 +86,20 @@ export default function BodySignals({ progress = 0 }) {
         className={`callout-card-wrapper core-wrapper ${isCoreActive ? 'active' : 'dimmed'}`}
       >
         <div className="signaliq-hud-card core-card theme-cyan">
-          {/* HUD Top Corner Accents */}
-          <div className="hud-corner top-left" />
-          <div className="hud-corner top-right" />
+          {/* Header Row: Solid Square + Scrambled Text Title */}
+          <HudHeader
+            text={sysHeader}
+            squareClass="cyan-square"
+          />
 
-          {/* Header Row: Solid Square + Monospace Label */}
-          <div className="hud-card-header">
-            <span className="hud-square-indicator cyan-square">■</span>
-            <span className="hud-header-title">SYS_ENGINE // CORE ARCH</span>
-          </div>
-
-          {/* Telemetry Data Grid with Left Vertical Bar */}
+          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
           <div className="hud-telemetry-body">
             <div className="hud-vertical-line cyan-line" />
             <div className="hud-data-rows">
-              <div className="hud-row">
-                <span className="hud-key">SYS ID</span>
-                <span className="hud-val">ENGINE_V4_PRO</span>
-              </div>
-              <div className="hud-row">
-                <span className="hud-key">STACK</span>
-                <span className="hud-val highlight-cyan">MULTI-STACK DEV</span>
-              </div>
-              <div className="hud-row">
-                <span className="hud-key">SECURITY</span>
-                <span className="hud-val">ENCRYPTED // ACTIVE</span>
-              </div>
-              <div className="hud-row">
-                <span className="hud-key">SIGNAL</span>
-                <span className="hud-val">OPTIMAL — 0.04ms</span>
-              </div>
+              <HudRow label="SYS ID" value={sysId} speed={18} />
+              <HudRow label="STACK" value={sysStack} highlightClass="highlight-cyan" speed={22} />
+              <HudRow label="SECURITY" value={sysSecurity} speed={20} />
+              <HudRow label="SIGNAL" value={sysSignal} speed={18} />
             </div>
           </div>
 
