@@ -224,7 +224,7 @@
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
     top: 30px;
-    left: max(28px, calc(50% - 600px));
+    left: max(28px, calc(50% - 590px));
     right: auto;
   }
 
