@@ -61,7 +61,7 @@ export default function BodySignals({ progress = 0 }) {
 
   return (
     <div className="face-signals-overlay">
-      {/* 1. Biometric HUD Card (Upper Left Area) */}
+      {/* 1. Biometric HUD Card (Upper Left Area) - Pure Borderless Telemetry */}
       <div className="callout-card-wrapper face-wrapper">
         <div className={`signaliq-hud-card face-card theme-${activeColor}`}>
           {/* Header Row: Solid Square + Scrambled Text Title */}
@@ -72,7 +72,7 @@ export default function BodySignals({ progress = 0 }) {
             isContinuous={isScrollZero}
           />
 
-          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values (All text animated) */}
+          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
           <div className="hud-telemetry-body">
             <div className={`hud-vertical-line ${activeColor}-line`} />
             <div className="hud-data-rows">
@@ -82,13 +82,10 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="SIGNAL" value={bioSignal} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
-
-          {/* Bottom HUD Bracket */}
-          <div className={`hud-bottom-bracket ${activeColor}-bracket`} />
         </div>
       </div>
 
-      {/* 2. Sys-Engine HUD Card (Left Mid Area) */}
+      {/* 2. Sys-Engine HUD Card (Left Mid Area) - Pure Borderless Telemetry */}
       <div className="callout-card-wrapper core-wrapper">
         <div className={`signaliq-hud-card core-card theme-${activeColor}`}>
           {/* Header Row: Solid Square + Scrambled Text Title */}
@@ -99,7 +96,7 @@ export default function BodySignals({ progress = 0 }) {
             isContinuous={isScrollZero}
           />
 
-          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values (All text animated) */}
+          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
           <div className="hud-telemetry-body">
             <div className={`hud-vertical-line ${activeColor}-line`} />
             <div className="hud-data-rows">
@@ -109,9 +106,6 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="SIGNAL" value={sysSignal} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
-
-          {/* Bottom HUD Bracket */}
-          <div className={`hud-bottom-bracket ${activeColor}-bracket`} />
         </div>
       </div>
     </div>
