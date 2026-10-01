@@ -3,7 +3,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PixelGrid from './PixelGrid'
 import CodeRain from './CodeRain'
-import DataStream from './DataStream'
 import DeveloperSignal from './DeveloperSignal'
 import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
@@ -268,10 +267,7 @@ export default function Hero() {
         {/* Layer 5: Cyber Target Reticle & Corner Brackets HUD */}
         {!loading && <TargetReticle progress={scrollProgress} />}
 
-        {/* Layer 6: Decrypting Live Telemetry Data Stream (Top Left) */}
-        {!loading && <DataStream progress={scrollProgress} />}
-
-        {/* Layer 7: Ambient Milestone Tracker & Radar Telemetry (Left & Top Right) */}
+        {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry (Top Right) */}
         {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
         {/* Layer 8: Large Bold Scroll-Highlighted Narrative Headline (Bottom Left) */}

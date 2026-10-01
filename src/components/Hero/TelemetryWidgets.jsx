@@ -1,13 +1,6 @@
 import React from 'react'
 import './TelemetryWidgets.css'
 
-const PHASES = [
-  { id: '01', name: 'SYS_SCAN', range: [0, 0.28] },
-  { id: '02', name: 'PROJECT_DETECTION', range: [0.28, 0.58] },
-  { id: '03', name: 'MULTI_DOMAIN', range: [0.58, 0.82] },
-  { id: '04', name: 'IDENTITY_VERIFIED', range: [0.82, 1.0] },
-]
-
 export default function TelemetryWidgets({ progress = 0 }) {
   const radarRotation = Math.round(progress * 360)
   // Smooth fade-out on scroll (1 at scroll 0, 0 by progress 0.18)
@@ -18,38 +11,7 @@ export default function TelemetryWidgets({ progress = 0 }) {
       className="telemetry-widgets-wrapper"
       style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
     >
-      {/* 1. Left Vertical Scanning Milestone Tracker */}
-      <div className="vertical-phase-tracker">
-        <div className="tracker-line-track">
-          <div
-            className="tracker-line-fill"
-            style={{ height: `${progress * 100}%` }}
-          />
-        </div>
-        <div className="tracker-steps">
-          {PHASES.map((phase, i) => {
-            const isCompleted = progress >= phase.range[0]
-            const isCurrent = progress >= phase.range[0] && progress <= phase.range[1]
-
-            return (
-              <div
-                key={i}
-                className={`tracker-step ${isCurrent ? 'step-current' : ''} ${isCompleted ? 'step-completed' : ''}`}
-              >
-                <div className="step-node">
-                  <span className="node-inner" />
-                </div>
-                <div className="step-label">
-                  <span className="step-num">{phase.id}</span>
-                  <span className="step-name">{phase.name}</span>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* 2. Top Right Holographic Radar Widget */}
+      {/* 1. Top Right Holographic Radar Widget */}
       <div className="top-right-radar-card">
         <div className="radar-circle-wrapper">
           <svg className="radar-svg" viewBox="0 0 80 80">
