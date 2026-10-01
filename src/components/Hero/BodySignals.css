@@ -3,7 +3,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 18;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: 'Courier New', Courier, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* Single coordinate parent container for dot, line, and card */
@@ -19,18 +19,18 @@
 }
 
 .callout-anchor-group.dimmed {
-  opacity: 0.25;
-  filter: grayscale(0.5);
+  opacity: 0.3;
+  filter: grayscale(0.4);
 }
 
 /* Center Anchor Point for Face */
 .anchor-dot-center {
   position: absolute;
-  top: -34px;
+  top: -30px;
   left: 0;
   transform: translate(-50%, -50%);
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,37 +43,67 @@
   top: 0;
   left: 0;
   transform: translate(-50%, -50%);
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 3;
 }
 
+.anchor-crosshair-h {
+  position: absolute;
+  width: 14px;
+  height: 1px;
+  background: rgba(255, 51, 85, 0.7);
+}
+
+.anchor-crosshair-v {
+  position: absolute;
+  height: 14px;
+  width: 1px;
+  background: rgba(255, 51, 85, 0.7);
+}
+
+.anchor-crosshair-h.cyan-h {
+  background: rgba(0, 240, 255, 0.7);
+}
+
+.anchor-crosshair-v.cyan-v {
+  background: rgba(0, 240, 255, 0.7);
+}
+
 .anchor-dot {
   width: 5px;
   height: 5px;
-  background: #00ffaa;
   border-radius: 50%;
-  box-shadow: 0 0 8px #00ffaa;
+  position: relative;
+  z-index: 2;
+}
+
+.anchor-dot.red-dot {
+  background: #ff3355;
+  box-shadow: 0 0 10px #ff3355;
+}
+
+.anchor-dot.cyan-dot {
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
 }
 
 .anchor-ping {
   position: absolute;
   inset: -4px;
-  border: 1px solid rgba(0, 255, 170, 0.8);
   border-radius: 50%;
-  animation: anchor-pulse 2s infinite ease-out;
+  animation: anchor-pulse 2s infinite cubic-bezier(0.2, 0, 0.4, 1);
 }
 
-.anchor-dot.cyan-dot {
-  background: #00ffff;
-  box-shadow: 0 0 8px #00ffff;
+.anchor-ping.red-ping {
+  border: 1px solid rgba(255, 51, 85, 0.85);
 }
 
 .anchor-ping.cyan-ping {
-  border-color: rgba(0, 255, 255, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.85);
 }
 
 @keyframes anchor-pulse {
@@ -81,9 +111,8 @@
     transform: scale(0.6);
     opacity: 1;
   }
-
   100% {
-    transform: scale(2.4);
+    transform: scale(2.6);
     opacity: 0;
   }
 }
@@ -96,116 +125,334 @@
   z-index: 2;
 }
 
-/* 1. Face SVG line (Starts at top: -34px matching anchor-dot, angles down to card at top: 4px) */
+/* 1. Face SVG line (Starts at top: -30px matching anchor-dot, angles down to card at top: 12px) */
 .face-svg {
-  top: -34px;
+  top: -30px;
   left: 0;
-  width: 130px;
-  height: 60px;
+  width: 160px;
+  height: 70px;
 }
 
-/* Card elevated securely, centered with the end of the line (128px right, -14px top) */
-.callout-floating-card.face-card {
+/* Card position for Desktop/Laptop */
+.signaliq-hud-card.face-card {
   position: absolute;
-  top: -14px;
-  left: 128px;
+  top: 10px;
+  left: 155px;
 }
 
-/* 2. Core SVG line on neck (root at 0, 0 anchor, line draws from (140,40) up-left to (2,10)) */
+/* 2. Core SVG line on neck (starts at 0, 0 anchor, line draws from (165,48) up-left to (2,12)) */
 .core-svg {
-  top: -40px;
-  left: -140px;
-  width: 140px;
-  height: 50px;
+  top: -48px;
+  left: -165px;
+  width: 170px;
+  height: 70px;
 }
 
-/* Card placed on the left end of the line (-140px left, -56px top to align center with horizontal line at -30px) */
-.callout-floating-card.core-card {
+.signaliq-hud-card.core-card {
   position: absolute;
-  top: -76px;
-  right: 138px;
+  top: -52px;
+  right: 165px;
 }
 
-/* Floating Card Styling */
-.callout-floating-card {
-  background: rgba(10, 10, 15, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(0, 255, 170, 0.35);
-  padding: 8px 12px;
-  border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(0, 255, 170, 0.12);
+/* ==========================================================================
+   SignalIQ / Cyber HUD Telemetry Card Style (Matching the Reference Screenshot)
+   ========================================================================== */
+.signaliq-hud-card {
+  position: relative;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(4, 12, 16, 0.88),
+      rgba(4, 12, 16, 0.88) 2px,
+      rgba(8, 20, 28, 0.94) 2px,
+      rgba(8, 20, 28, 0.94) 4px
+    );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 14px 12px 14px;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 8px;
+  min-width: 250px;
   white-space: nowrap;
   z-index: 4;
+  letter-spacing: 0.8px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
 }
 
-.card-top-row {
+/* Theme Red (Biometric Scan) */
+.signaliq-hud-card.theme-red {
+  border: 1px solid rgba(255, 51, 85, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85),
+              0 0 20px rgba(255, 51, 85, 0.15);
+}
+
+/* Theme Cyan (Sys Engine) */
+.signaliq-hud-card.theme-cyan {
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85),
+              0 0 20px rgba(0, 240, 255, 0.15);
+}
+
+/* HUD Top Corner Accents */
+.hud-corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+}
+
+.theme-red .hud-corner.top-left {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #ff3355;
+  border-left: 2px solid #ff3355;
+}
+
+.theme-red .hud-corner.top-right {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid #ff3355;
+  border-right: 2px solid #ff3355;
+}
+
+.theme-cyan .hud-corner.top-left {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #00f0ff;
+  border-left: 2px solid #00f0ff;
+}
+
+.theme-cyan .hud-corner.top-right {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid #00f0ff;
+  border-right: 2px solid #00f0ff;
+}
+
+/* Header Row */
+.hud-card-header {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-bottom: 2px;
 }
 
-.card-code {
-  font-size: 8px;
-  color: #00ffff;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.card-status {
-  font-size: 8px;
-  background: rgba(0, 255, 170, 0.15);
-  border: 1px solid rgba(0, 255, 170, 0.3);
-  color: #00ffaa;
-  padding: 1px 5px;
-  border-radius: 3px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.card-status.cyan {
-  background: rgba(0, 255, 255, 0.15);
-  border-color: rgba(0, 255, 255, 0.3);
-  color: #00ffff;
-}
-
-.card-main-title {
-  font-family: system-ui, -apple-system, sans-serif;
+.hud-square-indicator {
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: #ffffff;
+  line-height: 1;
+  display: inline-block;
 }
 
-.card-sub-info {
-  font-size: 8px;
-  color: rgba(255, 255, 255, 0.55);
+.red-square {
+  color: #ff3355;
+  text-shadow: 0 0 8px rgba(255, 51, 85, 0.8);
+}
+
+.cyan-square {
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+}
+
+.hud-header-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.theme-red .hud-header-title {
+  color: #ff4a68;
+  text-shadow: 0 0 6px rgba(255, 74, 104, 0.4);
+}
+
+.theme-cyan .hud-header-title {
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+}
+
+/* Telemetry Data Grid Body */
+.hud-telemetry-body {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.hud-vertical-line {
+  width: 1.5px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.red-line {
+  background: rgba(255, 51, 85, 0.4);
+  box-shadow: 0 0 6px rgba(255, 51, 85, 0.3);
+}
+
+.cyan-line {
+  background: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+}
+
+.hud-data-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+}
+
+.hud-row {
+  display: grid;
+  grid-template-columns: 85px 1fr;
+  align-items: center;
+  font-size: 9px;
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
-@media (max-width: 1024px) {
-  .face-svg {
-    width: 60px;
+.hud-key {
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 600;
+}
+
+.hud-val {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+}
+
+.theme-red .hud-key {
+  color: #ff8597;
+  opacity: 0.75;
+}
+
+.theme-red .hud-val {
+  color: #ff3355;
+  text-shadow: 0 0 6px rgba(255, 51, 85, 0.3);
+}
+
+.theme-cyan .hud-key {
+  color: #7ceeff;
+  opacity: 0.75;
+}
+
+.theme-cyan .hud-val {
+  color: #00f0ff;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+}
+
+.highlight-red {
+  color: #ff1144 !important;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(255, 17, 68, 0.7) !important;
+}
+
+.highlight-cyan {
+  color: #00ffff !important;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.7) !important;
+}
+
+/* Bottom HUD Corner Bracket (Exact replica of L-shaped bracket in screenshot) */
+.hud-bottom-bracket {
+  position: absolute;
+  bottom: -4px;
+  left: 8px;
+  width: 14px;
+  height: 6px;
+  border-left: 1.5px solid;
+  border-bottom: 1.5px solid;
+  pointer-events: none;
+}
+
+.red-bracket {
+  border-color: #ff3355;
+  filter: drop-shadow(0 0 4px rgba(255, 51, 85, 0.6));
+}
+
+.cyan-bracket {
+  border-color: #00f0ff;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.6));
+}
+
+/* ==========================================================================
+   Screen Size Adjustments (Laptop & Large Desktop)
+   ========================================================================== */
+
+/* Laptop screens (1024px to 1400px) */
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .signaliq-hud-card {
+    min-width: 220px;
+    padding: 8px 12px 10px 12px;
+  }
+  
+  .hud-header-title {
+    font-size: 9px;
+  }
+  
+  .hud-row {
+    font-size: 8px;
+    grid-template-columns: 75px 1fr;
   }
 
-  .callout-floating-card.face-card {
-    left: 60px;
+  .face-svg {
+    width: 130px;
+  }
+
+  .signaliq-hud-card.face-card {
+    left: 125px;
+    top: 6px;
   }
 
   .core-svg {
-    left: -60px;
-    width: 60px;
+    left: -135px;
+    width: 140px;
   }
 
-  .callout-floating-card.core-card {
-    right: 60px;
+  .signaliq-hud-card.core-card {
+    right: 135px;
+    top: -46px;
   }
 }
 
+/* High-res / Ultra-wide Desktop (> 1800px) */
+@media (min-width: 1800px) {
+  .signaliq-hud-card {
+    min-width: 280px;
+    padding: 12px 18px 14px 18px;
+  }
+
+  .hud-header-title {
+    font-size: 11px;
+  }
+
+  .hud-row {
+    font-size: 10px;
+    grid-template-columns: 95px 1fr;
+    gap: 6px;
+  }
+
+  .face-svg {
+    width: 190px;
+    height: 80px;
+  }
+
+  .signaliq-hud-card.face-card {
+    left: 185px;
+  }
+
+  .core-svg {
+    left: -195px;
+    width: 200px;
+  }
+
+  .signaliq-hud-card.core-card {
+    right: 195px;
+  }
+}
+
+/* Tablet & Mobile Screens */
 @media (max-width: 768px) {
   .face-signals-overlay {
     display: block;
@@ -228,57 +475,33 @@
   }
 
   .callout-anchor-group.face-group {
-    top: 24% !important;
-    right: 20px !important;
+    top: 22% !important;
+    right: 16px !important;
     left: auto !important;
   }
 
   .callout-anchor-group.core-group {
-    top: 48% !important;
-    left: 20px !important;
+    top: 52% !important;
+    left: 16px !important;
     right: auto !important;
   }
 
-  .callout-floating-card {
+  .signaliq-hud-card {
     position: relative !important;
     top: auto !important;
     left: auto !important;
     right: auto !important;
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: rgba(10, 10, 15, 0.78);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(0, 255, 170, 0.35);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    min-width: 190px;
+    padding: 7px 10px 9px 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
   }
 
-  .callout-floating-card.core-card {
-    border-color: rgba(0, 255, 255, 0.35);
+  .hud-header-title {
+    font-size: 8px;
   }
 
-  .card-top-row {
-    gap: 6px;
-  }
-
-  .card-code {
+  .hud-row {
     font-size: 7.5px;
-    letter-spacing: 0.8px;
-  }
-
-  .card-status {
-    font-size: 7px;
-    padding: 1px 4px;
-    border-radius: 2px;
-  }
-
-  .card-main-title {
-    font-size: 10px;
-    font-weight: 800;
-  }
-
-  .card-sub-info {
-    font-size: 7.5px;
-    letter-spacing: 0.8px;
+    grid-template-columns: 68px 1fr;
   }
 }
