@@ -6,156 +6,38 @@
   font-family: 'Courier New', Courier, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Single coordinate parent container for dot, line, and card */
-.callout-anchor-group {
+/* Card wrappers for positioning */
+.callout-card-wrapper {
   position: absolute;
-  width: 0;
-  height: 0;
-  transition: opacity 0.4s ease, filter 0.4s ease;
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+  pointer-events: auto;
 }
 
-.callout-anchor-group.active {
+.callout-card-wrapper.active {
   opacity: 1;
+  transform: translateY(0);
 }
 
-.callout-anchor-group.dimmed {
+.callout-card-wrapper.dimmed {
   opacity: 0.3;
   filter: grayscale(0.4);
+  transform: translateY(4px);
 }
 
-/* Center Anchor Point for Face */
-.anchor-dot-center {
-  position: absolute;
-  top: -30px;
-  left: 0;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
+/* 1. Biometric Card Position (Upper Right / Center-Right on Desktop & Laptop) */
+.callout-card-wrapper.face-wrapper {
+  top: 18%;
+  right: calc(50% - 420px);
 }
 
-/* Center Anchor Point for Core */
-.anchor-dot-center-core {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
-}
-
-.anchor-crosshair-h {
-  position: absolute;
-  width: 14px;
-  height: 1px;
-  background: rgba(255, 51, 85, 0.7);
-}
-
-.anchor-crosshair-v {
-  position: absolute;
-  height: 14px;
-  width: 1px;
-  background: rgba(255, 51, 85, 0.7);
-}
-
-.anchor-crosshair-h.cyan-h {
-  background: rgba(0, 240, 255, 0.7);
-}
-
-.anchor-crosshair-v.cyan-v {
-  background: rgba(0, 240, 255, 0.7);
-}
-
-.anchor-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  position: relative;
-  z-index: 2;
-}
-
-.anchor-dot.red-dot {
-  background: #ff3355;
-  box-shadow: 0 0 10px #ff3355;
-}
-
-.anchor-dot.cyan-dot {
-  background: #00f0ff;
-  box-shadow: 0 0 10px #00f0ff;
-}
-
-.anchor-ping {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  animation: anchor-pulse 2s infinite cubic-bezier(0.2, 0, 0.4, 1);
-}
-
-.anchor-ping.red-ping {
-  border: 1px solid rgba(255, 51, 85, 0.85);
-}
-
-.anchor-ping.cyan-ping {
-  border: 1px solid rgba(0, 240, 255, 0.85);
-}
-
-@keyframes anchor-pulse {
-  0% {
-    transform: scale(0.6);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-
-/* SVG Line Connector perfectly rooted at (0, 0) */
-.connector-svg {
-  position: absolute;
-  pointer-events: none;
-  overflow: visible;
-  z-index: 2;
-}
-
-/* 1. Face SVG line (Starts at top: -30px matching anchor-dot, angles down to card at top: 12px) */
-.face-svg {
-  top: -30px;
-  left: 0;
-  width: 160px;
-  height: 70px;
-}
-
-/* Card position for Desktop/Laptop */
-.signaliq-hud-card.face-card {
-  position: absolute;
-  top: 10px;
-  left: 155px;
-}
-
-/* 2. Core SVG line on neck (starts at 0, 0 anchor, line draws from (165,48) up-left to (2,12)) */
-.core-svg {
-  top: -48px;
-  left: -165px;
-  width: 170px;
-  height: 70px;
-}
-
-.signaliq-hud-card.core-card {
-  position: absolute;
-  top: -52px;
-  right: 165px;
+/* 2. Sys-Engine Card Position (Mid Left / Center-Left on Desktop & Laptop) */
+.callout-card-wrapper.core-wrapper {
+  top: 54%;
+  left: calc(50% - 440px);
 }
 
 /* ==========================================================================
-   SignalIQ / Cyber HUD Telemetry Card Style (Matching the Reference Screenshot)
+   SignalIQ / Cyber HUD Telemetry Card Style (Matching Reference Screenshot)
    ========================================================================== */
 .signaliq-hud-card {
   position: relative;
@@ -179,6 +61,11 @@
   z-index: 4;
   letter-spacing: 0.8px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.signaliq-hud-card:hover {
+  transform: translateY(-2px);
 }
 
 /* Theme Red (Biometric Scan) */
@@ -312,33 +199,27 @@
   line-height: 1.2;
 }
 
-.hud-key {
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 600;
-}
-
-.hud-val {
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 700;
-}
-
 .theme-red .hud-key {
   color: #ff8597;
   opacity: 0.75;
+  font-weight: 600;
 }
 
 .theme-red .hud-val {
   color: #ff3355;
+  font-weight: 700;
   text-shadow: 0 0 6px rgba(255, 51, 85, 0.3);
 }
 
 .theme-cyan .hud-key {
   color: #7ceeff;
   opacity: 0.75;
+  font-weight: 600;
 }
 
 .theme-cyan .hud-val {
   color: #00f0ff;
+  font-weight: 700;
   text-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
 }
 
@@ -354,7 +235,7 @@
   text-shadow: 0 0 8px rgba(0, 255, 255, 0.7) !important;
 }
 
-/* Bottom HUD Corner Bracket (Exact replica of L-shaped bracket in screenshot) */
+/* Bottom HUD Corner Bracket */
 .hud-bottom-bracket {
   position: absolute;
   bottom: -4px;
@@ -377,50 +258,49 @@
 }
 
 /* ==========================================================================
-   Screen Size Adjustments (Laptop & Large Desktop)
+   Screen Size Adjustments (Laptop & Desktop)
    ========================================================================== */
 
-/* Laptop screens (1024px to 1400px) */
-@media (min-width: 1024px) and (max-width: 1400px) {
+/* Medium Laptops (1024px to 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .callout-card-wrapper.face-wrapper {
+    top: 16%;
+    right: 24px;
+  }
+
+  .callout-card-wrapper.core-wrapper {
+    top: 52%;
+    left: 24px;
+  }
+
   .signaliq-hud-card {
     min-width: 220px;
     padding: 8px 12px 10px 12px;
   }
-  
+
   .hud-header-title {
     font-size: 9px;
   }
-  
+
   .hud-row {
     font-size: 8px;
     grid-template-columns: 75px 1fr;
   }
-
-  .face-svg {
-    width: 130px;
-  }
-
-  .signaliq-hud-card.face-card {
-    left: 125px;
-    top: 6px;
-  }
-
-  .core-svg {
-    left: -135px;
-    width: 140px;
-  }
-
-  .signaliq-hud-card.core-card {
-    right: 135px;
-    top: -46px;
-  }
 }
 
-/* High-res / Ultra-wide Desktop (> 1800px) */
+/* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
+  .callout-card-wrapper.face-wrapper {
+    right: calc(50% - 540px);
+  }
+
+  .callout-card-wrapper.core-wrapper {
+    left: calc(50% - 560px);
+  }
+
   .signaliq-hud-card {
-    min-width: 280px;
-    padding: 12px 18px 14px 18px;
+    min-width: 270px;
+    padding: 12px 16px 14px 16px;
   }
 
   .hud-header-title {
@@ -428,32 +308,13 @@
   }
 
   .hud-row {
-    font-size: 10px;
-    grid-template-columns: 95px 1fr;
-    gap: 6px;
-  }
-
-  .face-svg {
-    width: 190px;
-    height: 80px;
-  }
-
-  .signaliq-hud-card.face-card {
-    left: 185px;
-  }
-
-  .core-svg {
-    left: -195px;
-    width: 200px;
-  }
-
-  .signaliq-hud-card.core-card {
-    right: 195px;
+    font-size: 9.5px;
+    grid-template-columns: 90px 1fr;
   }
 }
 
 /* Tablet & Mobile Screens */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .face-signals-overlay {
     display: block;
     opacity: var(--fade-opacity, 1);
@@ -461,36 +322,19 @@
     transition: opacity 0.08s linear;
   }
 
-  .anchor-dot-center,
-  .anchor-dot-center-core,
-  .connector-svg {
-    display: none !important;
-  }
-
-  .callout-anchor-group {
-    opacity: 1 !important;
-    filter: none !important;
-    width: auto;
-    height: auto;
-  }
-
-  .callout-anchor-group.face-group {
-    top: 22% !important;
-    right: 16px !important;
+  .callout-card-wrapper.face-wrapper {
+    top: 16% !important;
+    right: 14px !important;
     left: auto !important;
   }
 
-  .callout-anchor-group.core-group {
+  .callout-card-wrapper.core-wrapper {
     top: 52% !important;
-    left: 16px !important;
+    left: 14px !important;
     right: auto !important;
   }
 
   .signaliq-hud-card {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
     min-width: 190px;
     padding: 7px 10px 9px 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);

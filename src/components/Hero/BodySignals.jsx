@@ -13,33 +13,10 @@ export default function BodySignals({ progress = 0 }) {
       className="face-signals-overlay"
       style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
     >
-      {/* 1. Biometric Target Positioned on Head/Face */}
+      {/* 1. Biometric HUD Card (Upper Right Area) */}
       <div
-        className={`callout-anchor-group face-group ${isFaceActive ? 'active' : 'dimmed'}`}
-        style={{ top: '22%', left: '50%' }}
+        className={`callout-card-wrapper face-wrapper ${isFaceActive ? 'active' : 'dimmed'}`}
       >
-        {/* Anchor Reticle Point on Head */}
-        <div className="anchor-dot-center">
-          <span className="anchor-crosshair-h" />
-          <span className="anchor-crosshair-v" />
-          <span className="anchor-dot red-dot" />
-          <span className="anchor-ping red-ping" />
-        </div>
-
-        {/* SVG Line: Starts at anchor (0,0), angles down-right and connects to Biometric Card */}
-        <svg className="connector-svg face-svg" viewBox="0 0 160 70">
-          <path
-            d="M 0 0 L 35 0 L 75 42 L 155 42"
-            fill="none"
-            stroke="#ff3355"
-            strokeWidth="1.5"
-            strokeDasharray="4 2"
-            style={{ filter: 'drop-shadow(0 0 8px rgba(255, 51, 85, 0.8))' }}
-          />
-          <circle cx="155" cy="42" r="2.5" fill="#ff3355" />
-        </svg>
-
-        {/* SignalIQ / HUD Telemetry Card (Biometric Scan) */}
         <div className="signaliq-hud-card face-card theme-red">
           {/* HUD Top Corner Accents */}
           <div className="hud-corner top-left" />
@@ -79,33 +56,10 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 2. Core Architecture Target on Neck / Torso */}
+      {/* 2. Sys-Engine HUD Card (Left Mid Area) */}
       <div
-        className={`callout-anchor-group core-group ${isCoreActive ? 'active' : 'dimmed'}`}
-        style={{ top: '64%', left: '49%' }}
+        className={`callout-card-wrapper core-wrapper ${isCoreActive ? 'active' : 'dimmed'}`}
       >
-        {/* Exact Anchor Point on Neck / Core */}
-        <div className="anchor-dot-center-core">
-          <span className="anchor-crosshair-h cyan-h" />
-          <span className="anchor-crosshair-v cyan-v" />
-          <span className="anchor-dot cyan-dot" />
-          <span className="anchor-ping cyan-ping" />
-        </div>
-
-        {/* SVG Line: Starts at neck anchor and angles up-left to card */}
-        <svg className="connector-svg core-svg" viewBox="0 0 170 70">
-          <path
-            d="M 165 48 L 120 12 L 2 12"
-            fill="none"
-            stroke="#00f0ff"
-            strokeWidth="1.5"
-            strokeDasharray="4 2"
-            style={{ filter: 'drop-shadow(0 0 8px rgba(0, 240, 255, 0.8))' }}
-          />
-          <circle cx="2" cy="12" r="2.5" fill="#00f0ff" />
-        </svg>
-
-        {/* SignalIQ / HUD Telemetry Card (Sys-Engine) */}
         <div className="signaliq-hud-card core-card theme-cyan">
           {/* HUD Top Corner Accents */}
           <div className="hud-corner top-left" />
