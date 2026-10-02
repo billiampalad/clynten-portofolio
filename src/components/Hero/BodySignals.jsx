@@ -27,15 +27,15 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Cyan, Sys-Engine = Green, Web-Dev = Amber, Android = Purple, Cyber = Red, Network = Teal, Database = Indigo, UI/UX = Fuchsia
-  const bioColor = isScrollZero ? 'white' : 'cyan'
-  const sysColor = isScrollZero ? 'white' : 'green'
-  const webColor = isScrollZero ? 'white' : 'amber'
-  const androidColor = isScrollZero ? 'white' : 'purple'
-  const cyberColor = isScrollZero ? 'white' : 'red'
-  const netColor = isScrollZero ? 'white' : 'teal'
-  const dbColor = isScrollZero ? 'white' : 'indigo'
-  const uiuxColor = isScrollZero ? 'white' : 'fuchsia'
+  // Restricted strictly to 3 core cyber colors: Biru (cyan), Hijau (green), Merah (red)
+  const bioColor = isScrollZero ? 'white' : 'cyan'     // 1. Biometric = Biru (Cyan)
+  const sysColor = isScrollZero ? 'white' : 'green'    // 2. Sys-Engine = Hijau (Green)
+  const webColor = isScrollZero ? 'white' : 'cyan'     // 3. Web-Dev = Biru (Cyan)
+  const androidColor = isScrollZero ? 'white' : 'green'// 4. Android-Dev = Hijau (Green)
+  const cyberColor = isScrollZero ? 'white' : 'red'    // 5. Cyber-Sec = Merah (Red)
+  const netColor = isScrollZero ? 'white' : 'cyan'     // 6. Network-Infra = Biru (Cyan)
+  const dbColor = isScrollZero ? 'white' : 'green'     // 7. Database-Mgmt = Hijau (Green)
+  const uiuxColor = isScrollZero ? 'white' : 'red'     // 8. UI/UX-Design = Merah (Red)
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.06

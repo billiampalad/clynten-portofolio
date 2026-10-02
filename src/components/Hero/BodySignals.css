@@ -6,66 +6,70 @@
   font-family: 'Courier New', Courier, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Card wrappers for positioning */
+/* Card wrappers for positioning (Left Empty Flank Area) */
 .callout-card-wrapper {
   position: absolute;
   opacity: 1;
   pointer-events: none;
 }
 
-/* 1. Biometric Card Position (Upper Left of Body on Desktop & Laptop) */
+/* ==========================================================================
+   8 HUD Cards Vertical Distribution (Top 4% to 60%, Leaving Bottom 40% Clear)
+   ========================================================================== */
+
+/* 1. Biometric Card (Biru / Cyan) */
 .callout-card-wrapper.face-wrapper {
-  top: 3%;
-  left: calc(50% - 440px);
+  top: 4%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 2. Sys-Engine Card Position (Upper-Mid Left of Body on Desktop & Laptop) */
+/* 2. Sys-Engine Card (Hijau / Green) */
 .callout-card-wrapper.core-wrapper {
-  top: 15%;
-  left: calc(50% - 440px);
+  top: 12%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 3. Web Development Card Position (Mid Left of Body on Desktop & Laptop) */
+/* 3. Web Development Card (Biru / Cyan) */
 .callout-card-wrapper.webdev-wrapper {
-  top: 27%;
-  left: calc(50% - 440px);
+  top: 20%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 4. Android Development Card Position (Lower-Mid Left of Body on Desktop & Laptop) */
+/* 4. Android Development Card (Hijau / Green) */
 .callout-card-wrapper.android-wrapper {
-  top: 39%;
-  left: calc(50% - 440px);
+  top: 28%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 5. Cyber Security Card Position (Mid-Lower Left of Body on Desktop & Laptop) */
+/* 5. Cyber Security Card (Merah / Red) */
 .callout-card-wrapper.cyber-wrapper {
-  top: 51%;
-  left: calc(50% - 440px);
+  top: 36%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 6. Network Administration Card Position (Lower Left of Body on Desktop & Laptop) */
+/* 6. Network Administration Card (Biru / Cyan) */
 .callout-card-wrapper.net-wrapper {
-  top: 63%;
-  left: calc(50% - 440px);
+  top: 44%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 7. Database Management Card Position (Bottom-Mid Left of Body on Desktop & Laptop) */
+/* 7. Database Management Card (Hijau / Green) */
 .callout-card-wrapper.db-wrapper {
-  top: 75%;
-  left: calc(50% - 440px);
+  top: 52%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
-/* 8. UI/UX Design Card Position (Bottom Left of Body on Desktop & Laptop) */
+/* 8. UI/UX Design Card (Merah / Red) */
 .callout-card-wrapper.uiux-wrapper {
-  top: 87%;
-  left: calc(50% - 440px);
+  top: 60%;
+  left: calc(50% - 460px);
   right: auto;
 }
 
@@ -79,14 +83,14 @@
   -webkit-backdrop-filter: none !important;
   border: none !important;
   outline: none !important;
-  padding: 4px 6px 6px 6px;
+  padding: 2px 4px 3px 4px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  min-width: 235px;
+  gap: 3px;
+  min-width: 220px;
   white-space: nowrap;
   z-index: 4;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.6px;
   box-shadow: none !important;
   transition: color 0.4s ease;
 }
@@ -95,19 +99,19 @@
 .hud-card-header {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding-bottom: 2px;
-  margin-left: -15px;
+  gap: 6px;
+  padding-bottom: 1px;
+  margin-left: -12px;
 }
 
 .hud-square-indicator {
-  font-size: 10px;
+  font-size: 9px;
   line-height: 1;
   display: inline-block;
   transition: color 0.4s ease, text-shadow 0.4s ease;
 }
 
-/* Square Indicators (Softened Glow) */
+/* Square Indicators (Hanya Biru, Hijau, Merah + Putih Idle) */
 .white-square {
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
@@ -123,45 +127,20 @@
   text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
 }
 
-.amber-square {
-  color: #fbbf24;
-  text-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
-}
-
-.purple-square {
-  color: #c084fc;
-  text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);
-}
-
 .red-square {
   color: #f43f5e;
   text-shadow: 0 0 5px rgba(244, 63, 94, 0.5);
 }
 
-.teal-square {
-  color: #2dd4bf;
-  text-shadow: 0 0 5px rgba(45, 212, 191, 0.5);
-}
-
-.indigo-square {
-  color: #818cf8;
-  text-shadow: 0 0 5px rgba(129, 140, 248, 0.5);
-}
-
-.fuchsia-square {
-  color: #f472b6;
-  text-shadow: 0 0 5px rgba(244, 114, 182, 0.5);
-}
-
 .hud-header-title {
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.1px;
   text-transform: uppercase;
   transition: color 0.4s ease, text-shadow 0.4s ease;
 }
 
-/* Header Titles (Subtle, Non-glaring Tone) */
+/* Header Titles */
 .theme-white .hud-header-title {
   color: rgba(255, 255, 255, 0.85);
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
@@ -177,41 +156,16 @@
   text-shadow: 0 0 4px rgba(52, 211, 153, 0.35);
 }
 
-.theme-amber .hud-header-title {
-  color: #fbbf24;
-  text-shadow: 0 0 4px rgba(251, 191, 36, 0.35);
-}
-
-.theme-purple .hud-header-title {
-  color: #c084fc;
-  text-shadow: 0 0 4px rgba(192, 132, 252, 0.35);
-}
-
 .theme-red .hud-header-title {
   color: #f43f5e;
   text-shadow: 0 0 4px rgba(244, 63, 94, 0.35);
-}
-
-.theme-teal .hud-header-title {
-  color: #2dd4bf;
-  text-shadow: 0 0 4px rgba(45, 212, 191, 0.35);
-}
-
-.theme-indigo .hud-header-title {
-  color: #818cf8;
-  text-shadow: 0 0 4px rgba(129, 140, 248, 0.35);
-}
-
-.theme-fuchsia .hud-header-title {
-  color: #f472b6;
-  text-shadow: 0 0 4px rgba(244, 114, 182, 0.35);
 }
 
 /* Telemetry Data Grid Body */
 .hud-telemetry-body {
   display: flex;
   align-items: stretch;
-  gap: 10px;
+  gap: 8px;
   margin-top: 1px;
 }
 
@@ -237,50 +191,25 @@
   box-shadow: 0 0 5px rgba(52, 211, 153, 0.25);
 }
 
-.amber-line {
-  background: rgba(251, 191, 36, 0.45);
-  box-shadow: 0 0 5px rgba(251, 191, 36, 0.25);
-}
-
-.purple-line {
-  background: rgba(192, 132, 252, 0.45);
-  box-shadow: 0 0 5px rgba(192, 132, 252, 0.25);
-}
-
 .red-line {
   background: rgba(244, 63, 94, 0.45);
   box-shadow: 0 0 5px rgba(244, 63, 94, 0.25);
 }
 
-.teal-line {
-  background: rgba(45, 212, 191, 0.45);
-  box-shadow: 0 0 5px rgba(45, 212, 191, 0.25);
-}
-
-.indigo-line {
-  background: rgba(129, 140, 248, 0.45);
-  box-shadow: 0 0 5px rgba(129, 140, 248, 0.25);
-}
-
-.fuchsia-line {
-  background: rgba(244, 114, 182, 0.45);
-  box-shadow: 0 0 5px rgba(244, 114, 182, 0.25);
-}
-
 .hud-data-rows {
   display: flex;
   flex-direction: column;
-  gap: 3.5px;
+  gap: 2px;
   flex-grow: 1;
 }
 
 .hud-row {
   display: grid;
-  grid-template-columns: 82px 1fr;
+  grid-template-columns: 78px 1fr;
   align-items: center;
-  font-size: 8.5px;
-  letter-spacing: 0.8px;
-  line-height: 1.25;
+  font-size: 7.8px;
+  letter-spacing: 0.7px;
+  line-height: 1.15;
 }
 
 .hud-key {
@@ -303,7 +232,7 @@
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
 }
 
-/* Cyan Theme Text (Soft Cyber Blue for Biometric) */
+/* Cyan Theme Text (Biru / Cyber Blue) */
 .theme-cyan .hud-key {
   color: #7dd3fc;
   opacity: 0.65;
@@ -316,7 +245,7 @@
   text-shadow: 0 0 4px rgba(56, 189, 248, 0.3);
 }
 
-/* Green Theme Text (Soft Emerald for Sys-Engine) */
+/* Green Theme Text (Hijau / Emerald Green) */
 .theme-green .hud-key {
   color: #6ee7b7;
   opacity: 0.65;
@@ -329,33 +258,7 @@
   text-shadow: 0 0 4px rgba(52, 211, 153, 0.3);
 }
 
-/* Amber Theme Text (Soft Gold for Web-Dev) */
-.theme-amber .hud-key {
-  color: #fde68a;
-  opacity: 0.65;
-  font-weight: 600;
-}
-
-.theme-amber .hud-val {
-  color: #fbbf24;
-  font-weight: 600;
-  text-shadow: 0 0 4px rgba(251, 191, 36, 0.3);
-}
-
-/* Purple Theme Text (Soft Violet for Android-Dev) */
-.theme-purple .hud-key {
-  color: #e9d5ff;
-  opacity: 0.65;
-  font-weight: 600;
-}
-
-.theme-purple .hud-val {
-  color: #c084fc;
-  font-weight: 600;
-  text-shadow: 0 0 4px rgba(192, 132, 252, 0.3);
-}
-
-/* Red Theme Text (Soft Crimson for Cyber-Sec) */
+/* Red Theme Text (Merah / Cyber Red) */
 .theme-red .hud-key {
   color: #fecdd3;
   opacity: 0.65;
@@ -366,45 +269,6 @@
   color: #f43f5e;
   font-weight: 600;
   text-shadow: 0 0 4px rgba(244, 63, 94, 0.3);
-}
-
-/* Teal Theme Text (Soft Aqua/Teal for Network-Admin) */
-.theme-teal .hud-key {
-  color: #99f6e4;
-  opacity: 0.65;
-  font-weight: 600;
-}
-
-.theme-teal .hud-val {
-  color: #2dd4bf;
-  font-weight: 600;
-  text-shadow: 0 0 4px rgba(45, 212, 191, 0.3);
-}
-
-/* Indigo Theme Text (Soft Electric Indigo for Database Management) */
-.theme-indigo .hud-key {
-  color: #c7d2fe;
-  opacity: 0.65;
-  font-weight: 600;
-}
-
-.theme-indigo .hud-val {
-  color: #818cf8;
-  font-weight: 600;
-  text-shadow: 0 0 4px rgba(129, 140, 248, 0.3);
-}
-
-/* Fuchsia Theme Text (Soft Neon Pink for UI/UX Design) */
-.theme-fuchsia .hud-key {
-  color: #fbcfe8;
-  opacity: 0.65;
-  font-weight: 600;
-}
-
-.theme-fuchsia .hud-val {
-  color: #f472b6;
-  font-weight: 600;
-  text-shadow: 0 0 4px rgba(244, 114, 182, 0.3);
 }
 
 /* Highlight Accents (Softened) */
@@ -426,40 +290,10 @@
   text-shadow: 0 0 6px rgba(16, 185, 129, 0.45) !important;
 }
 
-.highlight-amber {
-  color: #f59e0b !important;
-  font-weight: 700;
-  text-shadow: 0 0 6px rgba(245, 158, 11, 0.45) !important;
-}
-
-.highlight-purple {
-  color: #a855f7 !important;
-  font-weight: 700;
-  text-shadow: 0 0 6px rgba(168, 85, 247, 0.45) !important;
-}
-
 .highlight-red {
   color: #e11d48 !important;
   font-weight: 700;
   text-shadow: 0 0 6px rgba(225, 29, 72, 0.45) !important;
-}
-
-.highlight-teal {
-  color: #0d9488 !important;
-  font-weight: 700;
-  text-shadow: 0 0 6px rgba(13, 148, 136, 0.45) !important;
-}
-
-.highlight-indigo {
-  color: #6366f1 !important;
-  font-weight: 700;
-  text-shadow: 0 0 6px rgba(99, 102, 241, 0.45) !important;
-}
-
-.highlight-fuchsia {
-  color: #db2777 !important;
-  font-weight: 700;
-  text-shadow: 0 0 6px rgba(219, 39, 119, 0.45) !important;
 }
 
 /* ==========================================================================
@@ -469,65 +303,65 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 2px;
-    left: max(28px, calc(50% - 590px));
+    top: 2%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 10%;
-    left: max(28px, calc(50% - 500px));
+    top: 9%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 20%;
-    left: max(28px, calc(50% - 500px));
+    top: 16%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 30%;
-    left: max(28px, calc(50% - 500px));
+    top: 23%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 40%;
-    left: max(28px, calc(50% - 500px));
+    top: 30%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 50%;
-    left: max(28px, calc(50% - 500px));
+    top: 37%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.db-wrapper {
-    top: 60%;
-    left: max(28px, calc(50% - 500px));
+    top: 44%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .callout-card-wrapper.uiux-wrapper {
-    top: 70%;
-    left: max(28px, calc(50% - 500px));
+    top: 51%;
+    left: max(24px, calc(50% - 510px));
     right: auto;
   }
 
   .signaliq-hud-card {
-    min-width: 215px;
-    padding: 3.5px 5.5px;
+    min-width: 200px;
+    padding: 2px 4px;
   }
 
   .hud-header-title {
-    font-size: 8px;
+    font-size: 7.8px;
   }
 
   .hud-row {
-    font-size: 7.5px;
-    grid-template-columns: 74px 1fr;
+    font-size: 7.2px;
+    grid-template-columns: 70px 1fr;
   }
 }
 
@@ -535,64 +369,64 @@
 @media (min-width: 1800px) {
   .callout-card-wrapper.face-wrapper {
     top: 5%;
-    left: calc(50% - 560px);
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 17%;
-    left: calc(50% - 560px);
+    top: 13%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 29%;
-    left: calc(50% - 560px);
+    top: 21%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 41%;
-    left: calc(50% - 560px);
+    top: 29%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 53%;
-    left: calc(50% - 560px);
+    top: 37%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 65%;
-    left: calc(50% - 560px);
+    top: 45%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.db-wrapper {
-    top: 77%;
-    left: calc(50% - 560px);
+    top: 53%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .callout-card-wrapper.uiux-wrapper {
-    top: 89%;
-    left: calc(50% - 560px);
+    top: 61%;
+    left: calc(50% - 580px);
     right: auto;
   }
 
   .signaliq-hud-card {
-    min-width: 260px;
-    padding: 5.5px 7.5px;
+    min-width: 240px;
+    padding: 3px 5px;
   }
 
   .hud-header-title {
-    font-size: 10px;
+    font-size: 9.5px;
   }
 
   .hud-row {
-    font-size: 8.8px;
-    grid-template-columns: 86px 1fr;
+    font-size: 8.2px;
+    grid-template-columns: 80px 1fr;
   }
 }
 
@@ -605,66 +439,66 @@
 
   .callout-card-wrapper.face-wrapper {
     top: 2% !important;
-    left: 14px !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 14% !important;
-    left: 14px !important;
+    top: 8.5% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 26% !important;
-    left: 14px !important;
+    top: 15% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 38% !important;
-    left: 14px !important;
+    top: 21.5% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 50% !important;
-    left: 14px !important;
+    top: 28% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 62% !important;
-    left: 14px !important;
+    top: 34.5% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.db-wrapper {
-    top: 74% !important;
-    left: 14px !important;
+    top: 41% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.uiux-wrapper {
-    top: 86% !important;
-    left: 14px !important;
+    top: 47.5% !important;
+    left: 12px !important;
     right: auto !important;
   }
 
   .signaliq-hud-card {
-    min-width: 185px;
-    padding: 3px 4.5px;
+    min-width: 175px;
+    padding: 2px 3.5px;
     box-shadow: none !important;
     border: none !important;
     background: transparent !important;
   }
 
   .hud-header-title {
-    font-size: 7.2px;
+    font-size: 6.8px;
   }
 
   .hud-row {
-    font-size: 6.8px;
-    grid-template-columns: 65px 1fr;
+    font-size: 6.4px;
+    grid-template-columns: 60px 1fr;
   }
 }
