@@ -1,18 +1,5 @@
 export const skillsData = [
   {
-    id: 'web-dev',
-    code: 'SKILL_01',
-    name: 'Web Development',
-    category: 'DEV & SYSTEMS',
-    confidence: '99.4%',
-    status: 'HIGH CONFIDENCE',
-    theme: 'cyan',
-    signalLevel: 98,
-    techStack: 'React / Next.js / Node.js / HTML5 / CSS3',
-    latency: '0.02ms',
-    description: 'Modern reactive architecture, interactive UI, 3D WebGL / Canvas animations, and full-stack REST/GraphQL integration.'
-  },
-  {
     id: 'android-dev',
     code: 'SKILL_02',
     name: 'Android Development',

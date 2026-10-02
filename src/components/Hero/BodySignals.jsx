@@ -27,13 +27,15 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green
+  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
+  const webColor = isScrollZero ? 'white' : 'amber'
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.08
   const isSysEngineResolved = progress >= 0.35
+  const isWebDevResolved = progress >= 0.55
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -51,12 +53,19 @@ export default function BodySignals({ progress = 0 }) {
   const sysSecurity = isSysEngineResolved ? 'ENCRYPTED // ACTIVE' : 'HANDSHAKE_PENDING'
   const sysSignal = isSysEngineResolved ? 'OPTIMAL — 0.04ms' : 'SYNC_CHANNEL'
 
+  const webHeader = isWebDevResolved
+    ? 'SKILL_01 // WEB DEVELOPMENT'
+    : 'SKILL_01 // STACK ANALYZE'
+  const webStackId = isWebDevResolved ? 'FULL_STACK_ARCH' : 'PARSING_NODES'
+  const webConfidence = isWebDevResolved ? '99.4%' : 'CALCULATING...'
+  const webFrameworks = isWebDevResolved ? 'REACT / NEXT / LARAVEL' : 'FETCHING_MODULES'
+  const webLatency = isWebDevResolved ? 'OPTIMIZED — 0.02ms' : 'LATENCY_CHECK'
+
   return (
     <div className="face-signals-overlay">
       {/* 1. Biometric HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper face-wrapper">
         <div className={`signaliq-hud-card face-card theme-${bioColor}`}>
-          {/* Header Row: Solid Square + Scrambled Text Title */}
           <HudHeader
             text={bioHeader}
             squareClass={`${bioColor}-square`}
@@ -64,7 +73,6 @@ export default function BodySignals({ progress = 0 }) {
             isContinuous={isScrollZero}
           />
 
-          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
           <div className="hud-telemetry-body">
             <div className={`hud-vertical-line ${bioColor}-line`} />
             <div className="hud-data-rows">
@@ -80,7 +88,6 @@ export default function BodySignals({ progress = 0 }) {
       {/* 2. Sys-Engine HUD Card (Warna Hijau / Emerald) */}
       <div className="callout-card-wrapper core-wrapper">
         <div className={`signaliq-hud-card core-card theme-${sysColor}`}>
-          {/* Header Row: Solid Square + Scrambled Text Title */}
           <HudHeader
             text={sysHeader}
             squareClass={`${sysColor}-square`}
@@ -88,7 +95,6 @@ export default function BodySignals({ progress = 0 }) {
             isContinuous={isScrollZero}
           />
 
-          {/* Telemetry Data Grid with Left Vertical Bar & Scrambled Values */}
           <div className="hud-telemetry-body">
             <div className={`hud-vertical-line ${sysColor}-line`} />
             <div className="hud-data-rows">
@@ -96,6 +102,28 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="STACK" value={sysStack} highlightClass={`highlight-${sysColor}`} speed={22} isContinuous={isScrollZero} />
               <HudRow label="SECURITY" value={sysSecurity} speed={20} isContinuous={isScrollZero} />
               <HudRow label="SIGNAL" value={sysSignal} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Web Development HUD Card (Warna Amber / Gold) */}
+      <div className="callout-card-wrapper webdev-wrapper">
+        <div className={`signaliq-hud-card webdev-card theme-${webColor}`}>
+          <HudHeader
+            text={webHeader}
+            squareClass={`${webColor}-square`}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${webColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={webStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={webConfidence} highlightClass={`highlight-${webColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={webFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={webLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
         </div>

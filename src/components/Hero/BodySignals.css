@@ -15,14 +15,21 @@
 
 /* 1. Biometric Card Position (Upper Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.face-wrapper {
-  top: 20%;
+  top: 16%;
   left: calc(50% - 440px);
   right: auto;
 }
 
-/* 2. Sys-Engine Card Position (Mid/Lower Left of Body on Desktop & Laptop) */
+/* 2. Sys-Engine Card Position (Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.core-wrapper {
-  top: 48%;
+  top: 42%;
+  left: calc(50% - 440px);
+  right: auto;
+}
+
+/* 3. Web Development Card Position (Lower Left of Body on Desktop & Laptop) */
+.callout-card-wrapper.webdev-wrapper {
+  top: 68%;
   left: calc(50% - 440px);
   right: auto;
 }
@@ -81,6 +88,11 @@
   text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
 }
 
+.amber-square {
+  color: #fbbf24;
+  text-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
+}
+
 .hud-header-title {
   font-size: 9.5px;
   font-weight: 700;
@@ -103,6 +115,11 @@
 .theme-green .hud-header-title {
   color: #34d399;
   text-shadow: 0 0 4px rgba(52, 211, 153, 0.35);
+}
+
+.theme-amber .hud-header-title {
+  color: #fbbf24;
+  text-shadow: 0 0 4px rgba(251, 191, 36, 0.35);
 }
 
 /* Telemetry Data Grid Body */
@@ -133,6 +150,11 @@
 .green-line {
   background: rgba(52, 211, 153, 0.45);
   box-shadow: 0 0 5px rgba(52, 211, 153, 0.25);
+}
+
+.amber-line {
+  background: rgba(251, 191, 36, 0.45);
+  box-shadow: 0 0 5px rgba(251, 191, 36, 0.25);
 }
 
 .hud-data-rows {
@@ -197,6 +219,19 @@
   text-shadow: 0 0 4px rgba(52, 211, 153, 0.3);
 }
 
+/* Amber Theme Text (Soft Gold for Web-Dev) */
+.theme-amber .hud-key {
+  color: #fde68a;
+  opacity: 0.65;
+  font-weight: 600;
+}
+
+.theme-amber .hud-val {
+  color: #fbbf24;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(251, 191, 36, 0.3);
+}
+
 /* Highlight Accents (Softened) */
 .highlight-white {
   color: #ffffff !important;
@@ -216,6 +251,12 @@
   text-shadow: 0 0 6px rgba(16, 185, 129, 0.45) !important;
 }
 
+.highlight-amber {
+  color: #f59e0b !important;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(245, 158, 11, 0.45) !important;
+}
+
 /* ==========================================================================
    Screen Size Adjustments (Laptop & Desktop)
    ========================================================================== */
@@ -223,13 +264,19 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 30px;
+    top: 24px;
     left: max(28px, calc(50% - 590px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 26%;
+    top: 24%;
+    left: max(28px, calc(50% - 500px));
+    right: auto;
+  }
+
+  .callout-card-wrapper.webdev-wrapper {
+    top: 48%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
@@ -252,13 +299,19 @@
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
   .callout-card-wrapper.face-wrapper {
-    top: 20%;
+    top: 18%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 48%;
+    top: 44%;
+    left: calc(50% - 560px);
+    right: auto;
+  }
+
+  .callout-card-wrapper.webdev-wrapper {
+    top: 70%;
     left: calc(50% - 560px);
     right: auto;
   }
@@ -286,13 +339,19 @@
   }
 
   .callout-card-wrapper.face-wrapper {
-    top: 16% !important;
+    top: 14% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 52% !important;
+    top: 44% !important;
+    left: 14px !important;
+    right: auto !important;
+  }
+
+  .callout-card-wrapper.webdev-wrapper {
+    top: 74% !important;
     left: 14px !important;
     right: auto !important;
   }
