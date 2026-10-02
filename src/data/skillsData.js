@@ -1,18 +1,5 @@
 export const skillsData = [
   {
-    id: 'game-dev',
-    code: 'SKILL_03',
-    name: 'Game Development',
-    category: 'DEV & SYSTEMS',
-    confidence: '92.5%',
-    status: 'ACTIVE SIGNAL',
-    theme: 'amber',
-    signalLevel: 90,
-    techStack: 'Unity 3D / C# / Game Physics / 2D/3D Asset Pipeline',
-    latency: '0.08ms',
-    description: 'Gameplay mechanics, physics simulation, shader rendering, interactive real-time game logic, and optimization.'
-  },
-  {
     id: 'linux',
     code: 'SKILL_06',
     name: 'Linux',
