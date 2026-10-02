@@ -38,8 +38,6 @@ export default function BodySignals({ progress = 0 }) {
   const isScrollZero = progress < 0.04
 
   // Palette terbatas pada 3 warna cyber: Biru (Cyan), Hijau (Green), Merah (Red)
-  const bioColor = isScrollZero ? 'white' : 'cyan'
-  const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'red'
   const androidColor = isScrollZero ? 'white' : 'green'
   const cyberColor = isScrollZero ? 'white' : 'cyan'
@@ -48,30 +46,12 @@ export default function BodySignals({ progress = 0 }) {
   const uiuxColor = isScrollZero ? 'white' : 'green'
 
   // Dynamic text stages based on scroll progress
-  const isBiometricResolved = progress >= 0.06
-  const isSysEngineResolved = progress >= 0.18
-  const isWebDevResolved = progress >= 0.30
-  const isAndroidResolved = progress >= 0.44
-  const isCyberSecResolved = progress >= 0.58
-  const isNetworkResolved = progress >= 0.70
-  const isDatabaseResolved = progress >= 0.82
-  const isUiUxResolved = progress >= 0.92
-
-  const bioHeader = isBiometricResolved
-    ? 'BIOMETRIC // HIGH CONFIDENCE'
-    : 'BIOMETRIC // SCANNING...'
-  const bioTargetId = isBiometricResolved ? 'CLYNTEN_DEV_001' : 'DEV_TARGET_INIT'
-  const bioConfidence = isBiometricResolved ? '99.8%' : 'CALCULATING...'
-  const bioScanType = isBiometricResolved ? 'NEURAL / OPTICAL' : 'FACIAL_DETECT'
-  const bioSignal = isBiometricResolved ? 'LOCKED — VERIFIED' : 'ACQUIRING_DATA'
-
-  const sysHeader = isSysEngineResolved
-    ? 'SYS_ENGINE // CORE ARCH'
-    : 'SYS_ENGINE // DIAGNOSTIC...'
-  const sysId = isSysEngineResolved ? 'ENGINE_V4_PRO' : 'INIT_CORE_NODE'
-  const sysStack = isSysEngineResolved ? 'MULTI-STACK DEV' : 'LOADING_MODULES'
-  const sysSecurity = isSysEngineResolved ? 'ENCRYPTED // ACTIVE' : 'HANDSHAKE_PENDING'
-  const sysSignal = isSysEngineResolved ? 'OPTIMAL — 0.04ms' : 'SYNC_CHANNEL'
+  const isWebDevResolved = progress >= 0.15
+  const isCyberSecResolved = progress >= 0.30
+  const isAndroidResolved = progress >= 0.45
+  const isNetworkResolved = progress >= 0.60
+  const isDatabaseResolved = progress >= 0.75
+  const isUiUxResolved = progress >= 0.90
 
   const webHeader = isWebDevResolved
     ? 'SKILL_01 // WEB DEVELOPMENT'
@@ -123,65 +103,7 @@ export default function BodySignals({ progress = 0 }) {
 
   return (
     <div className="face-signals-overlay">
-      {/* 1. Biometric HUD Card (Warna Biru / Cyan) */}
-      <div className="callout-card-wrapper face-wrapper">
-        <div className={`signaliq-hud-card face-card theme-${bioColor}`}>
-          <div className="hud-card-corner top-left" />
-          <div className="hud-card-corner bottom-right" />
-
-          <HudHeader
-            text={bioHeader}
-            tag="BIO"
-            squareClass={`${bioColor}-square`}
-            colorClass={bioColor}
-            speed={18}
-            isContinuous={isScrollZero}
-          />
-
-          <div className="hud-telemetry-body">
-            <div className={`hud-vertical-line ${bioColor}-line`} />
-            <div className="hud-data-rows">
-              <HudRow label="TARGET ID" value={bioTargetId} speed={18} isContinuous={isScrollZero} />
-              <HudRow label="CONFIDENCE" value={bioConfidence} highlightClass={`highlight-${bioColor}`} speed={22} isContinuous={isScrollZero} />
-              <HudRow label="SCAN TYPE" value={bioScanType} speed={20} isContinuous={isScrollZero} />
-              <HudRow label="SIGNAL" value={bioSignal} speed={18} isContinuous={isScrollZero} />
-            </div>
-          </div>
-
-          <div className={`hud-card-beam ${bioColor}-beam`} />
-        </div>
-      </div>
-
-      {/* 2. Sys-Engine HUD Card (Warna Hijau / Emerald) */}
-      <div className="callout-card-wrapper core-wrapper">
-        <div className={`signaliq-hud-card core-card theme-${sysColor}`}>
-          <div className="hud-card-corner top-left" />
-          <div className="hud-card-corner bottom-right" />
-
-          <HudHeader
-            text={sysHeader}
-            tag="CORE"
-            squareClass={`${sysColor}-square`}
-            colorClass={sysColor}
-            speed={18}
-            isContinuous={isScrollZero}
-          />
-
-          <div className="hud-telemetry-body">
-            <div className={`hud-vertical-line ${sysColor}-line`} />
-            <div className="hud-data-rows">
-              <HudRow label="SYS ID" value={sysId} speed={18} isContinuous={isScrollZero} />
-              <HudRow label="STACK" value={sysStack} highlightClass={`highlight-${sysColor}`} speed={22} isContinuous={isScrollZero} />
-              <HudRow label="SECURITY" value={sysSecurity} speed={20} isContinuous={isScrollZero} />
-              <HudRow label="SIGNAL" value={sysSignal} speed={18} isContinuous={isScrollZero} />
-            </div>
-          </div>
-
-          <div className={`hud-card-beam ${sysColor}-beam`} />
-        </div>
-      </div>
-
-      {/* 3. Web Development HUD Card (Warna Merah / Cyber Red) */}
+      {/* 1. Skill 01: Web Development (Warna Merah / Cyber Red) */}
       <div className="callout-card-wrapper webdev-wrapper">
         <div className={`signaliq-hud-card webdev-card theme-${webColor}`}>
           <div className="hud-card-corner top-left" />
@@ -210,36 +132,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 4. Android Development HUD Card (Warna Hijau / Green) */}
-      <div className="callout-card-wrapper android-wrapper">
-        <div className={`signaliq-hud-card android-card theme-${androidColor}`}>
-          <div className="hud-card-corner top-left" />
-          <div className="hud-card-corner bottom-right" />
-
-          <HudHeader
-            text={androidHeader}
-            tag="SK_02"
-            squareClass={`${androidColor}-square`}
-            colorClass={androidColor}
-            speed={18}
-            isContinuous={isScrollZero}
-          />
-
-          <div className="hud-telemetry-body">
-            <div className={`hud-vertical-line ${androidColor}-line`} />
-            <div className="hud-data-rows">
-              <HudRow label="STACK ID" value={androidStackId} speed={18} isContinuous={isScrollZero} />
-              <HudRow label="CONFIDENCE" value={androidConfidence} highlightClass={`highlight-${androidColor}`} speed={22} isContinuous={isScrollZero} />
-              <HudRow label="CORE TECH" value={androidFrameworks} speed={20} isContinuous={isScrollZero} />
-              <HudRow label="LATENCY" value={androidLatency} speed={18} isContinuous={isScrollZero} />
-            </div>
-          </div>
-
-          <div className={`hud-card-beam ${androidColor}-beam`} />
-        </div>
-      </div>
-
-      {/* 5. Cyber Security HUD Card (Warna Biru / Cyan) */}
+      {/* 2. Skill 03: Cyber Security (Warna Biru / Cyan - Menempati Posisi Biometric / Head Area) */}
       <div className="callout-card-wrapper cyber-wrapper">
         <div className={`signaliq-hud-card cyber-card theme-${cyberColor}`}>
           <div className="hud-card-corner top-left" />
@@ -268,7 +161,65 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 6. Network Administration HUD Card (Warna Merah / Cyber Red) */}
+      {/* 3. Skill 06: UI/UX Design (Warna Hijau / Green - Menempati Posisi Sys_Engine / Right Shoulder Area) */}
+      <div className="callout-card-wrapper uiux-wrapper">
+        <div className={`signaliq-hud-card uiux-card theme-${uiuxColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
+          <HudHeader
+            text={uiuxHeader}
+            tag="SK_06"
+            squareClass={`${uiuxColor}-square`}
+            colorClass={uiuxColor}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${uiuxColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={uiuxStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={uiuxConfidence} highlightClass={`highlight-${uiuxColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={uiuxFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={uiuxLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+
+          <div className={`hud-card-beam ${uiuxColor}-beam`} />
+        </div>
+      </div>
+
+      {/* 4. Skill 02: Android Development (Warna Hijau / Green) */}
+      <div className="callout-card-wrapper android-wrapper">
+        <div className={`signaliq-hud-card android-card theme-${androidColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
+          <HudHeader
+            text={androidHeader}
+            tag="SK_02"
+            squareClass={`${androidColor}-square`}
+            colorClass={androidColor}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${androidColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={androidStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={androidConfidence} highlightClass={`highlight-${androidColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={androidFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={androidLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+
+          <div className={`hud-card-beam ${androidColor}-beam`} />
+        </div>
+      </div>
+
+      {/* 5. Skill 04: Network Administration (Warna Merah / Cyber Red) */}
       <div className="callout-card-wrapper net-wrapper">
         <div className={`signaliq-hud-card net-card theme-${netColor}`}>
           <div className="hud-card-corner top-left" />
@@ -297,7 +248,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 7. Database Management HUD Card (Warna Biru / Cyan) */}
+      {/* 6. Skill 05: Database Management (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper db-wrapper">
         <div className={`signaliq-hud-card db-card theme-${dbColor}`}>
           <div className="hud-card-corner top-left" />
@@ -323,35 +274,6 @@ export default function BodySignals({ progress = 0 }) {
           </div>
 
           <div className={`hud-card-beam ${dbColor}-beam`} />
-        </div>
-      </div>
-
-      {/* 8. UI/UX Design HUD Card (Warna Hijau / Green) */}
-      <div className="callout-card-wrapper uiux-wrapper">
-        <div className={`signaliq-hud-card uiux-card theme-${uiuxColor}`}>
-          <div className="hud-card-corner top-left" />
-          <div className="hud-card-corner bottom-right" />
-
-          <HudHeader
-            text={uiuxHeader}
-            tag="SK_06"
-            squareClass={`${uiuxColor}-square`}
-            colorClass={uiuxColor}
-            speed={18}
-            isContinuous={isScrollZero}
-          />
-
-          <div className="hud-telemetry-body">
-            <div className={`hud-vertical-line ${uiuxColor}-line`} />
-            <div className="hud-data-rows">
-              <HudRow label="STACK ID" value={uiuxStackId} speed={18} isContinuous={isScrollZero} />
-              <HudRow label="CONFIDENCE" value={uiuxConfidence} highlightClass={`highlight-${uiuxColor}`} speed={22} isContinuous={isScrollZero} />
-              <HudRow label="CORE TECH" value={uiuxFrameworks} speed={20} isContinuous={isScrollZero} />
-              <HudRow label="LATENCY" value={uiuxLatency} speed={18} isContinuous={isScrollZero} />
-            </div>
-          </div>
-
-          <div className={`hud-card-beam ${uiuxColor}-beam`} />
         </div>
       </div>
     </div>
