@@ -14,46 +14,46 @@
 }
 
 /* ==========================================================================
-   6 HUD Skill Cards Spatial Scatter
+   6 HUD Skill Cards Spatial Scatter (Sequential 01 -> 06)
    ========================================================================== */
 
-/* 1. Skill 03: Cyber Security Card (Biru / Cyan) -> Head / Upper-Left Face Area */
-.callout-card-wrapper.cyber-wrapper {
+/* 1. Skill 01: Web Development Card (Merah / Red) -> Head / Upper-Left Area */
+.callout-card-wrapper.webdev-wrapper {
   top: 6%;
   left: calc(50% - 330px);
   right: auto;
 }
 
-/* 2. Skill 01: Web Development Card (Merah / Red) -> Far Upper-Left Flank */
-.callout-card-wrapper.webdev-wrapper {
+/* 2. Skill 02: Android Development Card (Hijau / Green) -> Upper-Left Flank */
+.callout-card-wrapper.android-wrapper {
   top: 13%;
   left: calc(50% - 550px);
   right: auto;
 }
 
-/* 3. Skill 06: UI/UX Design Card (Hijau / Green) -> Right Shoulder Area */
-.callout-card-wrapper.uiux-wrapper {
+/* 3. Skill 03: Cyber Security Card (Biru / Cyan) -> Right Shoulder Area */
+.callout-card-wrapper.cyber-wrapper {
   top: 15%;
   left: calc(50% + 150px);
   right: auto;
 }
 
-/* 4. Skill 02: Android Development Card (Hijau / Green) -> Chest / Torso Center-Left */
-.callout-card-wrapper.android-wrapper {
+/* 4. Skill 04: Network Administration Card (Merah / Red) -> Chest / Torso Center-Left */
+.callout-card-wrapper.net-wrapper {
   top: 24%;
   left: calc(50% - 130px);
   right: auto;
 }
 
-/* 5. Skill 04: Network Administration Card (Merah / Red) -> Mid Outer-Left Flank */
-.callout-card-wrapper.net-wrapper {
+/* 5. Skill 05: Database Management Card (Biru / Cyan) -> Mid Outer-Left Flank */
+.callout-card-wrapper.db-wrapper {
   top: 27%;
   left: calc(50% - 520px);
   right: auto;
 }
 
-/* 6. Skill 05: Database Management Card (Biru / Cyan) -> Lower Torso / Hip Area */
-.callout-card-wrapper.db-wrapper {
+/* 6. Skill 06: UI/UX Design Card (Hijau / Green) -> Lower Torso / Hip Area */
+.callout-card-wrapper.uiux-wrapper {
   top: 48%;
   left: calc(50% - 240px);
   right: auto;
@@ -431,43 +431,43 @@
 
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
-  /* skill 03 (menempati posisi head/face) */
-  .callout-card-wrapper.cyber-wrapper {
+  /* skill 01 */
+  .callout-card-wrapper.webdev-wrapper {
     top: 5%;
     left: calc(45% - 280px);
     right: auto;
   }
 
-  /* skill 01 */
-  .callout-card-wrapper.webdev-wrapper {
+  /* skill 02 */
+  .callout-card-wrapper.android-wrapper {
     top: 15%;
     left: max(16px, calc(43% - 490px));
     right: auto;
   }
 
-  /* skill 06 (menempati posisi right shoulder) */
-  .callout-card-wrapper.uiux-wrapper {
+  /* skill 03 */
+  .callout-card-wrapper.cyber-wrapper {
     top: 13%;
     left: calc(50% + 130px);
     right: auto;
   }
 
-  /* skil 02 */
-  .callout-card-wrapper.android-wrapper {
+  /* skill 04 */
+  .callout-card-wrapper.net-wrapper {
     top: 28%;
     left: calc(30% - 110px);
     right: auto;
   }
 
-  /* skil 04 */
-  .callout-card-wrapper.net-wrapper {
+  /* skill 05 */
+  .callout-card-wrapper.db-wrapper {
     top: 45%;
     left: max(16px, calc(45% - 470px));
     right: auto;
   }
 
-  /* skill 05 */
-  .callout-card-wrapper.db-wrapper {
+  /* skill 06 */
+  .callout-card-wrapper.uiux-wrapper {
     top: 50%;
     left: calc(45% - 210px);
     right: auto;
@@ -491,43 +491,43 @@
 
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
-  /* skill 03 */
-  .callout-card-wrapper.cyber-wrapper {
+  /* skill 01 */
+  .callout-card-wrapper.webdev-wrapper {
     top: 7%;
     left: calc(50% - 390px);
     right: auto;
   }
 
-  /* skill 01 */
-  .callout-card-wrapper.webdev-wrapper {
+  /* skill 02 */
+  .callout-card-wrapper.android-wrapper {
     top: 14%;
     left: calc(50% - 640px);
     right: auto;
   }
 
-  /* skill 06 */
-  .callout-card-wrapper.uiux-wrapper {
+  /* skill 03 */
+  .callout-card-wrapper.cyber-wrapper {
     top: 17%;
     left: calc(50% + 190px);
     right: auto;
   }
 
-  /* skill 02 */
-  .callout-card-wrapper.android-wrapper {
+  /* skill 04 */
+  .callout-card-wrapper.net-wrapper {
     top: 25%;
     left: calc(50% - 160px);
     right: auto;
   }
 
-  /* skill 04 */
-  .callout-card-wrapper.net-wrapper {
+  /* skill 05 */
+  .callout-card-wrapper.db-wrapper {
     top: 29%;
     left: calc(50% - 610px);
     right: auto;
   }
 
-  /* skill 05 */
-  .callout-card-wrapper.db-wrapper {
+  /* skill 06 */
+  .callout-card-wrapper.uiux-wrapper {
     top: 51%;
     left: calc(50% - 290px);
     right: auto;
@@ -556,38 +556,44 @@
     pointer-events: none;
   }
 
+  /* skill 01 */
   .callout-card-wrapper.webdev-wrapper {
-    top: 4% !important;
+    top: 3% !important;
     left: 8px !important;
     right: auto !important;
   }
 
+  /* skill 02 */
+  .callout-card-wrapper.android-wrapper {
+    top: 11% !important;
+    left: 8px !important;
+    right: auto !important;
+  }
+
+  /* skill 03 */
   .callout-card-wrapper.cyber-wrapper {
-    top: 13% !important;
-    left: 8px !important;
-    right: auto !important;
-  }
-
-  .callout-card-wrapper.uiux-wrapper {
-    top: 4% !important;
+    top: 3% !important;
     right: 8px !important;
     left: auto !important;
   }
 
-  .callout-card-wrapper.android-wrapper {
-    top: 22% !important;
-    left: 8px !important;
-    right: auto !important;
-  }
-
+  /* skill 04 */
   .callout-card-wrapper.net-wrapper {
-    top: 31% !important;
+    top: 19% !important;
     left: 8px !important;
     right: auto !important;
   }
 
+  /* skill 05 */
   .callout-card-wrapper.db-wrapper {
-    top: 40% !important;
+    top: 27% !important;
+    left: 8px !important;
+    right: auto !important;
+  }
+
+  /* skill 06 */
+  .callout-card-wrapper.uiux-wrapper {
+    top: 35% !important;
     left: 8px !important;
     right: auto !important;
   }
