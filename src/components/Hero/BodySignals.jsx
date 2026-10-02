@@ -32,7 +32,7 @@ export default function BodySignals({ progress = 0 }) {
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'red'
   const androidColor = isScrollZero ? 'white' : 'green'
-  const cyberColor = isScrollZero ? 'white' : 'green'
+  const cyberColor = isScrollZero ? 'white' : 'cyan'
   const netColor = isScrollZero ? 'white' : 'red'
   const dbColor = isScrollZero ? 'white' : 'cyan'
   const uiuxColor = isScrollZero ? 'white' : 'green'
@@ -201,7 +201,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 5. Cyber Security HUD Card (Warna Hijau / Green) */}
+      {/* 5. Cyber Security HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper cyber-wrapper">
         <div className={`signaliq-hud-card cyber-card theme-${cyberColor}`}>
           <HudHeader
