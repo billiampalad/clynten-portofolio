@@ -74,28 +74,29 @@
 }
 
 /* ==========================================================================
-   SignalIQ Cyber HUD Telemetry (High-Tech Accents, Holographic Visor Sheen)
+   SignalIQ Cyber HUD Telemetry (Ultra-Compact, High-Tech Visor Sheen)
    ========================================================================== */
 .signaliq-hud-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(8, 12, 18, 0.65) 0%, rgba(3, 5, 8, 0.75) 100%) !important;
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
-  border-left: 2px solid transparent !important;
+  background: linear-gradient(135deg, rgba(8, 12, 18, 0.72) 0%, rgba(3, 5, 8, 0.82) 100%) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  border-left: 1.5px solid transparent !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
-  border-radius: 3px;
-  padding: 3.5px 7px 4px 7px;
+  border-radius: 2px;
+  padding: 1.5px 4px 2px 4px;
   display: flex;
   flex-direction: column;
-  gap: 3.5px;
-  min-width: 215px;
+  gap: 1.5px;
+  min-width: 142px;
+  max-width: 165px;
   white-space: nowrap;
   z-index: 4;
-  letter-spacing: 0.65px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.5) !important;
-  transition: all 0.4s ease;
+  letter-spacing: 0.4px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  transition: all 0.35s ease;
 }
 
 /* Holographic Theme Borders */
@@ -105,39 +106,39 @@
 
 .theme-cyan {
   border-left-color: #38bdf8 !important;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7), -2px 0 8px rgba(56, 189, 248, 0.25) !important;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), -1.5px 0 5px rgba(56, 189, 248, 0.25) !important;
 }
 
 .theme-green {
   border-left-color: #34d399 !important;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7), -2px 0 8px rgba(52, 211, 153, 0.25) !important;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), -1.5px 0 5px rgba(52, 211, 153, 0.25) !important;
 }
 
 .theme-red {
   border-left-color: #f43f5e !important;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7), -2px 0 8px rgba(244, 63, 94, 0.25) !important;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), -1.5px 0 5px rgba(244, 63, 94, 0.25) !important;
 }
 
 /* Micro Corner Accents */
 .hud-card-corner {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   pointer-events: none;
 }
 
 .hud-card-corner.top-left {
   top: -1px;
-  left: -2px;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.4);
-  border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+  left: -1.5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .hud-card-corner.bottom-right {
   bottom: -1px;
   right: -1px;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-right: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 /* Header Row */
@@ -145,25 +146,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  padding-bottom: 2px;
+  gap: 3px;
+  padding-bottom: 1px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .hud-header-left {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
 }
 
 .hud-header-right {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2.5px;
 }
 
 .hud-square-indicator {
-  font-size: 9px;
+  font-size: 6.5px;
   line-height: 1;
   display: inline-block;
   transition: color 0.4s ease, text-shadow 0.4s ease;
@@ -172,28 +173,28 @@
 /* Square Indicators (Softened Glow) */
 .white-square {
   color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
 }
 
 .cyan-square {
   color: #38bdf8;
-  text-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+  text-shadow: 0 0 3px rgba(56, 189, 248, 0.5);
 }
 
 .green-square {
   color: #34d399;
-  text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
+  text-shadow: 0 0 3px rgba(52, 211, 153, 0.5);
 }
 
 .red-square {
   color: #f43f5e;
-  text-shadow: 0 0 5px rgba(244, 63, 94, 0.5);
+  text-shadow: 0 0 3px rgba(244, 63, 94, 0.5);
 }
 
 .hud-header-title {
-  font-size: 8.8px;
+  font-size: 6.8px;
   font-weight: 700;
-  letter-spacing: 1.1px;
+  letter-spacing: 0.75px;
   text-transform: uppercase;
   transition: color 0.4s ease, text-shadow 0.4s ease;
 }
@@ -201,35 +202,35 @@
 /* Header Titles (Subtle, Non-glaring Tone) */
 .theme-white .hud-header-title {
   color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 2.5px rgba(255, 255, 255, 0.3);
 }
 
 .theme-cyan .hud-header-title {
   color: #38bdf8;
-  text-shadow: 0 0 4px rgba(56, 189, 248, 0.35);
+  text-shadow: 0 0 2.5px rgba(56, 189, 248, 0.35);
 }
 
 .theme-green .hud-header-title {
   color: #34d399;
-  text-shadow: 0 0 4px rgba(52, 211, 153, 0.35);
+  text-shadow: 0 0 2.5px rgba(52, 211, 153, 0.35);
 }
 
 .theme-red .hud-header-title {
   color: #f43f5e;
-  text-shadow: 0 0 4px rgba(244, 63, 94, 0.35);
+  text-shadow: 0 0 2.5px rgba(244, 63, 94, 0.35);
 }
 
 /* Micro Signal Equalizer Bars */
 .hud-micro-bars {
   display: inline-flex;
   align-items: flex-end;
-  gap: 1.5px;
-  height: 8px;
+  gap: 1px;
+  height: 5.5px;
 }
 
 .hud-micro-bars .bar {
-  width: 1.5px;
-  border-radius: 0.5px;
+  width: 1px;
+  border-radius: 0.3px;
   background: currentColor;
 }
 
@@ -239,42 +240,42 @@
 .white-bars { color: rgba(255, 255, 255, 0.6); }
 
 .hud-micro-bars .b1 {
-  height: 4px;
+  height: 2.5px;
   animation: hud-bar-pulse1 1.2s infinite alternate ease-in-out;
 }
 
 .hud-micro-bars .b2 {
-  height: 7px;
+  height: 5px;
   animation: hud-bar-pulse2 0.9s infinite alternate ease-in-out 0.2s;
 }
 
 .hud-micro-bars .b3 {
-  height: 5px;
+  height: 3.8px;
   animation: hud-bar-pulse3 1.4s infinite alternate ease-in-out 0.4s;
 }
 
 @keyframes hud-bar-pulse1 {
-  0% { height: 2px; }
-  100% { height: 6px; }
+  0% { height: 1.2px; }
+  100% { height: 4px; }
 }
 
 @keyframes hud-bar-pulse2 {
-  0% { height: 4px; }
-  100% { height: 8px; }
+  0% { height: 2.2px; }
+  100% { height: 5.5px; }
 }
 
 @keyframes hud-bar-pulse3 {
-  0% { height: 3px; }
-  100% { height: 7px; }
+  0% { height: 1.5px; }
+  100% { height: 4.5px; }
 }
 
 /* Micro Tag Badge */
 .hud-tag-badge {
-  font-size: 6.8px;
+  font-size: 5.2px;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  padding: 1px 3.5px;
-  border-radius: 2px;
+  letter-spacing: 0.5px;
+  padding: 0.3px 2px;
+  border-radius: 1px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.65);
@@ -284,51 +285,51 @@
 .hud-telemetry-body {
   display: flex;
   align-items: stretch;
-  gap: 8px;
-  margin-top: 1px;
+  gap: 5px;
+  margin-top: 0.5px;
 }
 
 .hud-vertical-line {
-  width: 1.5px;
-  border-radius: 1px;
+  width: 1.2px;
+  border-radius: 0.5px;
   flex-shrink: 0;
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .white-line {
   background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 .cyan-line {
   background: rgba(56, 189, 248, 0.45);
-  box-shadow: 0 0 5px rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 4px rgba(56, 189, 248, 0.25);
 }
 
 .green-line {
   background: rgba(52, 211, 153, 0.45);
-  box-shadow: 0 0 5px rgba(52, 211, 153, 0.25);
+  box-shadow: 0 0 4px rgba(52, 211, 153, 0.25);
 }
 
 .red-line {
   background: rgba(244, 63, 94, 0.45);
-  box-shadow: 0 0 5px rgba(244, 63, 94, 0.25);
+  box-shadow: 0 0 4px rgba(244, 63, 94, 0.25);
 }
 
 .hud-data-rows {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   flex-grow: 1;
 }
 
 .hud-row {
   display: grid;
-  grid-template-columns: 78px 1fr;
+  grid-template-columns: 52px 1fr;
   align-items: center;
-  font-size: 7.8px;
-  letter-spacing: 0.7px;
-  line-height: 1.15;
+  font-size: 6px;
+  letter-spacing: 0.35px;
+  line-height: 1.1;
 }
 
 .hud-key {
@@ -348,7 +349,7 @@
 .theme-white .hud-val {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 /* Cyan Theme Text (Biru / Cyber Blue) */
@@ -361,7 +362,7 @@
 .theme-cyan .hud-val {
   color: #38bdf8;
   font-weight: 600;
-  text-shadow: 0 0 4px rgba(56, 189, 248, 0.3);
+  text-shadow: 0 0 3px rgba(56, 189, 248, 0.3);
 }
 
 /* Green Theme Text (Hijau / Emerald Green) */
@@ -374,7 +375,7 @@
 .theme-green .hud-val {
   color: #34d399;
   font-weight: 600;
-  text-shadow: 0 0 4px rgba(52, 211, 153, 0.3);
+  text-shadow: 0 0 3px rgba(52, 211, 153, 0.3);
 }
 
 /* Red Theme Text (Merah / Cyber Red) */
@@ -387,39 +388,39 @@
 .theme-red .hud-val {
   color: #f43f5e;
   font-weight: 600;
-  text-shadow: 0 0 4px rgba(244, 63, 94, 0.3);
+  text-shadow: 0 0 3px rgba(244, 63, 94, 0.3);
 }
 
 /* Highlight Accents (Softened) */
 .highlight-white {
   color: #ffffff !important;
   font-weight: 700;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.45) !important;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.45) !important;
 }
 
 .highlight-cyan {
   color: #0ea5e9 !important;
   font-weight: 700;
-  text-shadow: 0 0 6px rgba(14, 165, 233, 0.45) !important;
+  text-shadow: 0 0 4px rgba(14, 165, 233, 0.45) !important;
 }
 
 .highlight-green {
   color: #10b981 !important;
   font-weight: 700;
-  text-shadow: 0 0 6px rgba(16, 185, 129, 0.45) !important;
+  text-shadow: 0 0 4px rgba(16, 185, 129, 0.45) !important;
 }
 
 .highlight-red {
   color: #e11d48 !important;
   font-weight: 700;
-  text-shadow: 0 0 6px rgba(225, 29, 72, 0.45) !important;
+  text-shadow: 0 0 4px rgba(225, 29, 72, 0.45) !important;
 }
 
 /* Bottom Glow Accent Beam */
 .hud-card-beam {
   height: 1px;
-  margin-top: 2px;
-  border-radius: 1px;
+  margin-top: 1.5px;
+  border-radius: 0.5px;
 }
 
 .cyan-beam {
@@ -499,17 +500,18 @@
   }
 
   .signaliq-hud-card {
-    min-width: 195px;
-    padding: 2.5px 5px;
+    min-width: 132px;
+    max-width: 150px;
+    padding: 1.5px 3.5px;
   }
 
   .hud-header-title {
-    font-size: 8px;
+    font-size: 6.2px;
   }
 
   .hud-row {
-    font-size: 7.2px;
-    grid-template-columns: 68px 1fr;
+    font-size: 5.5px;
+    grid-template-columns: 46px 1fr;
   }
 }
 
@@ -564,17 +566,18 @@
   }
 
   .signaliq-hud-card {
-    min-width: 235px;
-    padding: 4px 7px;
+    min-width: 158px;
+    max-width: 180px;
+    padding: 2px 4.5px;
   }
 
   .hud-header-title {
-    font-size: 9.8px;
+    font-size: 7.5px;
   }
 
   .hud-row {
-    font-size: 8.5px;
-    grid-template-columns: 82px 1fr;
+    font-size: 6.6px;
+    grid-template-columns: 56px 1fr;
   }
 }
 
@@ -634,19 +637,20 @@
   }
 
   .signaliq-hud-card {
-    min-width: 160px;
-    padding: 2px 3.5px;
+    min-width: 118px;
+    max-width: 140px;
+    padding: 1px 2.5px;
     box-shadow: none !important;
     border: none !important;
     background: transparent !important;
   }
 
   .hud-header-title {
-    font-size: 6.8px;
+    font-size: 5.2px;
   }
 
   .hud-row {
-    font-size: 6.2px;
-    grid-template-columns: 56px 1fr;
+    font-size: 4.8px;
+    grid-template-columns: 40px 1fr;
   }
 }
