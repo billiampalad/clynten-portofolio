@@ -320,12 +320,14 @@
     right: auto;
   }
 
+  /* skil 02 */
   .callout-card-wrapper.android-wrapper {
     top: 25%;
     left: calc(30% - 110px);
     right: auto;
   }
 
+  /* skil 04 */
   .callout-card-wrapper.net-wrapper {
     top: 25%;
     left: max(16px, calc(50% - 470px));
@@ -334,7 +336,7 @@
 
   .callout-card-wrapper.cyber-wrapper {
     top: 36%;
-    left: max(16px, calc(50% - 430px));
+    left: max(16px, calc(89% - 430px));
     right: auto;
   }
 
