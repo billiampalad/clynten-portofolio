@@ -27,25 +27,25 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Restricted strictly to 3 core cyber colors: Biru (cyan), Hijau (green), Merah (red)
-  const bioColor = isScrollZero ? 'white' : 'cyan'     // 1. Biometric = Biru (Cyan)
-  const sysColor = isScrollZero ? 'white' : 'green'    // 2. Sys-Engine = Hijau (Green)
-  const webColor = isScrollZero ? 'white' : 'cyan'     // 3. Web-Dev = Biru (Cyan)
-  const androidColor = isScrollZero ? 'white' : 'green'// 4. Android-Dev = Hijau (Green)
-  const cyberColor = isScrollZero ? 'white' : 'red'    // 5. Cyber-Sec = Merah (Red)
-  const netColor = isScrollZero ? 'white' : 'cyan'     // 6. Network-Infra = Biru (Cyan)
-  const dbColor = isScrollZero ? 'white' : 'green'     // 7. Database-Mgmt = Hijau (Green)
-  const uiuxColor = isScrollZero ? 'white' : 'red'     // 8. UI/UX-Design = Merah (Red)
+  // Palette terbatas pada 3 warna cyber: Biru (Cyan), Hijau (Green), Merah (Red)
+  const bioColor = isScrollZero ? 'white' : 'cyan'
+  const sysColor = isScrollZero ? 'white' : 'green'
+  const webColor = isScrollZero ? 'white' : 'red'
+  const androidColor = isScrollZero ? 'white' : 'cyan'
+  const cyberColor = isScrollZero ? 'white' : 'green'
+  const netColor = isScrollZero ? 'white' : 'red'
+  const dbColor = isScrollZero ? 'white' : 'cyan'
+  const uiuxColor = isScrollZero ? 'white' : 'green'
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.06
-  const isSysEngineResolved = progress >= 0.20
-  const isWebDevResolved = progress >= 0.34
-  const isAndroidResolved = progress >= 0.48
-  const isCyberSecResolved = progress >= 0.60
-  const isNetworkResolved = progress >= 0.72
-  const isDatabaseResolved = progress >= 0.84
-  const isUiUxResolved = progress >= 0.94
+  const isSysEngineResolved = progress >= 0.18
+  const isWebDevResolved = progress >= 0.30
+  const isAndroidResolved = progress >= 0.44
+  const isCyberSecResolved = progress >= 0.58
+  const isNetworkResolved = progress >= 0.70
+  const isDatabaseResolved = progress >= 0.82
+  const isUiUxResolved = progress >= 0.92
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -157,7 +157,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 3. Web Development HUD Card (Warna Amber / Gold) */}
+      {/* 3. Web Development HUD Card (Warna Merah / Cyber Red) */}
       <div className="callout-card-wrapper webdev-wrapper">
         <div className={`signaliq-hud-card webdev-card theme-${webColor}`}>
           <HudHeader
@@ -179,7 +179,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 4. Android Development HUD Card (Warna Purple / Violet) */}
+      {/* 4. Android Development HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper android-wrapper">
         <div className={`signaliq-hud-card android-card theme-${androidColor}`}>
           <HudHeader
@@ -201,7 +201,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 5. Cyber Security HUD Card (Warna Red / Crimson) */}
+      {/* 5. Cyber Security HUD Card (Warna Hijau / Green) */}
       <div className="callout-card-wrapper cyber-wrapper">
         <div className={`signaliq-hud-card cyber-card theme-${cyberColor}`}>
           <HudHeader
@@ -223,7 +223,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 6. Network Administration HUD Card (Warna Teal / Cyan-Emerald) */}
+      {/* 6. Network Administration HUD Card (Warna Merah / Cyber Red) */}
       <div className="callout-card-wrapper net-wrapper">
         <div className={`signaliq-hud-card net-card theme-${netColor}`}>
           <HudHeader
@@ -245,7 +245,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 7. Database Management HUD Card (Warna Indigo / Blue) */}
+      {/* 7. Database Management HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper db-wrapper">
         <div className={`signaliq-hud-card db-card theme-${dbColor}`}>
           <HudHeader
@@ -267,7 +267,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 8. UI/UX Design HUD Card (Warna Fuchsia / Pink) */}
+      {/* 8. UI/UX Design HUD Card (Warna Hijau / Green) */}
       <div className="callout-card-wrapper uiux-wrapper">
         <div className={`signaliq-hud-card uiux-card theme-${uiuxColor}`}>
           <HudHeader
