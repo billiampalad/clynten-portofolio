@@ -13,12 +13,22 @@ function HudRow({ label, value, highlightClass = '', speed = 20, isContinuous = 
   )
 }
 
-function HudHeader({ text, squareClass, speed = 18, isContinuous = false }) {
+function HudHeader({ text, tag, squareClass, colorClass, speed = 18, isContinuous = false }) {
   const scrambledText = useTextScramble(text, speed, isContinuous)
   return (
     <div className="hud-card-header">
-      <span className={`hud-square-indicator ${squareClass}`}>■</span>
-      <span className="hud-header-title">{scrambledText}</span>
+      <div className="hud-header-left">
+        <span className={`hud-square-indicator ${squareClass}`}>■</span>
+        <span className="hud-header-title">{scrambledText}</span>
+      </div>
+      <div className="hud-header-right">
+        <span className={`hud-micro-bars ${colorClass}-bars`}>
+          <span className="bar b1" />
+          <span className="bar b2" />
+          <span className="bar b3" />
+        </span>
+        {tag && <span className="hud-tag-badge">{tag}</span>}
+      </div>
     </div>
   )
 }
@@ -116,9 +126,14 @@ export default function BodySignals({ progress = 0 }) {
       {/* 1. Biometric HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper face-wrapper">
         <div className={`signaliq-hud-card face-card theme-${bioColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={bioHeader}
+            tag="BIO"
             squareClass={`${bioColor}-square`}
+            colorClass={bioColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -132,15 +147,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="SIGNAL" value={bioSignal} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${bioColor}-beam`} />
         </div>
       </div>
 
       {/* 2. Sys-Engine HUD Card (Warna Hijau / Emerald) */}
       <div className="callout-card-wrapper core-wrapper">
         <div className={`signaliq-hud-card core-card theme-${sysColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={sysHeader}
+            tag="CORE"
             squareClass={`${sysColor}-square`}
+            colorClass={sysColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -154,15 +176,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="SIGNAL" value={sysSignal} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${sysColor}-beam`} />
         </div>
       </div>
 
       {/* 3. Web Development HUD Card (Warna Merah / Cyber Red) */}
       <div className="callout-card-wrapper webdev-wrapper">
         <div className={`signaliq-hud-card webdev-card theme-${webColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={webHeader}
+            tag="SK_01"
             squareClass={`${webColor}-square`}
+            colorClass={webColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -176,15 +205,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="LATENCY" value={webLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${webColor}-beam`} />
         </div>
       </div>
 
       {/* 4. Android Development HUD Card (Warna Hijau / Green) */}
       <div className="callout-card-wrapper android-wrapper">
         <div className={`signaliq-hud-card android-card theme-${androidColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={androidHeader}
+            tag="SK_02"
             squareClass={`${androidColor}-square`}
+            colorClass={androidColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -198,15 +234,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="LATENCY" value={androidLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${androidColor}-beam`} />
         </div>
       </div>
 
       {/* 5. Cyber Security HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper cyber-wrapper">
         <div className={`signaliq-hud-card cyber-card theme-${cyberColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={cyberHeader}
+            tag="SK_03"
             squareClass={`${cyberColor}-square`}
+            colorClass={cyberColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -220,15 +263,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="LATENCY" value={cyberLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${cyberColor}-beam`} />
         </div>
       </div>
 
       {/* 6. Network Administration HUD Card (Warna Merah / Cyber Red) */}
       <div className="callout-card-wrapper net-wrapper">
         <div className={`signaliq-hud-card net-card theme-${netColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={netHeader}
+            tag="SK_04"
             squareClass={`${netColor}-square`}
+            colorClass={netColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -242,15 +292,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="LATENCY" value={netLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${netColor}-beam`} />
         </div>
       </div>
 
       {/* 7. Database Management HUD Card (Warna Biru / Cyan) */}
       <div className="callout-card-wrapper db-wrapper">
         <div className={`signaliq-hud-card db-card theme-${dbColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={dbHeader}
+            tag="SK_05"
             squareClass={`${dbColor}-square`}
+            colorClass={dbColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -264,15 +321,22 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="LATENCY" value={dbLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${dbColor}-beam`} />
         </div>
       </div>
 
       {/* 8. UI/UX Design HUD Card (Warna Hijau / Green) */}
       <div className="callout-card-wrapper uiux-wrapper">
         <div className={`signaliq-hud-card uiux-card theme-${uiuxColor}`}>
+          <div className="hud-card-corner top-left" />
+          <div className="hud-card-corner bottom-right" />
+
           <HudHeader
             text={uiuxHeader}
+            tag="SK_06"
             squareClass={`${uiuxColor}-square`}
+            colorClass={uiuxColor}
             speed={18}
             isContinuous={isScrollZero}
           />
@@ -286,6 +350,8 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="LATENCY" value={uiuxLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
+
+          <div className={`hud-card-beam ${uiuxColor}-beam`} />
         </div>
       </div>
     </div>
