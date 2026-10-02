@@ -27,7 +27,7 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet, Card Cyber = Red / Rose, Card Network = Teal, Card Database = Indigo / Electric Blue
+  // Card Biometric = Cyan, Sys-Engine = Green, Web-Dev = Amber, Android = Purple, Cyber = Red, Network = Teal, Database = Indigo, UI/UX = Fuchsia
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'amber'
@@ -35,15 +35,17 @@ export default function BodySignals({ progress = 0 }) {
   const cyberColor = isScrollZero ? 'white' : 'red'
   const netColor = isScrollZero ? 'white' : 'teal'
   const dbColor = isScrollZero ? 'white' : 'indigo'
+  const uiuxColor = isScrollZero ? 'white' : 'fuchsia'
 
   // Dynamic text stages based on scroll progress
-  const isBiometricResolved = progress >= 0.08
-  const isSysEngineResolved = progress >= 0.25
-  const isWebDevResolved = progress >= 0.40
-  const isAndroidResolved = progress >= 0.55
-  const isCyberSecResolved = progress >= 0.70
-  const isNetworkResolved = progress >= 0.82
-  const isDatabaseResolved = progress >= 0.92
+  const isBiometricResolved = progress >= 0.06
+  const isSysEngineResolved = progress >= 0.20
+  const isWebDevResolved = progress >= 0.34
+  const isAndroidResolved = progress >= 0.48
+  const isCyberSecResolved = progress >= 0.60
+  const isNetworkResolved = progress >= 0.72
+  const isDatabaseResolved = progress >= 0.84
+  const isUiUxResolved = progress >= 0.94
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -100,6 +102,14 @@ export default function BodySignals({ progress = 0 }) {
   const dbConfidence = isDatabaseResolved ? '96.8%' : 'CALCULATING...'
   const dbFrameworks = isDatabaseResolved ? 'POSTGRES / MYSQL / MONGO' : 'FETCHING_SCHEMA'
   const dbLatency = isDatabaseResolved ? 'OPTIMIZED — 0.03ms' : 'LATENCY_CHECK'
+
+  const uiuxHeader = isUiUxResolved
+    ? 'SKILL_06 // UI/UX DESIGN'
+    : 'SKILL_06 // WIREFRAME SYNC'
+  const uiuxStackId = isUiUxResolved ? 'DESIGN_SYSTEM_PRO' : 'GENERATING_FLOW'
+  const uiuxConfidence = isUiUxResolved ? '95.0%' : 'CALCULATING...'
+  const uiuxFrameworks = isUiUxResolved ? 'FIGMA / PROTOTYPE / HUD' : 'PARSING_CANVAS'
+  const uiuxLatency = isUiUxResolved ? 'OPTIMIZED — 0.03ms' : 'RENDER_CHECK'
 
   return (
     <div className="face-signals-overlay">
@@ -252,6 +262,28 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="CONFIDENCE" value={dbConfidence} highlightClass={`highlight-${dbColor}`} speed={22} isContinuous={isScrollZero} />
               <HudRow label="CORE TECH" value={dbFrameworks} speed={20} isContinuous={isScrollZero} />
               <HudRow label="LATENCY" value={dbLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 8. UI/UX Design HUD Card (Warna Fuchsia / Pink) */}
+      <div className="callout-card-wrapper uiux-wrapper">
+        <div className={`signaliq-hud-card uiux-card theme-${uiuxColor}`}>
+          <HudHeader
+            text={uiuxHeader}
+            squareClass={`${uiuxColor}-square`}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${uiuxColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={uiuxStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={uiuxConfidence} highlightClass={`highlight-${uiuxColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={uiuxFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={uiuxLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
         </div>

@@ -26,19 +26,6 @@ export const skillsData = [
     description: 'Geospatial intelligence, spatial layering, contour mapping, geoprocessing algorithms, and thematic cartography.'
   },
   {
-    id: 'ui-ux',
-    code: 'SKILL_10',
-    name: 'UI/UX',
-    category: 'DESIGN & SUITE',
-    confidence: '95.0%',
-    status: 'HIGH CONFIDENCE',
-    theme: 'red',
-    signalLevel: 93,
-    techStack: 'Figma / Wireframing / Prototyping / Design Systems / HUD',
-    latency: '0.03ms',
-    description: 'User-centric wireframes, modern cyber-HUD design systems, micro-interactions, responsive UX flows, and usability testing.'
-  },
-  {
     id: 'ms-office',
     code: 'SKILL_11',
     name: 'Microsoft Office',
