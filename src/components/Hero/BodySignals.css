@@ -309,7 +309,7 @@
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 11%;
+    top: 15%;
     left: max(16px, calc(43% - 490px));
     right: auto;
   }
@@ -322,33 +322,36 @@
 
   /* skil 02 */
   .callout-card-wrapper.android-wrapper {
-    top: 25%;
+    top: 28%;
     left: calc(30% - 110px);
     right: auto;
   }
 
   /* skil 04 */
   .callout-card-wrapper.net-wrapper {
-    top: 25%;
-    left: max(16px, calc(50% - 470px));
+    top: 45%;
+    left: max(16px, calc(45% - 470px));
     right: auto;
   }
 
+  /* skill 03 */
   .callout-card-wrapper.cyber-wrapper {
     top: 36%;
     left: max(16px, calc(89% - 430px));
     right: auto;
   }
 
+  /* skill 05 */
   .callout-card-wrapper.db-wrapper {
-    top: 44%;
-    left: calc(50% - 210px);
+    top: 50%;
+    left: calc(45% - 210px);
     right: auto;
   }
 
+  /* skill 06 */
   .callout-card-wrapper.uiux-wrapper {
-    top: 49%;
-    left: max(16px, calc(50% - 460px));
+    top: 55%;
+    left: max(16px, calc(90% - 460px));
     right: auto;
   }
 
