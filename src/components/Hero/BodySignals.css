@@ -31,15 +31,15 @@
   right: auto;
 }
 
-/* 3. Android Development Card (Biru / Cyan) -> Right Shoulder */
-.callout-card-wrapper.android-wrapper {
+/* 3. Sys-Engine Card (Hijau / Green) -> Right Shoulder */
+.callout-card-wrapper.core-wrapper {
   top: 15%;
   left: calc(50% + 150px);
   right: auto;
 }
 
-/* 4. Sys-Engine Card (Hijau / Green) -> Chest / Torso Center-Left */
-.callout-card-wrapper.core-wrapper {
+/* 4. Android Development Card (Biru / Cyan) -> Chest / Torso Center-Left */
+.callout-card-wrapper.android-wrapper {
   top: 24%;
   left: calc(50% - 130px);
   right: auto;
@@ -314,13 +314,13 @@
     right: auto;
   }
 
-  .callout-card-wrapper.android-wrapper {
+  .callout-card-wrapper.core-wrapper {
     top: 13%;
     left: calc(50% + 130px);
     right: auto;
   }
 
-  .callout-card-wrapper.core-wrapper {
+  .callout-card-wrapper.android-wrapper {
     top: 21%;
     left: calc(50% - 110px);
     right: auto;
@@ -379,13 +379,13 @@
     right: auto;
   }
 
-  .callout-card-wrapper.android-wrapper {
+  .callout-card-wrapper.core-wrapper {
     top: 17%;
     left: calc(50% + 190px);
     right: auto;
   }
 
-  .callout-card-wrapper.core-wrapper {
+  .callout-card-wrapper.android-wrapper {
     top: 25%;
     left: calc(50% - 160px);
     right: auto;
@@ -449,7 +449,7 @@
     right: auto !important;
   }
 
-  .callout-card-wrapper.core-wrapper {
+  .callout-card-wrapper.android-wrapper {
     top: 18% !important;
     left: 8px !important;
     right: auto !important;
@@ -479,7 +479,7 @@
     right: auto !important;
   }
 
-  .callout-card-wrapper.android-wrapper {
+  .callout-card-wrapper.core-wrapper {
     top: 3% !important;
     right: 8px !important;
     left: auto !important;
