@@ -1,18 +1,5 @@
 export const skillsData = [
   {
-    id: 'android-dev',
-    code: 'SKILL_02',
-    name: 'Android Development',
-    category: 'DEV & SYSTEMS',
-    confidence: '95.8%',
-    status: 'HIGH CONFIDENCE',
-    theme: 'emerald',
-    signalLevel: 94,
-    techStack: 'Kotlin / Flutter / Android SDK / Jetpack',
-    latency: '0.05ms',
-    description: 'Native & cross-platform mobile applications with high responsiveness, offline caching, and native hardware integration.'
-  },
-  {
     id: 'game-dev',
     code: 'SKILL_03',
     name: 'Game Development',

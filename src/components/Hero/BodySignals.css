@@ -15,21 +15,28 @@
 
 /* 1. Biometric Card Position (Upper Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.face-wrapper {
-  top: 16%;
+  top: 10%;
   left: calc(50% - 440px);
   right: auto;
 }
 
-/* 2. Sys-Engine Card Position (Mid Left of Body on Desktop & Laptop) */
+/* 2. Sys-Engine Card Position (Upper-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.core-wrapper {
-  top: 42%;
+  top: 30%;
   left: calc(50% - 440px);
   right: auto;
 }
 
-/* 3. Web Development Card Position (Lower Left of Body on Desktop & Laptop) */
+/* 3. Web Development Card Position (Lower-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.webdev-wrapper {
-  top: 68%;
+  top: 50%;
+  left: calc(50% - 440px);
+  right: auto;
+}
+
+/* 4. Android Development Card Position (Bottom Left of Body on Desktop & Laptop) */
+.callout-card-wrapper.android-wrapper {
+  top: 70%;
   left: calc(50% - 440px);
   right: auto;
 }
@@ -93,6 +100,11 @@
   text-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
 }
 
+.purple-square {
+  color: #c084fc;
+  text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);
+}
+
 .hud-header-title {
   font-size: 9.5px;
   font-weight: 700;
@@ -120,6 +132,11 @@
 .theme-amber .hud-header-title {
   color: #fbbf24;
   text-shadow: 0 0 4px rgba(251, 191, 36, 0.35);
+}
+
+.theme-purple .hud-header-title {
+  color: #c084fc;
+  text-shadow: 0 0 4px rgba(192, 132, 252, 0.35);
 }
 
 /* Telemetry Data Grid Body */
@@ -155,6 +172,11 @@
 .amber-line {
   background: rgba(251, 191, 36, 0.45);
   box-shadow: 0 0 5px rgba(251, 191, 36, 0.25);
+}
+
+.purple-line {
+  background: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 0 5px rgba(192, 132, 252, 0.25);
 }
 
 .hud-data-rows {
@@ -232,6 +254,19 @@
   text-shadow: 0 0 4px rgba(251, 191, 36, 0.3);
 }
 
+/* Purple Theme Text (Soft Violet for Android-Dev) */
+.theme-purple .hud-key {
+  color: #e9d5ff;
+  opacity: 0.65;
+  font-weight: 600;
+}
+
+.theme-purple .hud-val {
+  color: #c084fc;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(192, 132, 252, 0.3);
+}
+
 /* Highlight Accents (Softened) */
 .highlight-white {
   color: #ffffff !important;
@@ -257,6 +292,12 @@
   text-shadow: 0 0 6px rgba(245, 158, 11, 0.45) !important;
 }
 
+.highlight-purple {
+  color: #a855f7 !important;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.45) !important;
+}
+
 /* ==========================================================================
    Screen Size Adjustments (Laptop & Desktop)
    ========================================================================== */
@@ -264,19 +305,25 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 24px;
+    top: 14px;
     left: max(28px, calc(50% - 590px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 24%;
+    top: 18%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 48%;
+    top: 36%;
+    left: max(28px, calc(50% - 500px));
+    right: auto;
+  }
+
+  .callout-card-wrapper.android-wrapper {
+    top: 54%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
@@ -299,19 +346,25 @@
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
   .callout-card-wrapper.face-wrapper {
-    top: 18%;
+    top: 12%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 44%;
+    top: 32%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 70%;
+    top: 52%;
+    left: calc(50% - 560px);
+    right: auto;
+  }
+
+  .callout-card-wrapper.android-wrapper {
+    top: 72%;
     left: calc(50% - 560px);
     right: auto;
   }
@@ -339,18 +392,24 @@
   }
 
   .callout-card-wrapper.face-wrapper {
-    top: 14% !important;
+    top: 8% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 44% !important;
+    top: 30% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.webdev-wrapper {
+    top: 52% !important;
+    left: 14px !important;
+    right: auto !important;
+  }
+
+  .callout-card-wrapper.android-wrapper {
     top: 74% !important;
     left: 14px !important;
     right: auto !important;

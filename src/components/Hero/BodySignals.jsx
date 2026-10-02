@@ -27,15 +27,17 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold
+  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'amber'
+  const androidColor = isScrollZero ? 'white' : 'purple'
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.08
   const isSysEngineResolved = progress >= 0.35
   const isWebDevResolved = progress >= 0.55
+  const isAndroidResolved = progress >= 0.72
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -60,6 +62,14 @@ export default function BodySignals({ progress = 0 }) {
   const webConfidence = isWebDevResolved ? '99.4%' : 'CALCULATING...'
   const webFrameworks = isWebDevResolved ? 'REACT / NEXT / LARAVEL' : 'FETCHING_MODULES'
   const webLatency = isWebDevResolved ? 'OPTIMIZED — 0.02ms' : 'LATENCY_CHECK'
+
+  const androidHeader = isAndroidResolved
+    ? 'SKILL_02 // ANDROID DEV'
+    : 'SKILL_02 // MOBILE PIPELINE'
+  const androidStackId = isAndroidResolved ? 'MOBILE_OS_NODE' : 'RESOLVING_SDK'
+  const androidConfidence = isAndroidResolved ? '95.8%' : 'CALCULATING...'
+  const androidFrameworks = isAndroidResolved ? 'KOTLIN / FLUTTER / SDK' : 'SCANNING_DEVICE'
+  const androidLatency = isAndroidResolved ? 'OPTIMIZED — 0.05ms' : 'LATENCY_CHECK'
 
   return (
     <div className="face-signals-overlay">
@@ -124,6 +134,28 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="CONFIDENCE" value={webConfidence} highlightClass={`highlight-${webColor}`} speed={22} isContinuous={isScrollZero} />
               <HudRow label="CORE TECH" value={webFrameworks} speed={20} isContinuous={isScrollZero} />
               <HudRow label="LATENCY" value={webLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. Android Development HUD Card (Warna Purple / Violet) */}
+      <div className="callout-card-wrapper android-wrapper">
+        <div className={`signaliq-hud-card android-card theme-${androidColor}`}>
+          <HudHeader
+            text={androidHeader}
+            squareClass={`${androidColor}-square`}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${androidColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={androidStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={androidConfidence} highlightClass={`highlight-${androidColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={androidFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={androidLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
         </div>
