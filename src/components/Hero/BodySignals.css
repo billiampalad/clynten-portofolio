@@ -38,10 +38,10 @@
   right: auto;
 }
 
-/* 4. Android Development Card (Biru / Cyan) -> Chest / Torso Center-Left */
+/* 4. Android Development Card (Hijau / Green) -> Chest / Torso Center-Left */
 .callout-card-wrapper.android-wrapper {
   top: 24%;
-  left: calc(50% - 130px);
+  left: calc(60% - 100px);
   right: auto;
 }
 
@@ -304,25 +304,25 @@
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
     top: 5%;
-    left: calc(50% - 280px);
+    left: calc(45% - 280px);
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
     top: 11%;
-    left: max(16px, calc(50% - 490px));
+    left: max(16px, calc(43% - 490px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 13%;
+    top: 10%;
     left: calc(50% + 130px);
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 21%;
-    left: calc(50% - 110px);
+    top: 25%;
+    left: calc(30% - 110px);
     right: auto;
   }
 

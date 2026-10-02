@@ -31,7 +31,7 @@ export default function BodySignals({ progress = 0 }) {
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'red'
-  const androidColor = isScrollZero ? 'white' : 'cyan'
+  const androidColor = isScrollZero ? 'white' : 'green'
   const cyberColor = isScrollZero ? 'white' : 'green'
   const netColor = isScrollZero ? 'white' : 'red'
   const dbColor = isScrollZero ? 'white' : 'cyan'
@@ -179,7 +179,7 @@ export default function BodySignals({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 4. Android Development HUD Card (Warna Biru / Cyan) */}
+      {/* 4. Android Development HUD Card (Warna Hijau / Green) */}
       <div className="callout-card-wrapper android-wrapper">
         <div className={`signaliq-hud-card android-card theme-${androidColor}`}>
           <HudHeader
