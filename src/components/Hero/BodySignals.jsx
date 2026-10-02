@@ -27,17 +27,19 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet
+  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet, Card Cyber = Red / Rose
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'amber'
   const androidColor = isScrollZero ? 'white' : 'purple'
+  const cyberColor = isScrollZero ? 'white' : 'red'
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.08
   const isSysEngineResolved = progress >= 0.35
   const isWebDevResolved = progress >= 0.55
   const isAndroidResolved = progress >= 0.72
+  const isCyberSecResolved = progress >= 0.86
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -70,6 +72,14 @@ export default function BodySignals({ progress = 0 }) {
   const androidConfidence = isAndroidResolved ? '95.8%' : 'CALCULATING...'
   const androidFrameworks = isAndroidResolved ? 'KOTLIN / FLUTTER / SDK' : 'SCANNING_DEVICE'
   const androidLatency = isAndroidResolved ? 'OPTIMIZED — 0.05ms' : 'LATENCY_CHECK'
+
+  const cyberHeader = isCyberSecResolved
+    ? 'SKILL_03 // CYBER SECURITY'
+    : 'SKILL_03 // THREAT AUDIT'
+  const cyberStackId = isCyberSecResolved ? 'SEC_AUDIT_PRO' : 'CHECKING_VULN'
+  const cyberConfidence = isCyberSecResolved ? '96.2%' : 'CALCULATING...'
+  const cyberFrameworks = isCyberSecResolved ? 'KALI / UBUNTU / NMAP' : 'PROBING_PORTS'
+  const cyberLatency = isCyberSecResolved ? 'SHIELD — 0.01ms' : 'DEFENSE_SYNC'
 
   return (
     <div className="face-signals-overlay">
@@ -156,6 +166,28 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="CONFIDENCE" value={androidConfidence} highlightClass={`highlight-${androidColor}`} speed={22} isContinuous={isScrollZero} />
               <HudRow label="CORE TECH" value={androidFrameworks} speed={20} isContinuous={isScrollZero} />
               <HudRow label="LATENCY" value={androidLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. Cyber Security HUD Card (Warna Red / Crimson) */}
+      <div className="callout-card-wrapper cyber-wrapper">
+        <div className={`signaliq-hud-card cyber-card theme-${cyberColor}`}>
+          <HudHeader
+            text={cyberHeader}
+            squareClass={`${cyberColor}-square`}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${cyberColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={cyberStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={cyberConfidence} highlightClass={`highlight-${cyberColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={cyberFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={cyberLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
         </div>

@@ -13,19 +13,6 @@ export const skillsData = [
     description: 'Gameplay mechanics, physics simulation, shader rendering, interactive real-time game logic, and optimization.'
   },
   {
-    id: 'cyber-sec',
-    code: 'SKILL_04',
-    name: 'Cyber Security',
-    category: 'SECURITY & NETWORK',
-    confidence: '96.2%',
-    status: 'HIGH CONFIDENCE',
-    theme: 'red',
-    signalLevel: 95,
-    techStack: 'Threat Analysis / Penetration Testing / Cryptography',
-    latency: '0.01ms',
-    description: 'System vulnerability auditing, security hardening, secure authentication protocols, and threat mitigation.'
-  },
-  {
     id: 'network-admin',
     code: 'SKILL_05',
     name: 'Administrasi Jaringan',
