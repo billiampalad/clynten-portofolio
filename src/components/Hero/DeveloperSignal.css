@@ -1,6 +1,6 @@
 .developer-signal-container {
   position: absolute;
-  top: 42%;
+  top: 45%;
   right: 48px;
   transform: translateY(-50%);
   z-index: 25;
@@ -237,10 +237,13 @@
 }
 
 @keyframes pulse-dot {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.35;
     transform: scale(0.75);
