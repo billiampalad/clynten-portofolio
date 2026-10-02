@@ -36,7 +36,7 @@ export default function SkillsMatrix() {
           <div className="skills-header-right">
             <div className="matrix-stat-box">
               <span className="stat-label">TOTAL SIGNALS</span>
-              <span className="stat-number">11 / 11</span>
+              <span className="stat-number">{skillsData.length} / {skillsData.length}</span>
             </div>
             <div className="matrix-stat-box">
               <span className="stat-label">SYSTEM INTEGRITY</span>
@@ -67,7 +67,7 @@ export default function SkillsMatrix() {
         {/* Main Grid of SignalIQ Skill Cards */}
         <div className="skills-grid">
           {filteredSkills.map((skill) => {
-            const isSelected = selectedSkill.id === skill.id
+            const isSelected = selectedSkill?.id === skill.id
             return (
               <div
                 key={skill.id}

@@ -27,19 +27,21 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet, Card Cyber = Red / Rose
+  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet, Card Cyber = Red / Rose, Card Network = Teal / Cyan-Emerald
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'amber'
   const androidColor = isScrollZero ? 'white' : 'purple'
   const cyberColor = isScrollZero ? 'white' : 'red'
+  const netColor = isScrollZero ? 'white' : 'teal'
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.08
-  const isSysEngineResolved = progress >= 0.35
-  const isWebDevResolved = progress >= 0.55
-  const isAndroidResolved = progress >= 0.72
-  const isCyberSecResolved = progress >= 0.86
+  const isSysEngineResolved = progress >= 0.30
+  const isWebDevResolved = progress >= 0.48
+  const isAndroidResolved = progress >= 0.65
+  const isCyberSecResolved = progress >= 0.78
+  const isNetworkResolved = progress >= 0.90
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -80,6 +82,14 @@ export default function BodySignals({ progress = 0 }) {
   const cyberConfidence = isCyberSecResolved ? '96.2%' : 'CALCULATING...'
   const cyberFrameworks = isCyberSecResolved ? 'KALI / UBUNTU / NMAP' : 'PROBING_PORTS'
   const cyberLatency = isCyberSecResolved ? 'SHIELD — 0.01ms' : 'DEFENSE_SYNC'
+
+  const netHeader = isNetworkResolved
+    ? 'SKILL_04 // NETWORK INFRA'
+    : 'SKILL_04 // ROUTE SCAN'
+  const netStackId = isNetworkResolved ? 'NET_TOPOLOGY_V2' : 'PROBING_SUBNET'
+  const netConfidence = isNetworkResolved ? '94.7%' : 'CALCULATING...'
+  const netFrameworks = isNetworkResolved ? 'MIKROTIK / CISCO / VPN' : 'RESOLVING_VLAN'
+  const netLatency = isNetworkResolved ? 'LOW LATENCY — 0.03ms' : 'PING_GATEWAY'
 
   return (
     <div className="face-signals-overlay">
@@ -188,6 +198,28 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="CONFIDENCE" value={cyberConfidence} highlightClass={`highlight-${cyberColor}`} speed={22} isContinuous={isScrollZero} />
               <HudRow label="CORE TECH" value={cyberFrameworks} speed={20} isContinuous={isScrollZero} />
               <HudRow label="LATENCY" value={cyberLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 6. Network Administration HUD Card (Warna Teal / Cyan-Emerald) */}
+      <div className="callout-card-wrapper net-wrapper">
+        <div className={`signaliq-hud-card net-card theme-${netColor}`}>
+          <HudHeader
+            text={netHeader}
+            squareClass={`${netColor}-square`}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${netColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={netStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={netConfidence} highlightClass={`highlight-${netColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={netFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={netLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
         </div>

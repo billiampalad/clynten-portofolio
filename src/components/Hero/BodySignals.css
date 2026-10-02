@@ -15,35 +15,42 @@
 
 /* 1. Biometric Card Position (Upper Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.face-wrapper {
-  top: 8%;
+  top: 6%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 2. Sys-Engine Card Position (Upper-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.core-wrapper {
-  top: 24%;
+  top: 20%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 3. Web Development Card Position (Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.webdev-wrapper {
-  top: 40%;
+  top: 34%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 4. Android Development Card Position (Lower-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.android-wrapper {
-  top: 56%;
+  top: 48%;
   left: calc(50% - 440px);
   right: auto;
 }
 
-/* 5. Cyber Security Card Position (Bottom Left of Body on Desktop & Laptop) */
+/* 5. Cyber Security Card Position (Lower Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.cyber-wrapper {
-  top: 72%;
+  top: 62%;
+  left: calc(50% - 440px);
+  right: auto;
+}
+
+/* 6. Network Administration Card Position (Bottom Left of Body on Desktop & Laptop) */
+.callout-card-wrapper.net-wrapper {
+  top: 76%;
   left: calc(50% - 440px);
   right: auto;
 }
@@ -117,6 +124,11 @@
   text-shadow: 0 0 5px rgba(244, 63, 94, 0.5);
 }
 
+.teal-square {
+  color: #2dd4bf;
+  text-shadow: 0 0 5px rgba(45, 212, 191, 0.5);
+}
+
 .hud-header-title {
   font-size: 9.5px;
   font-weight: 700;
@@ -154,6 +166,11 @@
 .theme-red .hud-header-title {
   color: #f43f5e;
   text-shadow: 0 0 4px rgba(244, 63, 94, 0.35);
+}
+
+.theme-teal .hud-header-title {
+  color: #2dd4bf;
+  text-shadow: 0 0 4px rgba(45, 212, 191, 0.35);
 }
 
 /* Telemetry Data Grid Body */
@@ -199,6 +216,11 @@
 .red-line {
   background: rgba(244, 63, 94, 0.45);
   box-shadow: 0 0 5px rgba(244, 63, 94, 0.25);
+}
+
+.teal-line {
+  background: rgba(45, 212, 191, 0.45);
+  box-shadow: 0 0 5px rgba(45, 212, 191, 0.25);
 }
 
 .hud-data-rows {
@@ -302,6 +324,19 @@
   text-shadow: 0 0 4px rgba(244, 63, 94, 0.3);
 }
 
+/* Teal Theme Text (Soft Aqua/Teal for Network-Admin) */
+.theme-teal .hud-key {
+  color: #99f6e4;
+  opacity: 0.65;
+  font-weight: 600;
+}
+
+.theme-teal .hud-val {
+  color: #2dd4bf;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(45, 212, 191, 0.3);
+}
+
 /* Highlight Accents (Softened) */
 .highlight-white {
   color: #ffffff !important;
@@ -339,6 +374,12 @@
   text-shadow: 0 0 6px rgba(225, 29, 72, 0.45) !important;
 }
 
+.highlight-teal {
+  color: #0d9488 !important;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(13, 148, 136, 0.45) !important;
+}
+
 /* ==========================================================================
    Screen Size Adjustments (Laptop & Desktop)
    ========================================================================== */
@@ -346,31 +387,37 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 10px;
+    top: 8px;
     left: max(28px, calc(50% - 590px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 15%;
+    top: 13%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 30%;
+    top: 26%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 45%;
+    top: 39%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 60%;
+    top: 52%;
+    left: max(28px, calc(50% - 500px));
+    right: auto;
+  }
+
+  .callout-card-wrapper.net-wrapper {
+    top: 65%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
@@ -393,31 +440,37 @@
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
   .callout-card-wrapper.face-wrapper {
-    top: 10%;
+    top: 8%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 26%;
+    top: 22%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 42%;
+    top: 36%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 58%;
+    top: 50%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 74%;
+    top: 64%;
+    left: calc(50% - 560px);
+    right: auto;
+  }
+
+  .callout-card-wrapper.net-wrapper {
+    top: 78%;
     left: calc(50% - 560px);
     right: auto;
   }
@@ -445,31 +498,37 @@
   }
 
   .callout-card-wrapper.face-wrapper {
-    top: 6% !important;
+    top: 5% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 24% !important;
+    top: 20% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 42% !important;
+    top: 35% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 60% !important;
+    top: 50% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 78% !important;
+    top: 65% !important;
+    left: 14px !important;
+    right: auto !important;
+  }
+
+  .callout-card-wrapper.net-wrapper {
+    top: 80% !important;
     left: 14px !important;
     right: auto !important;
   }

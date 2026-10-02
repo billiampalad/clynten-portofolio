@@ -13,19 +13,6 @@ export const skillsData = [
     description: 'Gameplay mechanics, physics simulation, shader rendering, interactive real-time game logic, and optimization.'
   },
   {
-    id: 'network-admin',
-    code: 'SKILL_05',
-    name: 'Administrasi Jaringan',
-    category: 'SECURITY & NETWORK',
-    confidence: '94.7%',
-    status: 'ACTIVE SIGNAL',
-    theme: 'cyan',
-    signalLevel: 92,
-    techStack: 'Mikrotik / Cisco / Routing & Switching / Firewall / VPN',
-    latency: '0.03ms',
-    description: 'Enterprise network topology design, VLAN management, bandwidth management, firewall security, and server routing.'
-  },
-  {
     id: 'linux',
     code: 'SKILL_06',
     name: 'Linux',
