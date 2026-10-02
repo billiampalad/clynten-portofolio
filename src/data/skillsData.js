@@ -1,18 +1,5 @@
 export const skillsData = [
   {
-    id: 'linux',
-    code: 'SKILL_06',
-    name: 'Linux',
-    category: 'SECURITY & NETWORK',
-    confidence: '97.1%',
-    status: 'HIGH CONFIDENCE',
-    theme: 'emerald',
-    signalLevel: 96,
-    techStack: 'Ubuntu / Debian / Arch / Bash / Server Ops / Docker',
-    latency: '0.02ms',
-    description: 'Unix server administration, automated shell scripting, daemon management, containerization, and environment tuning.'
-  },
-  {
     id: 'db-mgmt',
     code: 'SKILL_07',
     name: 'Database Management',
