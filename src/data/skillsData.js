@@ -1,18 +1,5 @@
 export const skillsData = [
   {
-    id: 'db-mgmt',
-    code: 'SKILL_07',
-    name: 'Database Management',
-    category: 'DATA & SPATIAL',
-    confidence: '96.8%',
-    status: 'HIGH CONFIDENCE',
-    theme: 'cyan',
-    signalLevel: 95,
-    techStack: 'PostgreSQL / MySQL / MongoDB / Query Tuning / ORM',
-    latency: '0.03ms',
-    description: 'Relational & document database architecture, indexing strategies, data integrity, and high-throughput query design.'
-  },
-  {
     id: 'data-analysis',
     code: 'SKILL_08',
     name: 'Data Analysis',

@@ -15,42 +15,49 @@
 
 /* 1. Biometric Card Position (Upper Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.face-wrapper {
-  top: 6%;
+  top: 4%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 2. Sys-Engine Card Position (Upper-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.core-wrapper {
-  top: 20%;
+  top: 17%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 3. Web Development Card Position (Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.webdev-wrapper {
-  top: 34%;
+  top: 30%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 4. Android Development Card Position (Lower-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.android-wrapper {
-  top: 48%;
+  top: 43%;
   left: calc(50% - 440px);
   right: auto;
 }
 
 /* 5. Cyber Security Card Position (Lower Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.cyber-wrapper {
-  top: 62%;
+  top: 56%;
   left: calc(50% - 440px);
   right: auto;
 }
 
-/* 6. Network Administration Card Position (Bottom Left of Body on Desktop & Laptop) */
+/* 6. Network Administration Card Position (Bottom-Mid Left of Body on Desktop & Laptop) */
 .callout-card-wrapper.net-wrapper {
-  top: 76%;
+  top: 69%;
+  left: calc(50% - 440px);
+  right: auto;
+}
+
+/* 7. Database Management Card Position (Bottom Left of Body on Desktop & Laptop) */
+.callout-card-wrapper.db-wrapper {
+  top: 82%;
   left: calc(50% - 440px);
   right: auto;
 }
@@ -129,6 +136,11 @@
   text-shadow: 0 0 5px rgba(45, 212, 191, 0.5);
 }
 
+.indigo-square {
+  color: #818cf8;
+  text-shadow: 0 0 5px rgba(129, 140, 248, 0.5);
+}
+
 .hud-header-title {
   font-size: 9.5px;
   font-weight: 700;
@@ -171,6 +183,11 @@
 .theme-teal .hud-header-title {
   color: #2dd4bf;
   text-shadow: 0 0 4px rgba(45, 212, 191, 0.35);
+}
+
+.theme-indigo .hud-header-title {
+  color: #818cf8;
+  text-shadow: 0 0 4px rgba(129, 140, 248, 0.35);
 }
 
 /* Telemetry Data Grid Body */
@@ -221,6 +238,11 @@
 .teal-line {
   background: rgba(45, 212, 191, 0.45);
   box-shadow: 0 0 5px rgba(45, 212, 191, 0.25);
+}
+
+.indigo-line {
+  background: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 0 5px rgba(129, 140, 248, 0.25);
 }
 
 .hud-data-rows {
@@ -337,6 +359,19 @@
   text-shadow: 0 0 4px rgba(45, 212, 191, 0.3);
 }
 
+/* Indigo Theme Text (Soft Electric Indigo for Database Management) */
+.theme-indigo .hud-key {
+  color: #c7d2fe;
+  opacity: 0.65;
+  font-weight: 600;
+}
+
+.theme-indigo .hud-val {
+  color: #818cf8;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(129, 140, 248, 0.3);
+}
+
 /* Highlight Accents (Softened) */
 .highlight-white {
   color: #ffffff !important;
@@ -353,7 +388,7 @@
 .highlight-green {
   color: #10b981 !important;
   font-weight: 700;
-  text-shadow: 0 0 6px rgba(16, 185, 129, 0.45) !important;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.45) !important;
 }
 
 .highlight-amber {
@@ -380,6 +415,12 @@
   text-shadow: 0 0 6px rgba(13, 148, 136, 0.45) !important;
 }
 
+.highlight-indigo {
+  color: #6366f1 !important;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(99, 102, 241, 0.45) !important;
+}
+
 /* ==========================================================================
    Screen Size Adjustments (Laptop & Desktop)
    ========================================================================== */
@@ -387,44 +428,50 @@
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
   .callout-card-wrapper.face-wrapper {
-    top: 8px;
+    top: 4px;
     left: max(28px, calc(50% - 590px));
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 13%;
+    top: 11%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 26%;
+    top: 22%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 39%;
+    top: 33%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 52%;
+    top: 44%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 65%;
+    top: 55%;
+    left: max(28px, calc(50% - 500px));
+    right: auto;
+  }
+
+  .callout-card-wrapper.db-wrapper {
+    top: 66%;
     left: max(28px, calc(50% - 500px));
     right: auto;
   }
 
   .signaliq-hud-card {
     min-width: 215px;
-    padding: 5px 7px;
+    padding: 4px 6px;
   }
 
   .hud-header-title {
@@ -440,44 +487,50 @@
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
   .callout-card-wrapper.face-wrapper {
-    top: 8%;
+    top: 6%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 22%;
+    top: 19%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 36%;
+    top: 32%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 50%;
+    top: 45%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 64%;
+    top: 58%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 78%;
+    top: 71%;
+    left: calc(50% - 560px);
+    right: auto;
+  }
+
+  .callout-card-wrapper.db-wrapper {
+    top: 84%;
     left: calc(50% - 560px);
     right: auto;
   }
 
   .signaliq-hud-card {
     min-width: 260px;
-    padding: 7px 9px;
+    padding: 6px 8px;
   }
 
   .hud-header-title {
@@ -498,44 +551,50 @@
   }
 
   .callout-card-wrapper.face-wrapper {
-    top: 5% !important;
+    top: 3% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.core-wrapper {
-    top: 20% !important;
+    top: 16% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.webdev-wrapper {
-    top: 35% !important;
+    top: 29% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 50% !important;
+    top: 42% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 65% !important;
+    top: 55% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 80% !important;
+    top: 68% !important;
+    left: 14px !important;
+    right: auto !important;
+  }
+
+  .callout-card-wrapper.db-wrapper {
+    top: 81% !important;
     left: 14px !important;
     right: auto !important;
   }
 
   .signaliq-hud-card {
     min-width: 185px;
-    padding: 4px 6px;
+    padding: 3.5px 5px;
     box-shadow: none !important;
     border: none !important;
     background: transparent !important;

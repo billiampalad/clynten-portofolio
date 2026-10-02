@@ -27,21 +27,23 @@ export default function BodySignals({ progress = 0 }) {
   // Idle state at scroll 0 (soft white color + continuous shuffle)
   const isScrollZero = progress < 0.04
 
-  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet, Card Cyber = Red / Rose, Card Network = Teal / Cyan-Emerald
+  // Card Biometric = Biru / Cyan, Card Sys-Engine = Hijau / Green, Card Web-Dev = Amber / Gold, Card Android = Purple / Violet, Card Cyber = Red / Rose, Card Network = Teal, Card Database = Indigo / Electric Blue
   const bioColor = isScrollZero ? 'white' : 'cyan'
   const sysColor = isScrollZero ? 'white' : 'green'
   const webColor = isScrollZero ? 'white' : 'amber'
   const androidColor = isScrollZero ? 'white' : 'purple'
   const cyberColor = isScrollZero ? 'white' : 'red'
   const netColor = isScrollZero ? 'white' : 'teal'
+  const dbColor = isScrollZero ? 'white' : 'indigo'
 
   // Dynamic text stages based on scroll progress
   const isBiometricResolved = progress >= 0.08
-  const isSysEngineResolved = progress >= 0.30
-  const isWebDevResolved = progress >= 0.48
-  const isAndroidResolved = progress >= 0.65
-  const isCyberSecResolved = progress >= 0.78
-  const isNetworkResolved = progress >= 0.90
+  const isSysEngineResolved = progress >= 0.25
+  const isWebDevResolved = progress >= 0.40
+  const isAndroidResolved = progress >= 0.55
+  const isCyberSecResolved = progress >= 0.70
+  const isNetworkResolved = progress >= 0.82
+  const isDatabaseResolved = progress >= 0.92
 
   const bioHeader = isBiometricResolved
     ? 'BIOMETRIC // HIGH CONFIDENCE'
@@ -90,6 +92,14 @@ export default function BodySignals({ progress = 0 }) {
   const netConfidence = isNetworkResolved ? '94.7%' : 'CALCULATING...'
   const netFrameworks = isNetworkResolved ? 'MIKROTIK / CISCO / VPN' : 'RESOLVING_VLAN'
   const netLatency = isNetworkResolved ? 'LOW LATENCY — 0.03ms' : 'PING_GATEWAY'
+
+  const dbHeader = isDatabaseResolved
+    ? 'SKILL_05 // DATABASE MGMT'
+    : 'SKILL_05 // DB QUERY SYNC'
+  const dbStackId = isDatabaseResolved ? 'DATA_ENGINE_V3' : 'CONNECTING_NODES'
+  const dbConfidence = isDatabaseResolved ? '96.8%' : 'CALCULATING...'
+  const dbFrameworks = isDatabaseResolved ? 'POSTGRES / MYSQL / MONGO' : 'FETCHING_SCHEMA'
+  const dbLatency = isDatabaseResolved ? 'OPTIMIZED — 0.03ms' : 'LATENCY_CHECK'
 
   return (
     <div className="face-signals-overlay">
@@ -220,6 +230,28 @@ export default function BodySignals({ progress = 0 }) {
               <HudRow label="CONFIDENCE" value={netConfidence} highlightClass={`highlight-${netColor}`} speed={22} isContinuous={isScrollZero} />
               <HudRow label="CORE TECH" value={netFrameworks} speed={20} isContinuous={isScrollZero} />
               <HudRow label="LATENCY" value={netLatency} speed={18} isContinuous={isScrollZero} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 7. Database Management HUD Card (Warna Indigo / Blue) */}
+      <div className="callout-card-wrapper db-wrapper">
+        <div className={`signaliq-hud-card db-card theme-${dbColor}`}>
+          <HudHeader
+            text={dbHeader}
+            squareClass={`${dbColor}-square`}
+            speed={18}
+            isContinuous={isScrollZero}
+          />
+
+          <div className="hud-telemetry-body">
+            <div className={`hud-vertical-line ${dbColor}-line`} />
+            <div className="hud-data-rows">
+              <HudRow label="STACK ID" value={dbStackId} speed={18} isContinuous={isScrollZero} />
+              <HudRow label="CONFIDENCE" value={dbConfidence} highlightClass={`highlight-${dbColor}`} speed={22} isContinuous={isScrollZero} />
+              <HudRow label="CORE TECH" value={dbFrameworks} speed={20} isContinuous={isScrollZero} />
+              <HudRow label="LATENCY" value={dbLatency} speed={18} isContinuous={isScrollZero} />
             </div>
           </div>
         </div>
