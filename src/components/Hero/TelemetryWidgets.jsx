@@ -71,10 +71,20 @@ export default function TelemetryWidgets({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 3. Center Bottom Ambient Scroll Prompt */}
-      <div className="center-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 3) }}>
-        <span className="hint-text">SCROLL TO ANALYZE PROFILE</span>
-        <div className="hint-arrow">↓</div>
+      {/* 3. Center Bottom Ambient Futuristic Scroll Prompt */}
+      <div className="center-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 4) }}>
+        <div className="cyber-mouse-pill">
+          <span className="mouse-wheel-laser" />
+        </div>
+        <div className="hint-label-wrapper">
+          <span className="hint-bracket">[</span>
+          <span className="hint-text">SCROLL TO EXPLORE TELEMETRY</span>
+          <span className="hint-bracket">]</span>
+        </div>
+        <div className="hint-chevrons">
+          <span className="chevron-bar c1" />
+          <span className="chevron-bar c2" />
+        </div>
       </div>
     </div>
   )

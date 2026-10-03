@@ -88,31 +88,117 @@
   font-weight: 600;
 }
 
-/* 3. Center Bottom Ambient Hint */
+/* 3. Center Bottom Ambient Futuristic Scroll Prompt */
 .center-scroll-hint {
   position: absolute;
-  bottom: 20px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.4);
-  transition: opacity 0.3s;
+  gap: 5px;
+  font-family: 'Courier New', Courier, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 22;
 }
 
-.hint-arrow {
-  font-size: 12px;
+/* Cyber Mouse Pill */
+.cyber-mouse-pill {
+  width: 14px;
+  height: 22px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(0, 255, 170, 0.5);
+  background: rgba(4, 8, 14, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  padding-top: 3px;
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.2), inset 0 0 6px rgba(0, 255, 170, 0.15);
+}
+
+.mouse-wheel-laser {
+  width: 2px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #00ffaa;
+  box-shadow: 0 0 6px #00ffaa;
+  animation: cyber-wheel-scroll 1.6s infinite ease-in-out;
+}
+
+@keyframes cyber-wheel-scroll {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+    height: 5px;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 0.8;
+    height: 3.5px;
+  }
+  100% {
+    transform: translateY(11px);
+    opacity: 0;
+    height: 2px;
+  }
+}
+
+.hint-label-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.hint-bracket {
   color: #00ffaa;
-  animation: bounce-hint 1.5s infinite ease-in-out;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 255, 170, 0.6);
 }
 
-@keyframes bounce-hint {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+.hint-text {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Neon Downward Chevron Bars */
+.hint-chevrons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.chevron-bar {
+  width: 10px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, transparent 0%, #00ffaa 50%, transparent 100%);
+  box-shadow: 0 0 6px #00ffaa;
+}
+
+.chevron-bar.c1 {
+  animation: chevron-pulse1 1.4s infinite ease-in-out;
+}
+
+.chevron-bar.c2 {
+  width: 6px;
+  animation: chevron-pulse2 1.4s infinite ease-in-out 0.2s;
+}
+
+@keyframes chevron-pulse1 {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(2px); }
+}
+
+@keyframes chevron-pulse2 {
+  0%, 100% { opacity: 0.2; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(3px); }
 }
 
 @media (max-width: 1200px) {
