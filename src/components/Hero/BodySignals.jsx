@@ -78,7 +78,7 @@ export default function BodySignals({ progress = 0 }) {
   const cyberLatency = isCyberSecResolved ? 'SHIELD — 0.01ms' : 'DEFENSE_SYNC'
 
   const netHeader = isNetworkResolved
-    ? 'SKILL_04 // NETWORK INFRA1'
+    ? 'SKILL_04 // NETWORK INFRA'
     : 'SKILL_04 // ROUTE SCAN'
   const netStackId = isNetworkResolved ? 'NET_TOPOLOGY_V2' : 'PROBING_SUBNET'
   const netConfidence = isNetworkResolved ? '94.7%' : 'CALCULATING...'
@@ -86,7 +86,7 @@ export default function BodySignals({ progress = 0 }) {
   const netLatency = isNetworkResolved ? 'LOW LATENCY — 0.03ms' : 'PING_GATEWAY'
 
   const dbHeader = isDatabaseResolved
-    ? 'SKILL_05 // DATABASE MGMT'
+    ? 'SKILL_05 // DATABASE MGMT1'
     : 'SKILL_05 // DB QUERY SYNC'
   const dbStackId = isDatabaseResolved ? 'DATA_ENGINE_V3' : 'CONNECTING_NODES'
   const dbConfidence = isDatabaseResolved ? '96.8%' : 'CALCULATING...'
