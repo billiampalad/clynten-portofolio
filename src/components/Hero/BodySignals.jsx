@@ -55,7 +55,7 @@ export default function BodySignals({ progress = 0 }) {
 
   const webHeader = isWebDevResolved
     ? 'SKILL_01 // WEB DEVELOPMENT'
-    : 'SKILL_01 // STACK ANALYZ'
+    : 'SKILL_01 // STACK ANALYZE'
   const webStackId = isWebDevResolved ? 'FULL_STACK_ARCH' : 'PARSING_NODES'
   const webConfidence = isWebDevResolved ? '99.4%' : 'CALCULATING...'
   const webFrameworks = isWebDevResolved ? 'REACT / NEXT / LARAVEL' : 'FETCHING_MODULES'
