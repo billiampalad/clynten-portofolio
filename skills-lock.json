@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "code-organization": {
+      "source": "mezotv/skills",
+      "sourceType": "github",
+      "skillPath": "skills/code-organization/SKILL.md",
+      "computedHash": "6c0b6a1545248841841bbd42bc49a920feca14317a40c6fe68dacc634de0db99"
+    }
+  }
+}
