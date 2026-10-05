@@ -6,6 +6,11 @@
       "sourceType": "github",
       "skillPath": "skills/code-organization/SKILL.md",
       "computedHash": "6c0b6a1545248841841bbd42bc49a920feca14317a40c6fe68dacc634de0db99"
+    },
+    "file-organizer": {
+      "source": "davepoon/buildwithclaude",
+      "sourceType": "github",
+      "skillPath": "plugins/all-skills/skills/file-organizer/SKILL.md"
     }
   }
 }
