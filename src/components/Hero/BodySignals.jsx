@@ -63,7 +63,7 @@ export default function BodySignals({ progress = 0 }) {
 
   const androidHeader = isAndroidResolved
     ? 'SKILL_02 // ANDROID DEV'
-    : 'SKILL_02 // MOBILE PIPELIN'
+    : 'SKILL_02 // MOBILE PIPELINE'
   const androidStackId = isAndroidResolved ? 'MOBILE_OS_NODE' : 'RESOLVING_SDK'
   const androidConfidence = isAndroidResolved ? '95.8%' : 'CALCULATING...'
   const androidFrameworks = isAndroidResolved ? 'KOTLIN / FLUTTER / SDK' : 'SCANNING_DEVICE'
