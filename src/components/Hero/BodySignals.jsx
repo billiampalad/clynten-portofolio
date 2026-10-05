@@ -87,7 +87,7 @@ export default function BodySignals({ progress = 0 }) {
 
   const dbHeader = isDatabaseResolved
     ? 'SKILL_05 // DATABASE MGMT'
-    : 'SKILL_05 // DB QUERY SYNC1'
+    : 'SKILL_05 // DB QUERY SYNC'
   const dbStackId = isDatabaseResolved ? 'DATA_ENGINE_V3' : 'CONNECTING_NODES'
   const dbConfidence = isDatabaseResolved ? '96.8%' : 'CALCULATING...'
   const dbFrameworks = isDatabaseResolved ? 'POSTGRES / MYSQL / MONGO' : 'FETCHING_SCHEMA'
