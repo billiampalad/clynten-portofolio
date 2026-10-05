@@ -7,6 +7,12 @@
       "skillPath": "skills/code-organization/SKILL.md",
       "computedHash": "6c0b6a1545248841841bbd42bc49a920feca14317a40c6fe68dacc634de0db99"
     },
+    "coding-standards": {
+      "source": "willey-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/coding-standards/SKILL.md",
+      "computedHash": "0a544ec46ce590c4f964d1b4de4180798f38972f70f9d83bedad3456911a2058"
+    },
     "file-organizer": {
       "source": "davepoon/buildwithclaude",
       "sourceType": "github",

@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""Shared PreToolUse plumbing for the block-*.py content hooks.
+
+Every language hook runs the same lifecycle — read the tool-call JSON, decide
+whether the target file is ours, and emit a block message — and only the
+*checks* differ. That shared lifecycle lives here so it isn't copy-pasted across
+six hooks (DP-007 DRY). Each hook keeps only its own constants, its check
+functions, and a thin `main` that wires its extension set + checks into this
+runner.
+
+`strip_strings_and_comments` is deliberately NOT here: each language blanks
+different literal/comment syntax (Python triple-quotes, JS template literals,
+PHP heredocs), so those are genuinely distinct implementations, not duplication.
+
+A block and an advisory leave by different doors. Stderr reaches Claude only when
+the hook exits 2; on an exit-0 hook it goes to the debug log and no further, so an
+advisory written there is never read by the writer it exists to correct. Advisories
+therefore leave as `hookSpecificOutput.additionalContext` on stdout, which Claude
+Code delivers alongside the tool result. `advise` writes that envelope and
+`advisory_text` reads it back, so the reviewer CLI and the tests see what Claude saw.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _exclusions import is_excluded_path, has_generation_marker  # noqa: E402
+
+_RULE_CODE = re.compile(r"\b(?:FN|NM|OD|ST|EH|FMT|DP)-\d+\b")
+
+# The fixed first line of every block message; the per-hook "See ..." line
+# follows it (see `block`).
+_BLOCK_LEAD = "coding-standards hook blocked this write — fix the violations and try again.\n"
+
+ADVISORY_LEAD = (
+    "coding-standards (advisory: not hard-blocked, but each is still a must-fix "
+    "violation — fix it or record it accepted with a reason):\n"
+)
+
+
+def read_payload() -> dict | None:
+    """Read and parse the PreToolUse JSON from stdin.
+
+    Returns the payload dict, or None when stdin is empty or unparseable (the
+    caller then exits 0 — there's nothing to check).
+    """
+    raw = sys.stdin.read()
+    if not raw.strip():
+        return None
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def extract_new_content(tool_name: str, tool_input: dict) -> str:
+    """The proposed new file content carried by a Write/Edit/MultiEdit call.
+
+    ISS-023 / MultiEdit caveat: for MultiEdit we concatenate the edits' new_strings,
+    so any line number a hook reports is a position *within that concatenation*, not
+    a file line. We accept this because current Claude Code no longer exposes
+    MultiEdit — the matcher is kept only for back-compat with older versions, so this
+    is a dead path in practice; reworking the shared return signature (every hook
+    depends on it) to thread a per-edit offset isn't worth it for a tool that no
+    longer fires. Write/Edit line numbers are exact.
+    """
+    if tool_name == "Write":
+        return tool_input.get("content", "") or ""
+    if tool_name == "Edit":
+        return tool_input.get("new_string", "") or ""
+    if tool_name == "MultiEdit":
+        edits = tool_input.get("edits") or []
+        return "\n".join(
+            (edit.get("new_string", "") or "") for edit in edits if isinstance(edit, dict)
+        )
+    return ""
+
+
+def resolve_target(payload: dict, extensions: set[str]) -> tuple[str, str] | None:
+    """The shared gate. Returns (file_path, new_content) when the event is ours.
+
+    "Ours" = a Write/Edit/MultiEdit of a non-excluded, non-generated file whose
+    extension is in `extensions`, carrying non-empty content. Otherwise None
+    (the caller passes through with exit 0).
+    """
+    tool_name = payload.get("tool_name", "")
+    tool_input = payload.get("tool_input") or {}
+    if tool_name not in {"Write", "Edit", "MultiEdit"}:
+        return None
+    file_path = tool_input.get("file_path", "")
+    if not file_path or Path(file_path).suffix not in extensions:
+        return None
+    excluded, _pattern = is_excluded_path(file_path)
+    if excluded:
+        return None
+    new_content = extract_new_content(tool_name, tool_input)
+    if not new_content.strip():
+        return None
+    if has_generation_marker(new_content):
+        return None
+    return file_path, new_content
+
+
+def join_wrapped_signatures(lines: list[str]) -> list[tuple[int, str]]:
+    """Yield (start_lineno, text) where a line with unbalanced parens is extended
+    with following lines until the parens close. A signature split across lines —
+    the natural shape for a long parameter list — is then matched as one unit, so
+    the arg-count checks can't be evaded by wrapping. Over-merging is harmless: the
+    arg-count regexes only fire on `func`/`def`/method patterns, so a merged
+    non-signature run simply doesn't match. Line number is the first physical line.
+    """
+    joined: list[tuple[int, str]] = []
+    i, n = 0, len(lines)
+    while i < n:
+        start = i
+        buf = lines[i]
+        depth = buf.count("(") - buf.count(")")
+        while depth > 0 and i + 1 < n:
+            i += 1
+            buf += " " + lines[i]
+            depth += lines[i].count("(") - lines[i].count(")")
+        joined.append((start + 1, buf))
+        i += 1
+    return joined
+
+
+def cited_rules(violations: list[str]) -> str:
+    """The sorted set of rule codes that fired, for the citation line.
+
+    e.g. "FN-005, NM-006". Violations with no code (the bare `any` ban) don't
+    contribute; returns "the rule references" when nothing carries a code.
+    """
+    cited = sorted({m.group(0) for v in violations for m in _RULE_CODE.finditer(v)})
+    return ", ".join(cited) if cited else "the rule references"
+
+
+def block(violations: list[str], see_line: str) -> int:
+    """Write the block message (lead + per-hook `see_line` + bulleted
+    violations) to stderr and return the exit-2 block code."""
+    header = _BLOCK_LEAD + see_line + "\n"
+    sys.stderr.write(header + "\n".join(f"  - {v}" for v in violations) + "\n")
+    return 2
+
+
+def advise(text: str) -> int:
+    """Emit an advisory to Claude as tool-result context and return the pass code."""
+    sys.stdout.write(
+        json.dumps(
+            {"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}
+        )
+    )
+    return 0
+
+
+def advisory_text(stdout: str) -> str:
+    """The advisory body carried by a hook's stdout, or empty when it emitted none."""
+    try:
+        payload = json.loads(stdout or "{}")
+    except json.JSONDecodeError:
+        return ""
+    if not isinstance(payload, dict):
+        return ""
+    specific = payload.get("hookSpecificOutput")
+    if not isinstance(specific, dict):
+        return ""
+    return specific.get("additionalContext") or ""
+
+
+def advisory_message(findings: list[str], lead: str = ADVISORY_LEAD, tail: str = "") -> str:
+    """The advisory body: lead, one bullet per finding, then any trailing note."""
+    return lead + "".join(f"  - {finding}\n" for finding in findings) + tail
