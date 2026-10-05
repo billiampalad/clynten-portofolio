@@ -62,7 +62,7 @@ export default function BodySignals({ progress = 0 }) {
   const webLatency = isWebDevResolved ? 'OPTIMIZED — 0.02ms' : 'LATENCY_CHECK'
 
   const androidHeader = isAndroidResolved
-    ? 'SKILL_02 // ANDROID DEV'
+    ? 'SKILL_02 // ANDROID DE'
     : 'SKILL_02 // MOBILE PIPELINE'
   const androidStackId = isAndroidResolved ? 'MOBILE_OS_NODE' : 'RESOLVING_SDK'
   const androidConfidence = isAndroidResolved ? '95.8%' : 'CALCULATING...'
