@@ -71,14 +71,14 @@ export default function BodySignals({ progress = 0 }) {
 
   const cyberHeader = isCyberSecResolved
     ? 'SKILL_03 // CYBER SECURITY'
-    : 'SKILL_03 // THREAT AUDIT1'
+    : 'SKILL_03 // THREAT AUDIT'
   const cyberStackId = isCyberSecResolved ? 'SEC_AUDIT_PRO' : 'CHECKING_VULN'
   const cyberConfidence = isCyberSecResolved ? '96.2%' : 'CALCULATING...'
   const cyberFrameworks = isCyberSecResolved ? 'KALI / UBUNTU / NMAP' : 'PROBING_PORTS'
   const cyberLatency = isCyberSecResolved ? 'SHIELD — 0.01ms' : 'DEFENSE_SYNC'
 
   const netHeader = isNetworkResolved
-    ? 'SKILL_04 // NETWORK INFRA'
+    ? 'SKILL_04 // NETWORK INFRA1'
     : 'SKILL_04 // ROUTE SCAN'
   const netStackId = isNetworkResolved ? 'NET_TOPOLOGY_V2' : 'PROBING_SUBNET'
   const netConfidence = isNetworkResolved ? '94.7%' : 'CALCULATING...'
