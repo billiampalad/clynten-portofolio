@@ -54,7 +54,7 @@ export default function BodySignals({ progress = 0 }) {
   const isUiUxResolved = progress >= 0.90
 
   const webHeader = isWebDevResolved
-    ? 'SKILL_01 // WEB DEVELOPMENT'
+    ? 'SKILL_01 // WEB DEVELOPMEN'
     : 'SKILL_01 // STACK ANALYZE'
   const webStackId = isWebDevResolved ? 'FULL_STACK_ARCH' : 'PARSING_NODES'
   const webConfidence = isWebDevResolved ? '99.4%' : 'CALCULATING...'
