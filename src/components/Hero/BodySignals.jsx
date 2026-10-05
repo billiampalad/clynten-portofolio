@@ -70,8 +70,8 @@ export default function BodySignals({ progress = 0 }) {
   const androidLatency = isAndroidResolved ? 'OPTIMIZED — 0.05ms' : 'LATENCY_CHECK'
 
   const cyberHeader = isCyberSecResolved
-    ? 'SKILL_03 // CYBER SECURITY1'
-    : 'SKILL_03 // THREAT AUDIT'
+    ? 'SKILL_03 // CYBER SECURITY'
+    : 'SKILL_03 // THREAT AUDIT1'
   const cyberStackId = isCyberSecResolved ? 'SEC_AUDIT_PRO' : 'CHECKING_VULN'
   const cyberConfidence = isCyberSecResolved ? '96.2%' : 'CALCULATING...'
   const cyberFrameworks = isCyberSecResolved ? 'KALI / UBUNTU / NMAP' : 'PROBING_PORTS'
