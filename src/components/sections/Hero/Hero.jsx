@@ -250,20 +250,22 @@ export default function Hero({ onProgressChange }) {
               ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
           } else {
-            // FASE 3B (0.86 -> 1.00): Frame SUDAH KECIL dan mulai MEREDUP (Fade Out)
+            // FASE 3B (0.86 -> 1.00): Frame SUDAH KECIL dan terus MENGECIL SAMPAI HILANG (scale 0.48 -> 0.00) sambil MEREDUP
             const dimRatio = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
-            const cScale = Math.max(0.44, 0.48 - dimRatio * 0.04) // Tetap kecil & menyusut sangat halus
+            const easeShrinkEnd = Math.pow(dimRatio, 1.15)
+            const cScale = Math.max(0, 0.48 * (1 - easeShrinkEnd)) // Mengecil penuh dari 0.48 ke 0.00
             const frameOpacity = Math.max(0, 1 - dimRatio)
             const borderAlpha = Math.max(0, 0.85 * (1 - dimRatio))
             const glowAlpha = Math.max(0, 0.35 * (1 - dimRatio))
+            const cRadius = Math.max(0, 32 * (1 - dimRatio * 0.4))
 
             canvas.style.transform = `scale(${cScale.toFixed(4)})`
             canvas.style.opacity = frameOpacity.toFixed(3)
-            canvas.style.borderRadius = '32px'
-            canvas.style.boxShadow = frameOpacity > 0.02
+            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
+            canvas.style.boxShadow = frameOpacity > 0.02 && cScale > 0.05
               ? `0 25px 80px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, ${(0.15 * frameOpacity).toFixed(2)})`
               : 'none'
-            canvas.style.border = frameOpacity > 0.02
+            canvas.style.border = frameOpacity > 0.02 && cScale > 0.05
               ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
           }
