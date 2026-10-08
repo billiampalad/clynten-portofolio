@@ -121,7 +121,7 @@ export default function Hero({ onProgressChange }) {
     }
   }, [renderFrame])
 
-  // GSAP ScrollTrigger Cinematic Reveal & Outro Timeline
+  // GSAP ScrollTrigger Cinematic Reveal & Crystal-Clear Outro Timeline
   useEffect(() => {
     if (loading) return
 
@@ -139,6 +139,7 @@ export default function Hero({ onProgressChange }) {
       canvas.style.opacity = '1'
       canvas.style.borderRadius = '0px'
       canvas.style.boxShadow = 'none'
+      canvas.style.border = 'none'
     }
 
     if (hudLayer) {
@@ -151,7 +152,7 @@ export default function Hero({ onProgressChange }) {
     const trigger = ScrollTrigger.create({
       trigger: heroSectionRef.current,
       start: HERO_SCROLL_TRIGGER_CONFIG.start,
-      end: '+=400%',
+      end: HERO_SCROLL_TRIGGER_CONFIG.end,
       pin: pinWrapperRef.current,
       scrub: HERO_SCROLL_TRIGGER_CONFIG.scrub,
       anticipatePin: HERO_SCROLL_TRIGGER_CONFIG.anticipatePin,
@@ -164,8 +165,8 @@ export default function Hero({ onProgressChange }) {
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
-        // 2. Cinematic Filter calculations: transitions to sharp by 0.75
-        const filterProgress = Math.min(1, progress / 0.75)
+        // 2. Cinematic Filter calculations: transitions to 100% sharp and bright by 0.72
+        const filterProgress = Math.min(1, progress / 0.72)
         const currentBlur = gsap.utils.interpolate(
           HERO_CONFIG.blurStart,
           HERO_CONFIG.blurEnd,
@@ -186,7 +187,7 @@ export default function Hero({ onProgressChange }) {
           canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // 3. Scanline dissolve
+        // 3. Scanline dissolve (fades out as video becomes sharp)
         const gridOpacity = gsap.utils.interpolate(
           HERO_CONFIG.gridOpacityStart,
           HERO_CONFIG.gridOpacityEnd,
@@ -196,32 +197,39 @@ export default function Hero({ onProgressChange }) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
         }
 
-        // 4. Outro Phase 1 (0.78 -> 0.88): All HUD components shrink & fade away, leaving ONLY the frame canvas!
-        const hudFade = progress < 0.78 ? 1 : Math.max(0, 1 - (progress - 0.78) / 0.09)
-        const hudScale = progress < 0.78 ? 1 : Math.max(0.85, 1 - ((progress - 0.78) / 0.09) * 0.15)
+        // 4. Outro Phase 1 (0.75 -> 0.85): All HUD overlays shrink & fade away, leaving ONLY the crystal-clear frame!
+        const hudFade = progress < 0.75 ? 1 : Math.max(0, 1 - (progress - 0.75) / 0.1)
+        const hudScale = progress < 0.75 ? 1 : Math.max(0.85, 1 - ((progress - 0.75) / 0.1) * 0.15)
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
           hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
         }
 
-        // 5. Outro Phase 2 (0.86 -> 1.00): Frame canvas shrinks down smoothly and dissolves to reveal section & navbar behind
+        // 5. Outro Phase 2 (0.85 -> 1.00): Frame canvas shrinks smoothly with FULL BRIGHTNESS (JANGAN REDUP) and glowing cyber border
         if (canvas) {
-          if (progress >= 0.86) {
-            const outroP = Math.min(1, (progress - 0.86) / 0.14)
-            const cScale = 1 - outroP * 0.65 // Scale down from 1.0 to 0.35
-            const cOpacity = Math.max(0, 1 - outroP * 1.05)
-            const cRadius = outroP * 32
-            const cShadow = `0 20px 60px rgba(0, 0, 0, 0.9), 0 0 ${outroP * 30}px rgba(0, 255, 170, ${0.35 * (1 - outroP)})`
+          if (progress >= 0.85) {
+            const outroP = Math.min(1, (progress - 0.85) / 0.15)
+            // Smooth ease-in-out shrink to 0
+            const easeOutro = outroP < 0.5 ? 2 * outroP * outroP : 1 - Math.pow(-2 * outroP + 2, 2) / 2
+            const cScale = Math.max(0, 1 - easeOutro * 1.0)
+            const cRadius = Math.min(48, outroP * 48)
 
-            canvas.style.transform = `scale(${cScale.toFixed(3)})`
-            canvas.style.opacity = cOpacity.toFixed(3)
+            canvas.style.transform = `scale(${cScale.toFixed(4)})`
+            // Pertahankan kecerahan 100% - TIDAK REDUP! Hanya sembunyikan tepat saat scale mencapai 0 di akhir
+            canvas.style.opacity = outroP >= 0.99 ? '0' : '1'
             canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvas.style.boxShadow = cShadow
+            canvas.style.boxShadow = outroP > 0.02
+              ? `0 25px 80px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 255, 170, 0.45), inset 0 0 20px rgba(255, 255, 255, 0.25)`
+              : 'none'
+            canvas.style.border = outroP > 0.02
+              ? `1.5px solid rgba(0, 255, 170, ${Math.min(1, outroP * 2.5)})`
+              : 'none'
           } else {
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
+            canvas.style.border = 'none'
           }
         }
 
@@ -275,10 +283,10 @@ export default function Hero({ onProgressChange }) {
           </div>
         )}
 
-        {/* Layer 1: Cinematic Canvas Frame Sequence (Shrinks and closes out at scroll end) */}
+        {/* Layer 1: Cinematic Canvas Frame Sequence (Shrinks cleanly with full brightness and glowing borders) */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Grouped HUD Telemetry Layer (Smoothly shrinks and fades away at 0.78 -> 0.88) */}
+        {/* Grouped HUD Telemetry Layer (Smoothly dissolves first at 0.75 -> 0.85) */}
         <div ref={hudLayerRef} className="hero-hud-layer">
           {/* Layer 2: Matrix Cyber Falling Code Streams */}
           {!loading && <CodeRain opacity={0.22} />}
