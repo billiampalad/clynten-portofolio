@@ -207,39 +207,40 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 2 (0.80 -> 0.86): Pelepasan Lapisan HUD Setelah Scan 100% Selesai
+        // TAHAP 2 (0.75 -> 0.77): TEKS & CARD HUD LANGSUNG HILANG SEKETIKA
         // =========================================================================
-        const HUD_FADE_START = 0.80
-        const HUD_FADE_END = 0.86
-        const hudFade = progress < HUD_FADE_START ? 1 : Math.max(0, 1 - (progress - HUD_FADE_START) / (HUD_FADE_END - HUD_FADE_START))
-        const hudScale = progress < HUD_FADE_START ? 1 : Math.max(0.94, 1 - ((progress - HUD_FADE_START) / (HUD_FADE_END - HUD_FADE_START)) * 0.06)
+        const HUD_VANISH_START = 0.75
+        const HUD_VANISH_END = 0.77
+        const hudFade = progress <= HUD_VANISH_START
+          ? 1
+          : Math.max(0, 1 - (progress - HUD_VANISH_START) / (HUD_VANISH_END - HUD_VANISH_START))
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
-          hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
+          hudLayer.style.pointerEvents = hudFade > 0.05 ? 'auto' : 'none'
         }
 
         // =========================================================================
-        // TAHAP 3 (0.86 -> 1.00): Sequential Outro (Mengecil Penuh -> Baru Meredup)
+        // TAHAP 3 (0.78 -> 0.92): PENGECILAN FRAME BERSIH & PEREDUPAN
         // =========================================================================
-        const SHRINK_START = 0.86 // Titik mulai frame mengecil setelah HUD hilang
-        const SHRINK_END = 0.94   // Titik saat frame SUDAH BENAR-BENAR KECIL (scale 0.28)
-        const OUTRO_END = 1.00    // Titik saat frame meredup habis & About 100%
-        const SMALL_CARD_SCALE = 0.28 // Target ukuran kartu mini sebelum mulai redup
+        const SHRINK_START = 0.78 // Mulai mengecil segera setelah HUD hilang
+        const SHRINK_END = 0.86   // Titik frame menjadi kartu mini (scale 0.28)
+        const DIM_END = 0.92      // Titik frame habis meredup & About 100%
+        const SMALL_CARD_SCALE = 0.28
 
         if (canvas) {
           if (progress < SHRINK_START) {
-            // Sebelum 0.86: Fullscreen penuh, 100% terang & jernih
+            // Sebelum 0.78: Fullscreen penuh, 100% terang & jernih (tanpa HUD)
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
             canvas.style.border = 'none'
           } else if (progress >= SHRINK_START && progress < SHRINK_END) {
-            // FASE 3A (0.86 -> 0.94): Frame mengecil secara proporsional menjadi KECIL (1.00 -> 0.28)
-            // KONDISI MUTLAK: TETAP 100% TERANG & JERNIH (Opacity 1.0, TIDAK REDUP)
+            // FASE 3A (0.78 -> 0.86): Frame bersih mengecil perlahan (1.00 -> 0.28)
+            // KONDISI MUTLAK: TETAP 100% TERANG & JERNIH (Opacity 1.0)
             const shrinkRatio = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
             const easeShrink = Math.pow(shrinkRatio, 1.2)
-            const cScale = 1.0 - easeShrink * (1.0 - SMALL_CARD_SCALE) // Mengecil dari 1.00 ke 0.28
+            const cScale = 1.0 - easeShrink * (1.0 - SMALL_CARD_SCALE)
             const cRadius = shrinkRatio * 32
             const borderAlpha = Math.min(0.85, shrinkRatio * 1.5)
             const glowAlpha = Math.min(0.35, shrinkRatio * 0.8)
@@ -253,12 +254,12 @@ export default function Hero({ onProgressChange }) {
             canvas.style.border = shrinkRatio > 0.02
               ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
-          } else {
-            // FASE 3B (0.94 -> 1.00): Frame SUDAH KECIL (scale <= 0.28) -> REDUP MULAI AKTIF
-            const dimRatio = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
+          } else if (progress >= SHRINK_END && progress < DIM_END) {
+            // FASE 3B (0.86 -> 0.92): Frame mini MEREDUP (1.00 -> 0.00) & menyusut ke 0.00
+            const dimRatio = (progress - SHRINK_END) / (DIM_END - SHRINK_END)
             const easeShrinkEnd = Math.pow(dimRatio, 1.1)
-            const cScale = Math.max(0, SMALL_CARD_SCALE * (1 - easeShrinkEnd)) // Menyusut dari 0.28 ke 0.00
-            const frameOpacity = Math.max(0, 1 - dimRatio) // Redup aktif memudar 1.00 -> 0.00
+            const cScale = Math.max(0, SMALL_CARD_SCALE * (1 - easeShrinkEnd))
+            const frameOpacity = Math.max(0, 1 - dimRatio)
             const borderAlpha = Math.max(0, 0.85 * (1 - dimRatio))
             const glowAlpha = Math.max(0, 0.35 * (1 - dimRatio))
             const cRadius = Math.max(0, 32 * (1 - dimRatio * 0.4))
@@ -272,27 +273,33 @@ export default function Hero({ onProgressChange }) {
             canvas.style.border = frameOpacity > 0.02 && cScale > 0.05
               ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
+          } else {
+            // FASE 3C (0.92 -> 1.00): LANDING BUFFER ZONE (Frame telah hilang total)
+            canvas.style.transform = 'scale(0)'
+            canvas.style.opacity = '0'
+            canvas.style.boxShadow = 'none'
+            canvas.style.border = 'none'
           }
         }
 
         // =========================================================================
-        // TAHAP 4: Kemunculan Section About (Mulai Muncul Ketika Frame Kecil Meredup di 0.94)
+        // TAHAP 4: KEMUNCULAN SECTION ABOUT (DIAM KOKOH, HANYA TRANSISI OPACITY MURNI)
         // =========================================================================
         if (backdropLayerRef.current) {
           if (progress < SHRINK_END) {
-            // Sebelum 0.94: Backdrop belum tampil sama sekali
+            // Sebelum frame mini meredup: Backdrop belum tampil
             backdropLayerRef.current.style.opacity = '0'
-            backdropLayerRef.current.style.transform = 'scale(0.98)'
-          } else {
-            // Saat frame kecil mulai meredup (0.94 -> 1.00): About memudar masuk cepat & halus
-            const aboutReveal = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
-            const aboutScale = 0.98 + aboutReveal * 0.02
+          } else if (progress >= SHRINK_END && progress < DIM_END) {
+            // Saat frame mini meredup (0.86 -> 0.92): About memudar masuk 0.0 -> 1.0
+            const aboutReveal = Math.min(1, (progress - SHRINK_END) / (DIM_END - SHRINK_END))
             backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
-            backdropLayerRef.current.style.transform = `scale(${aboutScale.toFixed(4)})`
+          } else {
+            // Dari 0.92 -> 1.00 (Landing Buffer): About 100% penuh, DIAM, TANPA PERGESERAN
+            backdropLayerRef.current.style.opacity = '1'
           }
         }
 
-        // Beritahu Navbar saat frame mulai bertransisi menjadi floating card (0.94+)
+        // Beritahu Navbar saat frame mini mulai meredup ke About (0.86+)
         if (onProgressChange) {
           onProgressChange(progress)
         }
