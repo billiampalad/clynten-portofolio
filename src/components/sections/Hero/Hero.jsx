@@ -272,17 +272,14 @@ export default function Hero({ onProgressChange }) {
               frameOpacity = Math.max(0, 0.50 * (1 - t)) // 0.50 -> 0.00
             }
 
-            const borderAlpha = Math.min(0.85, p * 1.5)
-            const glowAlpha = Math.min(0.35, p * 0.8)
+            const glowAlpha = Math.min(0.85, p * 1.2)
 
             canvas.style.transform = `scale(${cScale.toFixed(4)})`
             canvas.style.opacity = frameOpacity.toFixed(3)
             canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
+            canvas.style.border = 'none'
             canvas.style.boxShadow = frameOpacity > 0.02 && cScale > 0.08
-              ? `0 25px 80px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 45px rgba(0, 255, 170, ${(glowAlpha * frameOpacity).toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, ${(0.15 * frameOpacity).toFixed(2)})`
-              : 'none'
-            canvas.style.border = frameOpacity > 0.02 && cScale > 0.08
-              ? `1.5px solid rgba(0, 255, 170, ${(borderAlpha * frameOpacity).toFixed(2)})`
+              ? `0 25px 90px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 50px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 100px rgba(255, 30, 70, ${(glowAlpha * 0.6 * frameOpacity).toFixed(2)}), inset 0 0 25px rgba(255, 0, 60, ${(0.25 * frameOpacity).toFixed(2)})`
               : 'none'
           } else {
             // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
