@@ -4,7 +4,10 @@
   right: 48px;
   transform: translateY(-50%);
   z-index: 25;
-  font-family: 'Courier New', Courier, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono), 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
   pointer-events: none;
   background: linear-gradient(135deg, rgba(8, 12, 18, 0.85) 0%, rgba(3, 6, 10, 0.92) 100%);
   backdrop-filter: blur(20px);

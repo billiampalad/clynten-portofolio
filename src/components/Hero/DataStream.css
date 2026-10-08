@@ -3,7 +3,9 @@
   top: 36px;
   left: 48px;
   z-index: 25;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono), 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   pointer-events: none;
   background: rgba(10, 10, 15, 0.5);
   backdrop-filter: blur(12px);
