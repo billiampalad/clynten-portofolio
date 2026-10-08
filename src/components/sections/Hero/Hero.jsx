@@ -206,57 +206,83 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 2 (0.64 -> 0.76): Pelepasan Lapisan HUD (HUD Fades Out, Frame Full)
+        // TAHAP 2 (0.64 -> 0.74): Pelepasan Lapisan HUD (HUD Fades Out, Frame Full)
         // =========================================================================
-        const hudFade = progress < 0.64 ? 1 : Math.max(0, 1 - (progress - 0.64) / 0.12)
-        const hudScale = progress < 0.64 ? 1 : Math.max(0.92, 1 - ((progress - 0.64) / 0.12) * 0.08)
+        const hudFade = progress < 0.64 ? 1 : Math.max(0, 1 - (progress - 0.64) / 0.10)
+        const hudScale = progress < 0.64 ? 1 : Math.max(0.94, 1 - ((progress - 0.64) / 0.10) * 0.06)
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
           hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
         }
 
         // =========================================================================
-        // TAHAP 2.5 (0.65 -> 0.78): Seamless Backdrop Section Reveal (No Black Void)
+        // TAHAP 3 (0.72 -> 1.00): Sequential Outro (Mengecil Penuh -> Baru Meredup)
         // =========================================================================
-        const backdropFade = progress < 0.65 ? 0 : Math.min(1, (progress - 0.65) / 0.12)
-        if (backdropLayerRef.current) {
-          backdropLayerRef.current.style.opacity = backdropFade.toFixed(3)
-        }
+        const SHRINK_START = 0.72
+        const SHRINK_END = 0.86 // Titik saat frame telah menjadi kartu kecil
+        const OUTRO_END = 1.00  // Titik saat frame meredup habis & About 100%
 
-        // =========================================================================
-        // TAHAP 3 (0.72 -> 1.00): SignalIQ Gradual Smooth Ratio Inset (Perlahan Mengecil)
-        // =========================================================================
         if (canvas) {
-          if (progress >= 0.72) {
-            // Rentang progres outro 28% scroll (sangat halus dan bertahap)
-            const outroP = Math.min(1, (progress - 0.72) / 0.28)
-            
-            // Kurva eksponensial lembut (bergerak perlahan di awal, akselerasi natural di akhir)
-            const easeOutro = Math.pow(outroP, 1.35)
-            
-            // Mengecil bertahap dari 1.00 ke 0.58 (Floating Cyber Card)
-            const cScale = Math.max(0.55, 1 - easeOutro * 0.45)
-            const cRadius = Math.min(36, outroP * 36)
-            const borderAlpha = Math.min(0.85, outroP * 1.5)
-            const glowAlpha = Math.min(0.35, outroP * 0.8)
-
-            canvas.style.transform = `scale(${cScale.toFixed(4)})`
-            // Kecerahan 100% penuh - TETAP TERANG & JERNIH (TIDAK REDUP)
-            canvas.style.opacity = '1'
-            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvas.style.boxShadow = outroP > 0.02
-              ? `0 25px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, 0.15)`
-              : 'none'
-            canvas.style.border = outroP > 0.02
-              ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
-              : 'none'
-          } else {
-            // Sebelum 0.72: Frame tetap fullscreen 100%
+          if (progress < SHRINK_START) {
+            // Sebelum 0.72: Fullscreen penuh, 100% terang
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
             canvas.style.border = 'none'
+          } else if (progress >= SHRINK_START && progress < SHRINK_END) {
+            // FASE 3A (0.72 -> 0.86): Frame perlahan mengecil menjadi kartu kecil
+            // Kondisi: TETAP 100% TERANG & JERNIH (Opacity 1.0)
+            const shrinkRatio = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
+            const easeShrink = Math.pow(shrinkRatio, 1.25)
+            const cScale = 1.0 - easeShrink * 0.52 // Mengecil dari 1.00 ke 0.48
+            const cRadius = shrinkRatio * 32
+            const borderAlpha = Math.min(0.85, shrinkRatio * 1.5)
+            const glowAlpha = Math.min(0.35, shrinkRatio * 0.8)
+
+            canvas.style.transform = `scale(${cScale.toFixed(4)})`
+            canvas.style.opacity = '1'
+            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
+            canvas.style.boxShadow = shrinkRatio > 0.02
+              ? `0 25px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, 0.15)`
+              : 'none'
+            canvas.style.border = shrinkRatio > 0.02
+              ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
+              : 'none'
+          } else {
+            // FASE 3B (0.86 -> 1.00): Frame SUDAH KECIL dan mulai MEREDUP (Fade Out)
+            const dimRatio = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
+            const cScale = Math.max(0.44, 0.48 - dimRatio * 0.04) // Tetap kecil & menyusut sangat halus
+            const frameOpacity = Math.max(0, 1 - dimRatio)
+            const borderAlpha = Math.max(0, 0.85 * (1 - dimRatio))
+            const glowAlpha = Math.max(0, 0.35 * (1 - dimRatio))
+
+            canvas.style.transform = `scale(${cScale.toFixed(4)})`
+            canvas.style.opacity = frameOpacity.toFixed(3)
+            canvas.style.borderRadius = '32px'
+            canvas.style.boxShadow = frameOpacity > 0.02
+              ? `0 25px 80px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, ${(0.15 * frameOpacity).toFixed(2)})`
+              : 'none'
+            canvas.style.border = frameOpacity > 0.02
+              ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
+              : 'none'
+          }
+        }
+
+        // =========================================================================
+        // TAHAP 4: Kemunculan Section About (Mulai Muncul Saat Frame Kecil Mulai Meredup)
+        // =========================================================================
+        if (backdropLayerRef.current) {
+          if (progress < SHRINK_END) {
+            // Sebelum frame kecil meredup: Backdrop belum tampil
+            backdropLayerRef.current.style.opacity = '0'
+            backdropLayerRef.current.style.transform = 'scale(0.97)'
+          } else {
+            // Saat frame kecil mulai meredup (0.86 -> 1.00): About memudar masuk pelan-pelan
+            const aboutReveal = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
+            const aboutScale = 0.97 + aboutReveal * 0.03 // Efek zoom halus dari 0.97 ke 1.00
+            backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
+            backdropLayerRef.current.style.transform = `scale(${aboutScale.toFixed(4)})`
           }
         }
 
