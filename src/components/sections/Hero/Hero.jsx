@@ -216,26 +216,27 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 3 (0.72 -> 1.00): Sequential Outro (Mengecil Penuh -> Baru Meredup)
+        // TAHAP 3 (0.70 -> 1.00): Sequential Outro (Mengecil Penuh Sampai Kecil -> Baru Meredup)
         // =========================================================================
-        const SHRINK_START = 0.72
-        const SHRINK_END = 0.86 // Titik saat frame telah menjadi kartu kecil
+        const SHRINK_START = 0.70
+        const SHRINK_END = 0.92 // Titik saat frame SUDAH BENAR-BENAR KECIL (scale 0.28)
         const OUTRO_END = 1.00  // Titik saat frame meredup habis & About 100%
+        const SMALL_CARD_SCALE = 0.28 // Target ukuran kecil sebelum mulai redup
 
         if (canvas) {
           if (progress < SHRINK_START) {
-            // Sebelum 0.72: Fullscreen penuh, 100% terang
+            // Sebelum 0.70: Fullscreen penuh, 100% terang
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
             canvas.style.border = 'none'
           } else if (progress >= SHRINK_START && progress < SHRINK_END) {
-            // FASE 3A (0.72 -> 0.86): Frame perlahan mengecil menjadi kartu kecil
-            // Kondisi: TETAP 100% TERANG & JERNIH (Opacity 1.0)
+            // FASE 3A (0.70 -> 0.92): Frame mengecil secara luas sampai benar-benar KECIL (1.00 -> 0.28)
+            // KONDISI MUTLAK: TETAP 100% TERANG & JERNIH (Opacity 1.0, TIDAK REDUP)
             const shrinkRatio = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
-            const easeShrink = Math.pow(shrinkRatio, 1.25)
-            const cScale = 1.0 - easeShrink * 0.52 // Mengecil dari 1.00 ke 0.48
+            const easeShrink = Math.pow(shrinkRatio, 1.2)
+            const cScale = 1.0 - easeShrink * (1.0 - SMALL_CARD_SCALE) // Mengecil dari 1.00 ke 0.28
             const cRadius = shrinkRatio * 32
             const borderAlpha = Math.min(0.85, shrinkRatio * 1.5)
             const glowAlpha = Math.min(0.35, shrinkRatio * 0.8)
@@ -250,11 +251,11 @@ export default function Hero({ onProgressChange }) {
               ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
           } else {
-            // FASE 3B (0.86 -> 1.00): Frame SUDAH KECIL dan terus MENGECIL SAMPAI HILANG (scale 0.48 -> 0.00) sambil MEREDUP
+            // FASE 3B (0.92 -> 1.00): Frame SUDAH KECIL (scale <= 0.28) -> BARU REDUPNYA MULAI AKTIF
             const dimRatio = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
-            const easeShrinkEnd = Math.pow(dimRatio, 1.15)
-            const cScale = Math.max(0, 0.48 * (1 - easeShrinkEnd)) // Mengecil penuh dari 0.48 ke 0.00
-            const frameOpacity = Math.max(0, 1 - dimRatio)
+            const easeShrinkEnd = Math.pow(dimRatio, 1.1)
+            const cScale = Math.max(0, SMALL_CARD_SCALE * (1 - easeShrinkEnd)) // Menyusut dari 0.28 ke 0.00
+            const frameOpacity = Math.max(0, 1 - dimRatio) // Redup aktif memudar 1.00 -> 0.00
             const borderAlpha = Math.max(0, 0.85 * (1 - dimRatio))
             const glowAlpha = Math.max(0, 0.35 * (1 - dimRatio))
             const cRadius = Math.max(0, 32 * (1 - dimRatio * 0.4))
@@ -272,17 +273,17 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 4: Kemunculan Section About (Mulai Muncul Saat Frame Kecil Mulai Meredup)
+        // TAHAP 4: Kemunculan Section About (Mulai Muncul Ketika Frame Kecil Meredup di 0.92)
         // =========================================================================
         if (backdropLayerRef.current) {
           if (progress < SHRINK_END) {
-            // Sebelum frame kecil meredup: Backdrop belum tampil
+            // Sebelum 0.92: Backdrop belum tampil sama sekali
             backdropLayerRef.current.style.opacity = '0'
-            backdropLayerRef.current.style.transform = 'scale(0.97)'
+            backdropLayerRef.current.style.transform = 'scale(0.98)'
           } else {
-            // Saat frame kecil mulai meredup (0.86 -> 1.00): About memudar masuk pelan-pelan
+            // Saat frame kecil mulai meredup (0.92 -> 1.00): About memudar masuk cepat & halus
             const aboutReveal = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
-            const aboutScale = 0.97 + aboutReveal * 0.03 // Efek zoom halus dari 0.97 ke 1.00
+            const aboutScale = 0.98 + aboutReveal * 0.02
             backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
             backdropLayerRef.current.style.transform = `scale(${aboutScale.toFixed(4)})`
           }

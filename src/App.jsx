@@ -8,8 +8,8 @@ function App() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
 
   const handleHeroProgress = useCallback((progress) => {
-    // Show navbar as the small frame begins dimming and revealing the About section
-    setIsNavbarVisible(progress >= 0.86)
+    // Show navbar as the tiny frame begins dimming and revealing the About section
+    setIsNavbarVisible(progress >= 0.92)
   }, [])
 
   return (
