@@ -121,7 +121,7 @@ export default function Hero({ onProgressChange }) {
     }
   }, [renderFrame])
 
-  // GSAP ScrollTrigger Cinematic Reveal & Crystal-Clear Outro Timeline
+  // GSAP ScrollTrigger SignalIQ-Inspired Progressive Outro Timeline
   useEffect(() => {
     if (loading) return
 
@@ -132,7 +132,7 @@ export default function Hero({ onProgressChange }) {
     const playhead = playheadRef.current
     playhead.frame = 0
 
-    // Set initial filter state
+    // Set initial canvas and overlay state
     if (canvas) {
       canvas.style.filter = `blur(${HERO_CONFIG.blurStart}px) brightness(${HERO_CONFIG.brightnessStart}) contrast(${HERO_CONFIG.contrastStart})`
       canvas.style.transform = 'scale(1)'
@@ -159,14 +159,16 @@ export default function Hero({ onProgressChange }) {
       onUpdate: (self) => {
         const progress = self.progress // 0 to 1
 
-        // 1. Frame sequence scrub: spans smoothly from 0.0 to 0.82
-        const sequenceProgress = Math.min(1, Math.max(0, progress / 0.82))
+        // =========================================================================
+        // TAHAP 1 (0.00 -> 0.65): Pemutaran 145 Frame & Resolusi Telemetri Penuh
+        // =========================================================================
+        const sequenceProgress = Math.min(1, Math.max(0, progress / 0.65))
         const targetFrame = sequenceProgress * (TOTAL_FRAMES - 1)
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
-        // 2. Cinematic Filter calculations: transitions to 100% sharp and bright by 0.72
-        const filterProgress = Math.min(1, progress / 0.72)
+        // Filter visual menajam sempurna dan cerah pada progress 0.58
+        const filterProgress = Math.min(1, progress / 0.58)
         const currentBlur = gsap.utils.interpolate(
           HERO_CONFIG.blurStart,
           HERO_CONFIG.blurEnd,
@@ -187,7 +189,7 @@ export default function Hero({ onProgressChange }) {
           canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // 3. Scanline dissolve (fades out as video becomes sharp)
+        // Digital Scanlines melarut halus seiring ketajaman visual
         const gridOpacity = gsap.utils.interpolate(
           HERO_CONFIG.gridOpacityStart,
           HERO_CONFIG.gridOpacityEnd,
@@ -197,34 +199,45 @@ export default function Hero({ onProgressChange }) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
         }
 
-        // 4. Outro Phase 1 (0.75 -> 0.85): All HUD overlays shrink & fade away, leaving ONLY the crystal-clear frame!
-        const hudFade = progress < 0.75 ? 1 : Math.max(0, 1 - (progress - 0.75) / 0.1)
-        const hudScale = progress < 0.75 ? 1 : Math.max(0.85, 1 - ((progress - 0.75) / 0.1) * 0.15)
+        // =========================================================================
+        // TAHAP 2 (0.64 -> 0.76): Pelepasan Lapisan HUD (HUD Fades Out, Frame Full)
+        // =========================================================================
+        const hudFade = progress < 0.64 ? 1 : Math.max(0, 1 - (progress - 0.64) / 0.12)
+        const hudScale = progress < 0.64 ? 1 : Math.max(0.92, 1 - ((progress - 0.64) / 0.12) * 0.08)
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
           hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
         }
 
-        // 5. Outro Phase 2 (0.85 -> 1.00): Frame canvas shrinks smoothly with FULL BRIGHTNESS (JANGAN REDUP) and glowing cyber border
+        // =========================================================================
+        // TAHAP 3 (0.72 -> 1.00): SignalIQ Gradual Smooth Ratio Inset (Perlahan Mengecil)
+        // =========================================================================
         if (canvas) {
-          if (progress >= 0.85) {
-            const outroP = Math.min(1, (progress - 0.85) / 0.15)
-            // Smooth ease-in-out shrink to 0
-            const easeOutro = outroP < 0.5 ? 2 * outroP * outroP : 1 - Math.pow(-2 * outroP + 2, 2) / 2
-            const cScale = Math.max(0, 1 - easeOutro * 1.0)
-            const cRadius = Math.min(48, outroP * 48)
+          if (progress >= 0.72) {
+            // Rentang progres outro 28% scroll (sangat halus dan bertahap)
+            const outroP = Math.min(1, (progress - 0.72) / 0.28)
+            
+            // Kurva eksponensial lembut (bergerak perlahan di awal, akselerasi natural di akhir)
+            const easeOutro = Math.pow(outroP, 1.35)
+            
+            // Mengecil bertahap dari 1.00 ke 0.58 (Floating Cyber Card)
+            const cScale = Math.max(0.55, 1 - easeOutro * 0.45)
+            const cRadius = Math.min(36, outroP * 36)
+            const borderAlpha = Math.min(0.85, outroP * 1.5)
+            const glowAlpha = Math.min(0.35, outroP * 0.8)
 
             canvas.style.transform = `scale(${cScale.toFixed(4)})`
-            // Pertahankan kecerahan 100% - TIDAK REDUP! Hanya sembunyikan tepat saat scale mencapai 0 di akhir
-            canvas.style.opacity = outroP >= 0.99 ? '0' : '1'
+            // Kecerahan 100% penuh - TETAP TERANG & JERNIH (TIDAK REDUP)
+            canvas.style.opacity = '1'
             canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
             canvas.style.boxShadow = outroP > 0.02
-              ? `0 25px 80px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 255, 170, 0.45), inset 0 0 20px rgba(255, 255, 255, 0.25)`
+              ? `0 25px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, 0.15)`
               : 'none'
             canvas.style.border = outroP > 0.02
-              ? `1.5px solid rgba(0, 255, 170, ${Math.min(1, outroP * 2.5)})`
+              ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
           } else {
+            // Sebelum 0.72: Frame tetap fullscreen 100%
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
@@ -233,12 +246,12 @@ export default function Hero({ onProgressChange }) {
           }
         }
 
-        // 6. Notify Parent (Navbar Visibility & Telemetry Progress)
+        // Beritahu Navbar saat frame mulai bertransisi menjadi floating card (0.75+)
         if (onProgressChange) {
           onProgressChange(progress)
         }
 
-        // 7. Update React state for Developer Signal & HUD telemetry (throttled for high FPS)
+        // Update React state telemetri secara efisien (throttled)
         if (
           Math.abs(progress - lastProgressUpdate) > HERO_SCROLL_TRIGGER_CONFIG.progressThreshold ||
           progress === 1 ||
@@ -283,10 +296,10 @@ export default function Hero({ onProgressChange }) {
           </div>
         )}
 
-        {/* Layer 1: Cinematic Canvas Frame Sequence (Shrinks cleanly with full brightness and glowing borders) */}
+        {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Grouped HUD Telemetry Layer (Smoothly dissolves first at 0.75 -> 0.85) */}
+        {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
         <div ref={hudLayerRef} className="hero-hud-layer">
           {/* Layer 2: Matrix Cyber Falling Code Streams */}
           {!loading && <CodeRain opacity={0.22} />}
