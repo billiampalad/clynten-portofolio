@@ -49,7 +49,7 @@ export default function DeveloperSignal({ progress = 0 }) {
             </div>
           </div>
           <span className="scanned-percentage">
-            {String(percentage).padStart(3, '0')}%
+            {percentage}%
           </span>
         </div>
 
