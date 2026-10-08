@@ -7,6 +7,7 @@ import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
 import BodySignals from './BodySignals'
+import About from '@/components/sections/About/About'
 import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
 import frameUrls from '@/data/frameList.json'
@@ -17,6 +18,7 @@ const TOTAL_FRAMES = frameUrls.length
 export default function Hero({ onProgressChange }) {
   const heroSectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
+  const backdropLayerRef = useRef(null)
   const canvasRef = useRef(null)
   const gridOverlayRef = useRef(null)
   const hudLayerRef = useRef(null)
@@ -147,6 +149,10 @@ export default function Hero({ onProgressChange }) {
       hudLayer.style.transform = 'scale(1)'
     }
 
+    if (backdropLayerRef.current) {
+      backdropLayerRef.current.style.opacity = '0'
+    }
+
     let lastProgressUpdate = 0
 
     const trigger = ScrollTrigger.create({
@@ -207,6 +213,14 @@ export default function Hero({ onProgressChange }) {
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
           hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
+        }
+
+        // =========================================================================
+        // TAHAP 2.5 (0.65 -> 0.78): Seamless Backdrop Section Reveal (No Black Void)
+        // =========================================================================
+        const backdropFade = progress < 0.65 ? 0 : Math.min(1, (progress - 0.65) / 0.12)
+        if (backdropLayerRef.current) {
+          backdropLayerRef.current.style.opacity = backdropFade.toFixed(3)
         }
 
         // =========================================================================
@@ -295,6 +309,11 @@ export default function Hero({ onProgressChange }) {
             </div>
           </div>
         )}
+
+        {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
+        <div ref={backdropLayerRef} className="hero-backdrop-layer">
+          <About isBackdrop={true} />
+        </div>
 
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
         <canvas ref={canvasRef} className="hero-canvas" />
