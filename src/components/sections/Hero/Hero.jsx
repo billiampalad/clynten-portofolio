@@ -166,15 +166,16 @@ export default function Hero({ onProgressChange }) {
         const progress = self.progress // 0 to 1
 
         // =========================================================================
-        // TAHAP 1 (0.00 -> 0.65): Pemutaran 145 Frame & Resolusi Telemetri Penuh
+        // TAHAP 1 (0.00 -> 0.75): Pemutaran 145 Frame & Resolusi Telemetri 100%
         // =========================================================================
-        const sequenceProgress = Math.min(1, Math.max(0, progress / 0.65))
-        const targetFrame = sequenceProgress * (TOTAL_FRAMES - 1)
+        const SCAN_END = 0.75
+        const scanProgress = Math.min(1, Math.max(0, progress / SCAN_END))
+        const targetFrame = scanProgress * (TOTAL_FRAMES - 1)
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
-        // Filter visual menajam sempurna dan cerah pada progress 0.58
-        const filterProgress = Math.min(1, progress / 0.58)
+        // Filter visual menajam sempurna dan cerah pada progress 0.65
+        const filterProgress = Math.min(1, progress / 0.65)
         const currentBlur = gsap.utils.interpolate(
           HERO_CONFIG.blurStart,
           HERO_CONFIG.blurEnd,
@@ -206,33 +207,35 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 2 (0.64 -> 0.74): Pelepasan Lapisan HUD (HUD Fades Out, Frame Full)
+        // TAHAP 2 (0.80 -> 0.86): Pelepasan Lapisan HUD Setelah Scan 100% Selesai
         // =========================================================================
-        const hudFade = progress < 0.64 ? 1 : Math.max(0, 1 - (progress - 0.64) / 0.10)
-        const hudScale = progress < 0.64 ? 1 : Math.max(0.94, 1 - ((progress - 0.64) / 0.10) * 0.06)
+        const HUD_FADE_START = 0.80
+        const HUD_FADE_END = 0.86
+        const hudFade = progress < HUD_FADE_START ? 1 : Math.max(0, 1 - (progress - HUD_FADE_START) / (HUD_FADE_END - HUD_FADE_START))
+        const hudScale = progress < HUD_FADE_START ? 1 : Math.max(0.94, 1 - ((progress - HUD_FADE_START) / (HUD_FADE_END - HUD_FADE_START)) * 0.06)
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
           hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
         }
 
         // =========================================================================
-        // TAHAP 3 (0.70 -> 1.00): Sequential Outro (Mengecil Penuh Sampai Kecil -> Baru Meredup)
+        // TAHAP 3 (0.86 -> 1.00): Sequential Outro (Mengecil Penuh -> Baru Meredup)
         // =========================================================================
-        const SHRINK_START = 0.70
-        const SHRINK_END = 0.92 // Titik saat frame SUDAH BENAR-BENAR KECIL (scale 0.28)
-        const OUTRO_END = 1.00  // Titik saat frame meredup habis & About 100%
-        const SMALL_CARD_SCALE = 0.28 // Target ukuran kecil sebelum mulai redup
+        const SHRINK_START = 0.86 // Titik mulai frame mengecil setelah HUD hilang
+        const SHRINK_END = 0.94   // Titik saat frame SUDAH BENAR-BENAR KECIL (scale 0.28)
+        const OUTRO_END = 1.00    // Titik saat frame meredup habis & About 100%
+        const SMALL_CARD_SCALE = 0.28 // Target ukuran kartu mini sebelum mulai redup
 
         if (canvas) {
           if (progress < SHRINK_START) {
-            // Sebelum 0.70: Fullscreen penuh, 100% terang
+            // Sebelum 0.86: Fullscreen penuh, 100% terang & jernih
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
             canvas.style.border = 'none'
           } else if (progress >= SHRINK_START && progress < SHRINK_END) {
-            // FASE 3A (0.70 -> 0.92): Frame mengecil secara luas sampai benar-benar KECIL (1.00 -> 0.28)
+            // FASE 3A (0.86 -> 0.94): Frame mengecil secara proporsional menjadi KECIL (1.00 -> 0.28)
             // KONDISI MUTLAK: TETAP 100% TERANG & JERNIH (Opacity 1.0, TIDAK REDUP)
             const shrinkRatio = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
             const easeShrink = Math.pow(shrinkRatio, 1.2)
@@ -251,7 +254,7 @@ export default function Hero({ onProgressChange }) {
               ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
               : 'none'
           } else {
-            // FASE 3B (0.92 -> 1.00): Frame SUDAH KECIL (scale <= 0.28) -> BARU REDUPNYA MULAI AKTIF
+            // FASE 3B (0.94 -> 1.00): Frame SUDAH KECIL (scale <= 0.28) -> REDUP MULAI AKTIF
             const dimRatio = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
             const easeShrinkEnd = Math.pow(dimRatio, 1.1)
             const cScale = Math.max(0, SMALL_CARD_SCALE * (1 - easeShrinkEnd)) // Menyusut dari 0.28 ke 0.00
@@ -273,15 +276,15 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 4: Kemunculan Section About (Mulai Muncul Ketika Frame Kecil Meredup di 0.92)
+        // TAHAP 4: Kemunculan Section About (Mulai Muncul Ketika Frame Kecil Meredup di 0.94)
         // =========================================================================
         if (backdropLayerRef.current) {
           if (progress < SHRINK_END) {
-            // Sebelum 0.92: Backdrop belum tampil sama sekali
+            // Sebelum 0.94: Backdrop belum tampil sama sekali
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.transform = 'scale(0.98)'
           } else {
-            // Saat frame kecil mulai meredup (0.92 -> 1.00): About memudar masuk cepat & halus
+            // Saat frame kecil mulai meredup (0.94 -> 1.00): About memudar masuk cepat & halus
             const aboutReveal = Math.min(1, (progress - SHRINK_END) / (OUTRO_END - SHRINK_END))
             const aboutScale = 0.98 + aboutReveal * 0.02
             backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
@@ -289,19 +292,19 @@ export default function Hero({ onProgressChange }) {
           }
         }
 
-        // Beritahu Navbar saat frame mulai bertransisi menjadi floating card (0.75+)
+        // Beritahu Navbar saat frame mulai bertransisi menjadi floating card (0.94+)
         if (onProgressChange) {
           onProgressChange(progress)
         }
 
-        // Update React state telemetri secara efisien (throttled)
+        // Update React state telemetri secara efisien menggunakan scanProgress (0.00 -> 1.00)
         if (
-          Math.abs(progress - lastProgressUpdate) > HERO_SCROLL_TRIGGER_CONFIG.progressThreshold ||
-          progress === 1 ||
-          progress === 0
+          Math.abs(scanProgress - lastProgressUpdate) > HERO_SCROLL_TRIGGER_CONFIG.progressThreshold ||
+          scanProgress === 1 ||
+          scanProgress === 0
         ) {
-          setScrollProgress(progress)
-          lastProgressUpdate = progress
+          setScrollProgress(scanProgress)
+          lastProgressUpdate = scanProgress
         }
       },
     })
