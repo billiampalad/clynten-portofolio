@@ -11,6 +11,9 @@
   height: 100dvh;
   overflow: hidden;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-canvas {
@@ -23,8 +26,22 @@
   pointer-events: none;
   background-color: #000000;
   z-index: 1;
-  will-change: filter, transform;
+  will-change: filter, transform, opacity, border-radius;
+  transform-origin: center center;
   transition: filter 0.05s linear;
+}
+
+/* Grouped HUD Telemetry Layer for Smooth Outro Dissolve */
+.hero-hud-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  will-change: opacity, transform;
+  transform-origin: center center;
+  transition: opacity 0.1s linear, transform 0.1s linear;
 }
 
 /* Loading Overlay */

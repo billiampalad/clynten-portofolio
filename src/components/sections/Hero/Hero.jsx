@@ -14,11 +14,12 @@ import './Hero.css'
 
 const TOTAL_FRAMES = frameUrls.length
 
-export default function Hero() {
+export default function Hero({ onProgressChange }) {
   const heroSectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
   const canvasRef = useRef(null)
   const gridOverlayRef = useRef(null)
+  const hudLayerRef = useRef(null)
 
   const [loading, setLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
@@ -120,12 +121,13 @@ export default function Hero() {
     }
   }, [renderFrame])
 
-  // GSAP ScrollTrigger Cinematic Reveal Timeline
+  // GSAP ScrollTrigger Cinematic Reveal & Outro Timeline
   useEffect(() => {
     if (loading) return
 
     const canvas = canvasRef.current
     const gridOverlay = gridOverlayRef.current
+    const hudLayer = hudLayerRef.current
 
     const playhead = playheadRef.current
     playhead.frame = 0
@@ -133,6 +135,15 @@ export default function Hero() {
     // Set initial filter state
     if (canvas) {
       canvas.style.filter = `blur(${HERO_CONFIG.blurStart}px) brightness(${HERO_CONFIG.brightnessStart}) contrast(${HERO_CONFIG.contrastStart})`
+      canvas.style.transform = 'scale(1)'
+      canvas.style.opacity = '1'
+      canvas.style.borderRadius = '0px'
+      canvas.style.boxShadow = 'none'
+    }
+
+    if (hudLayer) {
+      hudLayer.style.opacity = '1'
+      hudLayer.style.transform = 'scale(1)'
     }
 
     let lastProgressUpdate = 0
@@ -140,50 +151,86 @@ export default function Hero() {
     const trigger = ScrollTrigger.create({
       trigger: heroSectionRef.current,
       start: HERO_SCROLL_TRIGGER_CONFIG.start,
-      end: HERO_SCROLL_TRIGGER_CONFIG.end,
+      end: '+=400%',
       pin: pinWrapperRef.current,
       scrub: HERO_SCROLL_TRIGGER_CONFIG.scrub,
       anticipatePin: HERO_SCROLL_TRIGGER_CONFIG.anticipatePin,
       onUpdate: (self) => {
         const progress = self.progress // 0 to 1
 
-        // 1. Frame sequence scrub
-        const targetFrame = progress * (TOTAL_FRAMES - 1)
+        // 1. Frame sequence scrub: spans smoothly from 0.0 to 0.82
+        const sequenceProgress = Math.min(1, Math.max(0, progress / 0.82))
+        const targetFrame = sequenceProgress * (TOTAL_FRAMES - 1)
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
-        // 2. Cinematic Filter calculations: transitions smoothly to 0px (sharp)
+        // 2. Cinematic Filter calculations: transitions to sharp by 0.75
+        const filterProgress = Math.min(1, progress / 0.75)
         const currentBlur = gsap.utils.interpolate(
           HERO_CONFIG.blurStart,
           HERO_CONFIG.blurEnd,
-          progress
+          filterProgress
         )
         const currentBrightness = gsap.utils.interpolate(
           HERO_CONFIG.brightnessStart,
           HERO_CONFIG.brightnessEnd,
-          progress
+          filterProgress
         )
         const currentContrast = gsap.utils.interpolate(
           HERO_CONFIG.contrastStart,
           HERO_CONFIG.contrastEnd,
-          progress
+          filterProgress
         )
 
         if (canvas) {
           canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // 3. Scanline dissolve (retains subtle residual texture at the end)
+        // 3. Scanline dissolve
         const gridOpacity = gsap.utils.interpolate(
           HERO_CONFIG.gridOpacityStart,
           HERO_CONFIG.gridOpacityEnd,
-          progress
+          filterProgress
         )
         if (gridOverlay) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
         }
 
-        // 4. Update React state for Developer Signal & HUD telemetry (throttled for high FPS)
+        // 4. Outro Phase 1 (0.78 -> 0.88): All HUD components shrink & fade away, leaving ONLY the frame canvas!
+        const hudFade = progress < 0.78 ? 1 : Math.max(0, 1 - (progress - 0.78) / 0.09)
+        const hudScale = progress < 0.78 ? 1 : Math.max(0.85, 1 - ((progress - 0.78) / 0.09) * 0.15)
+        if (hudLayer) {
+          hudLayer.style.opacity = hudFade.toFixed(3)
+          hudLayer.style.transform = `scale(${hudScale.toFixed(3)})`
+        }
+
+        // 5. Outro Phase 2 (0.86 -> 1.00): Frame canvas shrinks down smoothly and dissolves to reveal section & navbar behind
+        if (canvas) {
+          if (progress >= 0.86) {
+            const outroP = Math.min(1, (progress - 0.86) / 0.14)
+            const cScale = 1 - outroP * 0.65 // Scale down from 1.0 to 0.35
+            const cOpacity = Math.max(0, 1 - outroP * 1.05)
+            const cRadius = outroP * 32
+            const cShadow = `0 20px 60px rgba(0, 0, 0, 0.9), 0 0 ${outroP * 30}px rgba(0, 255, 170, ${0.35 * (1 - outroP)})`
+
+            canvas.style.transform = `scale(${cScale.toFixed(3)})`
+            canvas.style.opacity = cOpacity.toFixed(3)
+            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
+            canvas.style.boxShadow = cShadow
+          } else {
+            canvas.style.transform = 'scale(1)'
+            canvas.style.opacity = '1'
+            canvas.style.borderRadius = '0px'
+            canvas.style.boxShadow = 'none'
+          }
+        }
+
+        // 6. Notify Parent (Navbar Visibility & Telemetry Progress)
+        if (onProgressChange) {
+          onProgressChange(progress)
+        }
+
+        // 7. Update React state for Developer Signal & HUD telemetry (throttled for high FPS)
         if (
           Math.abs(progress - lastProgressUpdate) > HERO_SCROLL_TRIGGER_CONFIG.progressThreshold ||
           progress === 1 ||
@@ -208,7 +255,7 @@ export default function Hero() {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleResize)
     }
-  }, [loading, renderFrame])
+  }, [loading, renderFrame, onProgressChange])
 
   return (
     <section id="hero" ref={heroSectionRef} className="hero-section">
@@ -228,29 +275,32 @@ export default function Hero() {
           </div>
         )}
 
-        {/* Layer 1: Cinematic Canvas Frame Sequence */}
+        {/* Layer 1: Cinematic Canvas Frame Sequence (Shrinks and closes out at scroll end) */}
         <canvas ref={canvasRef} className="hero-canvas" />
 
-        {/* Layer 2: Matrix Cyber Smooth Falling Code Streams */}
-        {!loading && <CodeRain opacity={0.22} />}
+        {/* Grouped HUD Telemetry Layer (Smoothly shrinks and fades away at 0.78 -> 0.88) */}
+        <div ref={hudLayerRef} className="hero-hud-layer">
+          {/* Layer 2: Matrix Cyber Falling Code Streams */}
+          {!loading && <CodeRain opacity={0.22} />}
 
-        {/* Layer 3: Digital Scanline & Vignette Overlay */}
-        <PixelGrid gridRef={gridOverlayRef} />
+          {/* Layer 3: Digital Scanline & Vignette Overlay */}
+          <PixelGrid gridRef={gridOverlayRef} />
 
-        {/* Layer 4: Interactive Body Anatomy Signal Target Nodes (Overlaid directly on torso/body) */}
-        {!loading && <BodySignals progress={scrollProgress} />}
+          {/* Layer 4: Interactive Body Anatomy Signal Target Nodes */}
+          {!loading && <BodySignals progress={scrollProgress} />}
 
-        {/* Layer 5: Cyber Target Reticle & Corner Brackets HUD */}
-        {!loading && <TargetReticle progress={scrollProgress} />}
+          {/* Layer 5: Cyber Target Reticle & Corner Brackets HUD */}
+          {!loading && <TargetReticle progress={scrollProgress} />}
 
-        {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry (Top Right) */}
-        {!loading && <TelemetryWidgets progress={scrollProgress} />}
+          {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry */}
+          {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-        {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Bottom Left) */}
-        {!loading && <ScrollHeadline progress={scrollProgress} />}
+          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline */}
+          {!loading && <ScrollHeadline progress={scrollProgress} />}
 
-        {/* Layer 8: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
-        {!loading && <DeveloperSignal progress={scrollProgress} />}
+          {/* Layer 8: Developer Signal HUD */}
+          {!loading && <DeveloperSignal progress={scrollProgress} />}
+        </div>
       </div>
     </section>
   )
