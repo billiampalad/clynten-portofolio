@@ -220,61 +220,72 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 3 (0.78 -> 0.92): PENGECILAN FRAME BERSIH & PEREDUPAN
+        // TAHAP 3 (0.77 -> 0.95): SMOOTH MULTI-STAGE RATIO (FULL/100% -> 80% -> 50% -> 30% -> 10%)
         // =========================================================================
-        const SHRINK_START = 0.78 // Mulai mengecil segera setelah HUD hilang
-        const SHRINK_END = 0.86   // Titik frame menjadi kartu mini (scale 0.28)
-        const DIM_END = 0.92      // Titik frame habis meredup & About 100%
-        const SMALL_CARD_SCALE = 0.28
+        const HOLD_FULL_END = 0.81 // Fase TAHAN di 100% Fullscreen Bersih setelah HUD hilang
+        const SHRINK_START = 0.81  // Titik mulai mengecil bertahap
+        const SHRINK_END = 0.95    // Titik akhir mencapai 10% & meredup habis
+
+        // Fungsi Easing Hermite Smoothstep (Transisi sangat halus tanpa patahan)
+        const smoothStep = (t) => t * t * (3 - 2 * t)
 
         if (canvas) {
-          if (progress < SHRINK_START) {
-            // Sebelum 0.78: Fullscreen penuh, 100% terang & jernih (tanpa HUD)
+          if (progress < HOLD_FULL_END) {
+            // TAHAP FULL / 100%: Tampilan Fullscreen Penuh Bersih, 100% Terang & Jernih
             canvas.style.transform = 'scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
             canvas.style.border = 'none'
-          } else if (progress >= SHRINK_START && progress < SHRINK_END) {
-            // FASE 3A (0.78 -> 0.86): Frame bersih mengecil perlahan (1.00 -> 0.28)
-            // KONDISI MUTLAK: TETAP 100% TERANG & JERNIH (Opacity 1.0)
-            const shrinkRatio = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
-            const easeShrink = Math.pow(shrinkRatio, 1.2)
-            const cScale = 1.0 - easeShrink * (1.0 - SMALL_CARD_SCALE)
-            const cRadius = shrinkRatio * 32
-            const borderAlpha = Math.min(0.85, shrinkRatio * 1.5)
-            const glowAlpha = Math.min(0.35, shrinkRatio * 0.8)
+          } else if (progress >= SHRINK_START && progress <= SHRINK_END) {
+            // Normalisasi progres outro (0.00 -> 1.00)
+            const p = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
 
-            canvas.style.transform = `scale(${cScale.toFixed(4)})`
-            canvas.style.opacity = '1'
-            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvas.style.boxShadow = shrinkRatio > 0.02
-              ? `0 25px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, 0.15)`
-              : 'none'
-            canvas.style.border = shrinkRatio > 0.02
-              ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
-              : 'none'
-          } else if (progress >= SHRINK_END && progress < DIM_END) {
-            // FASE 3B (0.86 -> 0.92): Frame mini MEREDUP (1.00 -> 0.00) & menyusut ke 0.00
-            const dimRatio = (progress - SHRINK_END) / (DIM_END - SHRINK_END)
-            const easeShrinkEnd = Math.pow(dimRatio, 1.1)
-            const cScale = Math.max(0, SMALL_CARD_SCALE * (1 - easeShrinkEnd))
-            const frameOpacity = Math.max(0, 1 - dimRatio)
-            const borderAlpha = Math.max(0, 0.85 * (1 - dimRatio))
-            const glowAlpha = Math.max(0, 0.35 * (1 - dimRatio))
-            const cRadius = Math.max(0, 32 * (1 - dimRatio * 0.4))
+            // Hitung Rasio Skala Sangat Halus (Smooth Interpolation)
+            let cScale = 1.00
+            let cRadius = 0
+            let frameOpacity = 1.0
+
+            if (p <= 0.25) {
+              // TAHAP 1 (100% -> 80%): Membentuk sudut lembut & cyber glow
+              const t = smoothStep(p / 0.25)
+              cScale = 1.00 - t * 0.20 // 1.00 -> 0.80
+              cRadius = t * 20
+              frameOpacity = 1.0 // 100% Jernih
+            } else if (p <= 0.55) {
+              // TAHAP 2 (80% -> 50%): Medium Floating Card
+              const t = smoothStep((p - 0.25) / 0.30)
+              cScale = 0.80 - t * 0.30 // 0.80 -> 0.50
+              cRadius = 20 + t * 12
+              frameOpacity = 1.0 // 100% Jernih
+            } else if (p <= 0.80) {
+              // TAHAP 3 (50% -> 30%): Compact Mini Card (Mulai Meredup Halus)
+              const t = smoothStep((p - 0.55) / 0.25)
+              cScale = 0.50 - t * 0.20 // 0.50 -> 0.30
+              cRadius = 32
+              frameOpacity = 1.0 - t * 0.50 // 1.0 -> 0.50
+            } else {
+              // TAHAP 4 (30% -> 10%): Pinpoint Dissolve (Meredup Tuntas)
+              const t = smoothStep((p - 0.80) / 0.20)
+              cScale = 0.30 - t * 0.20 // 0.30 -> 0.10
+              cRadius = 32
+              frameOpacity = Math.max(0, 0.50 * (1 - t)) // 0.50 -> 0.00
+            }
+
+            const borderAlpha = Math.min(0.85, p * 1.5)
+            const glowAlpha = Math.min(0.35, p * 0.8)
 
             canvas.style.transform = `scale(${cScale.toFixed(4)})`
             canvas.style.opacity = frameOpacity.toFixed(3)
             canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvas.style.boxShadow = frameOpacity > 0.02 && cScale > 0.05
-              ? `0 25px 80px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 45px rgba(0, 255, 170, ${glowAlpha.toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, ${(0.15 * frameOpacity).toFixed(2)})`
+            canvas.style.boxShadow = frameOpacity > 0.02 && cScale > 0.08
+              ? `0 25px 80px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 45px rgba(0, 255, 170, ${(glowAlpha * frameOpacity).toFixed(2)}), inset 0 0 15px rgba(255, 255, 255, ${(0.15 * frameOpacity).toFixed(2)})`
               : 'none'
-            canvas.style.border = frameOpacity > 0.02 && cScale > 0.05
-              ? `1.5px solid rgba(0, 255, 170, ${borderAlpha.toFixed(2)})`
+            canvas.style.border = frameOpacity > 0.02 && cScale > 0.08
+              ? `1.5px solid rgba(0, 255, 170, ${(borderAlpha * frameOpacity).toFixed(2)})`
               : 'none'
           } else {
-            // FASE 3C (0.92 -> 1.00): LANDING BUFFER ZONE (Frame telah hilang total)
+            // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
             canvas.style.transform = 'scale(0)'
             canvas.style.opacity = '0'
             canvas.style.boxShadow = 'none'
@@ -283,23 +294,25 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 4: KEMUNCULAN SECTION ABOUT (DIAM KOKOH, HANYA TRANSISI OPACITY MURNI)
+        // TAHAP 4: KEMUNCULAN SECTION ABOUT (DIAM KOKOH, TRANSISI OPACITY HALUS)
         // =========================================================================
         if (backdropLayerRef.current) {
-          if (progress < SHRINK_END) {
-            // Sebelum frame mini meredup: Backdrop belum tampil
+          const ABOUT_FADE_START = SHRINK_START + 0.55 * (SHRINK_END - SHRINK_START) // ~0.887
+          if (progress < ABOUT_FADE_START) {
+            // Sebelum frame mencapai 50%: Backdrop belum tampil
             backdropLayerRef.current.style.opacity = '0'
-          } else if (progress >= SHRINK_END && progress < DIM_END) {
-            // Saat frame mini meredup (0.86 -> 0.92): About memudar masuk 0.0 -> 1.0
-            const aboutReveal = Math.min(1, (progress - SHRINK_END) / (DIM_END - SHRINK_END))
+          } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
+            // Saat frame mengecil dari 50% -> 30% -> 10%: About memudar masuk 0.0 -> 1.0
+            const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
+            const aboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
             backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
           } else {
-            // Dari 0.92 -> 1.00 (Landing Buffer): About 100% penuh, DIAM, TANPA PERGESERAN
+            // Dari 0.95 -> 1.00 (Landing Buffer): About 100% penuh, DIAM KOKOH
             backdropLayerRef.current.style.opacity = '1'
           }
         }
 
-        // Beritahu Navbar saat frame mini mulai meredup ke About (0.86+)
+        // Beritahu Navbar saat frame mulai meredup ke About (0.88+)
         if (onProgressChange) {
           onProgressChange(progress)
         }
