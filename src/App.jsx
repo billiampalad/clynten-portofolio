@@ -1,4 +1,4 @@
-import Hero from './components/Hero/Hero'
+import Hero from '@/components/sections/Hero/Hero'
 import './App.css'
 
 function App() {
@@ -11,4 +11,3 @@ function App() {
 }
 
 export default App
-

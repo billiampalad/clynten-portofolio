@@ -232,10 +232,21 @@
   background: currentColor;
 }
 
-.cyan-bars { color: #38bdf8; }
-.green-bars { color: #34d399; }
-.red-bars { color: #f43f5e; }
-.white-bars { color: rgba(255, 255, 255, 0.6); }
+.cyan-bars {
+  color: #38bdf8;
+}
+
+.green-bars {
+  color: #34d399;
+}
+
+.red-bars {
+  color: #f43f5e;
+}
+
+.white-bars {
+  color: rgba(255, 255, 255, 0.6);
+}
 
 .hud-micro-bars .b1 {
   height: 3px;
@@ -253,18 +264,33 @@
 }
 
 @keyframes hud-bar-pulse1 {
-  0% { height: 1.5px; }
-  100% { height: 4px; }
+  0% {
+    height: 1.5px;
+  }
+
+  100% {
+    height: 4px;
+  }
 }
 
 @keyframes hud-bar-pulse2 {
-  0% { height: 2.5px; }
-  100% { height: 6px; }
+  0% {
+    height: 2.5px;
+  }
+
+  100% {
+    height: 6px;
+  }
 }
 
 @keyframes hud-bar-pulse3 {
-  0% { height: 2px; }
-  100% { height: 5px; }
+  0% {
+    height: 2px;
+  }
+
+  100% {
+    height: 5px;
+  }
 }
 
 /* Micro Tag Badge */
@@ -453,6 +479,7 @@
 
 /* Medium Laptops (1024px to 1366px) */
 @media (min-width: 1024px) and (max-width: 1366px) {
+
   /* skill 01 */
   .callout-card-wrapper.webdev-wrapper {
     top: 5%;
@@ -513,6 +540,7 @@
 
 /* Ultra-wide Desktop (> 1800px) */
 @media (min-width: 1800px) {
+
   /* skill 01 */
   .callout-card-wrapper.webdev-wrapper {
     top: 7%;

@@ -1,19 +1,16 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import PixelGrid from './PixelGrid'
-import CodeRain from './CodeRain'
+import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
+import PixelGrid from '@/components/effects/PixelGrid'
+import CodeRain from '@/components/effects/CodeRain'
 import DeveloperSignal from './DeveloperSignal'
 import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
 import BodySignals from './BodySignals'
-import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '../../constants/hero'
-import { calculateCoverFit } from '../../utils/canvas'
-import frameUrls from '../../data/frameList.json'
+import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
+import { calculateCoverFit } from '@/lib/utils/canvas'
+import frameUrls from '@/data/frameList.json'
 import './Hero.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const TOTAL_FRAMES = frameUrls.length
 

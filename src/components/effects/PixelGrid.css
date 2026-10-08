@@ -13,13 +13,11 @@
 .digital-scanlines {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(0, 0, 0, 0.35) 4px,
-    rgba(0, 0, 0, 0.35) 5px
-  );
+  background: repeating-linear-gradient(to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.35) 4px,
+      rgba(0, 0, 0, 0.35) 5px);
   pointer-events: none;
   opacity: 0.75;
 }
@@ -28,10 +26,8 @@
 .cinematic-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 45%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
+  background: radial-gradient(circle at center,
+      transparent 45%,
+      rgba(0, 0, 0, 0.75) 100%);
   pointer-events: none;
 }

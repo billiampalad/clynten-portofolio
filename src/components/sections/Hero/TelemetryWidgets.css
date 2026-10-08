@@ -205,7 +205,7 @@
 
 @media (max-width: 1200px) {
   .vertical-phase-tracker {
-    display: none; /* Hide if horizontal clearance is tight */
+    display: none;
   }
 }
 
@@ -215,48 +215,6 @@
     opacity: var(--fade-opacity, 1);
     pointer-events: none;
     transition: opacity 0.08s linear;
-  }
-
-  /* 1. Left Vertical Phase Tracker (SYS_SCAN) */
-  .vertical-phase-tracker {
-    display: flex;
-    top: 36%;
-    left: 20px;
-    transform: translateY(-50%);
-    gap: 8px;
-  }
-
-  .tracker-line-track {
-    height: 70px;
-    width: 1.5px;
-  }
-
-  .tracker-steps {
-    height: 70px;
-  }
-
-  .step-node {
-    width: 6px;
-    height: 6px;
-  }
-
-  .node-inner {
-    width: 2.5px;
-    height: 2.5px;
-  }
-
-  .step-label {
-    gap: 4px;
-    font-size: 7.5px;
-    letter-spacing: 0.8px;
-  }
-
-  .step-num {
-    font-size: 7.5px;
-  }
-
-  .step-name {
-    font-size: 7.5px;
   }
 
   /* 2. Top Right Radar Card (OPTICAL SENSOR) */

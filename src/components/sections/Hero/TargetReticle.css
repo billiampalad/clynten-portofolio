@@ -71,6 +71,7 @@
 .s-bar:nth-child(4) { animation-delay: 0.1s; }
 .s-bar:nth-child(5) { animation-delay: 0.3s; }
 .s-bar:nth-child(6) { animation-delay: 0.5s; }
+.s-bar:nth-child(7) { animation-delay: 0.2s; }
 
 @keyframes spectrum-dance {
   0% { transform: scaleY(0.3); opacity: 0.4; }

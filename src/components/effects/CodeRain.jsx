@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { MATRIX_CODE_SNIPPETS } from '../../constants/codeSnippets'
+import { MATRIX_CODE_SNIPPETS } from '@/lib/constants/codeSnippets'
 import './CodeRain.css'
 
 export default function CodeRain({ opacity = 0.25 }) {

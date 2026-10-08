@@ -1,5 +1,5 @@
-import { SKILLS_CONFIG } from '../../constants/skills'
-import { useTextScramble } from '../../hooks/useTextScramble'
+import { SKILLS_CONFIG } from '@/content/skills'
+import { useTextScramble } from '@/hooks/useTextScramble'
 import './BodySignals.css'
 
 function HudRow({ label, value, highlightClass = '', speed = 20, isContinuous = false }) {

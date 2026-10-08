@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { developerSignals } from '../../data/developerSignals'
-import { useTextScramble } from '../../hooks/useTextScramble'
+import { developerSignals } from '@/content/developerSignals'
+import { useTextScramble } from '@/hooks/useTextScramble'
 import SignalLine from './SignalLine'
 import './DeveloperSignal.css'
 
@@ -113,4 +113,3 @@ export default function DeveloperSignal({ progress = 0 }) {
     </div>
   )
 }
-
