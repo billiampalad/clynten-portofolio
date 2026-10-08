@@ -1,4 +1,3 @@
-import React from 'react'
 import './TelemetryWidgets.css'
 
 export default function TelemetryWidgets({ progress = 0 }) {

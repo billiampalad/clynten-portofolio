@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { developerSignals } from '../../data/developerSignals'
 import { useTextScramble } from '../../hooks/useTextScramble'
 import SignalLine from './SignalLine'

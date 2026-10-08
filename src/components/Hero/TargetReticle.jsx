@@ -1,4 +1,3 @@
-import React from 'react'
 import './TargetReticle.css'
 
 export default function TargetReticle({ progress = 0 }) {

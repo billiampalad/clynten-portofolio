@@ -1,4 +1,3 @@
-import React from 'react'
 import './ScrollHeadline.css'
 
 export default function ScrollHeadline({ progress = 0 }) {

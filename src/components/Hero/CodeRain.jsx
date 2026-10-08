@@ -1,26 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { MATRIX_CODE_SNIPPETS } from '../../constants/codeSnippets'
 import './CodeRain.css'
-
-const SNIPPETS = [
-  'const { signal } = useSystem()',
-  'await renderFrame(4K_UHD)',
-  '0x7F8B9A20 // MEM_ALLOC',
-  'WebGL2.createShader(GL_VERTEX)',
-  'sys.telemetry.ping(0.04ms)',
-  'matrix4x4.identity().rotateY()',
-  'interface DeveloperProfile { ... }',
-  'Promise.all([GPU_DECODE, GSAP])',
-  '01000011 01001100 01011001',
-  'function buildDigitalReality()',
-  'export const WD4_SYSTEM = true',
-  'vec4 color = texture2D(uSampler)',
-  '0xDEADBEEF // STACK_TRACE',
-  'requestAnimationFrame(loop)',
-  'ctx.imageSmoothingQuality = "high"',
-  'new Float32Array(bufferSize)',
-  'GIS.coordinate(01.482, 103.851)',
-  'sys.kernel.verifyIdentity()'
-]
 
 export default function CodeRain({ opacity = 0.25 }) {
   const canvasRef = useRef(null)
@@ -54,8 +34,8 @@ export default function CodeRain({ opacity = 0.25 }) {
     const streams = Array.from({ length: columnCount }, (_, i) => ({
       x: i * 70 + (Math.random() * 20 - 10),
       y: Math.random() * -height * 1.5,
-      speed: 45 + Math.random() * 55, // pixels per second (smooth continuous velocity)
-      text: SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)],
+      speed: 45 + Math.random() * 55, // pixels per second
+      text: MATRIX_CODE_SNIPPETS[Math.floor(Math.random() * MATRIX_CODE_SNIPPETS.length)],
       length: 8 + Math.floor(Math.random() * 12),
       alpha: 0.2 + Math.random() * 0.4,
       fontSize: 10 + Math.floor(Math.random() * 3),
@@ -65,7 +45,6 @@ export default function CodeRain({ opacity = 0.25 }) {
       const dt = Math.min(0.1, (time - lastTime) / 1000)
       lastTime = time
 
-      // Soft clear with smooth persistence
       ctx.clearRect(0, 0, width, height)
 
       streams.forEach((stream) => {
@@ -99,7 +78,7 @@ export default function CodeRain({ opacity = 0.25 }) {
         // Reset to top when passed bottom
         if (stream.y - stream.length * 16 > height) {
           stream.y = -40 - Math.random() * 100
-          stream.text = SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)]
+          stream.text = MATRIX_CODE_SNIPPETS[Math.floor(Math.random() * MATRIX_CODE_SNIPPETS.length)]
           stream.speed = 45 + Math.random() * 55
         }
       })

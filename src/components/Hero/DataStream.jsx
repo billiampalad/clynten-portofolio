@@ -1,4 +1,3 @@
-import React from 'react'
 import { rawDataStreams } from '../../data/developerSignals'
 import { useTextScramble } from '../../hooks/useTextScramble'
 import './DataStream.css'

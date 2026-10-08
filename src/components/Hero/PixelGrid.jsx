@@ -1,4 +1,3 @@
-import React from 'react'
 import './PixelGrid.css'
 
 export default function PixelGrid({ gridRef, opacity = 1 }) {

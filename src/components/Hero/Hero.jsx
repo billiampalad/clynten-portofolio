@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PixelGrid from './PixelGrid'
@@ -8,23 +8,14 @@ import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
 import BodySignals from './BodySignals'
-import frameUrls from '../../frameList.json'
+import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '../../constants/hero'
+import { calculateCoverFit } from '../../utils/canvas'
+import frameUrls from '../../data/frameList.json'
 import './Hero.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const TOTAL_FRAMES = frameUrls.length
-
-const HERO_CONFIG = {
-  blurStart: 8,
-  blurEnd: 0,
-  brightnessStart: 0.65,
-  brightnessEnd: 1.02,
-  contrastStart: 0.9,
-  contrastEnd: 1.05,
-  gridOpacityStart: 1,
-  gridOpacityEnd: 0.2,
-}
 
 export default function Hero() {
   const heroSectionRef = useRef(null)
@@ -69,30 +60,14 @@ export default function Hero() {
     ctx.save()
     ctx.scale(dpr, dpr)
 
-    const imgRatio = img.naturalWidth / img.naturalHeight
-    const screenRatio = width / height
-
-    let drawWidth, drawHeight, offsetX, offsetY
-
-    if (screenRatio > imgRatio) {
-      drawWidth = width
-      drawHeight = width / imgRatio
-      offsetX = 0
-      offsetY = (height - drawHeight) / 2
-    } else {
-      drawHeight = height
-      drawWidth = height * imgRatio
-      offsetX = (width - drawWidth) / 2
-      offsetY = 0
-    }
-
-    ctx.drawImage(
-      img,
-      Math.round(offsetX),
-      Math.round(offsetY),
-      Math.round(drawWidth),
-      Math.round(drawHeight)
+    const { drawWidth, drawHeight, offsetX, offsetY } = calculateCoverFit(
+      width,
+      height,
+      img.naturalWidth,
+      img.naturalHeight
     )
+
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
 
     ctx.restore()
     lastRenderedIndexRef.current = index
@@ -167,11 +142,11 @@ export default function Hero() {
 
     const trigger = ScrollTrigger.create({
       trigger: heroSectionRef.current,
-      start: 'top top',
-      end: '+=350%',
+      start: HERO_SCROLL_TRIGGER_CONFIG.start,
+      end: HERO_SCROLL_TRIGGER_CONFIG.end,
       pin: pinWrapperRef.current,
-      scrub: 0.6,
-      anticipatePin: 1,
+      scrub: HERO_SCROLL_TRIGGER_CONFIG.scrub,
+      anticipatePin: HERO_SCROLL_TRIGGER_CONFIG.anticipatePin,
       onUpdate: (self) => {
         const progress = self.progress // 0 to 1
 
@@ -211,8 +186,12 @@ export default function Hero() {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
         }
 
-        // 4. Update React state for Developer Signal & Data Stream telemetry (throttled for high FPS)
-        if (Math.abs(progress - lastProgressUpdate) > 0.005 || progress === 1 || progress === 0) {
+        // 4. Update React state for Developer Signal & HUD telemetry (throttled for high FPS)
+        if (
+          Math.abs(progress - lastProgressUpdate) > HERO_SCROLL_TRIGGER_CONFIG.progressThreshold ||
+          progress === 1 ||
+          progress === 0
+        ) {
           setScrollProgress(progress)
           lastProgressUpdate = progress
         }
@@ -270,10 +249,10 @@ export default function Hero() {
         {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry (Top Right) */}
         {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-        {/* Layer 8: Large Bold Scroll-Highlighted Narrative Headline (Bottom Left) */}
+        {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Bottom Left) */}
         {!loading && <ScrollHeadline progress={scrollProgress} />}
 
-        {/* Layer 9: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
+        {/* Layer 8: Developer Signal HUD (Profile Scanned %, ECG Waveform, Signal Card) */}
         {!loading && <DeveloperSignal progress={scrollProgress} />}
       </div>
     </section>

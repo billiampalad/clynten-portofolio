@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function SignalLine({ progress = 0 }) {
   const normalizedProgress = Math.min(1, Math.max(0, progress))
   const strokeOffset = 100 * (1 - normalizedProgress)
