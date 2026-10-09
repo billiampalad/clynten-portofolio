@@ -31,7 +31,7 @@
 
 /* 2. Skill 02: Android Development Card (Hijau / Green) -> Upper-Left Flank */
 .callout-card-wrapper.android-wrapper {
-  top: 13%;
+  top: 15%;
   left: calc(50% - 550px);
   right: auto;
 }
@@ -672,38 +672,38 @@
 
   /* Left Column: Skill 01 (Webdev), Skill 03 (Cyber), Skill 05 (Database) */
   .callout-card-wrapper.webdev-wrapper {
-    top: 10% !important;
+    top: 13% !important;
     left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.cyber-wrapper {
-    top: 18% !important;
+    top: 25% !important;
     left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.db-wrapper {
-    top: 29% !important;
+    top: 38% !important;
     left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
 
   /* Right Column: Skill 02 (Android), Skill 04 (.NET), Skill 06 (UI/UX) */
   .callout-card-wrapper.android-wrapper {
-    top: 15% !important;
+    top: 17% !important;
     right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
 
   .callout-card-wrapper.net-wrapper {
-    top: 24% !important;
+    top: 29% !important;
     right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
 
   .callout-card-wrapper.uiux-wrapper {
-    top: 35% !important;
+    top: 42% !important;
     right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
