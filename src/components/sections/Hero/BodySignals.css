@@ -606,51 +606,51 @@
     pointer-events: none;
   }
 
-  /* 1. Skill 01: Web Development (Head / Upper-Left) */
+  /* 1. Skill 01: Web Development (Upper-Left of Head / Hairline) */
   .callout-card-wrapper.webdev-wrapper {
-    top: 5% !important;
-    left: calc(48% - 220px) !important;
+    top: 6% !important;
+    left: calc(50% - 240px) !important;
     right: auto !important;
   }
 
-  /* 2. Skill 02: Android Development (Upper-Left Flank) */
+  /* 2. Skill 02: Android Development (Outer-Left Eye Height) */
   .callout-card-wrapper.android-wrapper {
-    top: 14% !important;
-    left: max(16px, calc(45% - 360px)) !important;
+    top: 15% !important;
+    left: max(16px, calc(50% - 410px)) !important;
     right: auto !important;
   }
 
-  /* 3. Skill 03: Cyber Security (Right Shoulder) */
+  /* 3. Skill 03: Cyber Security (Right Shoulder / Right of Ear) */
   .callout-card-wrapper.cyber-wrapper {
-    top: 13% !important;
-    left: calc(50% + 95px) !important;
+    top: 14% !important;
+    left: calc(50% + 110px) !important;
     right: auto !important;
   }
 
-  /* 4. Skill 04: Network Administration (Chest / Torso Center-Left) */
+  /* 4. Skill 04: Network Administration (Directly below Skill 01 / Cheek Level) */
   .callout-card-wrapper.net-wrapper {
-    top: 26% !important;
-    left: calc(38% - 90px) !important;
+    top: 27% !important;
+    left: calc(50% - 240px) !important;
     right: auto !important;
   }
 
-  /* 5. Skill 05: Database Management (Mid Outer-Left Flank) */
+  /* 5. Skill 05: Database Management (Directly below Skill 02 / Outer-Left Flank) */
   .callout-card-wrapper.db-wrapper {
-    top: 40% !important;
-    left: max(16px, calc(45% - 340px)) !important;
+    top: 45% !important;
+    left: max(16px, calc(50% - 390px)) !important;
     right: auto !important;
   }
 
-  /* 6. Skill 06: UI/UX Design (Lower Torso / Hip Area) */
+  /* 6. Skill 06: UI/UX Design (Lower Collar / Near Neck Area) */
   .callout-card-wrapper.uiux-wrapper {
-    top: 48% !important;
-    left: calc(46% - 160px) !important;
+    top: 50% !important;
+    left: calc(50% - 180px) !important;
     right: auto !important;
   }
 
   .signaliq-hud-card {
-    min-width: 118px;
-    max-width: 138px;
+    min-width: 120px;
+    max-width: 140px;
     padding: 1.5px 3.5px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.45) !important;
     border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -662,6 +662,7 @@
 
   .hud-header-title {
     font-size: 5.6px;
+    letter-spacing: 0.5px;
   }
 
   .hud-square-indicator {
