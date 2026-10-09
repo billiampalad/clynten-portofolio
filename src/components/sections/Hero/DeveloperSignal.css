@@ -433,9 +433,10 @@
 @media (min-width: 769px) and (max-width: 1100px) {
   .developer-signal-container {
     right: 20px;
-    top: 48%;
+    top: 40%;
     width: 275px;
     padding: 12px 14px;
+    z-index: 25;
   }
 
   .signal-main-title {

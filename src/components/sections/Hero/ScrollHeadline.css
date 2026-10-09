@@ -174,17 +174,43 @@
   .scroll-headline-container {
     left: 24px;
     bottom: 24px;
-    max-width: calc(100% - 310px);
-    width: auto;
+    width: calc(100% - 48px);
+    max-width: 100%;
+  }
+
+  .headline-badge {
+    display: inline-flex;
+    font-size: 9.5px;
+    padding: 3px 10px;
+    margin-bottom: 6px;
+    margin-right: 10px;
   }
 
   .scroll-headline-text {
-    font-size: clamp(20px, 3.2vw, 34px);
+    font-size: clamp(26px, 4.2vw, 46px);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -1.2px;
   }
 
   .headline-subtext {
-    font-size: 9.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-top: 8px;
+  }
+
+  .subtext-line {
+    width: 28px;
+    height: 2px;
+    background: #00ffaa;
+    box-shadow: 0 0 8px #00ffaa;
+  }
+
+  .subtext-content {
+    font-size: 9.5px;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.7);
   }
 }
 
