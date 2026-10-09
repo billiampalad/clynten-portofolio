@@ -212,9 +212,7 @@
 @media (max-width: 768px) {
   .telemetry-widgets-wrapper {
     display: block;
-    opacity: var(--fade-opacity, 1);
     pointer-events: none;
-    transition: opacity 0.08s linear;
   }
 
   /* 2. Top Right Radar Card (OPTICAL SENSOR) */

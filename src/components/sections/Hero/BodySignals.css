@@ -667,14 +667,12 @@
 @media (max-width: 768px) {
   .face-signals-overlay {
     display: block;
-    opacity: var(--fade-opacity, 1);
     pointer-events: none;
-    transition: opacity 0.08s linear;
   }
 
   /* Left Column: Skill 01, 02, 04 */
   .callout-card-wrapper.webdev-wrapper {
-    top: 7% !important;
+    top: 10% !important;
     left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
