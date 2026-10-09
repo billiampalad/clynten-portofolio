@@ -231,12 +231,19 @@
 
 @media (max-width: 480px) {
   .scroll-headline-container {
-    bottom: 215px;
-    width: calc(100vw - 20px);
-    max-width: 400px;
+    bottom: 205px;
+    width: calc(100vw - 10px);
+    max-width: 440px;
   }
 
   .scroll-headline-text {
-    font-size: 13.8px;
+    font-size: clamp(13.5px, 3.8vw, 16.5px);
+    line-height: 1.15;
+  }
+
+  .headline-badge {
+    margin-bottom: 3px;
+    padding: 2px 6px;
+    font-size: 7.5px;
   }
 }
