@@ -240,6 +240,26 @@
   }
 
   .headline-subtext {
-    display: none;
+    display: flex;
+    align-items: center;
+    gap: clamp(5px, 1.5vw, 8px);
+    margin-top: clamp(4px, 1.1vw, 6px);
+  }
+
+  .subtext-line {
+    width: clamp(14px, 4vw, 22px);
+    height: clamp(1px, 0.3vw, 1.5px);
+    background: #00ffaa;
+    box-shadow: 0 0 6px #00ffaa;
+    flex-shrink: 0;
+  }
+
+  .subtext-content {
+    font-family: var(--font-mono), 'JetBrains Mono', Consolas, 'Courier New', monospace;
+    font-size: clamp(5.6px, 1.5vw, 7.5px);
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: clamp(0.5px, 0.2vw, 0.9px);
+    font-weight: 500;
+    line-height: 1.25;
   }
 }

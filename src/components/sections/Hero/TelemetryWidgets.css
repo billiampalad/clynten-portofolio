@@ -262,8 +262,55 @@
     gap: 6px;
   }
 
-  /* 3. Center Bottom Ambient Hint */
+  /* 3. Center Bottom Ambient Futuristic Scroll Prompt */
   .center-scroll-hint {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(2px, 0.7vw, 4px);
+    position: absolute;
+    bottom: clamp(235px, 54vw, 280px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 22;
+    pointer-events: none;
+  }
+
+  .cyber-mouse-pill {
+    width: clamp(10px, 2.8vw, 13px);
+    height: clamp(16px, 4.2vw, 20px);
+    border-width: 1px;
+    padding-top: 2px;
+  }
+
+  .mouse-wheel-laser {
+    width: 1.5px;
+    height: 3.5px;
+  }
+
+  .hint-label-wrapper {
+    gap: 2px;
+  }
+
+  .hint-bracket {
+    font-size: clamp(5.8px, 1.5vw, 7.5px);
+  }
+
+  .hint-text {
+    font-size: clamp(5.8px, 1.5vw, 7.5px);
+    letter-spacing: clamp(0.5px, 0.2vw, 0.9px);
+  }
+
+  .hint-chevrons {
+    gap: 1.5px;
+  }
+
+  .chevron-bar {
+    width: clamp(7px, 2vw, 9px);
+    height: 1px;
+  }
+
+  .chevron-bar.c2 {
+    width: clamp(4px, 1.3vw, 6px);
   }
 }
