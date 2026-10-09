@@ -194,7 +194,7 @@
     display: block;
     left: 50%;
     right: auto;
-    bottom: 218px;
+    bottom: clamp(165px, 43vw, 218px);
     transform: translateX(-50%);
     width: calc(100vw - 40px);
     max-width: 440px;

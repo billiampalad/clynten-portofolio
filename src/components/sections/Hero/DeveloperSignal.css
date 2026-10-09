@@ -456,65 +456,121 @@
     transform: translateX(-50%);
     width: calc(100vw - 40px);
     max-width: 440px;
-    padding: 10px 13px;
+    padding: clamp(7.5px, 2.2vw, 11px) clamp(9.5px, 2.8vw, 13.5px);
     border-radius: 6px;
   }
 
+  .hud-corner-bracket {
+    width: clamp(5px, 1.4vw, 7px);
+    height: clamp(5px, 1.4vw, 7px);
+  }
+
   .signal-top-bar {
-    margin-bottom: 4px;
+    margin-bottom: clamp(2px, 0.8vw, 4px);
+    gap: clamp(4px, 1.2vw, 8px);
   }
 
-  .signal-line-wrapper {
-    height: 10px;
-    margin-bottom: 4px;
+  .signal-profile-counter {
+    gap: clamp(5px, 1.5vw, 9px);
   }
 
-  .signal-content-card {
-    margin-bottom: 4px;
-  }
-
-  .signal-main-title {
-    font-size: 13.8px;
-    margin: 1px 0 0;
-  }
-
-  .signal-subtitle {
-    font-size: 8px;
-  }
-
-  .signal-skill-tags {
-    gap: 3px;
-    margin: 4px 0;
-  }
-
-  .skill-tag-pill {
-    font-size: 6.8px;
-    padding: 1.5px 4.5px;
+  .scanned-meta {
+    gap: clamp(1.5px, 0.5vw, 2.5px);
   }
 
   .scanned-label {
-    font-size: 8px;
+    font-size: clamp(6.4px, 1.75vw, 8px);
+    letter-spacing: clamp(0.6px, 0.22vw, 1px);
+  }
+
+  .segmented-progress-meter {
+    gap: clamp(1px, 0.35vw, 1.8px);
+  }
+
+  .meter-block {
+    width: clamp(2.4px, 0.68vw, 3.4px);
+    height: clamp(2px, 0.55vw, 2.8px);
   }
 
   .scanned-percentage {
-    font-size: 13px;
+    font-size: clamp(10px, 2.75vw, 13px);
+  }
+
+  .signal-status-badge {
+    font-size: clamp(6px, 1.6vw, 7.6px);
+    padding: clamp(1.8px, 0.45vw, 2.5px) clamp(4px, 1.1vw, 6.5px);
+    gap: clamp(2.5px, 0.7vw, 4px);
+  }
+
+  .status-dot {
+    width: clamp(2.8px, 0.75vw, 3.5px);
+    height: clamp(2.8px, 0.75vw, 3.5px);
+  }
+
+  .signal-line-wrapper {
+    height: clamp(8px, 2.1vw, 10px);
+    margin-bottom: clamp(2px, 0.8vw, 4px);
+  }
+
+  .signal-content-card {
+    gap: clamp(1px, 0.45vw, 2.5px);
+    margin-bottom: clamp(2px, 0.8vw, 4px);
+  }
+
+  .signal-header {
+    gap: clamp(3px, 1vw, 5px);
+  }
+
+  .signal-phase-tag {
+    font-size: clamp(5.6px, 1.45vw, 7px);
+    padding: clamp(0.5px, 0.2vw, 1px) clamp(3px, 0.8vw, 4.5px);
+  }
+
+  .signal-category-label {
+    font-size: clamp(6px, 1.6vw, 7.6px);
+  }
+
+  .signal-main-title {
+    font-size: clamp(10.5px, 2.9vw, 13.8px);
+    margin: clamp(0px, 0.3vw, 1px) 0 0;
+  }
+
+  .signal-subtitle {
+    font-size: clamp(6.5px, 1.7vw, 8px);
+    margin: 0 0 clamp(1px, 0.4vw, 3px) 0;
+  }
+
+  .signal-skill-tags {
+    gap: clamp(2px, 0.65vw, 3px);
+    margin: clamp(2px, 0.65vw, 4px) 0;
+  }
+
+  .skill-tag-pill {
+    font-size: clamp(5.5px, 1.4vw, 6.8px);
+    padding: clamp(1px, 0.35vw, 1.5px) clamp(3px, 0.9vw, 4.5px);
+    gap: clamp(2px, 0.6vw, 3.2px);
+  }
+
+  .skill-tag-pill .pill-dot {
+    width: clamp(2px, 0.55vw, 2.6px);
+    height: clamp(2px, 0.55vw, 2.6px);
   }
 
   .signal-bottom-telemetry {
-    padding: 4px 0;
-    gap: 3px;
+    padding: clamp(2px, 0.75vw, 4px) 0;
+    gap: clamp(2px, 0.65vw, 3px);
   }
 
   .t-key {
-    font-size: 6.4px;
+    font-size: clamp(5px, 1.35vw, 6.4px);
   }
 
   .t-val {
-    font-size: 7.4px;
+    font-size: clamp(5.8px, 1.55vw, 7.4px);
   }
 
   .signal-card-footer {
-    padding-top: 4px;
-    font-size: 6.4px;
+    padding-top: clamp(2px, 0.75vw, 4px);
+    font-size: clamp(5px, 1.35vw, 6.4px);
   }
 }
