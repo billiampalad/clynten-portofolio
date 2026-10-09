@@ -201,27 +201,41 @@
   }
 
   .headline-badge {
-    margin-bottom: 3px;
-    padding: 2px 6px;
-    font-size: 7.5px;
-    letter-spacing: 1px;
+    margin-bottom: clamp(2px, 0.7vw, 4px);
+    padding: clamp(1.5px, 0.45vw, 2.5px) clamp(4px, 1.2vw, 7px);
+    font-size: clamp(5.8px, 1.6vw, 7.8px);
+    letter-spacing: clamp(0.6px, 0.22vw, 1px);
+    gap: clamp(3px, 0.8vw, 5px);
   }
 
   .badge-signal-dot {
-    width: 4px;
-    height: 4px;
+    width: clamp(2.8px, 0.75vw, 4px);
+    height: clamp(2.8px, 0.75vw, 4px);
   }
 
   .scroll-headline-text {
-    font-size: clamp(13px, 3.8vw, 16.5px);
+    font-size: clamp(10.5px, 3.2vw, 16px);
     font-weight: 800;
     line-height: 1.15;
-    letter-spacing: -0.4px;
+    letter-spacing: clamp(-0.4px, -0.08vw, -0.2px);
   }
 
   .headline-highlight-phrase {
-    padding: 0 3px;
-    margin: 0 1px;
+    padding: 0 clamp(2px, 0.6vw, 3.5px);
+    margin: 0 clamp(0.5px, 0.2vw, 1px);
+  }
+
+  .headline-highlight-phrase.highlight-red::before,
+  .headline-highlight-phrase.highlight-blue::before {
+    inset: -1.5px clamp(-3px, -0.8vw, -2px);
+    border-radius: 3px;
+  }
+
+  .headline-highlight-phrase.highlight-red::after,
+  .headline-highlight-phrase.highlight-blue::after {
+    top: -2.5px;
+    bottom: -2.5px;
+    width: clamp(1.5px, 0.4vw, 2px);
   }
 
   .headline-subtext {
