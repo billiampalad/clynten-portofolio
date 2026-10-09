@@ -450,13 +450,13 @@
 @media (max-width: 768px) {
   .developer-signal-container {
     top: auto;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     right: auto;
     transform: translateX(-50%);
-    width: calc(100vw - 30px);
-    max-width: 350px;
-    padding: 12px 16px;
+    width: calc(100vw - 10px);
+    max-width: 440px;
+    padding: 11px 14px;
     border-radius: 6px;
   }
 
@@ -470,28 +470,11 @@
   }
 
   .signal-main-title {
-    font-size: 14.5px;
+    font-size: 14px;
   }
 
   .signal-subtitle {
-    font-size: 8.5px;
-  }
-
-  .signal-bottom-telemetry {
-    padding: 4px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .developer-signal-container {
-    bottom: 20px;
-    width: calc(100vw - 10px);
-    max-width: 440px;
-    padding: 11px 14px;
-  }
-
-  .signal-main-title {
-    font-size: 14px;
+    font-size: 8px;
   }
 
   .scanned-label {
@@ -500,6 +483,10 @@
 
   .scanned-percentage {
     font-size: 13px;
+  }
+
+  .signal-bottom-telemetry {
+    padding: 4px 0;
   }
 
   .t-key {
