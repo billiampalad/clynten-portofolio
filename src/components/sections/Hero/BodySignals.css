@@ -675,44 +675,44 @@
   /* Left Column: Skill 01, 02, 04 */
   .callout-card-wrapper.webdev-wrapper {
     top: 7% !important;
-    left: 8px !important;
+    left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.android-wrapper {
     top: 18% !important;
-    left: 8px !important;
+    left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
 
   .callout-card-wrapper.net-wrapper {
     top: 29% !important;
-    left: 8px !important;
+    left: max(20px, calc((100vw - 440px) / 2)) !important;
     right: auto !important;
   }
 
   /* Right Column: Skill 03, 05, 06 */
   .callout-card-wrapper.cyber-wrapper {
     top: 13% !important;
-    right: 8px !important;
+    right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
 
   .callout-card-wrapper.db-wrapper {
     top: 24% !important;
-    right: 8px !important;
+    right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
 
   .callout-card-wrapper.uiux-wrapper {
     top: 35% !important;
-    right: 8px !important;
+    right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
 
   .signaliq-hud-card {
-    min-width: 106px;
-    max-width: 124px;
+    min-width: clamp(90px, 26vw, 120px);
+    max-width: clamp(105px, 30vw, 130px);
     padding: 1.5px 3px;
     box-shadow: none !important;
     border: none !important;
@@ -720,13 +720,13 @@
   }
 
   .hud-header-title {
-    font-size: 5px;
+    font-size: clamp(4.6px, 1.25vw, 5.5px);
     letter-spacing: 0.5px;
   }
 
   .hud-row {
-    font-size: 4.6px;
-    grid-template-columns: 36px 1fr;
+    font-size: clamp(4.2px, 1.15vw, 5px);
+    grid-template-columns: clamp(30px, 8.5vw, 38px) 1fr;
     gap: 1.5px;
   }
 }

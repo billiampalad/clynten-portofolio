@@ -220,10 +220,10 @@
   /* 2. Top Right Radar Card (OPTICAL SENSOR) */
   .top-right-radar-card {
     display: flex;
-    top: 40px;
-    right: 12px;
-    gap: 7px;
-    padding: 5px 8px;
+    top: 36px;
+    right: max(20px, calc((100vw - 440px) / 2));
+    gap: clamp(4px, 1.4vw, 7px);
+    padding: clamp(3.5px, 1.1vw, 5px) clamp(6px, 1.8vw, 8px);
     border-radius: 6px;
     background: rgba(10, 10, 15, 0.78);
     backdrop-filter: blur(14px);
