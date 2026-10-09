@@ -194,10 +194,10 @@
     display: block;
     left: 50%;
     right: auto;
-    bottom: 200px;
+    bottom: 228px;
     transform: translateX(-50%);
     width: calc(100vw - 28px);
-    max-width: 350px;
+    max-width: 440px;
   }
 
   .headline-badge {
@@ -213,7 +213,7 @@
   }
 
   .scroll-headline-text {
-    font-size: clamp(14px, 4.2vw, 18px);
+    font-size: clamp(14.5px, 4.4vw, 18.5px);
     font-weight: 800;
     line-height: 1.16;
     letter-spacing: -0.4px;
@@ -231,12 +231,12 @@
 
 @media (max-width: 480px) {
   .scroll-headline-container {
-    bottom: 190px;
+    bottom: 215px;
     width: calc(100vw - 20px);
-    max-width: 340px;
+    max-width: 400px;
   }
 
   .scroll-headline-text {
-    font-size: 13.5px;
+    font-size: 13.8px;
   }
 }

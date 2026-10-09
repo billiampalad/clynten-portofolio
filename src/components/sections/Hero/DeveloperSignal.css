@@ -450,13 +450,13 @@
 @media (max-width: 768px) {
   .developer-signal-container {
     top: auto;
-    bottom: 16px;
+    bottom: 38px;
     left: 50%;
     right: auto;
     transform: translateX(-50%);
     width: calc(100vw - 28px);
-    max-width: 350px;
-    padding: 11px 13px;
+    max-width: 440px;
+    padding: 12px 16px;
     border-radius: 6px;
   }
 
@@ -470,11 +470,11 @@
   }
 
   .signal-main-title {
-    font-size: 14px;
+    font-size: 14.5px;
   }
 
   .signal-subtitle {
-    font-size: 8px;
+    font-size: 8.5px;
   }
 
   .signal-bottom-telemetry {
@@ -484,14 +484,14 @@
 
 @media (max-width: 480px) {
   .developer-signal-container {
-    bottom: 12px;
+    bottom: 30px;
     width: calc(100vw - 20px);
-    max-width: 340px;
-    padding: 10px 12px;
+    max-width: 400px;
+    padding: 11px 14px;
   }
 
   .signal-main-title {
-    font-size: 13.5px;
+    font-size: 14px;
   }
 
   .scanned-label {
@@ -503,10 +503,10 @@
   }
 
   .t-key {
-    font-size: 6.5px;
+    font-size: 6.8px;
   }
 
   .t-val {
-    font-size: 7.5px;
+    font-size: 7.8px;
   }
 }
