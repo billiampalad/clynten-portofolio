@@ -606,60 +606,85 @@
     pointer-events: none;
   }
 
-  /* Left Column: Skill 01, 02, 04 */
+  /* 1. Skill 01: Web Development (Head / Upper-Left) */
   .callout-card-wrapper.webdev-wrapper {
-    top: 8% !important;
-    left: 20px !important;
+    top: 5% !important;
+    left: calc(48% - 220px) !important;
     right: auto !important;
   }
 
+  /* 2. Skill 02: Android Development (Upper-Left Flank) */
   .callout-card-wrapper.android-wrapper {
-    top: 20% !important;
-    left: 20px !important;
+    top: 14% !important;
+    left: max(16px, calc(45% - 360px)) !important;
     right: auto !important;
   }
 
-  .callout-card-wrapper.net-wrapper {
-    top: 36% !important;
-    left: 20px !important;
-    right: auto !important;
-  }
-
-  /* Right Column: Skill 03, 05, 06 */
+  /* 3. Skill 03: Cyber Security (Right Shoulder) */
   .callout-card-wrapper.cyber-wrapper {
-    top: 12% !important;
-    right: 20px !important;
-    left: auto !important;
+    top: 13% !important;
+    left: calc(50% + 95px) !important;
+    right: auto !important;
   }
 
-  .callout-card-wrapper.db-wrapper {
+  /* 4. Skill 04: Network Administration (Chest / Torso Center-Left) */
+  .callout-card-wrapper.net-wrapper {
     top: 26% !important;
-    right: 20px !important;
-    left: auto !important;
+    left: calc(38% - 90px) !important;
+    right: auto !important;
   }
 
-  .callout-card-wrapper.uiux-wrapper {
+  /* 5. Skill 05: Database Management (Mid Outer-Left Flank) */
+  .callout-card-wrapper.db-wrapper {
     top: 40% !important;
-    right: 20px !important;
-    left: auto !important;
+    left: max(16px, calc(45% - 340px)) !important;
+    right: auto !important;
+  }
+
+  /* 6. Skill 06: UI/UX Design (Lower Torso / Hip Area) */
+  .callout-card-wrapper.uiux-wrapper {
+    top: 48% !important;
+    left: calc(46% - 160px) !important;
+    right: auto !important;
   }
 
   .signaliq-hud-card {
-    min-width: 134px;
-    max-width: 154px;
-    padding: 2px 4px;
-    box-shadow: none !important;
-    border: none !important;
-    background: transparent !important;
+    min-width: 118px;
+    max-width: 138px;
+    padding: 1.5px 3.5px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+    background-color: rgba(6, 10, 15, 0.82) !important;
+    background-image: linear-gradient(135deg, rgba(8, 12, 18, 0.75) 0%, rgba(3, 5, 8, 0.88) 100%) !important;
   }
 
   .hud-header-title {
-    font-size: 6.2px;
+    font-size: 5.6px;
+  }
+
+  .hud-square-indicator {
+    font-size: 5.8px;
+  }
+
+  .hud-tag-badge {
+    font-size: 5px;
+    padding: 0.5px 3px;
   }
 
   .hud-row {
-    font-size: 5.6px;
-    grid-template-columns: 46px 1fr;
+    font-size: 5px;
+    grid-template-columns: 42px 1fr;
+    gap: 1.5px;
+  }
+
+  .hud-key {
+    font-size: 4.8px;
+  }
+
+  .hud-val {
+    font-size: 5px;
   }
 }
 
