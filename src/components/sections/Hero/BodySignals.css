@@ -614,7 +614,7 @@
   }
 
   .callout-card-wrapper.android-wrapper {
-    top: 22% !important;
+    top: 20% !important;
     left: 20px !important;
     right: auto !important;
   }
@@ -711,7 +711,7 @@
   .signaliq-hud-card {
     min-width: clamp(90px, 26vw, 120px);
     max-width: clamp(105px, 30vw, 130px);
-    padding: 1.5px 3px;
+    padding: clamp(1.5px, 0.4vw, 2.5px) clamp(3px, 0.8vw, 4.5px);
     box-shadow: none !important;
     border: none !important;
     background: transparent !important;
@@ -719,12 +719,37 @@
 
   .hud-header-title {
     font-size: clamp(4.6px, 1.25vw, 5.5px);
-    letter-spacing: 0.5px;
+    letter-spacing: clamp(0.3px, 0.1vw, 0.5px);
+  }
+
+  .hud-square-indicator {
+    font-size: clamp(4.5px, 1.2vw, 5.5px);
+  }
+
+  .hud-micro-bars {
+    gap: clamp(1px, 0.3vw, 1.5px);
+  }
+
+  .hud-micro-bars .bar {
+    width: clamp(1px, 0.3vw, 1.5px);
+  }
+
+  .hud-tag-badge {
+    font-size: clamp(4px, 1.1vw, 4.8px);
+    padding: clamp(0.5px, 0.2vw, 1px) clamp(2px, 0.5vw, 3px);
   }
 
   .hud-row {
     font-size: clamp(4.2px, 1.15vw, 5px);
     grid-template-columns: clamp(30px, 8.5vw, 38px) 1fr;
     gap: 1.5px;
+  }
+
+  .hud-key {
+    font-size: clamp(4px, 1.1vw, 4.8px);
+  }
+
+  .hud-val {
+    font-size: clamp(4.2px, 1.15vw, 5px);
   }
 }
