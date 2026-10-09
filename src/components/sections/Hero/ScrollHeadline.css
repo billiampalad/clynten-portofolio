@@ -193,7 +193,7 @@
     display: block;
     left: 50%;
     right: auto;
-    bottom: clamp(165px, 43vw, 218px);
+    bottom: clamp(180px, 43vw, 210px);
     transform: translateX(-50%);
     width: calc(100vw - 40px);
     max-width: 440px;
