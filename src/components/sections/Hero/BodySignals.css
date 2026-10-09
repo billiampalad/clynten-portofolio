@@ -691,7 +691,7 @@
 
   /* Right Column: Skill 02 (Android), Skill 04 (.NET), Skill 06 (UI/UX) */
   .callout-card-wrapper.android-wrapper {
-    top: 13% !important;
+    top: 20% !important;
     right: max(20px, calc((100vw - 440px) / 2)) !important;
     left: auto !important;
   }
