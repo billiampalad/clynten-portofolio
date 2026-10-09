@@ -454,7 +454,7 @@
     left: 50%;
     right: auto;
     transform: translateX(-50%);
-    width: calc(100vw - 10px);
+    width: calc(100vw - 40px);
     max-width: 440px;
     padding: 10px 13px;
     border-radius: 6px;

@@ -196,7 +196,7 @@
     right: auto;
     bottom: 218px;
     transform: translateX(-50%);
-    width: calc(100vw - 10px);
+    width: calc(100vw - 40px);
     max-width: 440px;
   }
 
