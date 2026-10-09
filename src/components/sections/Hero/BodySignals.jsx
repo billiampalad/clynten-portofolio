@@ -94,9 +94,13 @@ function SkillCard({ skill, progress, isScrollZero }) {
 
 export default function BodySignals({ progress = 0 }) {
   const isScrollZero = progress < 0.04
+  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.18))
 
   return (
-    <div className="face-signals-overlay">
+    <div
+      className="face-signals-overlay"
+      style={{ '--fade-opacity': fadeOpacity.toFixed(3) }}
+    >
       {SKILLS_CONFIG.map((skill) => (
         <SkillCard
           key={skill.id}

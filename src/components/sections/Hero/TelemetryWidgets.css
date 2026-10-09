@@ -220,11 +220,11 @@
   /* 2. Top Right Radar Card (OPTICAL SENSOR) */
   .top-right-radar-card {
     display: flex;
-    top: 48px;
-    right: 20px;
-    gap: 8px;
-    padding: 6px 10px;
-    border-radius: 8px;
+    top: 40px;
+    right: 12px;
+    gap: 7px;
+    padding: 5px 8px;
+    border-radius: 6px;
     background: rgba(10, 10, 15, 0.78);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -233,35 +233,35 @@
   }
 
   .radar-circle-wrapper {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
 
   .radar-angle-badge {
-    font-size: 6px;
+    font-size: 5.5px;
     padding: 0 2px;
     bottom: -3px;
   }
 
   .radar-info {
-    gap: 2px;
+    gap: 1.5px;
   }
 
   .info-badge {
-    font-size: 7.5px;
-    letter-spacing: 0.8px;
-    gap: 4px;
+    font-size: 7px;
+    letter-spacing: 0.7px;
+    gap: 3px;
     margin-bottom: 1px;
   }
 
   .info-dot {
-    width: 3.5px;
-    height: 3.5px;
+    width: 3px;
+    height: 3px;
   }
 
   .info-stat {
-    font-size: 7px;
-    gap: 8px;
+    font-size: 6.5px;
+    gap: 6px;
   }
 
   /* 3. Center Bottom Ambient Hint */
