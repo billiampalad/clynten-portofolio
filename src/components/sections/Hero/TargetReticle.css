@@ -144,27 +144,33 @@
 
   .center-target-box {
     display: flex;
-    top: 2px;
-    right: 2px;
-    left: auto;
-    transform: none;
+    top: clamp(6px, 1.8vw, 12px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
   }
 
   .target-id-badge {
-    padding: 4px 10px;
+    padding: clamp(3px, 0.9vw, 4.5px) clamp(8px, 2.2vw, 11px);
     background: rgba(10, 10, 15, 0.75);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    gap: clamp(4px, 1.2vw, 7px);
+  }
+
+  .target-dot {
+    width: clamp(3.5px, 0.95vw, 4.5px);
+    height: clamp(3.5px, 0.95vw, 4.5px);
   }
 
   .target-label {
-    font-size: 8px;
-    letter-spacing: 1px;
+    font-size: clamp(6.5px, 1.75vw, 8.2px);
+    letter-spacing: clamp(0.6px, 0.22vw, 1px);
   }
 
   .target-val {
-    font-size: 8.5px;
+    font-size: clamp(7px, 1.9vw, 8.8px);
   }
 }
