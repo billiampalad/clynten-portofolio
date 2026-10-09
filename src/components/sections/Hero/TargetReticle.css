@@ -130,7 +130,12 @@
 
 @media (max-width: 768px) {
   .target-reticle-container {
-    inset: 12px;
+    inset: 10px;
+  }
+
+  .corner-bracket {
+    width: 18px;
+    height: 18px;
   }
 
   .spectrum-bars {

@@ -194,7 +194,7 @@
     display: block;
     left: 50%;
     right: auto;
-    bottom: 205px;
+    bottom: 218px;
     transform: translateX(-50%);
     width: calc(100vw - 10px);
     max-width: 440px;
@@ -213,7 +213,7 @@
   }
 
   .scroll-headline-text {
-    font-size: clamp(13.5px, 3.8vw, 17px);
+    font-size: clamp(13px, 3.8vw, 16.5px);
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: -0.4px;

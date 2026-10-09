@@ -456,25 +456,40 @@
     transform: translateX(-50%);
     width: calc(100vw - 10px);
     max-width: 440px;
-    padding: 11px 14px;
+    padding: 10px 13px;
     border-radius: 6px;
   }
 
   .signal-top-bar {
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
 
   .signal-line-wrapper {
-    height: 12px;
-    margin-bottom: 5px;
+    height: 10px;
+    margin-bottom: 4px;
+  }
+
+  .signal-content-card {
+    margin-bottom: 4px;
   }
 
   .signal-main-title {
-    font-size: 14px;
+    font-size: 13.8px;
+    margin: 1px 0 0;
   }
 
   .signal-subtitle {
     font-size: 8px;
+  }
+
+  .signal-skill-tags {
+    gap: 3px;
+    margin: 4px 0;
+  }
+
+  .skill-tag-pill {
+    font-size: 6.8px;
+    padding: 1.5px 4.5px;
   }
 
   .scanned-label {
@@ -487,13 +502,19 @@
 
   .signal-bottom-telemetry {
     padding: 4px 0;
+    gap: 3px;
   }
 
   .t-key {
-    font-size: 6.8px;
+    font-size: 6.4px;
   }
 
   .t-val {
-    font-size: 7.8px;
+    font-size: 7.4px;
+  }
+
+  .signal-card-footer {
+    padding-top: 4px;
+    font-size: 6.4px;
   }
 }
