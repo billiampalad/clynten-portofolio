@@ -915,35 +915,37 @@ export default function Projects() {
                 {selectedProject.contributions && selectedProject.contributions.length > 0 && (
                   <motion.div
                     variants={drawerItemVariants}
-                    className="mt-10 flex flex-col gap-4"
+                    className="mt-10 flex flex-col gap-3"
                   >
-                    <div className="flex flex-col gap-1.5">
-                      <h3
-                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none ${isLight ? 'text-slate-950' : 'text-white'
-                          }`}
-                      >
-                        CONTRIBUTIONS
-                      </h3>
-                    </div>
+                    <span
+                      className={`font-mono text-xs font-bold tracking-wider uppercase ${isLight ? 'text-slate-500' : 'text-zinc-400'
+                        }`}
+                    >
+                      CONTRIBUTION
+                    </span>
 
-                    <div className="flex flex-col gap-2.5 mt-2">
+                    <ul className="flex flex-col gap-2.5 sm:gap-3 mt-1">
                       {selectedProject.contributions.map((item, cIdx) => (
-                        <div
+                        <li
                           key={cIdx}
-                          className={`group flex items-center gap-3 px-3.5 py-3 rounded-xl border ${isLight
-                              ? 'bg-slate-100/60 border-slate-200/80 text-slate-800 hover:bg-slate-100'
-                              : 'bg-white/[0.03] border-white/10 text-slate-200 hover:bg-white/[0.05]'
-                            } transition-all duration-200`}
+                          className={`flex items-center gap-3 text-sm sm:text-base font-semibold ${isLight ? 'text-slate-900' : 'text-white'
+                            } tracking-tight`}
                         >
-                          <span className="font-mono text-xs font-bold text-red-500 shrink-0">
-                            0{cIdx + 1} //
-                          </span>
-                          <span className="font-mono text-xs sm:text-sm font-semibold tracking-tight">
-                            {item}
-                          </span>
-                        </div>
+                          <svg
+                            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${isLight ? 'text-slate-500' : 'text-zinc-300'
+                              }`}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                          >
+                            <path d="M12 4v16M4 12h16" />
+                          </svg>
+                          <span>{item}</span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </motion.div>
                 )}
               </motion.div>
