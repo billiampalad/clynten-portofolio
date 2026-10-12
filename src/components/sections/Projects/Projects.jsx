@@ -842,7 +842,7 @@ export default function Projects() {
                     {selectedProject.title}
                   </h3>
                   <p
-                    className={`font-mono text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'
+                    className={`mt-2.5 font-mono text-xs sm:text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-400'
                       }`}
                   >
                     {selectedProject.subtitle}
