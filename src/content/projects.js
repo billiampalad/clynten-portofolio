@@ -10,7 +10,7 @@ export const PROJECTS_DATA = [
     code: 'SYS // PRJ-01',
     shortTitle: 'SIM POLIMDO',
     title: 'SIM POLIMDO',
-    subtitle: 'Institutional Partnership & Industrial Management System',
+    subtitle: 'SIM POLIMDO is a web-based collaboration management system designed to eliminate manual archiving and streamline the full agreement lifecycle (MoU, MoA, and IA) across polytechnic industry partners. Built with Laravel (MVC architecture) and MySQL, it features multi-tiered RBAC, interactive executive monitoring dashboards, a structured digital validation and evaluation workflow, and automated reporting in PDF/Excel.',
     category: 'Full Stack & Enterprise System',
     period: '2024 — PRESENT',
     client: 'Politeknik Negeri Manado (DUDI)',
