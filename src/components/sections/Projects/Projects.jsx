@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 import { PROJECTS_DATA } from '@/content/projects'
+import TechIcon from '@/components/sections/Skills/TechIcon'
 
 const CIRCUMFERENCE = 219.91 // 2 * PI * 35
 
@@ -850,18 +851,22 @@ export default function Projects() {
 
                 {/* 3. Technology Badges */}
                 <motion.div variants={drawerItemVariants}>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {selectedProject.tech.map((t) => (
                       <motion.span
                         key={t}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.15 }}
-                        className={`px-3 py-1 rounded-md ${isLight
-                            ? 'bg-slate-100 border-slate-200 text-slate-800'
-                            : 'bg-white/[0.05] border-white/10 text-slate-300'
-                          } border font-mono text-xs font-semibold`}
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${isLight
+                            ? 'bg-slate-100/90 border-slate-200 text-slate-700 hover:bg-slate-200/70'
+                            : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
+                          } border font-mono text-[11px] font-medium transition-colors`}
                       >
-                        {t}
+                        <TechIcon
+                          name={t}
+                          className="w-3.5 h-3.5 inline-flex items-center justify-center shrink-0 [&>svg]:w-full [&>svg]:h-full"
+                        />
+                        <span>{t}</span>
                       </motion.span>
                     ))}
                   </div>

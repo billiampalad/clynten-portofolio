@@ -80,6 +80,28 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'bootstrap':
+    case 'bootstrap5':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="4" fill="#7952B3" />
+            <path d="M8.5 7.5h3.8c1.5 0 2.5.8 2.5 2 0 .9-.6 1.6-1.4 1.8 1.1.2 1.8 1 1.8 2.1 0 1.4-1.1 2.3-2.8 2.3H8.5V7.5Zm2.1 3.2h1.5c.6 0 1-.3 1-.8 0-.6-.4-.9-1-.9h-1.5v1.7Zm0 3.3h1.7c.7 0 1.2-.4 1.2-1 0-.6-.5-1-1.2-1h-1.7v2Z" fill="#ffffff" />
+          </svg>
+        </span>
+      )
+
+    case 'rbac':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2.5 4.5 5.5v6c0 5 3.5 9.5 7.5 10.5 4-1 7.5-5.5 7.5-10.5v-6L12 2.5Z" stroke="#EF4444" strokeWidth="1.6" fill="rgba(239,68,68,0.18)" />
+            <circle cx="12" cy="10" r="2" stroke="#EF4444" strokeWidth="1.3" />
+            <path d="M8.5 15.5c0-1.8 1.6-3 3.5-3s3.5 1.2 3.5 3" stroke="#EF4444" strokeWidth="1.3" strokeLinecap="round" />
+          </svg>
+        </span>
+      )
+
     case 'kotlin':
       return (
         <span className={className} aria-hidden="true">
@@ -136,6 +158,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'restapis':
+    case 'restapi':
     case 'api':
       return (
         <span className={className} aria-hidden="true">
@@ -147,6 +170,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'mikrotik':
+    case 'mikrotikrouteros':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
@@ -180,6 +204,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'cisco':
+    case 'ciscoios':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#049FD9" strokeWidth="1.8" strokeLinecap="round">
@@ -239,6 +264,50 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'tensorrt':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="4" width="16" height="16" rx="3" stroke="#76B900" strokeWidth="1.6" fill="rgba(118,185,0,0.18)" />
+            <rect x="8" y="8" width="8" height="8" rx="1" fill="#76B900" />
+            <path d="M8 2v2M12 2v2M16 2v2M8 20v2M12 20v2M16 20v2M2 8h2M2 12h2M2 16h2M20 8h2M20 12h2M20 16h2" stroke="#76B900" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </span>
+      )
+
+    case 'fastapi':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9.5" fill="#059669" stroke="#059669" strokeWidth="1" />
+            <path d="M13 3.5 6.5 13.5h4.5L10 21l7.5-10.5h-4.5L13 3.5Z" fill="#ffffff" />
+          </svg>
+        </span>
+      )
+
+    case 'opencv':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="7.5" r="3.2" stroke="#EF4444" strokeWidth="1.8" />
+            <circle cx="7.5" cy="15.5" r="3.2" stroke="#3B82F6" strokeWidth="1.8" />
+            <circle cx="16.5" cy="15.5" r="3.2" stroke="#10B981" strokeWidth="1.8" />
+          </svg>
+        </span>
+      )
+
+    case 'websocket':
+    case 'websockets':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="m6 9-3 3 3 3M18 9l3 3-3 3" stroke="#F59E0B" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="m10 7 4 10" stroke="#F59E0B" strokeWidth="1.6" strokeLinecap="round" />
+            <circle cx="12" cy="12" r="2" fill="#F59E0B" />
+          </svg>
+        </span>
+      )
+
     case 'qgis':
     case 'gis':
       return (
@@ -252,6 +321,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'pandas':
+    case 'geopandas':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
@@ -271,6 +341,26 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
             <path d="M12 9H8.5A3.5 3.5 0 0 0 5 12.5 3.5 3.5 0 0 0 8.5 16H12V9z" fill="#A259FF" />
             <path d="M12 9h3.5a3.5 3.5 0 1 1 0 7H12V9z" fill="#1ABCFE" />
             <path d="M8.5 16A3.5 3.5 0 0 0 5 19.5 3.5 3.5 0 0 0 8.5 23a3.5 3.5 0 0 0 3.5-3.5V16H8.5z" fill="#0ACF83" />
+          </svg>
+        </span>
+      )
+
+    case 'shapely':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <polygon points="12 3.5 20.5 9 17.5 19.5 6.5 19.5 3.5 9" stroke="#38BDF8" strokeWidth="1.6" fill="rgba(56,189,248,0.2)" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="2" fill="#38BDF8" />
+          </svg>
+        </span>
+      )
+
+    case 'geojson':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2.5a6.5 6.5 0 0 0-6.5 6.5c0 4.8 6.5 12.5 6.5 12.5s6.5-7.7 6.5-12.5A6.5 6.5 0 0 0 12 2.5Z" stroke="#10B981" strokeWidth="1.6" fill="rgba(16,185,129,0.18)" />
+            <circle cx="12" cy="9" r="2.2" fill="#10B981" />
           </svg>
         </span>
       )
@@ -318,6 +408,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'vlan':
+    case 'vlan8021q':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
