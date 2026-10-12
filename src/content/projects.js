@@ -46,6 +46,14 @@ export const PROJECTS_DATA = [
       badge: 'RBAC_SECURITY_LAYER',
       spec: 'MULTI_ROLE_AUTH // DOCUMENT_LIFECYCLE // AUDIT_TRAIL',
     },
+    contributions: [
+      'Full-Stack Architecture',
+      'Multi-Role RBAC Security',
+      'Agreement Lifecycle Engine',
+      'Interactive Data Analytics',
+      'Automated PDF/Excel Reporting',
+      'Public Portal Integration',
+    ],
   },
   {
     id: 'ai-cctv',
@@ -89,6 +97,14 @@ export const PROJECTS_DATA = [
       badge: 'YOLO_TENSOR_PIPELINE',
       spec: 'RTSP_INGEST // ZERO_COPY_BUFFER // EVENT_DISPATCH',
     },
+    contributions: [
+      'Edge Inference Pipeline Design',
+      'YOLOv8 & TensorRT Quantization',
+      'Multi-Stream RTSP Ingestion',
+      'Real-time Anomaly Event Dispatch',
+      'FastAPI WebSocket Telemetry Stream',
+      'Adaptive Frame Skipping Engine',
+    ],
   },
   {
     id: 'network-infra',
@@ -132,6 +148,14 @@ export const PROJECTS_DATA = [
       badge: 'VLAN_TRUNKING_802.1Q',
       spec: 'INTER_VLAN_ROUTING // FIREWALL_FILTER // QUEUE_TREE',
     },
+    contributions: [
+      'Enterprise VLAN Topology Design',
+      'Inter-VLAN Routing & IEEE 802.1Q',
+      'Dynamic OSPF & Failover Routing',
+      'Stateful Firewall & Port Security',
+      'Queue Tree PCQ Bandwidth Shaper',
+      'Wireshark Deep Packet Diagnostics',
+    ],
   },
   {
     id: 'spatial-gis',
@@ -175,5 +199,13 @@ export const PROJECTS_DATA = [
       badge: 'EPSG_COORDINATE_GRID',
       spec: 'BUFFER_ZONE_ANALYSIS // HEATMAP_CLUSTERING // GEOJSON_EXPORT',
     },
+    contributions: [
+      'Multi-Layer Geospatial Mapping',
+      'CRS Coordinate Transformation Engine',
+      'R-Tree Spatial Indexing Optimization',
+      'Demographic Density Clustering',
+      'GeoPandas & GeoJSON Pipeline Automation',
+      'Thematic Cartography & UI Dashboard',
+    ],
   },
 ]

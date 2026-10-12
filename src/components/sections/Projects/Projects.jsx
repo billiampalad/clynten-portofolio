@@ -910,6 +910,42 @@ export default function Projects() {
                     </div>
                   </motion.div>
                 )}
+
+                {/* 5. Key Contributions */}
+                {selectedProject.contributions && selectedProject.contributions.length > 0 && (
+                  <motion.div
+                    variants={drawerItemVariants}
+                    className="mt-10 flex flex-col gap-4"
+                  >
+                    <div className="flex flex-col gap-1.5">
+                      <h3
+                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                          }`}
+                      >
+                        CONTRIBUTIONS
+                      </h3>
+                    </div>
+
+                    <div className="flex flex-col gap-2.5 mt-2">
+                      {selectedProject.contributions.map((item, cIdx) => (
+                        <div
+                          key={cIdx}
+                          className={`group flex items-center gap-3 px-3.5 py-3 rounded-xl border ${isLight
+                              ? 'bg-slate-100/60 border-slate-200/80 text-slate-800 hover:bg-slate-100'
+                              : 'bg-white/[0.03] border-white/10 text-slate-200 hover:bg-white/[0.05]'
+                            } transition-all duration-200`}
+                        >
+                          <span className="font-mono text-xs font-bold text-red-500 shrink-0">
+                            0{cIdx + 1} //
+                          </span>
+                          <span className="font-mono text-xs sm:text-sm font-semibold tracking-tight">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             </motion.aside>
           </>
