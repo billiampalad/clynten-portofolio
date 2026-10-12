@@ -54,6 +54,7 @@ export const PROJECTS_DATA = [
       'Automated PDF/Excel Reporting',
       'Public Portal Integration',
     ],
+    github: 'https://github.com/billiampalad/wd4.git',
   },
   {
     id: 'ai-cctv',
@@ -105,6 +106,7 @@ export const PROJECTS_DATA = [
       'FastAPI WebSocket Telemetry Stream',
       'Adaptive Frame Skipping Engine',
     ],
+    github: 'https://github.com/billiampalad',
   },
   {
     id: 'network-infra',
@@ -156,6 +158,7 @@ export const PROJECTS_DATA = [
       'Queue Tree PCQ Bandwidth Shaper',
       'Wireshark Deep Packet Diagnostics',
     ],
+    github: 'https://github.com/billiampalad',
   },
   {
     id: 'spatial-gis',
@@ -207,5 +210,6 @@ export const PROJECTS_DATA = [
       'GeoPandas & GeoJSON Pipeline Automation',
       'Thematic Cartography & UI Dashboard',
     ],
+    github: 'https://github.com/billiampalad',
   },
 ]
