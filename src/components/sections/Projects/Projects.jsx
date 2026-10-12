@@ -848,37 +848,8 @@ export default function Projects() {
                   </p>
                 </motion.div>
 
-                {/* 3. Metrics Grid */}
-                <motion.div variants={drawerItemVariants} className="grid grid-cols-3 gap-3">
-                  {selectedProject.metrics.map((m, idx) => (
-                    <motion.div
-                      key={idx}
-                      whileHover={{ scale: 1.03 }}
-                      transition={{ duration: 0.2 }}
-                      className={`p-3 rounded-lg ${isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
-                        } border text-center`}
-                    >
-                      <span
-                        className={`block font-mono text-lg font-black ${isLight ? 'text-slate-900' : 'text-white'
-                          }`}
-                      >
-                        {m.val}
-                      </span>
-                      <span
-                        className={`font-mono text-[9px] ${isLight ? 'text-slate-500' : 'text-slate-400'
-                          } uppercase tracking-wider`}
-                      >
-                        {m.label}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                {/* 4. Technology Stack */}
+                {/* 3. Technology Badges */}
                 <motion.div variants={drawerItemVariants}>
-                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                    // TECHNOLOGY STACK
-                  </span>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tech.map((t) => (
                       <motion.span
@@ -896,7 +867,7 @@ export default function Projects() {
                   </div>
                 </motion.div>
 
-                {/* 5. Project Gallery (Distinct Visual Page Section) */}
+                {/* 4. Project Gallery (Distinct Visual Page Section) */}
                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
                   <motion.div
                     variants={drawerItemVariants}
