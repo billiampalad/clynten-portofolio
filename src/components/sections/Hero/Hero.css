@@ -3,7 +3,10 @@
    ========================================================================== */
 
 :root {
+  /* Outer section bg – adapts to theme after hero animation completes */
   --hero-bg: #000000;
+  /* Pin wrapper bg – ALWAYS black; canvas frames are opaque black */
+  --hero-pinwrapper-bg: #000000;
   --hero-canvas-bg: #000000;
   --hero-loading-bg: #000000;
   --hero-ambient-bg: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.05) 0%, transparent 70%),
@@ -13,7 +16,10 @@
 [data-theme="light"],
 html.light-theme,
 body.light-theme {
+  /* Outer section may use light color – won't bleed because it's outside the pin */
   --hero-bg: #f8fafc;
+  /* Pin wrapper stays BLACK in light mode – prevents white bleed through blur edges */
+  --hero-pinwrapper-bg: #000000;
   --hero-canvas-bg: #000000;
   --hero-loading-bg: #ffffff;
   --hero-ambient-bg: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 70%),
@@ -37,8 +43,8 @@ body.light-theme {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--hero-bg);
-  transition: background-color 0.35s ease;
+  /* Always black – canvas video frames are opaque black; white would bleed through blur */
+  background-color: var(--hero-pinwrapper-bg);
 }
 
 /* Layer 0: Seamless Backdrop Reveal directly behind the Canvas Floating Card */
