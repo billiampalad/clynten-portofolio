@@ -69,6 +69,7 @@ body.light-theme {
 
 /* Inner Layout Container */
 .navbar-container {
+  position: relative;
   width: 100%;
   max-width: 1440px;
   height: 100%;
@@ -85,6 +86,7 @@ body.light-theme {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  z-index: 1;
 }
 
 .navbar-brand {
@@ -119,13 +121,18 @@ body.light-theme {
   margin: 0 1px;
 }
 
-/* Center: Desktop Navigation Links */
+/* Center: Desktop Navigation Links (Centered) */
 .navbar-links {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  gap: clamp(14px, 1.8vw, 26px);
-  margin-left: auto;
-  margin-right: clamp(16px, 2.5vw, 36px);
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 24px);
+  margin: 0;
+  z-index: 1;
 }
 
 .nav-item {
@@ -183,6 +190,7 @@ body.light-theme {
   align-items: center;
   gap: 14px;
   flex-shrink: 0;
+  z-index: 1;
 }
 
 .nav-icon-btn {
