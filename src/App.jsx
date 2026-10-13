@@ -30,7 +30,7 @@ function App() {
       const t = (progress - FADE_START) / (FADE_END - FADE_START)
       const smoothed = t * t * (3 - 2 * t)
       setNavbarReveal(smoothed)
-      setHasNavbarShadow(true)
+      setHasNavbarShadow(false)
       document.documentElement.style.setProperty('--navbar-reveal', smoothed.toFixed(3))
     } else {
       setIsNavbarVisible(true)
