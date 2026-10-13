@@ -71,19 +71,25 @@ export default function Navbar({
     // If no contact section in DOM, default mailto behavior runs
   }
 
-  // Render stylized brand mark with em-dash (e.g. A — Z or C — P)
+  // Render stylized brand mark with animated stretch line and HOME badge on hover
   const renderBrand = () => {
     if (brandText.includes('—')) {
       const [first, ...rest] = brandText.split('—')
       return (
         <>
           <span className="brand-char">{first.trim()}</span>
-          <span className="brand-dash" aria-hidden="true">—</span>
+          <span className="brand-line" aria-hidden="true" />
           <span className="brand-char">{rest.join('—').trim()}</span>
+          <span className="brand-home-badge" aria-hidden="true">HOME</span>
         </>
       )
     }
-    return <span className="brand-char">{brandText}</span>
+    return (
+      <>
+        <span className="brand-char">{brandText}</span>
+        <span className="brand-home-badge" aria-hidden="true">HOME</span>
+      </>
+    )
   }
 
   return (
