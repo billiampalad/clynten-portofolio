@@ -3,15 +3,11 @@ import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import './Navbar.css'
 
 export const REFERENCE_NAV_ITEMS = [
-  { label: 'CASES', href: '#skills' },
-  { label: 'PRODUCTS', href: '#skills' },
-  { label: 'CODE', href: 'https://github.com/billiampalad', external: true },
-  { label: 'MISC', href: '#about' },
-  { label: 'NOTES', href: '#about' },
-  { label: 'AIUX', href: '#skills' },
-  { label: 'RESUME', href: '#resume' },
-  { label: 'WORK TOGETHER', href: '#contact' },
-  { label: 'SHOP', href: '#shop', badge: 'SOON' },
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#' },
+  { label: 'Experience', href: '#' },
+  { label: 'Contact', href: '#' },
 ]
 
 export default function Navbar({
