@@ -2,16 +2,13 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #020408;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(0, 255, 170, 0.05) 0%, transparent 60%),
-    linear-gradient(180deg, #000000 0%, #03070d 100%);
+  background: var(--nav-bg, #000000);
   color: #ffffff;
   padding: 120px 24px 100px 24px;
   box-sizing: border-box;
   overflow: hidden;
   z-index: 10;
-  transition: background-color 0.35s ease, color 0.35s ease;
+  transition: background 0.35s ease, background-color 0.35s ease, color 0.35s ease;
 }
 
 .skills-container {
@@ -279,10 +276,7 @@
 [data-theme="light"] .skills-section,
 html.light-theme .skills-section,
 body.light-theme .skills-section {
-  background-color: #f8fafc;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.06) 0%, transparent 60%),
-    linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
+  background: var(--nav-bg, #ffffff);
   color: #0f172a;
 }
 
