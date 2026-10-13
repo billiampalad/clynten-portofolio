@@ -112,6 +112,8 @@ body.light-theme {
   display: inline-block;
   line-height: 1;
   font-weight: 400;
+  width: 1.2ch;
+  text-align: center;
 }
 
 /* Horizontal line between A and Z that stretches on hover */

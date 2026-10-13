@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
+import { useHoverScramble } from '@/hooks/useTextScramble'
 import './Navbar.css'
 
 export const REFERENCE_NAV_ITEMS = [
@@ -19,6 +20,24 @@ export default function Navbar({
 }) {
   const [theme, setTheme] = useState('dark')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Parse brand text (e.g. 'A — Z' -> 'A' and 'Z')
+  const brandParts = brandText.includes('—')
+    ? brandText.split('—').map((s) => s.trim())
+    : [brandText, '']
+  const firstTarget = brandParts[0] || 'A'
+  const lastTarget = brandParts[1] || 'Z'
+
+  // Cyber text scramble hooks on hover (SignalIQ style)
+  const [firstChar, triggerFirst] = useHoverScramble(firstTarget, 30, 7)
+  const [lastChar, triggerLast] = useHoverScramble(lastTarget, 30, 9)
+
+  const handleBrandHover = useCallback(() => {
+    triggerFirst()
+    if (lastTarget) {
+      triggerLast()
+    }
+  }, [triggerFirst, triggerLast, lastTarget])
 
   // Initialize theme from document or localStorage
   useEffect(() => {
@@ -90,19 +109,18 @@ export default function Navbar({
   // Render stylized brand mark with animated stretch line and HOME badge on hover
   const renderBrand = () => {
     if (brandText.includes('—')) {
-      const [first, ...rest] = brandText.split('—')
       return (
         <>
-          <span className="brand-char">{first.trim()}</span>
+          <span className="brand-char">{firstChar}</span>
           <span className="brand-line" aria-hidden="true" />
-          <span className="brand-char">{rest.join('—').trim()}</span>
+          <span className="brand-char">{lastChar}</span>
           <span className="brand-home-badge" aria-hidden="true">HOME</span>
         </>
       )
     }
     return (
       <>
-        <span className="brand-char">{brandText}</span>
+        <span className="brand-char">{firstChar}</span>
         <span className="brand-home-badge" aria-hidden="true">HOME</span>
       </>
     )
@@ -116,6 +134,7 @@ export default function Navbar({
           <a
             href="#hero"
             onClick={handleBrandClick}
+            onMouseEnter={handleBrandHover}
             className="navbar-brand"
             aria-label="Home — Restart from beginning"
             title="Restart from beginning"

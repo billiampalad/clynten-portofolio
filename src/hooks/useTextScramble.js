@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
-const GLYPHS = '01XYZ0123456789_#*<>[]/=+-@$!?'
+export const GLYPHS = '01XYZ0123456789_#*<>[]/=+-@$!?'
 
 export function useTextScramble(targetText, speed = 25, isContinuous = false) {
   const [displayText, setDisplayText] = useState(targetText)
@@ -56,4 +56,50 @@ export function useTextScramble(targetText, speed = 25, isContinuous = false) {
   }, [targetText, speed, isContinuous])
 
   return displayText
+}
+
+/**
+ * Triggerable scramble hook (e.g. for hover events)
+ * Scrambles characters with cyber glyphs, then locks back to target text.
+ */
+export function useHoverScramble(targetText, speed = 30, totalIterations = 8) {
+  const [displayText, setDisplayText] = useState(targetText)
+  const animRef = useRef(null)
+
+  useEffect(() => {
+    setDisplayText(targetText)
+  }, [targetText])
+
+  const trigger = useCallback(() => {
+    clearInterval(animRef.current)
+    let iteration = 0
+
+    animRef.current = setInterval(() => {
+      setDisplayText(() => {
+        return targetText
+          .split('')
+          .map((char, index) => {
+            if (char === ' ') return ' '
+            if (iteration >= totalIterations - (targetText.length - index)) {
+              return targetText[index]
+            }
+            return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+          })
+          .join('')
+      })
+
+      if (iteration >= totalIterations) {
+        clearInterval(animRef.current)
+        setDisplayText(targetText)
+      }
+
+      iteration += 1
+    }, speed)
+  }, [targetText, speed, totalIterations])
+
+  useEffect(() => {
+    return () => clearInterval(animRef.current)
+  }, [])
+
+  return [displayText, trigger]
 }
