@@ -11,11 +11,11 @@ export default function Navbar({ isVisible }) {
         </a>
 
         <nav className="navbar-links">
-          <a href="#about" className="nav-link">About</a>
-          <a href="#skills" className="nav-link">Skills</a>
-          <a href="#projects" className="nav-link">Projects</a>
-          <a href="#experience" className="nav-link">Experience</a>
-          <a href="#contact" className="nav-link nav-contact-btn">Contact</a>
+          <a href="#about" data-scroll-to className="nav-link">About</a>
+          <a href="#skills" data-scroll-to className="nav-link">Skills</a>
+          <a href="#projects" data-scroll-to className="nav-link">Projects</a>
+          <a href="#experience" data-scroll-to className="nav-link">Experience</a>
+          <a href="#contact" data-scroll-to className="nav-link nav-contact-btn">Contact</a>
         </nav>
       </div>
     </header>

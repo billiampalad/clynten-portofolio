@@ -2,9 +2,13 @@ import { useState, useCallback } from 'react'
 import Navbar from '@/components/layout/Navbar/Navbar'
 import Hero from '@/components/sections/Hero/Hero'
 import About from '@/components/sections/About/About'
+import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
 import './App.css'
 
 function App() {
+  // Initialize Locomotive Scroll v5 (Lenis powered) with GSAP ScrollTrigger synchronization
+  useLocomotiveScroll()
+
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
 
   const handleHeroProgress = useCallback((progress) => {
