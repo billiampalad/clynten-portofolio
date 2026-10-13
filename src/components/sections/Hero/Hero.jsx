@@ -7,7 +7,6 @@ import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
 import BodySignals from './BodySignals'
-import About from '@/components/sections/About/About'
 import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
 import frameUrls from '@/data/frameList.json'
@@ -361,7 +360,7 @@ export default function Hero({ onProgressChange }) {
 
         {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
         <div ref={backdropLayerRef} className="hero-backdrop-layer">
-          <About isBackdrop={true} />
+          <div className="hero-backdrop-ambient" />
         </div>
 
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}

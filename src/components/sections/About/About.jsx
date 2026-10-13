@@ -39,13 +39,9 @@ const DOMAINS = [
   },
 ]
 
-export default function About({ isBackdrop = false, style = {} }) {
+export default function About({ style = {} }) {
   return (
-    <section
-      {...(!isBackdrop ? { id: 'about' } : {})}
-      className={`about-section ${isBackdrop ? 'about-backdrop-mode' : ''}`}
-      style={style}
-    >
+    <section id="about" className="about-section" style={style}>
       <div className="about-container">
         {/* Header Metadata */}
         <div className="about-header-meta">
