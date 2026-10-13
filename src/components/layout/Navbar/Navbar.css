@@ -54,9 +54,9 @@ body.light-theme {
   border-bottom: 1px solid var(--nav-border);
   box-sizing: border-box;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease,
-              border-color 0.3s ease;
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .portfolio-navbar.navbar-visible {
@@ -125,7 +125,7 @@ body.light-theme {
   margin: 0 5px;
   border-radius: 1px;
   transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.2s ease;
+    background-color 0.2s ease;
 }
 
 /* Red laser beam that sweeps across the line continuously on hover */
@@ -136,14 +136,12 @@ body.light-theme {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 42, 85, 0.4) 15%,
-    #ff2a55 50%,
-    #ff4d6d 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 42, 85, 0.4) 15%,
+      #ff2a55 50%,
+      #ff4d6d 80%,
+      transparent 100%);
   box-shadow: 0 0 6px #ff2a55, 0 0 10px rgba(255, 42, 85, 0.85);
   border-radius: 1px;
   opacity: 0;
@@ -156,7 +154,7 @@ body.light-theme {
 
 .navbar-brand:hover .brand-line::after {
   opacity: 1;
-  animation: red-laser-sweep 0.6s linear infinite;
+  animation: red-laser-sweep 1.4s ease-in-out infinite;
 }
 
 @keyframes red-laser-sweep {
@@ -164,14 +162,24 @@ body.light-theme {
     transform: translateX(0);
     opacity: 0;
   }
-  15% {
+
+  6% {
     opacity: 1;
   }
-  85% {
+
+  30% {
     opacity: 1;
   }
-  100% {
+
+  36% {
     transform: translateX(200%);
+    opacity: 0;
+  }
+
+  /* Jeda tenang ~1.5 - 1.6 detik sebelum siklus cahaya berikutnya melintas */
+  36.1%,
+  100% {
+    transform: translateX(0);
     opacity: 0;
   }
 }
@@ -197,10 +205,10 @@ body.light-theme {
   white-space: nowrap;
   transform: translateX(-8px) scale(0.9);
   transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.25s ease,
-              padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.25s ease,
+    padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
