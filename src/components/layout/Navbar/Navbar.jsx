@@ -17,6 +17,7 @@ export default function Navbar({
   navItems = REFERENCE_NAV_ITEMS,
   email = 'billiampalad@gmail.com',
   onHomeClick,
+  hasShadow = false,
 }) {
   const [theme, setTheme] = useState('dark')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -127,7 +128,11 @@ export default function Navbar({
   }
 
   return (
-    <header className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'}`}>
+    <header
+      className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
+        hasShadow ? 'navbar-has-shadow' : ''
+      }`}
+    >
       <div className="navbar-container">
         {/* Left: Brand Identity */}
         <div className="navbar-left">

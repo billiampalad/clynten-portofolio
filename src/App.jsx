@@ -10,16 +10,20 @@ function App() {
   const scrollRef = useLocomotiveScroll()
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
+  const [hasNavbarShadow, setHasNavbarShadow] = useState(false)
   const [heroKey, setHeroKey] = useState(0)
 
   const handleHeroProgress = useCallback((progress) => {
-    // Show navbar as the frame begins dimming and revealing the About section
+    // Show navbar as the frame begins dimming and revealing the About section (0.88+)
     setIsNavbarVisible(progress >= 0.88)
+    // Activate bottom shadow starting from About section and subsequent sections (0.90+)
+    setHasNavbarShadow(progress >= 0.90)
   }, [])
 
   const handleResetToHome = useCallback(() => {
-    // 1. Immediately hide navbar
+    // 1. Immediately hide navbar and remove shadow
     setIsNavbarVisible(false)
+    setHasNavbarShadow(false)
 
     // 2. Instantly reset window and locomotive scroll to top (0, 0)
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -38,7 +42,11 @@ function App() {
   return (
     <div className="portfolio-app">
       {/* Global Navigation Bar (Appears behind/after Hero outro) */}
-      <Navbar isVisible={isNavbarVisible} onHomeClick={handleResetToHome} />
+      <Navbar
+        isVisible={isNavbarVisible}
+        hasShadow={hasNavbarShadow}
+        onHomeClick={handleResetToHome}
+      />
 
       {/* Pure Cinematic Hero Section (Frames + Telemetry + About Backdrop) */}
       <Hero key={heroKey} onProgressChange={handleHeroProgress} />
