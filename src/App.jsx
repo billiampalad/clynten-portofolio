@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import Navbar from '@/components/layout/Navbar/Navbar'
 import Hero from '@/components/sections/Hero/Hero'
-import About from '@/components/sections/About/About'
+import Skills from '@/components/sections/Skills/Skills'
 import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
 import './App.css'
 
@@ -21,11 +21,11 @@ function App() {
       {/* Global Navigation Bar (Appears behind/after Hero outro) */}
       <Navbar isVisible={isNavbarVisible} />
 
-      {/* Pure Cinematic Hero Section (Frames + Telemetry + Outro Shrink Animation) */}
+      {/* Pure Cinematic Hero Section (Frames + Telemetry + About Backdrop) */}
       <Hero onProgressChange={handleHeroProgress} />
 
-      {/* Next Section: About / System Profile Overview */}
-      <About />
+      {/* Next Section: Skills / Core Architecture Domains & Specs */}
+      <Skills />
     </div>
   )
 }
