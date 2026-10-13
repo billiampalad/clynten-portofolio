@@ -18,6 +18,7 @@ export default function Navbar({
   email = 'billiampalad@gmail.com',
   onHomeClick,
   hasShadow = false,
+  revealProgress = 1,
 }) {
   const [theme, setTheme] = useState('dark')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -146,7 +147,15 @@ export default function Navbar({
       className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
         hasShadow ? 'navbar-has-shadow' : ''
       }`}
+      style={{
+        '--navbar-reveal': isVisible ? revealProgress : 0,
+      }}
     >
+      {/* Dark base underlay matching Hero backdrop (#000000) */}
+      <div className="navbar-dark-base" aria-hidden="true" />
+      {/* Dynamic theme background matching About */}
+      <div className="navbar-theme-bg" aria-hidden="true" />
+
       {/* Progressive Blur & Gradient Dissolve Layer (Reference design fade effect) */}
       <div className="navbar-bottom-blur" aria-hidden="true">
         <div className="blur-layer blur-1" />
@@ -154,6 +163,7 @@ export default function Navbar({
         <div className="blur-layer blur-3" />
         <div className="blur-layer blur-4" />
         <div className="blur-layer blur-5" />
+        <div className="blur-dark-tint" />
         <div className="blur-gradient-tint" />
       </div>
 

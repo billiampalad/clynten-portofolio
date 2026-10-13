@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root {
-  /* Dark Theme Palette (Default) — Solid Non-Transparent */
+  /* Dark Theme Palette (Default) — Solid Flat Non-Gradient */
   --nav-bg: #000000;
   --nav-border: rgba(255, 255, 255, 0.1);
   --nav-brand: #f4f4f6;
@@ -28,24 +28,24 @@
 [data-theme="light"],
 html.light-theme,
 body.light-theme {
-  /* Light Theme Palette — Solid Non-Transparent */
+  /* Light Theme Palette — Clean Pure White matching About.jsx base */
   --nav-bg: #ffffff;
-  --nav-border: rgba(0, 0, 0, 0.08);
-  --nav-brand: #18181b;
-  --nav-link: #71717a;
-  --nav-link-hover: #09090b;
-  --nav-badge-bg: #ffedd5;
-  --nav-badge-text: #ea580c;
-  --nav-badge-border: rgba(234, 88, 12, 0.2);
-  --nav-icon: #52525b;
-  --nav-icon-hover: #09090b;
-  --nav-home-bg: #09090b;
+  --nav-border: rgba(15, 23, 42, 0.08);
+  --nav-brand: #0f172a;
+  --nav-link: #475569;
+  --nav-link-hover: #0f172a;
+  --nav-badge-bg: rgba(16, 185, 129, 0.08);
+  --nav-badge-text: #059669;
+  --nav-badge-border: rgba(16, 185, 129, 0.28);
+  --nav-icon: #475569;
+  --nav-icon-hover: #0f172a;
+  --nav-home-bg: #0f172a;
   --nav-home-text: #ffffff;
   --nav-drawer-bg: #ffffff;
-  --nav-drawer-border: rgba(0, 0, 0, 0.08);
-  --nav-tint-start: rgba(255, 255, 255, 0.98);
-  --nav-tint-mid1: rgba(255, 255, 255, 0.75);
-  --nav-tint-mid2: rgba(255, 255, 255, 0.40);
+  --nav-drawer-border: rgba(15, 23, 42, 0.08);
+  --nav-tint-start: rgba(255, 255, 255, 0.96);
+  --nav-tint-mid1: rgba(255, 255, 255, 0.72);
+  --nav-tint-mid2: rgba(255, 255, 255, 0.38);
   --nav-tint-mid3: rgba(255, 255, 255, 0.12);
   --nav-tint-end: rgba(255, 255, 255, 0);
 }
@@ -58,14 +58,13 @@ body.light-theme {
   width: 100%;
   height: 56px;
   z-index: 1000;
-  background: var(--nav-bg);
+  background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border-bottom: 1px solid var(--nav-border);
   box-sizing: border-box;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.3s ease,
+    opacity 0.15s ease-out,
     border-color 0.3s ease;
 }
 
@@ -81,13 +80,34 @@ body.light-theme {
   pointer-events: none;
 }
 
+/* Layer 0: Solid Black Base Underlay matching Hero Canvas Pin Wrapper (#000000) */
+.navbar-dark-base {
+  position: absolute;
+  inset: 0;
+  background-color: #000000;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Layer 1: Dynamic Theme Background matching About Section */
+.navbar-theme-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--nav-bg);
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--navbar-reveal, 1);
+  transition: background 0.35s ease;
+}
+
 /* Seamless boundary when scrolling through About & onwards */
 .portfolio-navbar.navbar-has-shadow {
   border-bottom-color: transparent;
 }
 
 .portfolio-navbar.navbar-has-shadow .navbar-bottom-blur {
-  opacity: 1;
+  opacity: var(--navbar-reveal, 1);
+  transition: none;
 }
 
 /* ==========================================================================
@@ -160,11 +180,28 @@ body.light-theme {
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 22%);
 }
 
-/* Layer 6: Silky Smooth Gradient Dissolve into Navbar Background */
-.navbar-bottom-blur .blur-gradient-tint {
+/* Layer 6: Dark Base Tint dissolving smoothly (Reference design dim sync) */
+.navbar-bottom-blur .blur-dark-tint {
   position: absolute;
   inset: 0;
   z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.96) 0%,
+    rgba(0, 0, 0, 0.72) 28%,
+    rgba(0, 0, 0, 0.38) 58%,
+    rgba(0, 0, 0, 0.12) 82%,
+    transparent 100%
+  );
+  opacity: calc(1 - var(--navbar-reveal, 1));
+}
+
+/* Layer 7: Silky Smooth Gradient Dissolve into Navbar Background */
+.navbar-bottom-blur .blur-gradient-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
@@ -174,6 +211,7 @@ body.light-theme {
     var(--nav-tint-mid3) 82%,
     var(--nav-tint-end) 100%
   );
+  opacity: var(--navbar-reveal, 1);
   transition: background 0.35s ease;
 }
 
@@ -189,6 +227,8 @@ body.light-theme {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  z-index: 2;
+  opacity: var(--navbar-reveal, 1);
 }
 
 /* Left: Brand Identity (A — Z) */
