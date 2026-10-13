@@ -147,6 +147,16 @@ export default function Navbar({
         hasShadow ? 'navbar-has-shadow' : ''
       }`}
     >
+      {/* Progressive Blur & Gradient Dissolve Layer (Reference design fade effect) */}
+      <div className="navbar-bottom-blur" aria-hidden="true">
+        <div className="blur-layer blur-1" />
+        <div className="blur-layer blur-2" />
+        <div className="blur-layer blur-3" />
+        <div className="blur-layer blur-4" />
+        <div className="blur-layer blur-5" />
+        <div className="blur-gradient-tint" />
+      </div>
+
       <div className="navbar-container">
         {/* Left: Brand Identity */}
         <div className="navbar-left">

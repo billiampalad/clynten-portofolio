@@ -18,6 +18,11 @@
   --nav-home-text: #09090b;
   --nav-drawer-bg: #000000;
   --nav-drawer-border: rgba(255, 255, 255, 0.1);
+  --nav-tint-start: rgba(0, 0, 0, 0.96);
+  --nav-tint-mid1: rgba(0, 0, 0, 0.72);
+  --nav-tint-mid2: rgba(0, 0, 0, 0.38);
+  --nav-tint-mid3: rgba(0, 0, 0, 0.12);
+  --nav-tint-end: rgba(0, 0, 0, 0);
 }
 
 [data-theme="light"],
@@ -38,6 +43,11 @@ body.light-theme {
   --nav-home-text: #ffffff;
   --nav-drawer-bg: #ffffff;
   --nav-drawer-border: rgba(0, 0, 0, 0.08);
+  --nav-tint-start: rgba(255, 255, 255, 0.98);
+  --nav-tint-mid1: rgba(255, 255, 255, 0.75);
+  --nav-tint-mid2: rgba(255, 255, 255, 0.40);
+  --nav-tint-mid3: rgba(255, 255, 255, 0.12);
+  --nav-tint-end: rgba(255, 255, 255, 0);
 }
 
 /* Base Top Header Bar */
@@ -56,8 +66,7 @@ body.light-theme {
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.35s ease;
+    border-color 0.3s ease;
 }
 
 .portfolio-navbar.navbar-visible {
@@ -72,19 +81,100 @@ body.light-theme {
   pointer-events: none;
 }
 
-/* Bottom shadow underneath navbar when scrolling through About & onwards */
+/* Seamless boundary when scrolling through About & onwards */
 .portfolio-navbar.navbar-has-shadow {
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.95),
-              0 4px 12px -2px rgba(0, 0, 0, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.14);
+  border-bottom-color: transparent;
 }
 
-[data-theme="light"] .portfolio-navbar.navbar-has-shadow,
-html.light-theme .portfolio-navbar.navbar-has-shadow,
-body.light-theme .portfolio-navbar.navbar-has-shadow {
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.1),
-              0 4px 12px -2px rgba(0, 0, 0, 0.05);
-  border-bottom-color: rgba(0, 0, 0, 0.1);
+.portfolio-navbar.navbar-has-shadow .navbar-bottom-blur {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Progressive Blur & Gradient Dissolve Layer (Reference Design)
+   ========================================================================== */
+
+.navbar-bottom-blur {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Base style for all blur layers */
+.navbar-bottom-blur .blur-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform, backdrop-filter;
+}
+
+/* Layer 1: Lowest blur, extends all the way down */
+.navbar-bottom-blur .blur-1 {
+  z-index: 1;
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* Layer 2: Soft blur, upper 75% */
+.navbar-bottom-blur .blur-2 {
+  z-index: 2;
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 75%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 75%);
+}
+
+/* Layer 3: Medium blur, upper 55% */
+.navbar-bottom-blur .blur-3 {
+  z-index: 3;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 55%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 55%);
+}
+
+/* Layer 4: Heavy blur, upper 38% */
+.navbar-bottom-blur .blur-4 {
+  z-index: 4;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 38%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 38%);
+}
+
+/* Layer 5: Maximum blur directly adjacent to navbar seam, upper 22% */
+.navbar-bottom-blur .blur-5 {
+  z-index: 5;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 22%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 22%);
+}
+
+/* Layer 6: Silky Smooth Gradient Dissolve into Navbar Background */
+.navbar-bottom-blur .blur-gradient-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--nav-tint-start) 0%,
+    var(--nav-tint-mid1) 28%,
+    var(--nav-tint-mid2) 58%,
+    var(--nav-tint-mid3) 82%,
+    var(--nav-tint-end) 100%
+  );
+  transition: background 0.35s ease;
 }
 
 /* Inner Layout Container */
