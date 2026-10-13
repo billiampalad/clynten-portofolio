@@ -43,14 +43,21 @@ export default function Navbar({
   // Initialize theme from document or localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio-theme')
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-      setTheme(savedTheme)
-      document.documentElement.setAttribute('data-theme', savedTheme)
+    const themeToApply =
+      savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme
+        : window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'dark'
+
+    setTheme(themeToApply)
+    document.documentElement.setAttribute('data-theme', themeToApply)
+    if (themeToApply === 'light') {
+      document.documentElement.classList.add('light-theme')
+      document.documentElement.classList.remove('dark-theme')
     } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      const initialTheme = prefersDark ? 'dark' : 'dark'
-      setTheme(initialTheme)
-      document.documentElement.setAttribute('data-theme', initialTheme)
+      document.documentElement.classList.add('dark-theme')
+      document.documentElement.classList.remove('light-theme')
     }
   }, [])
 
@@ -59,6 +66,13 @@ export default function Navbar({
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
     setTheme(nextTheme)
     document.documentElement.setAttribute('data-theme', nextTheme)
+    if (nextTheme === 'light') {
+      document.documentElement.classList.add('light-theme')
+      document.documentElement.classList.remove('dark-theme')
+    } else {
+      document.documentElement.classList.add('dark-theme')
+      document.documentElement.classList.remove('light-theme')
+    }
     localStorage.setItem('portfolio-theme', nextTheme)
   }
 

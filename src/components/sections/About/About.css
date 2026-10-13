@@ -9,6 +9,7 @@
   background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.05) 0%, transparent 70%),
               linear-gradient(180deg, #000000 0%, #03070d 100%);
   pointer-events: auto;
+  transition: background 0.35s ease, background-color 0.35s ease, color 0.35s ease;
 }
 
 .about-container {
@@ -28,6 +29,7 @@
   margin-bottom: 28px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 16px;
+  transition: border-color 0.35s ease;
 }
 
 .about-badge {
@@ -43,6 +45,7 @@
   padding: 5px 14px;
   border-radius: 9999px;
   box-shadow: 0 0 15px rgba(0, 255, 170, 0.15);
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .about-badge .dot {
@@ -72,6 +75,7 @@
   font-size: 11px;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 1.5px;
+  transition: color 0.35s ease;
 }
 
 /* Big Headline Block */
@@ -86,6 +90,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 12px;
+  transition: color 0.35s ease;
 }
 
 .about-title {
@@ -96,6 +101,7 @@
   color: #ffffff;
   margin: 0 0 20px 0;
   max-width: 950px;
+  transition: color 0.35s ease;
 }
 
 .about-title .highlight {
@@ -103,6 +109,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  transition: background 0.35s ease;
 }
 
 .about-description {
@@ -111,6 +118,7 @@
   color: rgba(255, 255, 255, 0.75);
   max-width: 820px;
   margin: 0;
+  transition: color 0.35s ease;
 }
 
 /* Cyber Telemetry Status Bar */
@@ -123,6 +131,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   backdrop-filter: blur(8px);
+  transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .about-status {
@@ -157,6 +166,7 @@
   color: #f43f5e;
   letter-spacing: 1.2px;
   font-weight: 600;
+  transition: color 0.35s ease;
 }
 
 .about-scroll-hint {
@@ -167,11 +177,13 @@
   font-size: 11px;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 1px;
+  transition: color 0.35s ease;
 }
 
 .about-scroll-hint .scroll-arrow {
   color: #38bdf8;
   animation: bounce-arrow 1.5s infinite;
+  transition: color 0.35s ease;
 }
 
 @keyframes bounce-arrow {
@@ -181,6 +193,105 @@
   50% {
     transform: translateY(4px);
   }
+}
+
+/* ==========================================================================
+   About Section — Light Theme
+   ========================================================================== */
+
+[data-theme="light"] .about-wrap,
+html.light-theme .about-wrap,
+body.light-theme .about-wrap {
+  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 70%),
+              linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+[data-theme="light"] .about-header-meta,
+html.light-theme .about-header-meta,
+body.light-theme .about-header-meta {
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .about-badge,
+html.light-theme .about-badge,
+body.light-theme .about-badge {
+  color: #059669;
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.28);
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.12);
+}
+
+[data-theme="light"] .about-badge .dot,
+html.light-theme .about-badge .dot,
+body.light-theme .about-badge .dot {
+  background: #059669;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6);
+}
+
+[data-theme="light"] .about-sys-id,
+html.light-theme .about-sys-id,
+body.light-theme .about-sys-id {
+  color: #64748b;
+}
+
+[data-theme="light"] .about-tagline,
+html.light-theme .about-tagline,
+body.light-theme .about-tagline {
+  color: #0284c7;
+}
+
+[data-theme="light"] .about-title,
+html.light-theme .about-title,
+body.light-theme .about-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .about-title .highlight,
+html.light-theme .about-title .highlight,
+body.light-theme .about-title .highlight {
+  background: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .about-description,
+html.light-theme .about-description,
+body.light-theme .about-description {
+  color: #475569;
+}
+
+[data-theme="light"] .about-telemetry-bar,
+html.light-theme .about-telemetry-bar,
+body.light-theme .about-telemetry-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .about-status .status-ping,
+html.light-theme .about-status .status-ping,
+body.light-theme .about-status .status-ping {
+  background: #e11d48;
+  box-shadow: 0 0 8px #e11d48;
+}
+
+[data-theme="light"] .about-status .status-text,
+html.light-theme .about-status .status-text,
+body.light-theme .about-status .status-text {
+  color: #e11d48;
+}
+
+[data-theme="light"] .about-scroll-hint,
+html.light-theme .about-scroll-hint,
+body.light-theme .about-scroll-hint {
+  color: #64748b;
+}
+
+[data-theme="light"] .about-scroll-hint .scroll-arrow,
+html.light-theme .about-scroll-hint .scroll-arrow,
+body.light-theme .about-scroll-hint .scroll-arrow {
+  color: #0284c7;
 }
 
 @media (max-width: 768px) {
@@ -199,3 +310,4 @@
     font-size: 14px;
   }
 }
+

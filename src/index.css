@@ -67,8 +67,25 @@ html, body {
   width: 100%;
   min-height: 100%;
   background-color: #000000;
+  color: #ffffff;
   overflow-x: hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+[data-theme="light"],
+html.light-theme,
+body.light-theme {
+  color-scheme: light;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+[data-theme="light"] body,
+html.light-theme body,
+body.light-theme {
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
 #root {
@@ -77,4 +94,10 @@ html, body {
   margin: 0;
   padding: 0;
   background: #000000;
+  transition: background-color 0.35s ease;
+}
+
+[data-theme="light"] #root,
+html.light-theme #root {
+  background: #f8fafc;
 }

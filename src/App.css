@@ -4,4 +4,13 @@
   background-color: #000000;
   color: #ffffff;
   overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
+
+[data-theme="light"] .portfolio-app,
+html.light-theme .portfolio-app,
+body.light-theme .portfolio-app {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
