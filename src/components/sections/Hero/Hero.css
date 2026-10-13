@@ -1,7 +1,7 @@
 .hero-section {
   position: relative;
   width: 100%;
-  background-color: transparent;
+  background-color: #000000;
 }
 
 .hero-pin-wrapper {
@@ -14,8 +14,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background-color: #000000;
 }
+
 
 /* Layer 0: Seamless Backdrop Reveal directly behind the Canvas Floating Card */
 .hero-backdrop-layer {

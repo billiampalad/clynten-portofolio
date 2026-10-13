@@ -38,7 +38,7 @@ function HudHeader({ text, tag, squareClass, colorClass, speed = 18, isContinuou
 function SkillCard({ skill, progress, isScrollZero }) {
   const isResolved = progress >= skill.threshold
   const data = isResolved ? skill.resolved : skill.unresolved
-  const color = isScrollZero ? 'white' : skill.activeColor
+  const color = skill.activeColor
 
   return (
     <div className={`callout-card-wrapper ${skill.wrapperClass}`}>
