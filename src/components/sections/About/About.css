@@ -6,8 +6,7 @@
   justify-content: center;
   padding: 80px 24px;
   box-sizing: border-box;
-  background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.05) 0%, transparent 70%),
-              linear-gradient(180deg, #000000 0%, #03070d 100%);
+  background: var(--nav-bg, #000000);
   pointer-events: auto;
   transition: background 0.35s ease, background-color 0.35s ease, color 0.35s ease;
 }
@@ -202,8 +201,7 @@
 [data-theme="light"] .about-wrap,
 html.light-theme .about-wrap,
 body.light-theme .about-wrap {
-  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 70%),
-              linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  background: var(--nav-bg, #ffffff);
 }
 
 [data-theme="light"] .about-header-meta,
