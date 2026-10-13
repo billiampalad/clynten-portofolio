@@ -7,6 +7,7 @@ import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
 import BodySignals from './BodySignals'
+import HeroVerifiedProfile from './HeroVerifiedProfile'
 import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
 import frameUrls from '@/data/frameList.json'
@@ -290,21 +291,24 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 4: KEMUNCULAN SECTION ABOUT (DIAM KOKOH, TRANSISI OPACITY HALUS)
+        // TAHAP 4: KEMUNCULAN SECTION VERIFIED PROFILE (DIAM KOKOH, TRANSISI OPACITY HALUS)
         // =========================================================================
         if (backdropLayerRef.current) {
           const ABOUT_FADE_START = SHRINK_START + 0.55 * (SHRINK_END - SHRINK_START) // ~0.887
           if (progress < ABOUT_FADE_START) {
             // Sebelum frame mencapai 50%: Backdrop belum tampil
             backdropLayerRef.current.style.opacity = '0'
+            backdropLayerRef.current.style.pointerEvents = 'none'
           } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
-            // Saat frame mengecil dari 50% -> 30% -> 10%: About memudar masuk 0.0 -> 1.0
+            // Saat frame mengecil dari 50% -> 30% -> 10%: Verified Profile memudar masuk 0.0 -> 1.0
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
             const aboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
             backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
+            backdropLayerRef.current.style.pointerEvents = aboutReveal > 0.5 ? 'auto' : 'none'
           } else {
-            // Dari 0.95 -> 1.00 (Landing Buffer): About 100% penuh, DIAM KOKOH
+            // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
             backdropLayerRef.current.style.opacity = '1'
+            backdropLayerRef.current.style.pointerEvents = 'auto'
           }
         }
 
@@ -360,7 +364,7 @@ export default function Hero({ onProgressChange }) {
 
         {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
         <div ref={backdropLayerRef} className="hero-backdrop-layer">
-          <div className="hero-backdrop-ambient" />
+          <HeroVerifiedProfile />
         </div>
 
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}

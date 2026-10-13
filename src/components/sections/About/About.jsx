@@ -47,20 +47,19 @@ export default function About({ style = {} }) {
         <div className="about-header-meta">
           <div className="about-badge">
             <span className="dot" />
-            <span>SYSTEM_PROFILE // VERIFIED</span>
+            <span>CORE_ARCHITECTURE // DOMAINS</span>
           </div>
-          <span className="about-sys-id">NODE_ID: {profile.systemId}</span>
+          <span className="about-sys-id">SPEC_ID: {profile.systemId}</span>
         </div>
 
         {/* Big Headline */}
         <div className="about-headline-block">
-          <div className="about-tagline">Architectural Philosophy</div>
+          <div className="about-tagline">Technical Stack & Competencies</div>
           <h2 className="about-title">
-            Engineering <span className="highlight">resilient software</span> and intelligent digital infrastructure.
+            Production-grade systems <span className="highlight">engineered for scale</span> and high resilience.
           </h2>
           <p className="about-description">
-            Combining full-stack software development, cybersecurity, and computer vision to build 
-            end-to-end digital solutions that scale seamlessly from local edge hardware to cloud environments.
+            Explore the core technical pillars, verifiable engineering metrics, and specialized stack modules powering modern web architectures, mobile applications, network infrastructure, and spatial AI.
           </p>
         </div>
 
