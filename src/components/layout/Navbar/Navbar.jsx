@@ -15,6 +15,7 @@ export default function Navbar({
   brandText = 'A — Z',
   navItems = REFERENCE_NAV_ITEMS,
   email = 'billiampalad@gmail.com',
+  onHomeClick,
 }) {
   const [theme, setTheme] = useState('dark')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -41,6 +42,17 @@ export default function Navbar({
     localStorage.setItem('portfolio-theme', nextTheme)
   }
 
+  // Handle Home / Brand click to reset website from loading state
+  const handleBrandClick = useCallback((e) => {
+    e.preventDefault()
+    setIsMobileMenuOpen(false)
+    if (onHomeClick) {
+      onHomeClick()
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    }
+  }, [onHomeClick])
+
   // Smooth scroll handler for anchor links
   const handleLinkClick = useCallback((e, item) => {
     if (item.external) return
@@ -50,17 +62,21 @@ export default function Navbar({
       const targetId = item.href.slice(1)
       const targetEl = document.getElementById(targetId)
 
-      if (targetEl) {
+      if (item.href === '#hero' || item.label?.toLowerCase() === 'home') {
+        if (onHomeClick) {
+          onHomeClick()
+        } else {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+        }
+      } else if (targetEl) {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
       } else if (item.href === '#contact' || item.label === 'WORK TOGETHER') {
         window.location.href = `mailto:${email}?subject=Collaboration%20Inquiry`
-      } else if (item.href === '#hero') {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
 
       setIsMobileMenuOpen(false)
     }
-  }, [email])
+  }, [email, onHomeClick])
 
   const handleContactClick = (e) => {
     const contactSection = document.getElementById('contact')
@@ -99,9 +115,10 @@ export default function Navbar({
         <div className="navbar-left">
           <a
             href="#hero"
-            onClick={(e) => handleLinkClick(e, { href: '#hero' })}
+            onClick={handleBrandClick}
             className="navbar-brand"
-            aria-label="Go to top"
+            aria-label="Home — Restart from beginning"
+            title="Restart from beginning"
           >
             {renderBrand()}
           </a>

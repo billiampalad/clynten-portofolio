@@ -103,8 +103,12 @@ export default function Hero({ onProgressChange }) {
           }
 
           if (loadedCount === TOTAL_FRAMES) {
-            setLoading(false)
             renderFrame(0)
+            finishTimer = setTimeout(() => {
+              if (!isMounted) return
+              setLoading(false)
+              renderFrame(0)
+            }, 450)
           }
         }
 
@@ -113,10 +117,14 @@ export default function Hero({ onProgressChange }) {
       imagesRef.current = images
     }
 
+    let finishTimer = null
     loadImages()
 
     return () => {
       isMounted = false
+      if (finishTimer) {
+        clearTimeout(finishTimer)
+      }
       images.forEach((img) => {
         img.onload = null
       })
