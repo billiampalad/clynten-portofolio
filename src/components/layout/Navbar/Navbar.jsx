@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
-import { useHoverScramble } from '@/hooks/useTextScramble'
+import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
 
 export const REFERENCE_NAV_ITEMS = [
@@ -28,9 +28,9 @@ export default function Navbar({
   const firstTarget = brandParts[0] || 'A'
   const lastTarget = brandParts[1] || 'Z'
 
-  // Cyber text scramble hooks on hover (SignalIQ style)
-  const [firstChar, triggerFirst] = useHoverScramble(firstTarget, 30, 7)
-  const [lastChar, triggerLast] = useHoverScramble(lastTarget, 30, 9)
+  // Text scramble hooks on hover (Letters only: A-Z)
+  const [firstChar, triggerFirst] = useHoverScramble(firstTarget, 30, 7, LETTERS)
+  const [lastChar, triggerLast] = useHoverScramble(lastTarget, 30, 9, LETTERS)
 
   const handleBrandHover = useCallback(() => {
     triggerFirst()

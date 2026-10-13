@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 
+export const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 export const GLYPHS = '01XYZ0123456789_#*<>[]/=+-@$!?'
 
 export function useTextScramble(targetText, speed = 25, isContinuous = false) {
@@ -60,9 +61,9 @@ export function useTextScramble(targetText, speed = 25, isContinuous = false) {
 
 /**
  * Triggerable scramble hook (e.g. for hover events)
- * Scrambles characters with cyber glyphs, then locks back to target text.
+ * Scrambles characters with alphabet letters only (A-Z), then locks back to target text.
  */
-export function useHoverScramble(targetText, speed = 30, totalIterations = 8) {
+export function useHoverScramble(targetText, speed = 30, totalIterations = 8, charPool = LETTERS) {
   const [displayText, setDisplayText] = useState(targetText)
   const animRef = useRef(null)
 
@@ -83,7 +84,7 @@ export function useHoverScramble(targetText, speed = 30, totalIterations = 8) {
             if (iteration >= totalIterations - (targetText.length - index)) {
               return targetText[index]
             }
-            return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+            return charPool[Math.floor(Math.random() * charPool.length)]
           })
           .join('')
       })
@@ -95,7 +96,7 @@ export function useHoverScramble(targetText, speed = 30, totalIterations = 8) {
 
       iteration += 1
     }, speed)
-  }, [targetText, speed, totalIterations])
+  }, [targetText, speed, totalIterations, charPool])
 
   useEffect(() => {
     return () => clearInterval(animRef.current)
