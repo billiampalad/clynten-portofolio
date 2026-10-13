@@ -282,13 +282,22 @@ export default function Hero({ onProgressChange }) {
 
             const glowAlpha = Math.min(0.85, p * 1.2)
 
+            const isLight =
+              document.documentElement.getAttribute('data-theme') === 'light' ||
+              document.documentElement.classList.contains('light-theme')
+
             canvas.style.transform = `scale(${cScale.toFixed(4)})`
             canvas.style.opacity = frameOpacity.toFixed(3)
             canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
             canvas.style.border = 'none'
-            canvas.style.boxShadow = frameOpacity > 0.02 && cScale > 0.08
-              ? `0 25px 90px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 50px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 100px rgba(255, 30, 70, ${(glowAlpha * 0.6 * frameOpacity).toFixed(2)}), inset 0 0 25px rgba(255, 0, 60, ${(0.25 * frameOpacity).toFixed(2)})`
-              : 'none'
+
+            if (frameOpacity > 0.02 && cScale > 0.08) {
+              canvas.style.boxShadow = isLight
+                ? `0 20px 60px rgba(15, 23, 42, ${(0.18 * frameOpacity).toFixed(2)}), 0 0 35px rgba(244, 63, 94, ${(0.28 * frameOpacity).toFixed(2)}), inset 0 0 15px rgba(244, 63, 94, ${(0.12 * frameOpacity).toFixed(2)})`
+                : `0 25px 90px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 50px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 100px rgba(255, 30, 70, ${(glowAlpha * 0.6 * frameOpacity).toFixed(2)}), inset 0 0 25px rgba(255, 0, 60, ${(0.25 * frameOpacity).toFixed(2)})`
+            } else {
+              canvas.style.boxShadow = 'none'
+            }
           } else {
             // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
             canvas.style.transform = 'scale(0)'
@@ -302,13 +311,14 @@ export default function Hero({ onProgressChange }) {
         // TAHAP 4: KEMUNCULAN SECTION VERIFIED PROFILE (DIAM KOKOH, TRANSISI OPACITY HALUS)
         // =========================================================================
         if (backdropLayerRef.current) {
-          const ABOUT_FADE_START = SHRINK_START + 0.55 * (SHRINK_END - SHRINK_START) // ~0.887
+          // Backdrop mulai memudar masuk seawal frame mulai mengecil (~0.83)
+          const ABOUT_FADE_START = SHRINK_START + 0.15 * (SHRINK_END - SHRINK_START)
           if (progress < ABOUT_FADE_START) {
-            // Sebelum frame mencapai 50%: Backdrop belum tampil
+            // Sebelum frame mengecil: Backdrop belum tampil
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
           } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
-            // Saat frame mengecil dari 50% -> 30% -> 10%: Verified Profile memudar masuk 0.0 -> 1.0
+            // Saat frame mengecil: Verified Profile memudar masuk 0.0 -> 1.0
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
             const aboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
             backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
