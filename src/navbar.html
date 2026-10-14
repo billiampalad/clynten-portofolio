@@ -213,7 +213,7 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: #4b5563;
-            padding: 6px 14px;
+            padding: 6px 10px;
             /* border-radius: 6px; */
             display: inline-flex;
             align-items: center;
@@ -592,6 +592,87 @@
             const isDark = htmlElement.classList.toggle('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
+
+        // 3. Text Scramble Effect on Hover (mengikuti useHoverScramble & useTextScramble pada proyek)
+        const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        function runTextScramble(element) {
+            const targetText = element.getAttribute('data-original-text') || element.textContent.trim();
+            if (!element.getAttribute('data-original-text')) {
+                element.setAttribute('data-original-text', targetText);
+            }
+
+            clearInterval(element._scrambleInterval);
+
+            const length = targetText.length;
+            const extraIterations = Math.max(3, Math.floor(length / 2));
+            const totalIterations = length + extraIterations;
+            const speed = Math.max(20, Math.min(32, Math.floor(280 / totalIterations)));
+
+            let iteration = 0;
+
+            element._scrambleInterval = setInterval(() => {
+                element.textContent = targetText
+                    .split('')
+                    .map((char, index) => {
+                        if (char === ' ' || char === '—') return char;
+                        // Karakter mengunci satu per satu dari kiri ke kanan sesuai pola decode useHoverScramble
+                        if (iteration >= totalIterations - (length - index)) {
+                            return targetText[index];
+                        }
+                        return LETTERS[Math.floor(Math.random() * LETTERS.length)];
+                    })
+                    .join('');
+
+                if (iteration >= totalIterations) {
+                    clearInterval(element._scrambleInterval);
+                    element.textContent = targetText;
+                }
+
+                iteration += 1;
+            }, speed);
+        }
+
+        function stopTextScramble(element) {
+            if (element._scrambleInterval) {
+                clearInterval(element._scrambleInterval);
+            }
+            const targetText = element.getAttribute('data-original-text');
+            if (targetText) {
+                element.textContent = targetText;
+            }
+        }
+
+        // Terapkan efek scramble pada setiap item menu navbar
+        const navbarLinks = document.querySelectorAll('.navbar-link');
+        navbarLinks.forEach((link) => {
+            link.setAttribute('data-original-text', link.textContent.trim());
+
+            link.addEventListener('mouseenter', () => {
+                runTextScramble(link);
+            });
+
+            link.addEventListener('mouseleave', () => {
+                stopTextScramble(link);
+            });
+        });
+
+        // Terapkan juga pada logo/brand (A — Z) sesuai interaksi Navbar.jsx
+        const navbarBrand = document.querySelector('.navbar-brand');
+        if (navbarBrand) {
+            const brandSpans = navbarBrand.querySelectorAll('span:not(.dash)');
+            brandSpans.forEach((span) => {
+                span.setAttribute('data-original-text', span.textContent.trim());
+            });
+
+            navbarBrand.addEventListener('mouseenter', () => {
+                brandSpans.forEach((span) => runTextScramble(span));
+            });
+
+            navbarBrand.addEventListener('mouseleave', () => {
+                brandSpans.forEach((span) => stopTextScramble(span));
+            });
+        }
     </script>
 </body>
 
