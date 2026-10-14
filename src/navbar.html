@@ -192,6 +192,12 @@
             opacity: 0.7;
         }
 
+        .navbar-brand span:not(.dash) {
+            display: inline-block;
+            width: 1.2ch;
+            text-align: center;
+        }
+
         /* Center / Main Navigation Links */
         .navbar-menu {
             display: flex;
@@ -203,6 +209,7 @@
         .navbar-item {
             display: flex;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .navbar-link {
@@ -214,13 +221,16 @@
             text-transform: uppercase;
             color: #4b5563;
             padding: 6px 10px;
-            /* border-radius: 6px; */
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
             gap: 6px;
             white-space: nowrap;
             overflow: hidden;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
             z-index: 1;
             transition: color 0.25s ease;
         }
@@ -595,6 +605,34 @@
 
         // 3. Text Scramble Effect on Hover (mengikuti useHoverScramble & useTextScramble pada proyek)
         const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const navbarLinks = document.querySelectorAll('.navbar-link');
+
+        // Kunci lebar setiap item menu navbar sesuai panjang teks aslinya agar saat karakter diacak tidak menggeser menu lainnya
+        function lockNavbarMenuWidths() {
+            navbarLinks.forEach((link) => {
+                link.style.width = 'auto';
+                link.style.minWidth = 'auto';
+                link.style.maxWidth = 'auto';
+            });
+
+            navbarLinks.forEach((link) => {
+                const targetText = link.getAttribute('data-original-text') || link.textContent.trim();
+                link.setAttribute('data-original-text', targetText);
+
+                // Ukur lebar teks asli secara presisi dan kunci nilainya
+                const exactWidth = Math.ceil(link.getBoundingClientRect().width);
+                link.style.width = `${exactWidth}px`;
+                link.style.minWidth = `${exactWidth}px`;
+                link.style.maxWidth = `${exactWidth}px`;
+            });
+        }
+
+        // Jalankan penguncian lebar menu saat script jalan, setelah font selesai dimuat, dan saat window resize
+        lockNavbarMenuWidths();
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(lockNavbarMenuWidths);
+        }
+        window.addEventListener('resize', lockNavbarMenuWidths);
 
         function runTextScramble(element) {
             const targetText = element.getAttribute('data-original-text') || element.textContent.trim();
@@ -612,6 +650,7 @@
             let iteration = 0;
 
             element._scrambleInterval = setInterval(() => {
+                // Karakter diganti tepat 1-banding-1 (tanpa mengubah panjang teks)
                 element.textContent = targetText
                     .split('')
                     .map((char, index) => {
@@ -644,10 +683,7 @@
         }
 
         // Terapkan efek scramble pada setiap item menu navbar
-        const navbarLinks = document.querySelectorAll('.navbar-link');
         navbarLinks.forEach((link) => {
-            link.setAttribute('data-original-text', link.textContent.trim());
-
             link.addEventListener('mouseenter', () => {
                 runTextScramble(link);
             });
