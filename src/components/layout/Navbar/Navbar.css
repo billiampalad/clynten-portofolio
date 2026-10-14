@@ -474,9 +474,21 @@ body.dark-theme .nav-item::before {
 }
 
 .nav-label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
   text-align: center;
+}
+
+.nav-char {
+  display: inline-block;
+  line-height: 1;
+  font-weight: 500;
+  width: 1.2ch;
+  text-align: center;
+  flex-shrink: 0;
+  user-select: none;
 }
 
 /* Orange/Amber SOON Pill Badge */

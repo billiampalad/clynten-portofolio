@@ -18,6 +18,7 @@ export const REFERENCE_NAV_ITEMS = [
 function NavItem({ item, onClick }) {
   const itemRef = useRef(null)
   const animRef = useRef(null)
+  const isHoveredRef = useRef(false)
   const [displayText, setDisplayText] = useState(item.label)
 
   useEffect(() => {
@@ -27,7 +28,7 @@ function NavItem({ item, onClick }) {
   // Lock exact width of original label + padding so scramble doesn't shift siblings
   useEffect(() => {
     const lockWidth = () => {
-      if (itemRef.current) {
+      if (itemRef.current && !isHoveredRef.current) {
         itemRef.current.style.width = 'auto'
         itemRef.current.style.minWidth = 'auto'
         itemRef.current.style.maxWidth = 'auto'
@@ -47,6 +48,7 @@ function NavItem({ item, onClick }) {
   }, [item.label])
 
   const handleMouseEnter = () => {
+    isHoveredRef.current = true
     clearInterval(animRef.current)
     const targetText = item.label
     const length = targetText.length
@@ -88,6 +90,7 @@ function NavItem({ item, onClick }) {
   }
 
   const handleMouseLeave = () => {
+    isHoveredRef.current = false
     clearInterval(animRef.current)
     setDisplayText(item.label)
   }
@@ -107,7 +110,13 @@ function NavItem({ item, onClick }) {
       onMouseLeave={handleMouseLeave}
       className="navbar-link nav-item"
     >
-      <span className="nav-label">{displayText}</span>
+      <span className="nav-label">
+        {displayText.split('').map((char, index) => (
+          <span key={index} className="nav-char">
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </span>
       {item.badge && (
         <span className="nav-badge" aria-label={`Status: ${item.badge}`}>
           {item.badge}
