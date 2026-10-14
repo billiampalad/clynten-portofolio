@@ -22,6 +22,17 @@ export default function Navbar({
 }) {
   const [theme, setTheme] = useState('dark')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  // Listen to window scroll to activate blur & border on scroll (matching navbar.html)
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Parse brand text (e.g. 'A — Z' -> 'A' and 'Z')
   const brandParts = brandText.includes('—')
@@ -55,9 +66,9 @@ export default function Navbar({
     document.documentElement.setAttribute('data-theme', themeToApply)
     if (themeToApply === 'light') {
       document.documentElement.classList.add('light-theme')
-      document.documentElement.classList.remove('dark-theme')
+      document.documentElement.classList.remove('dark-theme', 'dark')
     } else {
-      document.documentElement.classList.add('dark-theme')
+      document.documentElement.classList.add('dark-theme', 'dark')
       document.documentElement.classList.remove('light-theme')
     }
   }, [])
@@ -69,9 +80,9 @@ export default function Navbar({
     document.documentElement.setAttribute('data-theme', nextTheme)
     if (nextTheme === 'light') {
       document.documentElement.classList.add('light-theme')
-      document.documentElement.classList.remove('dark-theme')
+      document.documentElement.classList.remove('dark-theme', 'dark')
     } else {
-      document.documentElement.classList.add('dark-theme')
+      document.documentElement.classList.add('dark-theme', 'dark')
       document.documentElement.classList.remove('light-theme')
     }
     localStorage.setItem('portfolio-theme', nextTheme)
@@ -142,10 +153,12 @@ export default function Navbar({
     )
   }
 
+  const isScrolledActive = hasShadow || isScrolled
+
   return (
     <header
       className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
-        hasShadow ? 'navbar-has-shadow' : ''
+        isScrolledActive ? 'navbar-scrolled navbar-has-shadow' : ''
       }`}
       style={{
         '--navbar-reveal': isVisible ? revealProgress : 0,
@@ -156,15 +169,10 @@ export default function Navbar({
       {/* Dynamic theme background matching About */}
       <div className="navbar-theme-bg" aria-hidden="true" />
 
-      {/* Progressive Blur & Gradient Dissolve Layer (Reference design fade effect) */}
+      {/* Progressive Blur Layer (Light & Dark dual-layer cross-fade matching navbar.html) */}
       <div className="navbar-bottom-blur" aria-hidden="true">
-        <div className="blur-layer blur-1" />
-        <div className="blur-layer blur-2" />
-        <div className="blur-layer blur-3" />
-        <div className="blur-layer blur-4" />
-        <div className="blur-layer blur-5" />
-        <div className="blur-dark-tint" />
-        <div className="blur-gradient-tint" />
+        <div className="blur-layer-light" />
+        <div className="blur-layer-dark" />
       </div>
 
       <div className="navbar-container">

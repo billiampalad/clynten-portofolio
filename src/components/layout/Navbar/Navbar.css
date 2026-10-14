@@ -56,12 +56,10 @@ body.light-theme {
   top: 0;
   left: 0;
   width: 100%;
-  height: 56px;
+  height: 50px;
   z-index: 1000;
   background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-bottom: 1px solid transparent;
+  border: none;
   box-sizing: border-box;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.15s ease-out;
@@ -92,125 +90,106 @@ body.light-theme {
 .navbar-theme-bg {
   position: absolute;
   inset: 0;
-  background: var(--nav-bg);
+  background: #ffffff;
+  border: none;
+  box-shadow: inset 0 -1px 0 #ffffff;
+  /* Garis inset solid internal: 100% opak, tidak tembus warna/teks di belakangnya */
   z-index: 1;
   pointer-events: none;
   opacity: var(--navbar-reveal, 1);
-  transition: background 0.35s ease;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Seamless boundary when scrolling through About & onwards */
-.portfolio-navbar.navbar-has-shadow {
-  border-bottom-color: transparent;
+/* Dark theme background & inset border */
+[data-theme="dark"] .navbar-theme-bg,
+html.dark-theme .navbar-theme-bg,
+html.dark .navbar-theme-bg {
+  background: #000000;
+  box-shadow: inset 0 -1px 0 #000000;
 }
 
-.portfolio-navbar.navbar-has-shadow .navbar-bottom-blur {
-  opacity: 1;
+/* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 via inset shadow */
+[data-theme="dark"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+[data-theme="dark"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
+html.dark-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+html.dark-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
+html.dark .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+html.dark .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
+  box-shadow: inset 0 -1px 0 #262626;
 }
 
 /* ==========================================================================
-   Progressive Blur & Gradient Dissolve Layer (Reference Design)
+   Progressive Blur Layer (Light & Dark Dual-Layer Cross-Fade matching navbar.html)
    ========================================================================== */
 
 .navbar-bottom-blur {
   position: absolute;
-  top: calc(100% - 1px);
+  top: 100%;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 90px;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
   z-index: -1;
 }
 
-/* Base style for all blur layers */
-.navbar-bottom-blur .blur-layer {
+/* Base style for both blur layers */
+.navbar-bottom-blur .blur-layer-light,
+.navbar-bottom-blur .blur-layer-dark {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  will-change: transform, backdrop-filter;
-}
-
-/* Layer 1: Lowest blur, extends all the way down */
-.navbar-bottom-blur .blur-1 {
-  z-index: 1;
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-}
-
-/* Layer 2: Soft blur, upper 75% */
-.navbar-bottom-blur .blur-2 {
-  z-index: 2;
-  backdrop-filter: blur(3.5px);
-  -webkit-backdrop-filter: blur(3.5px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 75%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 75%);
-}
-
-/* Layer 3: Medium blur, upper 55% */
-.navbar-bottom-blur .blur-3 {
-  z-index: 3;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 55%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 55%);
-}
-
-/* Layer 4: Heavy blur, upper 38% */
-.navbar-bottom-blur .blur-4 {
-  z-index: 4;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 38%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 38%);
-}
-
-/* Layer 5: Maximum blur directly adjacent to navbar seam, upper 22% */
-.navbar-bottom-blur .blur-5 {
-  z-index: 5;
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 22%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 22%);
+  backdrop-filter: blur(20px);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
-/* Layer 6: Dark Base Tint dissolving smoothly (Reference design dim sync) */
-.navbar-bottom-blur .blur-dark-tint {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  pointer-events: none;
+/* Layer Blur Mode Terang - teduh halus & bersih */
+.navbar-bottom-blur .blur-layer-light {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.96) 0%,
-    rgba(0, 0, 0, 0.72) 28%,
-    rgba(0, 0, 0, 0.38) 58%,
-    rgba(0, 0, 0, 0.12) 82%,
-    transparent 100%
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0) 100%
   );
-  opacity: calc(1 - var(--navbar-reveal, 1));
 }
 
-/* Layer 7: Silky Smooth Gradient Dissolve into Navbar Background */
-.navbar-bottom-blur .blur-gradient-tint {
-  position: absolute;
-  inset: 0;
-  z-index: 7;
-  pointer-events: none;
+/* Layer Blur Mode Gelap - hitam pekat mewah tanpa celah transparan di tepi atas */
+.navbar-bottom-blur .blur-layer-dark {
   background: linear-gradient(
     to bottom,
-    var(--nav-tint-start) 0%,
-    var(--nav-tint-mid1) 28%,
-    var(--nav-tint-mid2) 58%,
-    var(--nav-tint-mid3) 82%,
-    var(--nav-tint-end) 100%
+    #000000 0%,
+    rgba(0, 0, 0, 0.90) 30%,
+    rgba(0, 0, 0, 0.60) 65%,
+    rgba(0, 0, 0, 0) 100%
   );
-  opacity: var(--navbar-reveal, 1);
-  transition: background 0.35s ease;
+}
+
+/* Saat di-scroll di mode terang: blur terang aktif */
+.portfolio-navbar.navbar-scrolled .blur-layer-light,
+.portfolio-navbar.navbar-has-shadow .blur-layer-light {
+  opacity: 1;
+}
+
+/* Saat di-scroll di mode gelap: blur terang padam, blur gelap aktif */
+[data-theme="dark"] .portfolio-navbar.navbar-scrolled .blur-layer-light,
+[data-theme="dark"] .portfolio-navbar.navbar-has-shadow .blur-layer-light,
+html.dark-theme .portfolio-navbar.navbar-scrolled .blur-layer-light,
+html.dark-theme .portfolio-navbar.navbar-has-shadow .blur-layer-light,
+html.dark .portfolio-navbar.navbar-scrolled .blur-layer-light,
+html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-light {
+  opacity: 0;
+}
+
+[data-theme="dark"] .portfolio-navbar.navbar-scrolled .blur-layer-dark,
+[data-theme="dark"] .portfolio-navbar.navbar-has-shadow .blur-layer-dark,
+html.dark-theme .portfolio-navbar.navbar-scrolled .blur-layer-dark,
+html.dark-theme .portfolio-navbar.navbar-has-shadow .blur-layer-dark,
+html.dark .portfolio-navbar.navbar-scrolled .blur-layer-dark,
+html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
+  opacity: 1;
 }
 
 /* Inner Layout Container */
@@ -482,7 +461,7 @@ body.light-theme {
 .navbar-mobile-drawer {
   display: none;
   position: absolute;
-  top: 56px;
+  top: 100%;
   left: 0;
   width: 100%;
   background: var(--nav-drawer-bg);
