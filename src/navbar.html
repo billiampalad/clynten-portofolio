@@ -63,6 +63,13 @@
             mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
             pointer-events: none;
             z-index: -1;
+            opacity: 0; /* Default: tanpa blur */
+            transition: opacity 0.3s ease;
+        }
+
+        /* Saat di-scroll: Blur aktif */
+        .navbar.scrolled::after {
+            opacity: 1;
         }
 
         /* ============================================================
@@ -76,9 +83,14 @@
         html.dark .navbar {
             background: #000000;
             /* Navbar solid hitam murni */
-            border-bottom: 1px solid #262626;
-            /* Garis batas redup dan halus di mode gelap */
+            border-bottom: 1px solid transparent; /* Default: tanpa garis saat di atas */
             box-shadow: none;
+            transition: background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        /* Saat di-scroll di mode gelap: garis batas aktif */
+        html.dark .navbar.scrolled {
+            border-bottom-color: #262626;
         }
 
         html.dark .navbar::after {
@@ -503,8 +515,23 @@
         </div>
     </main>
 
-    <!-- Script: Dark Mode Toggle Only -->
+    <!-- Scripts: Scroll Handler & Dark Mode Toggle -->
     <script>
+        // 1. Scroll Effect (Blur & Garis aktif saat di-scroll)
+        const navbar = document.querySelector('.navbar');
+
+        function handleScroll() {
+            if (window.scrollY > 15) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
+        // 2. Dark Mode Toggle
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
