@@ -17,7 +17,7 @@
 html.light-theme,
 body.light-theme {
   /* Outer section may use light color – won't bleed because it's outside the pin */
-  --hero-bg: #f8fafc;
+  --hero-bg: #ffffff;
   /* Pin wrapper stays BLACK in light mode – prevents white bleed through blur edges */
   --hero-pinwrapper-bg: #000000;
   --hero-canvas-bg: #000000;
@@ -30,7 +30,6 @@ body.light-theme {
   position: relative;
   width: 100%;
   background-color: var(--hero-bg);
-  transition: background-color 0.35s ease;
 }
 
 .hero-pin-wrapper {
@@ -63,7 +62,6 @@ body.light-theme {
   width: 100%;
   height: 100%;
   background: var(--hero-ambient-bg);
-  transition: background 0.35s ease;
 }
 
 .hero-canvas {
@@ -103,7 +101,6 @@ body.light-theme {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.35s ease;
 }
 
 [data-theme="light"] .loading-glitch-text,
@@ -128,7 +125,6 @@ html.light-theme .loading-bar-container {
   font-size: 12px;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  transition: color 0.35s ease;
 }
 
 .loading-bar-container {
@@ -137,7 +133,6 @@ html.light-theme .loading-bar-container {
   background: rgba(255, 255, 255, 0.12);
   border-radius: 9999px;
   overflow: hidden;
-  transition: background-color 0.35s ease;
 }
 
 .loading-bar {

@@ -8,7 +8,6 @@
   box-sizing: border-box;
   overflow: hidden;
   z-index: 10;
-  transition: background 0.35s ease, background-color 0.35s ease, color 0.35s ease;
 }
 
 .skills-container {
@@ -24,7 +23,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 14px;
   margin-bottom: 40px;
-  transition: border-color 0.35s ease;
 }
 
 .skills-badge {
@@ -39,7 +37,6 @@
   border: 1px solid rgba(0, 255, 170, 0.25);
   padding: 4px 12px;
   border-radius: 9999px;
-  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
 
 .skills-badge .dot {
@@ -69,7 +66,6 @@
   font-size: 11px;
   color: rgba(255, 255, 255, 0.4);
   letter-spacing: 1.5px;
-  transition: color 0.35s ease;
 }
 
 /* Big Bold Headline */
@@ -84,7 +80,6 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 8px;
-  transition: color 0.35s ease;
 }
 
 .skills-title {
@@ -95,7 +90,6 @@
   color: #ffffff;
   margin: 0 0 20px 0;
   max-width: 950px;
-  transition: color 0.35s ease;
 }
 
 .skills-title .highlight {
@@ -103,7 +97,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: background 0.35s ease;
 }
 
 .skills-description {
@@ -112,7 +105,6 @@
   color: rgba(255, 255, 255, 0.7);
   max-width: 800px;
   margin: 0;
-  transition: color 0.35s ease;
 }
 
 /* Stats Counter Grid */
@@ -131,12 +123,13 @@
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(8px);
-  transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.3s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
   border-color: rgba(0, 255, 170, 0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .stat-top-line {
@@ -156,7 +149,6 @@
   color: #ffffff;
   margin-bottom: 4px;
   letter-spacing: -0.5px;
-  transition: color 0.35s ease;
 }
 
 .stat-title {
@@ -164,14 +156,12 @@
   font-weight: 600;
   color: #38bdf8;
   margin-bottom: 4px;
-  transition: color 0.35s ease;
 }
 
 .stat-desc {
   font-size: 11px;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.5);
-  transition: color 0.35s ease;
 }
 
 /* Domain Pillars 4-Card Grid */
@@ -191,7 +181,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pillar-card:hover {
@@ -199,6 +189,7 @@
   transform: translateY(-3px);
   background: rgba(12, 20, 32, 0.85);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pillar-header {
@@ -213,7 +204,6 @@
   font-size: 11px;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.4);
-  transition: color 0.35s ease;
 }
 
 .pillar-tag {
@@ -225,7 +215,6 @@
   background: rgba(56, 189, 248, 0.08);
   border: 1px solid rgba(56, 189, 248, 0.2);
   color: #38bdf8;
-  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
 
 .pillar-title {
@@ -234,7 +223,6 @@
   color: #ffffff;
   margin: 0 0 10px 0;
   letter-spacing: -0.3px;
-  transition: color 0.35s ease;
 }
 
 .pillar-desc {
@@ -243,7 +231,6 @@
   color: rgba(255, 255, 255, 0.65);
   margin: 0 0 20px 0;
   flex-grow: 1;
-  transition: color 0.35s ease;
 }
 
 .pillar-techs {
@@ -260,7 +247,6 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   color: rgba(255, 255, 255, 0.7);
-  transition: all 0.2s ease, background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
 
 .pillar-card:hover .tech-chip {
