@@ -24,14 +24,36 @@ export default function Navbar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // Listen to window scroll to activate blur & border on scroll (matching navbar.html)
+  // Listen to scroll to activate blur & border on scroll (default: without blur & line)
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15)
+    let animationFrameId
+    const checkScroll = () => {
+      const aboutEl = document.getElementById('about')
+      if (aboutEl) {
+        const rect = aboutEl.getBoundingClientRect()
+        // Default (landing at About): rect.top is ~0. Only active when scrolled past About by > 15px.
+        setIsScrolled(rect.top < -15)
+      } else {
+        setIsScrolled(window.scrollY > 15)
+      }
     }
+
+    const handleScroll = () => {
+      cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(checkScroll)
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    checkScroll()
+
+    // Interval fallback to support smooth scroll libraries (Locomotive/Lenis)
+    const interval = setInterval(checkScroll, 100)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      cancelAnimationFrame(animationFrameId)
+      clearInterval(interval)
+    }
   }, [])
 
   // Parse brand text (e.g. 'A — Z' -> 'A' and 'Z')
@@ -153,7 +175,7 @@ export default function Navbar({
     )
   }
 
-  const isScrolledActive = hasShadow || isScrolled
+  const isScrolledActive = isScrolled
 
   return (
     <header

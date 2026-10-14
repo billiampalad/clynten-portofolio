@@ -35,7 +35,7 @@ function App() {
     } else {
       setIsNavbarVisible(true)
       setNavbarReveal(1)
-      setHasNavbarShadow(true)
+      setHasNavbarShadow(false)
       document.documentElement.style.setProperty('--navbar-reveal', '1')
     }
   }, [])
