@@ -235,16 +235,6 @@
             transition: color 0.25s ease;
         }
 
-        .nav-char {
-            display: inline-block;
-            line-height: 1;
-            font-weight: 500;
-            width: 1.2ch;
-            text-align: center;
-            flex-shrink: 0;
-            user-select: none;
-        }
-
         /* Animasi blok merah: masuk dari kiri ke kanan saat hover, menghilang kembali ke kiri saat hover berakhir */
         .navbar-link::before {
             content: '';
@@ -628,7 +618,6 @@
             navbarLinks.forEach((link) => {
                 const targetText = link.getAttribute('data-original-text') || link.textContent.trim();
                 link.setAttribute('data-original-text', targetText);
-                renderChars(link, targetText);
 
                 // Ukur lebar teks asli secara presisi dan kunci nilainya
                 const exactWidth = Math.ceil(link.getBoundingClientRect().width);
@@ -644,19 +633,6 @@
             document.fonts.ready.then(lockNavbarMenuWidths);
         }
         window.addEventListener('resize', lockNavbarMenuWidths);
-
-        function renderChars(element, text, activeStart = -1, activeEnd = -1) {
-            element.innerHTML = text
-                .split('')
-                .map((char, index) => {
-                    if (char === ' ' || char === '—') return `<span class="nav-char">${char === ' ' ? '&nbsp;' : char}</span>`;
-                    const c = (index >= activeStart && index < activeEnd)
-                        ? LETTERS[Math.floor(Math.random() * LETTERS.length)]
-                        : text[index];
-                    return `<span class="nav-char">${c}</span>`;
-                })
-                .join('');
-        }
 
         function runTextScramble(element) {
             const targetText = element.getAttribute('data-original-text') || element.textContent.trim();
@@ -680,11 +656,22 @@
                 const activeStart = Math.max(0, step - 1);
                 const activeEnd = Math.min(length, activeStart + windowSize);
 
-                renderChars(element, targetText, activeStart, activeEnd);
+                element.textContent = targetText
+                    .split('')
+                    .map((char, index) => {
+                        if (char === ' ' || char === '—') return char;
+                        // Hanya karakter di dalam rentang activeStart s.d activeEnd yang diacak (maks 5 karakter)
+                        // Karakter sebelum dan sesudah rentang tetap teks aslinya (panjang teks asli terjaga)
+                        if (index >= activeStart && index < activeEnd) {
+                            return LETTERS[Math.floor(Math.random() * LETTERS.length)];
+                        }
+                        return targetText[index];
+                    })
+                    .join('');
 
                 if (step >= totalSteps) {
                     clearInterval(element._scrambleInterval);
-                    renderChars(element, targetText);
+                    element.textContent = targetText;
                 }
 
                 step += 1;
@@ -697,7 +684,7 @@
             }
             const targetText = element.getAttribute('data-original-text');
             if (targetText) {
-                renderChars(element, targetText);
+                element.textContent = targetText;
             }
         }
 
