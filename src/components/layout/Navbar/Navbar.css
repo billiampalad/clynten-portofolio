@@ -410,7 +410,6 @@ body.dark-theme .brand-home-badge::before {
   overflow: hidden;
   box-sizing: border-box;
   flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
   z-index: 1;
   user-select: none;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
@@ -12,102 +12,18 @@ export const REFERENCE_NAV_ITEMS = [
 ]
 
 /**
- * Individual Navbar Item with Hover Text Scramble & Locked Width
- * to prevent shifting sibling menus during scramble.
+ * Individual Navbar Item with Hover Red Slide Block
  */
 function NavItem({ item, onClick }) {
-  const itemRef = useRef(null)
-  const animRef = useRef(null)
-  const [displayText, setDisplayText] = useState(item.label)
-
-  useEffect(() => {
-    setDisplayText(item.label)
-  }, [item.label])
-
-  // Lock exact width of original label + padding so scramble doesn't shift siblings
-  useEffect(() => {
-    const lockWidth = () => {
-      if (itemRef.current) {
-        itemRef.current.style.width = 'auto'
-        itemRef.current.style.minWidth = 'auto'
-        itemRef.current.style.maxWidth = 'auto'
-        const exactWidth = Math.ceil(itemRef.current.getBoundingClientRect().width)
-        itemRef.current.style.width = `${exactWidth}px`
-        itemRef.current.style.minWidth = `${exactWidth}px`
-        itemRef.current.style.maxWidth = `${exactWidth}px`
-      }
-    }
-
-    lockWidth()
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(lockWidth)
-    }
-    window.addEventListener('resize', lockWidth)
-    return () => window.removeEventListener('resize', lockWidth)
-  }, [item.label])
-
-  const handleMouseEnter = () => {
-    clearInterval(animRef.current)
-    const targetText = item.label
-    const length = targetText.length
-    // Maksimal 5 karakter acak yang muncul dalam satu waktu selama animasi
-    const MAX_SCRAMBLE = 5
-    const windowSize = Math.min(MAX_SCRAMBLE, length)
-    const totalSteps = length + 1
-    const speed = Math.max(20, Math.min(28, Math.floor(240 / totalSteps)))
-
-    let step = 0
-
-    animRef.current = setInterval(() => {
-      // Rentang karakter acak bergeser mulus (maksimal 5 karakter)
-      const activeStart = Math.max(0, step - 1)
-      const activeEnd = Math.min(length, activeStart + windowSize)
-
-      setDisplayText(
-        targetText
-          .split('')
-          .map((char, index) => {
-            if (char === ' ' || char === '—') return char
-            // Hanya karakter di dalam rentang activeStart s.d activeEnd yang diacak (maks 5 karakter)
-            // Karakter sebelum dan sesudah rentang tetap mempertahankan teks aslinya
-            if (index >= activeStart && index < activeEnd) {
-              return LETTERS[Math.floor(Math.random() * LETTERS.length)]
-            }
-            return targetText[index]
-          })
-          .join('')
-      )
-
-      if (step >= totalSteps) {
-        clearInterval(animRef.current)
-        setDisplayText(targetText)
-      }
-
-      step += 1
-    }, speed)
-  }
-
-  const handleMouseLeave = () => {
-    clearInterval(animRef.current)
-    setDisplayText(item.label)
-  }
-
-  useEffect(() => {
-    return () => clearInterval(animRef.current)
-  }, [])
-
   return (
     <a
-      ref={itemRef}
       href={item.href}
       target={item.external ? '_blank' : undefined}
       rel={item.external ? 'noopener noreferrer' : undefined}
       onClick={(e) => onClick(e, item)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       className="navbar-link nav-item"
     >
-      <span className="nav-label">{displayText}</span>
+      <span className="nav-label">{item.label}</span>
       {item.badge && (
         <span className="nav-badge" aria-label={`Status: ${item.badge}`}>
           {item.badge}
