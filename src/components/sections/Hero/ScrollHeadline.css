@@ -112,20 +112,15 @@
   transition: opacity 0.15s ease;
 }
 
-/* Word Text */
+/* Word Text — no highlight/glow, block animation only */
 .phrase-text {
   position: relative;
   z-index: 1;
   color: #ffffff;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95),
-    0 0 30px rgba(255, 255, 255, 0.2);
-  transition: text-shadow 0.3s ease;
 }
 
 .phrase-text.text-revealed {
-  text-shadow: 0 0 35px rgba(255, 255, 255, 0.8),
-    0 0 70px rgba(225, 29, 72, 0.4),
-    0 6px 20px rgba(0, 0, 0, 0.95);
+  color: #ffffff;
 }
 
 .headline-subtext {
