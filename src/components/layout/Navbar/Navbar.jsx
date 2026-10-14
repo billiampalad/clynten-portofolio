@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
@@ -10,6 +10,104 @@ export const REFERENCE_NAV_ITEMS = [
   { label: 'Experience', href: '#' },
   { label: 'Contact', href: '#' },
 ]
+
+/**
+ * Individual Navbar Item with Hover Text Scramble & Locked Width
+ * to prevent shifting sibling menus during scramble.
+ */
+function NavItem({ item, onClick }) {
+  const itemRef = useRef(null)
+  const animRef = useRef(null)
+  const [displayText, setDisplayText] = useState(item.label)
+
+  useEffect(() => {
+    setDisplayText(item.label)
+  }, [item.label])
+
+  // Lock exact width of original label + padding so scramble doesn't shift siblings
+  useEffect(() => {
+    const lockWidth = () => {
+      if (itemRef.current) {
+        itemRef.current.style.width = 'auto'
+        itemRef.current.style.minWidth = 'auto'
+        itemRef.current.style.maxWidth = 'auto'
+        const exactWidth = Math.ceil(itemRef.current.getBoundingClientRect().width)
+        itemRef.current.style.width = `${exactWidth}px`
+        itemRef.current.style.minWidth = `${exactWidth}px`
+        itemRef.current.style.maxWidth = `${exactWidth}px`
+      }
+    }
+
+    lockWidth()
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(lockWidth)
+    }
+    window.addEventListener('resize', lockWidth)
+    return () => window.removeEventListener('resize', lockWidth)
+  }, [item.label])
+
+  const handleMouseEnter = () => {
+    clearInterval(animRef.current)
+    const targetText = item.label
+    const length = targetText.length
+    const extraIterations = Math.max(3, Math.floor(length / 2))
+    const totalIterations = length + extraIterations
+    const speed = Math.max(20, Math.min(32, Math.floor(280 / totalIterations)))
+
+    let iteration = 0
+
+    animRef.current = setInterval(() => {
+      setDisplayText(
+        targetText
+          .split('')
+          .map((char, index) => {
+            if (char === ' ' || char === '—') return char
+            if (iteration >= totalIterations - (length - index)) {
+              return targetText[index]
+            }
+            return LETTERS[Math.floor(Math.random() * LETTERS.length)]
+          })
+          .join('')
+      )
+
+      if (iteration >= totalIterations) {
+        clearInterval(animRef.current)
+        setDisplayText(targetText)
+      }
+
+      iteration += 1
+    }, speed)
+  }
+
+  const handleMouseLeave = () => {
+    clearInterval(animRef.current)
+    setDisplayText(item.label)
+  }
+
+  useEffect(() => {
+    return () => clearInterval(animRef.current)
+  }, [])
+
+  return (
+    <a
+      ref={itemRef}
+      href={item.href}
+      target={item.external ? '_blank' : undefined}
+      rel={item.external ? 'noopener noreferrer' : undefined}
+      onClick={(e) => onClick(e, item)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="nav-item"
+    >
+      <span className="nav-label">{displayText}</span>
+      {item.badge && (
+        <span className="nav-badge" aria-label={`Status: ${item.badge}`}>
+          {item.badge}
+        </span>
+      )}
+    </a>
+  )
+}
 
 export default function Navbar({
   isVisible = true,
@@ -215,21 +313,11 @@ export default function Navbar({
         {/* Center: Desktop Navigation Links */}
         <nav className="navbar-links" aria-label="Main Navigation">
           {navItems.map((item, index) => (
-            <a
+            <NavItem
               key={item.label || index}
-              href={item.href}
-              target={item.external ? '_blank' : undefined}
-              rel={item.external ? 'noopener noreferrer' : undefined}
-              onClick={(e) => handleLinkClick(e, item)}
-              className="nav-item"
-            >
-              <span className="nav-label">{item.label}</span>
-              {item.badge && (
-                <span className="nav-badge" aria-label={`Status: ${item.badge}`}>
-                  {item.badge}
-                </span>
-              )}
-            </a>
+              item={item}
+              onClick={handleLinkClick}
+            />
           ))}
         </nav>
 
