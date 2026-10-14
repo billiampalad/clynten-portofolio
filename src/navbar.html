@@ -44,7 +44,8 @@
             transition: background-color 0.25s ease, border-color 0.25s ease;
         }
 
-        /* Efek Blur khusus di bagian BAWAH navbar saat teks/konten di-scroll melewatinya */
+        /* Base styles for both blur layers (Light mode: ::before, Dark mode: ::after) */
+        .navbar::before,
         .navbar::after {
             content: "";
             position: absolute;
@@ -52,11 +53,6 @@
             right: 0;
             top: calc(100% + 1px);
             height: 90px;
-            /* Area blur di tepi bawah navbar diperbesar */
-            background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0.22) 0%,
-                    rgba(0, 0, 0, 0.08) 55%,
-                    rgba(0, 0, 0, 0) 100%);
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
@@ -64,13 +60,36 @@
             pointer-events: none;
             z-index: -1;
             opacity: 0;
-            /* Default: tanpa blur */
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
-        /* Saat di-scroll: Blur aktif */
-        .navbar.scrolled::after {
-            opacity: 1;
+        /* Layer Blur Mode Terang (::before) - teduh halus & bersih */
+        .navbar::before {
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.08) 0%,
+                    rgba(0, 0, 0, 0.03) 50%,
+                    rgba(0, 0, 0, 0) 100%);
+        }
+
+        /* Layer Blur Mode Gelap (::after) - hitam pekat mewah */
+        .navbar::after {
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.98) 0%,
+                    rgba(0, 0, 0, 0.70) 50%,
+                    rgba(0, 0, 0, 0) 100%);
+        }
+
+        /* Saat di-scroll: aktifkan layer blur sesuai tema dengan cross-fade halus */
+        .navbar.scrolled::before {
+            opacity: 1; /* Mode terang: blur terang aktif */
+        }
+
+        html.dark .navbar.scrolled::before {
+            opacity: 0; /* Mode gelap: blur terang padam */
+        }
+
+        html.dark .navbar.scrolled::after {
+            opacity: 1; /* Mode gelap: blur gelap aktif */
         }
 
         /* ============================================================
@@ -92,17 +111,6 @@
         /* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 */
         html.dark .navbar.scrolled {
             border-bottom-color: #262626;
-        }
-
-        html.dark .navbar::after {
-            background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0.98) 0%,
-                    rgba(0, 0, 0, 0.70) 50%,
-                    rgba(0, 0, 0, 0) 100%);
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
         }
 
         html.dark .navbar-brand {
