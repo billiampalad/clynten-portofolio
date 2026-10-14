@@ -357,28 +357,27 @@ html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 1.2vw, 16px);
+  gap: 0.75rem;
   margin: 0;
   z-index: 1;
 }
 
+.navbar-link,
 .nav-item {
   position: relative;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4b5563;
+  padding: 6px 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: 6px;
-  text-decoration: none;
-  color: var(--nav-link);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   white-space: nowrap;
-  padding: 6px 12px;
-  border-radius: 6px;
   overflow: hidden;
   box-sizing: border-box;
   flex-shrink: 0;
@@ -388,7 +387,8 @@ html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
   user-select: none;
 }
 
-/* Animasi blok merah: masuk dari kiri ke kanan saat hover, menghilang kembali ke kiri saat hover berakhir */
+/* Animasi blok merah: masuk dari kiri ke kanan saat hover, menghilang kembali ke kiri saat hover berakhir (sesuai navbar.html) */
+.navbar-link::before,
 .nav-item::before {
   content: '';
   position: absolute;
@@ -396,20 +396,50 @@ html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--nav-hover-block, #830000);
-  border-radius: 6px;
+  background-color: #bc0202;
+  /* border-radius: 6px; */
   z-index: -1;
   transform: translateX(-101%);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.25s ease;
   pointer-events: none;
 }
 
+.navbar-link:hover::before,
 .nav-item:hover::before {
   transform: translateX(0);
 }
 
+.navbar-link:hover,
 .nav-item:hover {
   color: #ffffff;
+}
+
+/* Mode Gelap: Warna teks dan blok hover #830000 (sesuai navbar.html) */
+html.dark .navbar-link,
+html.dark .nav-item,
+[data-theme="dark"] .navbar-link,
+[data-theme="dark"] .nav-item,
+body.dark-theme .navbar-link,
+body.dark-theme .nav-item {
+  color: #888888;
+}
+
+html.dark .navbar-link:hover,
+html.dark .nav-item:hover,
+[data-theme="dark"] .navbar-link:hover,
+[data-theme="dark"] .nav-item:hover,
+body.dark-theme .navbar-link:hover,
+body.dark-theme .nav-item:hover {
+  color: #ffffff;
+}
+
+html.dark .navbar-link::before,
+html.dark .nav-item::before,
+[data-theme="dark"] .navbar-link::before,
+[data-theme="dark"] .nav-item::before,
+body.dark-theme .navbar-link::before,
+body.dark-theme .nav-item::before {
+  background-color: #830000;
 }
 
 .nav-label {

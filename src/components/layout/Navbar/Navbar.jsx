@@ -97,7 +97,7 @@ function NavItem({ item, onClick }) {
       onClick={(e) => onClick(e, item)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="nav-item"
+      className="navbar-link nav-item"
     >
       <span className="nav-label">{displayText}</span>
       {item.badge && (
