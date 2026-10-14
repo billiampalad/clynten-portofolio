@@ -618,6 +618,7 @@
             navbarLinks.forEach((link) => {
                 const targetText = link.getAttribute('data-original-text') || link.textContent.trim();
                 link.setAttribute('data-original-text', targetText);
+                link.textContent = targetText;
 
                 // Ukur lebar teks asli secara presisi dan kunci nilainya
                 const exactWidth = Math.ceil(link.getBoundingClientRect().width);
@@ -661,7 +662,6 @@
                     .map((char, index) => {
                         if (char === ' ' || char === '—') return char;
                         // Hanya karakter di dalam rentang activeStart s.d activeEnd yang diacak (maks 5 karakter)
-                        // Karakter sebelum dan sesudah rentang tetap teks aslinya (panjang teks asli terjaga)
                         if (index >= activeStart && index < activeEnd) {
                             return LETTERS[Math.floor(Math.random() * LETTERS.length)];
                         }

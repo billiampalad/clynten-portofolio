@@ -477,6 +477,12 @@ body.dark-theme .nav-item::before {
   display: inline-block;
   line-height: 1;
   text-align: center;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
 }
 
 /* Orange/Amber SOON Pill Badge */
