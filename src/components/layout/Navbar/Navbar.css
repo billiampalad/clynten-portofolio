@@ -311,8 +311,9 @@ html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
   }
 }
 
-/* Pill badge "HOME" that reveals and slides in smoothly on hover */
+/* Badge "HOME" dengan animasi blok merah meluncur seperti pada menu hover */
 .brand-home-badge {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -321,31 +322,61 @@ html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
   margin-left: 0;
   padding: 0;
   overflow: hidden;
-  border-radius: 9999px;
-  background-color: var(--nav-home-bg);
-  color: var(--nav-home-text);
-  font-size: 9.5px;
-  font-weight: 400;
+  box-sizing: border-box;
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
-  transform: translateX(-8px) scale(0.9);
-  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+  color: #ffffff;
+  z-index: 1;
+  transform: translateX(-6px);
+  transition: max-width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
     opacity 0.25s ease,
-    padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    margin-left 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    padding 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    margin-left 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none;
 }
 
-.navbar-brand:hover .brand-home-badge {
-  max-width: 75px;
+/* Blok merah: masuk dari kiri ke kanan saat hover, menghilang kembali ke kiri saat hover berakhir */
+.brand-home-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #bc0202;
+  /* border-radius: 6px; */
+  z-index: -1;
+  transform: translateX(-101%);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.25s ease;
+  pointer-events: none;
+}
+
+.navbar-brand:hover .brand-home-badge,
+.brand-home-badge:hover {
+  max-width: 70px;
   opacity: 1;
   margin-left: 8px;
-  padding: 3px 8.5px;
-  transform: translateX(0) scale(1);
+  padding: 4px 8px;
+  transform: translateX(0);
+  color: #ffffff;
   pointer-events: auto;
+}
+
+.navbar-brand:hover .brand-home-badge::before,
+.brand-home-badge:hover::before {
+  transform: translateX(0);
+}
+
+/* Mode Gelap untuk brand-home-badge */
+html.dark .brand-home-badge::before,
+[data-theme="dark"] .brand-home-badge::before,
+body.dark-theme .brand-home-badge::before {
+  background-color: #830000;
 }
 
 /* Center: Desktop Navigation Links (Centered) */
