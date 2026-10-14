@@ -32,11 +32,11 @@
       padding: 0 2rem;
       background: #ffffff; /* Navbar solid murni, tidak transparan dan tidak blur */
       box-shadow: none; /* Shadow dihapus sesuai permintaan */
-      border-bottom: none;
+      border-bottom: 1.5px solid #000000; /* Garis batas tegas berwarna gelap di mode terang */
       position: sticky;
       top: 0;
       z-index: 100;
-      transition: background-color 0.25s ease;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
     }
 
     /* Efek Blur khusus di bagian BAWAH navbar saat teks/konten di-scroll melewatinya */
@@ -45,7 +45,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      top: 100%;
+      top: calc(100% + 1px); /* Posisi tepat di bawah garis border agar tidak menutupi garis */
       height: 28px; /* Area blur di tepi bawah navbar */
       background: linear-gradient(
         to bottom,
@@ -58,6 +58,7 @@
       -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
       mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
       pointer-events: none;
+      z-index: -1;
     }
 
     /* ============================================================
@@ -70,8 +71,8 @@
 
     html.dark .navbar {
       background: #000000; /* Navbar solid hitam murni */
-      box-shadow: none; /* Shadow mode gelap juga dihapus */
-      border-bottom: none;
+      box-shadow: none;
+      border-bottom: 1.5px solid #ffffff; /* Garis batas tegas berwarna terang di mode gelap */
     }
 
     html.dark .navbar::after {
