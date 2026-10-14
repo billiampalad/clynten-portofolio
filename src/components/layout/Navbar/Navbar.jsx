@@ -50,32 +50,40 @@ function NavItem({ item, onClick }) {
     clearInterval(animRef.current)
     const targetText = item.label
     const length = targetText.length
-    const extraIterations = Math.max(3, Math.floor(length / 2))
-    const totalIterations = length + extraIterations
-    const speed = Math.max(20, Math.min(32, Math.floor(280 / totalIterations)))
+    // Maksimal 5 karakter acak yang muncul dalam satu waktu selama animasi
+    const MAX_SCRAMBLE = 5
+    const windowSize = Math.min(MAX_SCRAMBLE, length)
+    const totalSteps = length + 1
+    const speed = Math.max(20, Math.min(28, Math.floor(240 / totalSteps)))
 
-    let iteration = 0
+    let step = 0
 
     animRef.current = setInterval(() => {
+      // Rentang karakter acak bergeser mulus (maksimal 5 karakter)
+      const activeStart = Math.max(0, step - 1)
+      const activeEnd = Math.min(length, activeStart + windowSize)
+
       setDisplayText(
         targetText
           .split('')
           .map((char, index) => {
             if (char === ' ' || char === '—') return char
-            if (iteration >= totalIterations - (length - index)) {
-              return targetText[index]
+            // Hanya karakter di dalam rentang activeStart s.d activeEnd yang diacak (maks 5 karakter)
+            // Karakter sebelum dan sesudah rentang tetap mempertahankan teks aslinya
+            if (index >= activeStart && index < activeEnd) {
+              return LETTERS[Math.floor(Math.random() * LETTERS.length)]
             }
-            return LETTERS[Math.floor(Math.random() * LETTERS.length)]
+            return targetText[index]
           })
           .join('')
       )
 
-      if (iteration >= totalIterations) {
+      if (step >= totalSteps) {
         clearInterval(animRef.current)
         setDisplayText(targetText)
       }
 
-      iteration += 1
+      step += 1
     }, speed)
   }
 
