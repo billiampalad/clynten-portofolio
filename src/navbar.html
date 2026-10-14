@@ -36,8 +36,8 @@
             /* Navbar solid murni, tidak transparan dan tidak blur */
             box-shadow: none;
             /* Shadow dihapus sesuai permintaan */
-            border-bottom: none;
-            /* Garis dihilangkan pada mode terang */
+            border-bottom: 1px solid #ffffff;
+            /* Selalu 1px solid putih di mode terang agar warna transisi menyatu dengan background tanpa bug garis muncul */
             position: sticky;
             top: 0;
             z-index: 100;
@@ -50,7 +50,7 @@
             position: absolute;
             left: 0;
             right: 0;
-            top: 100%;
+            top: calc(100% + 1px);
             height: 90px;
             /* Area blur di tepi bawah navbar diperbesar */
             background: linear-gradient(to bottom,
@@ -84,10 +84,9 @@
         html.dark .navbar {
             background: #000000;
             /* Navbar solid hitam murni */
-            border-bottom: 1px solid #000000;
-            /* Solid hitam (bukan transparent) agar warna menyala di belakang tidak tembus */
+            border-bottom-color: #000000;
+            /* Solid hitam matching background, transisi sinkron 100% bersih */
             box-shadow: none;
-            transition: background-color 0.25s ease, border-color 0.25s ease;
         }
 
         /* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 */
@@ -96,8 +95,6 @@
         }
 
         html.dark .navbar::after {
-            top: calc(100% + 1px);
-            /* Dimulai tepat di bawah garis 1px agar gradasi hitam tidak menimpa garis */
             background: linear-gradient(to bottom,
                     rgba(0, 0, 0, 0.98) 0%,
                     rgba(0, 0, 0, 0.70) 50%,
