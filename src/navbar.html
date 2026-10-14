@@ -84,13 +84,13 @@
         html.dark .navbar {
             background: #000000;
             /* Navbar solid hitam murni */
-            border-bottom: 1px solid transparent;
-            /* Default: tanpa garis saat di atas */
+            border-bottom: 1px solid #000000;
+            /* Solid hitam (bukan transparent) agar warna menyala di belakang tidak tembus */
             box-shadow: none;
             transition: background-color 0.25s ease, border-color 0.25s ease;
         }
 
-        /* Saat di-scroll di mode gelap: garis batas aktif */
+        /* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 */
         html.dark .navbar.scrolled {
             border-bottom-color: #262626;
         }
