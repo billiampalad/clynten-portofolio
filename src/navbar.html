@@ -34,14 +34,13 @@
             padding: 0 2rem;
             background: #ffffff;
             /* Navbar solid murni, tidak transparan dan tidak blur */
-            box-shadow: none;
-            /* Shadow dihapus sesuai permintaan */
-            border-bottom: 1px solid #ffffff;
-            /* Selalu 1px solid putih di mode terang agar warna transisi menyatu dengan background tanpa bug garis muncul */
+            border: none;
+            box-shadow: inset 0 -1px 0 #ffffff;
+            /* Garis inset solid internal: 100% opak, tidak akan tembus warna/teks di belakangnya */
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: background-color 0.25s ease, border-color 0.25s ease;
+            transition: background-color 0.25s ease, box-shadow 0.25s ease;
         }
 
         /* Base styles for both blur layers (Light mode: ::before, Dark mode: ::after) */
@@ -51,7 +50,7 @@
             position: absolute;
             left: 0;
             right: 0;
-            top: calc(100% + 1px);
+            top: 100%;
             height: 90px;
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
@@ -71,11 +70,12 @@
                     rgba(0, 0, 0, 0) 100%);
         }
 
-        /* Layer Blur Mode Gelap (::after) - hitam pekat mewah */
+        /* Layer Blur Mode Gelap (::after) - hitam pekat mewah tanpa celah transparan di tepi atas */
         .navbar::after {
             background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0.98) 0%,
-                    rgba(0, 0, 0, 0.70) 50%,
+                    #000000 0%,
+                    rgba(0, 0, 0, 0.90) 30%,
+                    rgba(0, 0, 0, 0.60) 65%,
                     rgba(0, 0, 0, 0) 100%);
         }
 
@@ -103,14 +103,14 @@
         html.dark .navbar {
             background: #000000;
             /* Navbar solid hitam murni */
-            border-bottom-color: #000000;
-            /* Solid hitam matching background, transisi sinkron 100% bersih */
-            box-shadow: none;
+            border: none;
+            box-shadow: inset 0 -1px 0 #000000;
+            /* Solid hitam matching background saat default di atas */
         }
 
-        /* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 */
+        /* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 via inset shadow */
         html.dark .navbar.scrolled {
-            border-bottom-color: #262626;
+            box-shadow: inset 0 -1px 0 #262626;
         }
 
         html.dark .navbar-brand {
