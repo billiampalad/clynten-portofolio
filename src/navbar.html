@@ -18,10 +18,11 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: #ffffff;
       color: #111827;
-      min-height: 250vh; /* Ruang scroll panjang tanpa perlu elemen konten di bawah */
+      min-height: 100vh;
+      padding-bottom: 5rem;
     }
 
-    /* Navbar Container */
+    /* Navbar Container - Always with Glassmorphism Blur & Soft Shadow */
     .navbar {
       width: 100%;
       height: 68px;
@@ -29,7 +30,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.08), 0 8px 18px -4px rgba(0, 0, 0, 0.03);
       border-bottom: none;
       position: sticky;
       top: 0;
@@ -37,22 +41,14 @@
       transition: background-color 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
     }
 
-    /* Active Scroll Effect (Blur + Soft Shadow + Translucent Background) */
-    .navbar.scrolled {
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.08), 0 8px 18px -4px rgba(0, 0, 0, 0.03);
-    }
-
-    /* Soft progressive blur & gradient underneath navbar on scroll (Taller height) */
+    /* Soft progressive blur & gradient underneath navbar */
     .navbar::after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
       top: 100%;
-      height: 56px; /* Ditinggikan agar gradasi blur & bayangan ke bawah lebih luas */
+      height: 56px;
       background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0.95) 0%,
@@ -65,11 +61,6 @@
       -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
       mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    .navbar.scrolled::after {
       opacity: 1;
     }
 
@@ -82,15 +73,11 @@
     }
 
     html.dark .navbar {
-      background: #000000;
-      border-bottom: none;
-    }
-
-    html.dark .navbar.scrolled {
       background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      box-shadow: 0 24px 50px -8px rgba(0, 0, 0, 0.9), 0 10px 24px -4px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 24px 50px -8px rgba(0, 0, 0, 0.95), 0 10px 24px -4px rgba(0, 0, 0, 0.7);
+      border-bottom: none;
     }
 
     html.dark .navbar::after {
@@ -101,6 +88,7 @@
         rgba(0, 0, 0, 0.25) 70%,
         rgba(0, 0, 0, 0) 100%
       );
+      opacity: 1;
     }
 
     html.dark .navbar-brand {
@@ -266,6 +254,57 @@
         font-size: 11.5px;
       }
     }
+
+    /* Demo Display Content Styling */
+    .content-wrapper {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #fef3c7 0%, #e0f2fe 50%, #ede9fe 100%);
+      border-radius: 20px;
+      padding: 2.75rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    html.dark .hero-banner {
+      background: linear-gradient(135deg, #18181b 0%, #1e1b4b 50%, #0f172a 100%);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .demo-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .demo-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08);
+    }
+
+    html.dark .demo-card {
+      background: #111111;
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.6);
+    }
+
+    html.dark .demo-card:hover {
+      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -356,25 +395,100 @@
     </div>
   </header>
 
-  <!-- Halaman di bawah kosong, scroll diaktifkan melalui CSS min-height pada body -->
+  <!-- Display Content (Untuk melihat efek blur dan bayangan navbar saat melewatinya) -->
+  <main class="content-wrapper">
+    <!-- Hero Banner dengan gradasi warna menarik untuk menguji efek blur -->
+    <div class="hero-banner">
+      <div style="max-width: 600px;">
+        <span style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #d97706; background: rgba(253, 230, 138, 0.4); padding: 4px 10px; border-radius: 9999px; margin-bottom: 1rem;">
+          Portfolio Showcase
+        </span>
+        <h1 style="font-size: 28px; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem;">
+          Exploring Design Systems, AI Interactions, and Code
+        </h1>
+        <p style="font-size: 14px; opacity: 0.8; line-height: 1.6;">
+          Scroll ke atas dan ke bawah untuk melihat bagaimana kaca buram (frosted glass) dan progressive blur navbar meredam warna-warna di belakangnya secara estetik.
+        </p>
+      </div>
+    </div>
 
-  <!-- Scripts: Scroll Blur & Dark Mode Toggle -->
+    <!-- Grid Kartu Portfolio / Kasus / Produk -->
+    <div class="cards-grid">
+      <!-- Card 1: Mineral Crystals -->
+      <div class="demo-card">
+        <div style="height: 170px; background: linear-gradient(135deg, #fef3c7, #fed7aa); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #9a3412; font-size: 15px;">
+          Mineral Crystals
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Explore 83,000+ Collectibles</h3>
+        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Curated by collectors and dealers around the globe with detailed provenance records.</p>
+      </div>
+
+      <!-- Card 2: AIUX & Journals -->
+      <div class="demo-card">
+        <div style="height: 170px; background: linear-gradient(135deg, #ede9fe, #ddd6fe); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #6d28d9; font-size: 15px;">
+          Journals & Notes
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">AI & Interaction Systems</h3>
+        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Weekly thoughts on artificial intelligence, user experience architecture, and micro-interactions.</p>
+      </div>
+
+      <!-- Card 3: Analytics & Metrics -->
+      <div class="demo-card">
+        <div style="height: 170px; background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-radius: 12px; margin-bottom: 1.25rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              <div style="font-size: 11px; color: #0369a1; font-weight: 600; text-transform: uppercase;">Past Due</div>
+              <div style="font-size: 24px; font-weight: 700; color: #0284c7;">174</div>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: #0369a1; font-weight: 600; text-transform: uppercase;">Upcoming</div>
+              <div style="font-size: 24px; font-weight: 700; color: #0284c7;">92</div>
+            </div>
+          </div>
+          <div style="height: 40px; display: flex; align-items: flex-end; gap: 8px;">
+            <div style="height: 45%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+            <div style="height: 75%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+            <div style="height: 100%; width: 14%; background: #0284c7; border-radius: 4px;"></div>
+            <div style="height: 60%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+            <div style="height: 85%; width: 14%; background: #0284c7; border-radius: 4px;"></div>
+            <div style="height: 65%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+          </div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Analytics & Operations</h3>
+        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Live tracking dashboard for product milestones, design reviews, and engineering metrics.</p>
+      </div>
+
+      <!-- Card 4: Products & Cases -->
+      <div class="demo-card">
+        <div style="height: 170px; background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #be185d; font-size: 15px;">
+          Product Design
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Next-Gen Interfaces</h3>
+        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">End-to-end design engineering with micro-interactions, responsive grids, and design tokens.</p>
+      </div>
+
+      <!-- Card 5: Code & Tools -->
+      <div class="demo-card">
+        <div style="height: 170px; background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #15803d; font-size: 15px;">
+          Open Source Tools
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Developer Utilities</h3>
+        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Reusable libraries, headless UI primitives, and modern animation helpers.</p>
+      </div>
+
+      <!-- Card 6: Work Together -->
+      <div class="demo-card">
+        <div style="height: 170px; background: linear-gradient(135deg, #ffedd5, #fed7aa); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #c2410c; font-size: 15px;">
+          Collaboration
+        </div>
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Work Together</h3>
+        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Open for selected product collaborations, design system advisory, and engineering consulting.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Script: Dark Mode Toggle Only -->
   <script>
-    // 1. Scroll Effect (Blur & Shadow)
-    const navbar = document.querySelector('.navbar');
-
-    function handleScroll() {
-      if (window.scrollY > 15) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    // 2. Dark Mode Toggle with LocalStorage & OS Preference
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
 
