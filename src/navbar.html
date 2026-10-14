@@ -30,11 +30,11 @@
       justify-content: space-between;
       padding: 0 2rem;
       background: #ffffff;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: none;
       position: sticky;
       top: 0;
       z-index: 100;
-      transition: background-color 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: background-color 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     /* Active Scroll Effect (Blur + Soft Shadow + Translucent Background) */
@@ -42,8 +42,7 @@
       background: rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border-bottom-color: rgba(0, 0, 0, 0.06);
-      box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
     }
 
     /* Soft progressive blur gradient underneath navbar on scroll */
@@ -74,14 +73,13 @@
 
     html.dark .navbar {
       background: #0b0f17;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
     }
 
     html.dark .navbar.scrolled {
       background: rgba(11, 15, 23, 0.82);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border-bottom-color: rgba(255, 255, 255, 0.12);
       box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.6), 0 2px 6px -1px rgba(0, 0, 0, 0.4);
     }
 
