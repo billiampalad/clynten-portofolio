@@ -518,9 +518,12 @@ body.dark-theme .nav-item::before {
 }
 
 .nav-icon-btn {
+  position: relative;
   background: transparent;
   border: none;
-  padding: 6px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
   margin: 0;
   display: inline-flex;
   align-items: center;
@@ -528,14 +531,37 @@ body.dark-theme .nav-item::before {
   color: var(--nav-icon);
   cursor: pointer;
   border-radius: 6px;
-  transition: color 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 1;
+  transition: color 0.25s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
   text-decoration: none;
   outline: none;
 }
 
+/* Animasi blok merah meluncur dari kiri ke kanan pada tombol aksi (senada dengan warna dan transisi menu hover) */
+.nav-icon-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #bc0202;
+  border-radius: 6px;
+  z-index: -1;
+  transform: translateX(-101%);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.25s ease;
+  pointer-events: none;
+}
+
+.nav-icon-btn:hover::before {
+  transform: translateX(0);
+}
+
 .nav-icon-btn:hover {
-  color: var(--nav-icon-hover);
-  transform: scale(1.08);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .nav-icon-btn:focus-visible {
@@ -548,7 +574,20 @@ body.dark-theme .nav-item::before {
 }
 
 .nav-theme-btn:hover .theme-icon {
-  transform: rotate(15deg);
+  transform: rotate(18deg);
+}
+
+/* Mode Gelap untuk tombol aksi (warna #830000 senada dengan menu hover) */
+html.dark .nav-icon-btn::before,
+[data-theme="dark"] .nav-icon-btn::before,
+body.dark-theme .nav-icon-btn::before {
+  background-color: #830000;
+}
+
+html.dark .nav-icon-btn:hover,
+[data-theme="dark"] .nav-icon-btn:hover,
+body.dark-theme .nav-icon-btn:hover {
+  color: #ffffff;
 }
 
 /* Mobile Hamburger Toggle */
@@ -598,10 +637,11 @@ body.dark-theme .nav-item::before {
 }
 
 .mobile-nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px 14px;
   text-decoration: none;
   color: var(--nav-link);
   font-size: 13px;
@@ -609,7 +649,10 @@ body.dark-theme .nav-item::before {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  transition: color 0.18s ease;
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.25s ease;
 }
 
 [data-theme="light"] .mobile-nav-item,
@@ -617,8 +660,40 @@ body.light-theme .mobile-nav-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
+/* Animasi blok merah meluncur pada mobile drawer item */
+.mobile-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #bc0202;
+  border-radius: 6px;
+  z-index: -1;
+  transform: translateX(-101%);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.25s ease;
+  pointer-events: none;
+}
+
+.mobile-nav-item:hover::before {
+  transform: translateX(0);
+}
+
 .mobile-nav-item:hover {
-  color: var(--nav-link-hover);
+  color: #ffffff;
+}
+
+html.dark .mobile-nav-item::before,
+[data-theme="dark"] .mobile-nav-item::before,
+body.dark-theme .mobile-nav-item::before {
+  background-color: #830000;
+}
+
+html.dark .mobile-nav-item:hover,
+[data-theme="dark"] .mobile-nav-item:hover,
+body.dark-theme .mobile-nav-item:hover {
+  color: #ffffff;
 }
 
 /* Responsive Breakpoints */
