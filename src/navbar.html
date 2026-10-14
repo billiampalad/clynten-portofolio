@@ -1,494 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Navbar Component</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #ffffff;
-      color: #111827;
-      min-height: 100vh;
-      padding-bottom: 5rem;
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            min-height: 100vh;
+            padding-bottom: 5rem;
+        }
 
-    /* Navbar Container - Solid Opaque (Tidak Transparan & Tanpa Shadow) */
-    .navbar {
-      width: 100%;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      background: #ffffff; /* Navbar solid murni, tidak transparan dan tidak blur */
-      box-shadow: none; /* Shadow dihapus sesuai permintaan */
-      border-bottom: 1px solid #4b5563; /* Selaras dengan warna teks dan icon navbar mode terang (#4b5563) */
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      transition: background-color 0.25s ease, border-color 0.25s ease;
-    }
+        /* Navbar Container - Solid Opaque (Tidak Transparan & Tanpa Shadow) */
+        .navbar {
+            width: 100%;
+            height: 50px;
+            /* Diperkecil menjadi 50px agar lebih ramping dan compact */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            background: #ffffff;
+            /* Navbar solid murni, tidak transparan dan tidak blur */
+            box-shadow: none;
+            /* Shadow dihapus sesuai permintaan */
+            border-bottom: none;
+            /* Garis dihilangkan pada mode terang */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.25s ease, border-color 0.25s ease;
+        }
 
-    /* Efek Blur khusus di bagian BAWAH navbar saat teks/konten di-scroll melewatinya */
-    .navbar::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: calc(100% + 1px); /* Posisi tepat di bawah garis border agar tidak menutupi garis */
-      height: 28px; /* Area blur di tepi bawah navbar */
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.95) 0%,
-        rgba(255, 255, 255, 0.5) 60%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-      pointer-events: none;
-      z-index: -1;
-    }
+        /* Efek Blur khusus di bagian BAWAH navbar saat teks/konten di-scroll melewatinya */
+        .navbar::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 50px;
+            /* Area blur di tepi bawah navbar */
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.95) 0%,
+                    rgba(255, 255, 255, 0.5) 60%,
+                    rgba(255, 255, 255, 0) 100%);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
 
-    /* ============================================================
+        /* ============================================================
        Dark Mode Theme Styles
        ============================================================ */
-    html.dark body {
-      background-color: #000000;
-      color: #EEEEEE;
-    }
+        html.dark body {
+            background-color: #000000;
+            color: #EEEEEE;
+        }
 
-    html.dark .navbar {
-      background: #000000; /* Navbar solid hitam murni */
-      box-shadow: none;
-      border-bottom: 1px solid #888888; /* Selaras dengan warna teks dan icon navbar mode gelap (#888888) */
-    }
+        html.dark .navbar {
+            background: #000000;
+            /* Navbar solid hitam murni */
+            border-bottom: 1px solid #262626;
+            /* Garis batas redup dan halus di mode gelap */
+            box-shadow: none;
+        }
 
-    html.dark .navbar::after {
-      background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.95) 0%,
-        rgba(0, 0, 0, 0.5) 60%,
-        rgba(0, 0, 0, 0) 100%
-      );
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-    }
+        html.dark .navbar::after {
+            top: calc(100% + 1px);
+            /* Dimulai tepat di bawah garis 1px agar gradasi hitam tidak menimpa garis */
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.95) 0%,
+                    rgba(0, 0, 0, 0.5) 60%,
+                    rgba(0, 0, 0, 0) 100%);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+        }
 
-    html.dark .navbar-brand {
-      color: #EEEEEE;
-    }
+        html.dark .navbar-brand {
+            color: #EEEEEE;
+        }
 
-    html.dark .navbar-link {
-      color: #888888;
-    }
+        html.dark .navbar-link {
+            color: #888888;
+        }
 
-    html.dark .navbar-link:hover {
-      color: #EEEEEE;
-    }
+        html.dark .navbar-link:hover {
+            color: #EEEEEE;
+        }
 
-    html.dark .badge-soon {
-      color: #fb923c;
-      background-color: rgba(234, 88, 12, 0.16);
-      border: 1px solid rgba(251, 146, 60, 0.25);
-    }
+        html.dark .badge-soon {
+            color: #fb923c;
+            background-color: rgba(234, 88, 12, 0.16);
+            border: 1px solid rgba(251, 146, 60, 0.25);
+        }
 
-    html.dark .action-button {
-      color: #888888;
-    }
+        html.dark .action-button {
+            color: #888888;
+        }
 
-    html.dark .action-button:hover {
-      color: #EEEEEE;
-    }
+        html.dark .action-button:hover {
+            color: #EEEEEE;
+        }
 
-    /* Theme icon toggle switch visibility */
-    .icon-sun {
-      display: none;
-    }
-    .icon-moon {
-      display: block;
-    }
+        /* Theme icon toggle switch visibility */
+        .icon-sun {
+            display: none;
+        }
 
-    html.dark .icon-moon {
-      display: none;
-    }
-    html.dark .icon-sun {
-      display: block;
-    }
+        .icon-moon {
+            display: block;
+        }
 
-    /* Smooth transition for theme switching */
-    body, .navbar, .navbar-brand, .navbar-link, .action-button, .badge-soon {
-      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    }
+        html.dark .icon-moon {
+            display: none;
+        }
 
-    /* Brand / Logo */
-    .navbar-brand {
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #111827;
-      text-decoration: none;
-      user-select: none;
-    }
+        html.dark .icon-sun {
+            display: block;
+        }
 
-    .navbar-brand .dash {
-      display: inline-block;
-      margin: 0 6px;
-      font-weight: 400;
-      opacity: 0.7;
-    }
+        /* Smooth transition for theme switching */
+        body,
+        .navbar,
+        .navbar-brand,
+        .navbar-link,
+        .action-button,
+        .badge-soon {
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
 
-    /* Center / Main Navigation Links */
-    .navbar-menu {
-      display: flex;
-      align-items: center;
-      list-style: none;
-      gap: 2rem;
-    }
+        /* Brand / Logo */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: #111827;
+            text-decoration: none;
+            user-select: none;
+        }
 
-    .navbar-item {
-      display: flex;
-      align-items: center;
-    }
+        .navbar-brand .dash {
+            display: inline-block;
+            margin: 0 6px;
+            font-weight: 400;
+            opacity: 0.7;
+        }
 
-    .navbar-link {
-      text-decoration: none;
-      font-size: 12.5px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #4b5563;
-      transition: color 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
+        /* Center / Main Navigation Links */
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 2rem;
+        }
 
-    .navbar-link:hover {
-      color: #000000;
-    }
+        .navbar-item {
+            display: flex;
+            align-items: center;
+        }
 
-    /* Badge "SOON" */
-    .badge-soon {
-      display: inline-block;
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #ea580c;
-      background-color: #ffedd5;
-      padding: 2px 7px;
-      border-radius: 9999px;
-      line-height: 1.2;
-    }
+        .navbar-link {
+            text-decoration: none;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #4b5563;
+            transition: color 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
 
-    /* Action Icons (Right) */
-    .navbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
+        .navbar-link:hover {
+            color: #000000;
+        }
 
-    .action-button {
-      background: none;
-      border: none;
-      padding: 6px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #374151;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: color 0.18s ease, transform 0.15s ease;
-    }
+        /* Badge "SOON" */
+        .badge-soon {
+            display: inline-block;
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #ea580c;
+            background-color: #ffedd5;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            line-height: 1.2;
+        }
 
-    .action-button:hover {
-      color: #000000;
-      transform: translateY(-1px);
-    }
+        /* Action Icons (Right) */
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
 
-    .action-button svg {
-      width: 19px;
-      height: 19px;
-      stroke-width: 1.65;
-    }
+        .action-button {
+            background: none;
+            border: none;
+            padding: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: color 0.18s ease, transform 0.15s ease;
+        }
 
-    /* Responsive Handling */
-    @media (max-width: 1024px) {
-      .navbar {
-        padding: 0 1.25rem;
-        height: 62px;
-      }
+        .action-button:hover {
+            color: #000000;
+            transform: translateY(-1px);
+        }
 
-      .navbar-menu {
-        gap: 1.25rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
+        .action-button svg {
+            width: 19px;
+            height: 19px;
+            stroke-width: 1.65;
+        }
 
-      .navbar-menu::-webkit-scrollbar {
-        display: none;
-      }
+        /* Responsive Handling */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 0 1.25rem;
+                height: 48px;
+            }
 
-      .navbar-link {
-        font-size: 11.5px;
-      }
-    }
+            .navbar-menu {
+                gap: 1.25rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
 
-    /* Demo Display Content Styling */
-    .content-wrapper {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
+            .navbar-menu::-webkit-scrollbar {
+                display: none;
+            }
 
-    .hero-banner {
-      background: linear-gradient(135deg, #fef3c7 0%, #e0f2fe 50%, #ede9fe 100%);
-      border-radius: 20px;
-      padding: 2.75rem 2rem;
-      margin-bottom: 2rem;
-      border: 1px solid rgba(0, 0, 0, 0.04);
-    }
+            .navbar-link {
+                font-size: 11.5px;
+            }
+        }
 
-    html.dark .hero-banner {
-      background: linear-gradient(135deg, #18181b 0%, #1e1b4b 50%, #0f172a 100%);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
+        /* Demo Display Content Styling */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
 
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
+        .hero-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #e0f2fe 50%, #ede9fe 100%);
+            border-radius: 20px;
+            padding: 2.75rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
 
-    .demo-card {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.04);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+        html.dark .hero-banner {
+            background: linear-gradient(135deg, #18181b 0%, #1e1b4b 50%, #0f172a 100%);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
 
-    .demo-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08);
-    }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-    html.dark .demo-card {
-      background: #111111;
-      border-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.6);
-    }
+        .demo-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    html.dark .demo-card:hover {
-      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.9);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-  </style>
+        .demo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08);
+        }
+
+        html.dark .demo-card {
+            background: #111111;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.6);
+        }
+
+        html.dark .demo-card:hover {
+            box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <!-- Brand / Logo -->
-    <a href="/" class="navbar-brand">
-      <span>A</span>
-      <span class="dash">—</span>
-      <span>Z</span>
-    </a>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <!-- Brand / Logo -->
+        <a href="/" class="navbar-brand">
+            <span>A</span>
+            <span class="dash">—</span>
+            <span>Z</span>
+        </a>
 
-    <!-- Menu Links (Sesuai dengan Navbar.jsx: About, Skills, Projects, Experience, Contact) -->
-    <nav>
-      <ul class="navbar-menu">
-        <li class="navbar-item">
-          <a href="#about" class="navbar-link">About</a>
-        </li>
-        <li class="navbar-item">
-          <a href="#skills" class="navbar-link">Skills</a>
-        </li>
-        <li class="navbar-item">
-          <a href="#projects" class="navbar-link">Projects</a>
-        </li>
-        <li class="navbar-item">
-          <a href="#experience" class="navbar-link">Experience</a>
-        </li>
-        <li class="navbar-item">
-          <a href="#contact" class="navbar-link">Contact</a>
-        </li>
-      </ul>
-    </nav>
+        <!-- Menu Links (Sesuai dengan Navbar.jsx: About, Skills, Projects, Experience, Contact) -->
+        <nav>
+            <ul class="navbar-menu">
+                <li class="navbar-item">
+                    <a href="#about" class="navbar-link">About</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#skills" class="navbar-link">Skills</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#projects" class="navbar-link">Projects</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#experience" class="navbar-link">Experience</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#contact" class="navbar-link">Contact</a>
+                </li>
+            </ul>
+        </nav>
 
-    <!-- Right Side Actions / Icons -->
-    <div class="navbar-actions">
-      <!-- Dark Mode / Theme Toggle -->
-      <button type="button" class="action-button theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-        <!-- Moon Icon (Light Mode) -->
-        <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-        <!-- Sun Icon (Dark Mode) -->
-        <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-      </button>
+        <!-- Right Side Actions / Icons -->
+        <div class="navbar-actions">
+            <!-- Dark Mode / Theme Toggle -->
+            <button type="button" class="action-button theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <!-- Moon Icon (Light Mode) -->
+                <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <!-- Sun Icon (Dark Mode) -->
+                <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
 
-      <!-- Shopping Bag -->
-      <button type="button" class="action-button" aria-label="Shopping bag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-      </button>
+            <!-- Shopping Bag -->
+            <button type="button" class="action-button" aria-label="Shopping bag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+            </button>
 
-      <!-- Contact / Email -->
-      <button type="button" class="action-button" aria-label="Contact / Email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- Display Content (Untuk melihat efek blur dan bayangan navbar saat melewatinya) -->
-  <main class="content-wrapper">
-    <!-- Hero Banner dengan gradasi warna menarik untuk menguji efek blur -->
-    <div class="hero-banner">
-      <div style="max-width: 600px;">
-        <span style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #d97706; background: rgba(253, 230, 138, 0.4); padding: 4px 10px; border-radius: 9999px; margin-bottom: 1rem;">
-          Portfolio Showcase
-        </span>
-        <h1 style="font-size: 28px; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem;">
-          Exploring Design Systems, AI Interactions, and Code
-        </h1>
-        <p style="font-size: 14px; opacity: 0.8; line-height: 1.6;">
-          Scroll ke atas dan ke bawah untuk melihat bagaimana kaca buram (frosted glass) dan progressive blur navbar meredam warna-warna di belakangnya secara estetik.
-        </p>
-      </div>
-    </div>
-
-    <!-- Grid Kartu Portfolio / Kasus / Produk -->
-    <div class="cards-grid">
-      <!-- Card 1: Mineral Crystals -->
-      <div class="demo-card">
-        <div style="height: 170px; background: linear-gradient(135deg, #fef3c7, #fed7aa); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #9a3412; font-size: 15px;">
-          Mineral Crystals
+            <!-- Contact / Email -->
+            <button type="button" class="action-button" aria-label="Contact / Email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+            </button>
         </div>
-        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Explore 83,000+ Collectibles</h3>
-        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Curated by collectors and dealers around the globe with detailed provenance records.</p>
-      </div>
+    </header>
 
-      <!-- Card 2: AIUX & Journals -->
-      <div class="demo-card">
-        <div style="height: 170px; background: linear-gradient(135deg, #ede9fe, #ddd6fe); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #6d28d9; font-size: 15px;">
-          Journals & Notes
-        </div>
-        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">AI & Interaction Systems</h3>
-        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Weekly thoughts on artificial intelligence, user experience architecture, and micro-interactions.</p>
-      </div>
-
-      <!-- Card 3: Analytics & Metrics -->
-      <div class="demo-card">
-        <div style="height: 170px; background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-radius: 12px; margin-bottom: 1.25rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
-          <div style="display: flex; justify-content: space-between;">
-            <div>
-              <div style="font-size: 11px; color: #0369a1; font-weight: 600; text-transform: uppercase;">Past Due</div>
-              <div style="font-size: 24px; font-weight: 700; color: #0284c7;">174</div>
+    <!-- Display Content (Untuk melihat efek blur dan bayangan navbar saat melewatinya) -->
+    <main class="content-wrapper">
+        <!-- Hero Banner dengan gradasi warna menarik untuk menguji efek blur -->
+        <div class="hero-banner">
+            <div style="max-width: 600px;">
+                <span
+                    style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #d97706; background: rgba(253, 230, 138, 0.4); padding: 4px 10px; border-radius: 9999px; margin-bottom: 1rem;">
+                    Portfolio Showcase
+                </span>
+                <h1 style="font-size: 28px; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem;">
+                    Exploring Design Systems, AI Interactions, and Code
+                </h1>
+                <p style="font-size: 14px; opacity: 0.8; line-height: 1.6;">
+                    Scroll ke atas dan ke bawah untuk melihat bagaimana kaca buram (frosted glass) dan progressive blur
+                    navbar meredam warna-warna di belakangnya secara estetik.
+                </p>
             </div>
-            <div>
-              <div style="font-size: 11px; color: #0369a1; font-weight: 600; text-transform: uppercase;">Upcoming</div>
-              <div style="font-size: 24px; font-weight: 700; color: #0284c7;">92</div>
+        </div>
+
+        <!-- Grid Kartu Portfolio / Kasus / Produk -->
+        <div class="cards-grid">
+            <!-- Card 1: Mineral Crystals -->
+            <div class="demo-card">
+                <div
+                    style="height: 170px; background: linear-gradient(135deg, #fef3c7, #fed7aa); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #9a3412; font-size: 15px;">
+                    Mineral Crystals
+                </div>
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Explore 83,000+ Collectibles</h3>
+                <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Curated by collectors and dealers around the
+                    globe with detailed provenance records.</p>
             </div>
-          </div>
-          <div style="height: 40px; display: flex; align-items: flex-end; gap: 8px;">
-            <div style="height: 45%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
-            <div style="height: 75%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
-            <div style="height: 100%; width: 14%; background: #0284c7; border-radius: 4px;"></div>
-            <div style="height: 60%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
-            <div style="height: 85%; width: 14%; background: #0284c7; border-radius: 4px;"></div>
-            <div style="height: 65%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
-          </div>
+
+            <!-- Card 2: AIUX & Journals -->
+            <div class="demo-card">
+                <div
+                    style="height: 170px; background: linear-gradient(135deg, #ede9fe, #ddd6fe); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #6d28d9; font-size: 15px;">
+                    Journals & Notes
+                </div>
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">AI & Interaction Systems</h3>
+                <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Weekly thoughts on artificial intelligence,
+                    user experience architecture, and micro-interactions.</p>
+            </div>
+
+            <!-- Card 3: Analytics & Metrics -->
+            <div class="demo-card">
+                <div
+                    style="height: 170px; background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-radius: 12px; margin-bottom: 1.25rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <div style="font-size: 11px; color: #0369a1; font-weight: 600; text-transform: uppercase;">
+                                Past Due</div>
+                            <div style="font-size: 24px; font-weight: 700; color: #0284c7;">174</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 11px; color: #0369a1; font-weight: 600; text-transform: uppercase;">
+                                Upcoming</div>
+                            <div style="font-size: 24px; font-weight: 700; color: #0284c7;">92</div>
+                        </div>
+                    </div>
+                    <div style="height: 40px; display: flex; align-items: flex-end; gap: 8px;">
+                        <div style="height: 45%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+                        <div style="height: 75%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+                        <div style="height: 100%; width: 14%; background: #0284c7; border-radius: 4px;"></div>
+                        <div style="height: 60%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+                        <div style="height: 85%; width: 14%; background: #0284c7; border-radius: 4px;"></div>
+                        <div style="height: 65%; width: 14%; background: #38bdf8; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Analytics & Operations</h3>
+                <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Live tracking dashboard for product
+                    milestones, design reviews, and engineering metrics.</p>
+            </div>
+
+            <!-- Card 4: Products & Cases -->
+            <div class="demo-card">
+                <div
+                    style="height: 170px; background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #be185d; font-size: 15px;">
+                    Product Design
+                </div>
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Next-Gen Interfaces</h3>
+                <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">End-to-end design engineering with
+                    micro-interactions, responsive grids, and design tokens.</p>
+            </div>
+
+            <!-- Card 5: Code & Tools -->
+            <div class="demo-card">
+                <div
+                    style="height: 170px; background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #15803d; font-size: 15px;">
+                    Open Source Tools
+                </div>
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Developer Utilities</h3>
+                <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Reusable libraries, headless UI primitives,
+                    and modern animation helpers.</p>
+            </div>
+
+            <!-- Card 6: Work Together -->
+            <div class="demo-card">
+                <div
+                    style="height: 170px; background: linear-gradient(135deg, #ffedd5, #fed7aa); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #c2410c; font-size: 15px;">
+                    Collaboration
+                </div>
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Work Together</h3>
+                <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Open for selected product collaborations,
+                    design system advisory, and engineering consulting.</p>
+            </div>
         </div>
-        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Analytics & Operations</h3>
-        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Live tracking dashboard for product milestones, design reviews, and engineering metrics.</p>
-      </div>
+    </main>
 
-      <!-- Card 4: Products & Cases -->
-      <div class="demo-card">
-        <div style="height: 170px; background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #be185d; font-size: 15px;">
-          Product Design
-        </div>
-        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Next-Gen Interfaces</h3>
-        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">End-to-end design engineering with micro-interactions, responsive grids, and design tokens.</p>
-      </div>
+    <!-- Script: Dark Mode Toggle Only -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
 
-      <!-- Card 5: Code & Tools -->
-      <div class="demo-card">
-        <div style="height: 170px; background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #15803d; font-size: 15px;">
-          Open Source Tools
-        </div>
-        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Developer Utilities</h3>
-        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Reusable libraries, headless UI primitives, and modern animation helpers.</p>
-      </div>
+        // Inisialisasi tema dari localStorage atau preferensi sistem
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-      <!-- Card 6: Work Together -->
-      <div class="demo-card">
-        <div style="height: 170px; background: linear-gradient(135deg, #ffedd5, #fed7aa); border-radius: 12px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #c2410c; font-size: 15px;">
-          Collaboration
-        </div>
-        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 0.5rem;">Work Together</h3>
-        <p style="font-size: 13px; opacity: 0.7; line-height: 1.5;">Open for selected product collaborations, design system advisory, and engineering consulting.</p>
-      </div>
-    </div>
-  </main>
+        // Inisialisasi tema (default: dark mode sesuai Navbar.jsx)
+        if (savedTheme === 'light') {
+            htmlElement.classList.remove('dark');
+        } else {
+            htmlElement.classList.add('dark');
+        }
 
-  <!-- Script: Dark Mode Toggle Only -->
-  <script>
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const htmlElement = document.documentElement;
-
-    // Inisialisasi tema dari localStorage atau preferensi sistem
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      htmlElement.classList.add('dark');
-    } else {
-      htmlElement.classList.remove('dark');
-    }
-
-    // Event listener klik tombol tema
-    themeToggleBtn.addEventListener('click', () => {
-      const isDark = htmlElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-  </script>
+        // Event listener klik tombol tema
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    </script>
 </body>
+
 </html>
