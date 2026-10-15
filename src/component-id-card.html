@@ -859,20 +859,91 @@
       transform: translateZ(0);
     }
 
-    /* FRONT FACE: Luxury Titanium & Deep Charcoal */
+    /* ==========================================================================
+       FRONT FACE: PURE PHOTO SHOWCASE (Edge-to-Edge Portrait)
+       ========================================================================== */
     .card-face-front {
-      background: 
-        radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 15% 85%, rgba(20, 184, 166, 0.06) 0%, transparent 40%),
-        linear-gradient(145deg, #121824 0%, #0a0e17 60%, #06090f 100%);
+      background: #080c14;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      padding: 18px 20px 16px;
+      align-items: center;
+      justify-content: center;
       transform: rotateY(0deg) translateZ(0px);
     }
 
-    /* Subtle Micro-grid texture on card */
-    .card-face-front::before {
+    .front-photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .front-photo-full {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 14%;
+      display: block;
+      filter: contrast(1.05) brightness(1.02);
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: high-quality;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card-3d-wrapper:hover .front-photo-full {
+      transform: scale(1.025);
+    }
+
+    /* Subtle interactive flip indicator prompt visible only on hover */
+    .front-flip-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      background: rgba(10, 15, 24, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      border-radius: 9999px;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 12px rgba(56, 189, 248, 0.25);
+      z-index: 10;
+    }
+
+    .card-3d-wrapper:hover .front-flip-badge {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==========================================================================
+       BACK FACE: DEVELOPER CREDENTIALS & SPECIFICATIONS DOSSIER
+       ========================================================================== */
+    .card-face-back {
+      background: 
+        radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 15% 85%, rgba(20, 184, 166, 0.06) 0%, transparent 40%),
+        linear-gradient(155deg, #121824 0%, #0a0e17 60%, #06090f 100%);
+      transform: rotateY(180deg) translateZ(0px);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 18px 14px;
+      position: relative;
+    }
+
+    .card-face-back::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -888,8 +959,8 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 10px;
-      margin-bottom: 12px;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
       position: relative;
       z-index: 5;
     }
@@ -901,8 +972,8 @@
     }
 
     .monogram-crest {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 5px;
       background: linear-gradient(135deg, #1e293b, #0f172a);
       border: 1px solid rgba(56, 189, 248, 0.35);
@@ -911,7 +982,7 @@
       justify-content: center;
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12px;
       color: #ffffff;
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
     }
@@ -922,7 +993,7 @@
 
     .card-category-label {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 600;
       letter-spacing: 1.5px;
       color: #94a3b8;
@@ -934,7 +1005,7 @@
       align-items: center;
       gap: 5px;
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 8.5px;
       color: var(--accent-teal);
       background: rgba(20, 184, 166, 0.08);
       border: 1px solid rgba(20, 184, 166, 0.25);
@@ -950,39 +1021,50 @@
       box-shadow: 0 0 6px var(--accent-teal);
     }
 
-    /* Middle Visual Section: Smart Chip & Profile Photo */
-    .card-mid-section {
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 12px;
+    /* Magnetic Stripe (Top Compact Black Band) */
+    .magnetic-stripe {
+      width: calc(100% + 36px);
+      margin-left: -18px;
+      margin-right: -18px;
+      height: 20px;
+      background: #020305;
+      margin-bottom: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 2px 6px #000000;
       position: relative;
       z-index: 5;
     }
 
-    /* Smart Chip (EMV IC Contact Plate) */
+    /* Smart Chip & Developer Name Lockup Row */
+    .back-identity-row {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 5;
+    }
+
     .smart-chip-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
     }
 
     .emv-gold-chip {
       width: 44px;
-      height: 34px;
+      height: 32px;
       background: linear-gradient(135deg, #d4af37 0%, #fef08a 40%, #b45309 70%, #fef08a 100%);
-      border-radius: 6px;
+      border-radius: 5px;
       border: 1px solid rgba(0, 0, 0, 0.6);
-      box-shadow: 
-        inset 0 1px 2px rgba(255, 255, 255, 0.6),
-        0 3px 6px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 3px 6px rgba(0, 0, 0, 0.5);
       position: relative;
       overflow: hidden;
     }
 
-    /* Etched Microchip Circuit Contact Lines */
     .emv-gold-chip::before {
       content: '';
       position: absolute;
@@ -1011,94 +1093,28 @@
       left: 45%;
       transform: translate(-50%, -50%);
       width: 14px;
-      height: 12px;
+      height: 11px;
       border: 1px solid rgba(0, 0, 0, 0.45);
-      border-radius: 3px;
+      border-radius: 2px;
       background: rgba(212, 175, 55, 0.3);
     }
 
     .contactless-icon {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       color: #64748b;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
-    /* Photo Frame with Precision Chamfered Bevel */
-    .profile-photo-container {
-      position: relative;
-      width: 140px;
-      height: 154px;
-      margin: 0 auto;
-      border-radius: 12px;
-      padding: 3px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(56, 189, 248, 0.2) 50%, rgba(255, 255, 255, 0.05) 100%);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
-    }
-
-    .profile-photo-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 9px;
-      overflow: hidden;
-      background: #0b0f19;
-      position: relative;
-    }
-
-    .profile-photo-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 18%;
-      display: block;
-      filter: contrast(1.05) brightness(1.02);
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: high-quality;
-      transition: transform 0.3s ease;
-    }
-
-    /* Corner Technical Registration Crosshairs */
-    .photo-bracket {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-color: rgba(56, 189, 248, 0.6);
-      pointer-events: none;
-    }
-    .bracket-tl { top: 6px; left: 6px; border-top: 1.5px solid; border-left: 1.5px solid; }
-    .bracket-tr { top: 6px; right: 6px; border-top: 1.5px solid; border-right: 1.5px solid; }
-    .bracket-bl { bottom: 6px; left: 6px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
-    .bracket-br { bottom: 6px; right: 6px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
-
-    /* Photo Micro Holographic Security Seal */
-    .photo-security-watermark {
-      position: absolute;
-      bottom: 6px;
-      right: 6px;
-      font-family: var(--font-mono);
-      font-size: 7px;
-      font-weight: 700;
-      color: #ffffff;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(20, 184, 166, 0.35));
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 1px 4px;
-      border-radius: 3px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Profile Information & Typography */
-    .card-profile-info {
+    .back-name-block {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 5;
+      gap: 2px;
     }
 
     .profile-tag-pill {
       font-family: var(--font-mono);
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 600;
       letter-spacing: 1.5px;
       color: #64748b;
@@ -1107,7 +1123,7 @@
 
     .profile-fullname {
       font-family: var(--font-display);
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: #ffffff;
@@ -1115,13 +1131,12 @@
     }
 
     .profile-title-role {
-      font-family: var(--font-sans);
-      font-size: 12.5px;
+      font-size: 11.5px;
       font-weight: 600;
       color: var(--accent-cyan);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .title-role-dot {
@@ -1131,16 +1146,16 @@
       border-radius: 50%;
     }
 
-    /* Technical Specification Grid */
+    /* Specification Grid (4 cells) */
     .card-specs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px 12px;
-      padding: 8px 10px;
+      gap: 6px 10px;
+      padding: 7px 9px;
       background: rgba(255, 255, 255, 0.025);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      margin-bottom: 12px;
+      border-radius: 7px;
+      margin-bottom: 8px;
       position: relative;
       z-index: 5;
     }
@@ -1153,7 +1168,7 @@
 
     .spec-key {
       font-family: var(--font-mono);
-      font-size: 8px;
+      font-size: 7.5px;
       letter-spacing: 1px;
       color: #64748b;
       text-transform: uppercase;
@@ -1161,7 +1176,7 @@
 
     .spec-val {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
       color: #cbd5e1;
       display: flex;
@@ -1175,126 +1190,25 @@
       color: var(--accent-teal);
     }
 
-    /* Bottom Security Footer: Holographic Seal & Vector QR Code */
-    .card-footer-assembly {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 8px;
-      position: relative;
-      z-index: 5;
-    }
-
-    /* Iridescent Hologram Security Seal */
-    .hologram-strip {
-      flex: 1;
-      height: 24px;
-      border-radius: 4px;
-      background: linear-gradient(
-        90deg,
-        rgba(56, 189, 248, 0.3) 0%,
-        rgba(168, 85, 247, 0.3) 25%,
-        rgba(236, 72, 153, 0.3) 50%,
-        rgba(34, 197, 94, 0.3) 75%,
-        rgba(56, 189, 248, 0.3) 100%
-      );
-      background-size: 200% 100%;
-      animation: hologramShimmer 6s linear infinite;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes hologramShimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
-    .hologram-text {
-      font-family: var(--font-mono);
-      font-size: 7.5px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #ffffff;
-      text-transform: uppercase;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-      opacity: 0.9;
-    }
-
-    /* Vector SVG QR Code */
-    .card-qr-box {
-      width: 38px;
-      height: 38px;
-      background: #ffffff;
-      border-radius: 5px;
-      padding: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .card-qr-box svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* ==========================================================================
-       BACK FACE: MAGNETIC STRIPE, BARCODE, SIGNATURE, SPECIFICATIONS
-       ========================================================================== */
-    .card-face-back {
-      background: 
-        radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
-        linear-gradient(155deg, #0e141f 0%, #070a10 60%, #030508 100%);
-      transform: rotateY(180deg) translateZ(1px);
-      display: flex;
-      flex-direction: column;
-      padding: 0 0 16px;
-    }
-
-    /* Magnetic Stripe (Top Black Band) */
-    .magnetic-stripe {
-      width: 100%;
-      height: 48px;
-      background: #020305;
-      margin-top: 18px;
-      margin-bottom: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 2px 6px #000000;
-    }
-
-    .back-body-content {
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-    }
-
     /* Authorized Signature Strip */
     .signature-strip-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 5;
     }
 
     .signature-label {
       font-family: var(--font-mono);
-      font-size: 8px;
+      font-size: 7.5px;
       color: #64748b;
       letter-spacing: 1px;
     }
 
     .signature-white-strip {
-      height: 28px;
+      height: 24px;
       background: #e2e8f0;
       border-radius: 4px;
       position: relative;
@@ -1314,7 +1228,7 @@
     .signature-text {
       font-family: 'Space Grotesk', cursive, sans-serif;
       font-style: italic;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #0f172a;
       letter-spacing: -0.5px;
@@ -1323,62 +1237,113 @@
       z-index: 2;
     }
 
-    /* Terms of issuance */
-    .terms-text-block {
-      font-size: 8.5px;
-      line-height: 1.5;
-      color: #64748b;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      padding-bottom: 10px;
-    }
-
-    /* Socials and contact links */
-    .back-contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .contact-item-row {
+    /* Holographic Security Foil Strip */
+    .hologram-strip {
+      width: 100%;
+      height: 19px;
+      border-radius: 4px;
+      background: linear-gradient(
+        90deg,
+        rgba(56, 189, 248, 0.3) 0%,
+        rgba(168, 85, 247, 0.3) 25%,
+        rgba(236, 72, 153, 0.3) 50%,
+        rgba(34, 197, 94, 0.3) 75%,
+        rgba(56, 189, 248, 0.3) 100%
+      );
+      background-size: 200% 100%;
+      animation: hologramShimmer 6s linear infinite;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      margin-bottom: 8px;
+      z-index: 5;
+    }
+
+    @keyframes hologramShimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .hologram-text {
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      opacity: 0.9;
     }
 
-    .contact-key {
-      color: #64748b;
-    }
-
-    .contact-val {
-      color: #cbd5e1;
-    }
-
-    /* Barcode (Code 128 style) */
-    .barcode-container {
+    /* Bottom Verification Footer: QR Code & Barcode */
+    .back-footer-assembly {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 7px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .card-qr-box {
+      width: 38px;
+      height: 38px;
+      background: #ffffff;
+      border-radius: 5px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
+    }
+
+    .card-qr-box svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .barcode-container {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       background: #ffffff;
-      padding: 6px 12px 4px;
-      border-radius: 6px;
+      padding: 3px 8px 2px;
+      border-radius: 5px;
+      overflow: hidden;
     }
 
     .barcode-svg {
       width: 100%;
-      height: 26px;
+      height: 20px;
       display: block;
     }
 
     .barcode-serial {
       font-family: var(--font-mono);
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 600;
       color: #0f172a;
       letter-spacing: 2px;
+    }
+
+    .back-contact-specs-line {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      color: #64748b;
+      text-align: center;
+      margin-top: 5px;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 5;
     }
 
     /* ==========================================================================
@@ -1624,30 +1589,51 @@
               </div>
 
               <!-- ==========================================
-                   CARD FRONT FACE: Official Identity
+                   CARD FRONT FACE: Photo Only (Full Bleed Pure Portrait)
                    ========================================== -->
-              <div class="card-face card-face-front">
-                
-                <!-- Header: Monogram, Label & Verified Clearance -->
+              <div class="card-face card-face-front" title="Klik kartu untuk membalik dan melihat data diri">
+                <div class="front-photo-wrapper">
+                  <img
+                    id="profileImg"
+                    class="front-photo-full"
+                    src="./assets/profile.webp"
+                    alt="Clynten Billiam Palad"
+                    loading="eager"
+                    onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'326\' height=\'490\' viewBox=\'0 0 326 490\'><rect width=\'326\' height=\'490\' fill=\'%23111827\'/><circle cx=\'163\' cy=\'200\' r=\'70\' fill=\'%2338bdf8\' opacity=\'0.3\'/><path d=\'M60 440c0-60 45-90 103-90s103 30 103 90\' fill=\'%2338bdf8\' opacity=\'0.25\'/><text x=\'163\' y=\'470\' font-family=\'sans-serif\' font-size=\'14\' fill=\'%2394a3b8\' text-anchor=\'middle\'>CLYNTEN BILLIAM PALAD</text></svg>';"
+                  />
+                  <!-- Subtle flip indicator visible only on hover -->
+                  <div class="front-flip-badge" aria-hidden="true">
+                    <span>KLIK UNTUK BALIK</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ==========================================
+                   CARD BACK FACE: Developer Credentials Dossier
+                   ========================================== -->
+              <div class="card-face card-face-back">
+                <!-- Top Header: Monogram & Verified Clearance -->
                 <div class="card-header-bar">
                   <div class="brand-monogram-lockup">
                     <div class="monogram-crest">C<span>.</span></div>
-                    <span class="card-category-label">DEVELOPER IDENTITY</span>
+                    <span class="card-category-label">DEVELOPER IDENTITY // DOSSIER</span>
                   </div>
                   <div class="badge-clearance">
                     <span class="clearance-dot"></span>
-                    <span>VERIFIED</span>
+                    <span>LVL 01 // PUBLIC</span>
                   </div>
                 </div>
 
-                <!-- Mid Section: Smart Chip & Profile Photograph -->
-                <div class="card-mid-section">
-                  <!-- EMV Smart Chip -->
+                <!-- Magnetic Stripe -->
+                <div class="magnetic-stripe"></div>
+
+                <!-- Developer Identity & Smart Chip Row -->
+                <div class="back-identity-row">
                   <div class="smart-chip-wrapper" title="Contactless Smart Card Chip">
                     <div class="emv-gold-chip">
                       <div class="chip-micro-center"></div>
                     </div>
-                    <!-- Contactless NFC Wave Icon -->
                     <svg class="contactless-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M8.5 16.5a5 5 0 0 1 0-7"/>
                       <path d="M12 19a8.5 8.5 0 0 0 0-14"/>
@@ -1655,39 +1641,17 @@
                     </svg>
                   </div>
 
-                  <!-- High-Res Profile Photograph -->
-                  <div class="profile-photo-container">
-                    <div class="profile-photo-inner">
-                      <img
-                        id="profileImg"
-                        class="profile-photo-img"
-                        src="./assets/profile.webp"
-                        alt="Clynten Billiam Palad"
-                        loading="eager"
-                        onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'154\' viewBox=\'0 0 140 154\'><rect width=\'140\' height=\'154\' fill=\'%23111827\'/><circle cx=\'70\' cy=\'60\' r=\'28\' fill=\'%2338bdf8\' opacity=\'0.4\'/><path d=\'M20 140c0-30 25-45 50-45s50 15 50 45\' fill=\'%2338bdf8\' opacity=\'0.3\'/><text x=\'70\' y=\'148\' font-family=\'sans-serif\' font-size=\'9\' fill=\'%2394a3b8\' text-anchor=\'middle\'>CLYNTEN</text></svg>';"
-                      />
-                      <!-- Sci-Fi Registration Brackets -->
-                      <div class="photo-bracket bracket-tl"></div>
-                      <div class="photo-bracket bracket-tr"></div>
-                      <div class="photo-bracket bracket-bl"></div>
-                      <div class="photo-bracket bracket-br"></div>
-                      <!-- Holographic Security Micro-stamp -->
-                      <div class="photo-security-watermark">SYS.AUTH</div>
+                  <div class="back-name-block">
+                    <span class="profile-tag-pill">NAME // CITIZEN</span>
+                    <h2 class="profile-fullname">Clynten Billiam Palad</h2>
+                    <div class="profile-title-role">
+                      <span class="title-role-dot"></span>
+                      <span>Junior Web Developer</span>
                     </div>
                   </div>
                 </div>
 
-                <!-- Profile Credentials Typography -->
-                <div class="card-profile-info">
-                  <span class="profile-tag-pill">NAME // CITIZEN</span>
-                  <h2 class="profile-fullname">Clynten Billiam Palad</h2>
-                  <div class="profile-title-role">
-                    <span class="title-role-dot"></span>
-                    <span>Junior Web Developer</span>
-                  </div>
-                </div>
-
-                <!-- Technical Specification Grid -->
+                <!-- Technical Specification Grid (4 cells) -->
                 <div class="card-specs-grid">
                   <div class="spec-cell">
                     <span class="spec-key">LOCATION</span>
@@ -1705,113 +1669,81 @@
                     <span class="spec-val">React • Vite • GSAP</span>
                   </div>
                   <div class="spec-cell">
-                    <span class="spec-key">CLEARANCE</span>
-                    <span class="spec-val">LVL 01 // PUBLIC</span>
+                    <span class="spec-key">STATUS</span>
+                    <span class="spec-val">ONLINE // 3.20GHz</span>
                   </div>
                 </div>
 
-                <!-- Footer: Iridescent Hologram & Vector QR Code -->
-                <div class="card-footer-assembly">
-                  <div class="hologram-strip" title="Holographic Security Foil">
-                    <span class="hologram-text">SECURE ARCHITECTURE • AUTHENTIC</span>
+                <!-- Authorized Signature Section -->
+                <div class="signature-strip-wrapper">
+                  <span class="signature-label">AUTHORIZED SIGNATURE</span>
+                  <div class="signature-white-strip">
+                    <span class="signature-text">Clynten B. Palad</span>
                   </div>
+                </div>
 
-                  <!-- Valid Clean Vector QR Code (Pointing to Portfolio) -->
+                <!-- Iridescent Security Hologram Foil Strip -->
+                <div class="hologram-strip" title="Holographic Security Foil">
+                  <span class="hologram-text">SECURE ARCHITECTURE • AUTHENTIC IDENTITY</span>
+                </div>
+
+                <!-- Bottom Verification Footer: QR Code & Barcode -->
+                <div class="back-footer-assembly">
+                  <!-- Valid Clean Vector QR Code -->
                   <div class="card-qr-box" title="Scan to verify credentials">
                     <svg viewBox="0 0 29 29" fill="#000000">
-                      <!-- Position detection patterns -->
                       <path d="M1 1h7v7H1zM3 3h3v3H3zM21 1h7v7h-7zM23 3h3v3h-3zM1 21h7v7H1zM3 23h3v3H3z"/>
-                      <!-- Timing patterns & Data modules -->
                       <path d="M10 2h1v1h-1zM13 2h1v1h-1zM15 2h2v1h-2zM10 4h2v1h-2zM14 4h1v1h-1zM17 4h1v1h-1zM10 6h1v1h-1zM13 6h2v1h-2zM17 6h1v1h-1zM2 10h1v1H2zM5 10h2v1H5zM9 10h2v1H9zM12 10h1v1h-1zM15 10h1v1h-1zM18 10h3v1h-3zM23 10h1v1h-1zM26 10h2v1h-2zM3 12h2v1H3zM7 12h1v1H7zM11 12h3v1h-3zM16 12h2v1h-2zM20 12h1v1h-1zM24 12h3v1h-3zM1 14h3v1H1zM6 14h2v1H6zM10 14h1v1h-1zM13 14h3v1h-3zM18 14h2v1h-2zM22 14h1v1h-1zM25 14h3v1h-3zM2 16h1v1H2zM5 16h3v1H5zM10 16h2v1h-2zM14 16h1v1h-1zM17 16h3v1h-3zM22 16h2v1h-2zM26 16h1v1h-1zM10 18h3v1h-3zM15 18h2v1h-2zM19 18h1v1h-1zM22 18h3v1h-3zM27 18h1v1h-1zM10 21h2v1h-2zM14 21h1v1h-1zM17 21h2v1h-2zM21 21h1v1h-1zM24 21h2v1h-2zM11 23h1v1h-1zM14 23h2v1h-2zM18 23h1v1h-1zM21 23h3v1h-3zM26 23h2v1h-2zM10 25h3v1h-3zM15 25h1v1h-1zM18 25h2v1h-2zM22 25h1v1h-1zM25 25h3v1h-3zM11 27h2v1h-2zM15 27h3v1h-3zM20 27h1v1h-1zM23 27h2v1h-2zM27 27h1v1h-1z"/>
                     </svg>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- ==========================================
-                   CARD BACK FACE: Magnetic Stripe & Specs
-                   ========================================== -->
-              <div class="card-face card-face-back">
-                <!-- Magnetic Stripe -->
-                <div class="magnetic-stripe"></div>
-
-                <div class="back-body-content">
-                  <!-- Signature Section -->
-                  <div class="signature-strip-wrapper">
-                    <span class="signature-label">AUTHORIZED SIGNATURE</span>
-                    <div class="signature-white-strip">
-                      <span class="signature-text">Clynten B. Palad</span>
-                    </div>
-                  </div>
-
-                  <!-- Issuance & Identity Statement -->
-                  <p class="terms-text-block">
-                    This official digital identity token certifies the software engineering credentials of Clynten Billiam Palad. Dedicated to building scalable, resilient, and ultra-high-performance web architecture.
-                  </p>
-
-                  <!-- Contact Metadata -->
-                  <div class="back-contact-list">
-                    <div class="contact-item-row">
-                      <span class="contact-key">ENGINEER:</span>
-                      <span class="contact-val">Clynten Billiam Palad</span>
-                    </div>
-                    <div class="contact-item-row">
-                      <span class="contact-key">CONTACT:</span>
-                      <span class="contact-val">billiampalad@gmail.com</span>
-                    </div>
-                    <div class="contact-item-row">
-                      <span class="contact-key">ROLE:</span>
-                      <span class="contact-val">Junior Web Developer</span>
-                    </div>
-                    <div class="contact-item-row">
-                      <span class="contact-key">REPOSITORY:</span>
-                      <span class="contact-val">github.com/billiampalad</span>
-                    </div>
                   </div>
 
                   <!-- Code 128 Laser Barcode -->
                   <div class="barcode-container">
-                    <svg class="barcode-svg" viewBox="0 0 160 30" preserveAspectRatio="none">
-                      <rect x="0" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="5" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="8" y="0" width="4" height="30" fill="#000"/>
-                      <rect x="14" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="18" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="21" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="26" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="30" y="0" width="5" height="30" fill="#000"/>
-                      <rect x="37" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="40" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="45" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="49" y="0" width="4" height="30" fill="#000"/>
-                      <rect x="55" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="58" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="63" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="67" y="0" width="4" height="30" fill="#000"/>
-                      <rect x="73" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="76" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="81" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="85" y="0" width="5" height="30" fill="#000"/>
-                      <rect x="92" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="96" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="99" y="0" width="4" height="30" fill="#000"/>
-                      <rect x="105" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="109" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="112" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="117" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="121" y="0" width="4" height="30" fill="#000"/>
-                      <rect x="127" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="130" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="135" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="139" y="0" width="5" height="30" fill="#000"/>
-                      <rect x="146" y="0" width="2" height="30" fill="#000"/>
-                      <rect x="150" y="0" width="1" height="30" fill="#000"/>
-                      <rect x="153" y="0" width="3" height="30" fill="#000"/>
-                      <rect x="158" y="0" width="2" height="30" fill="#000"/>
+                    <svg class="barcode-svg" viewBox="0 0 160 20" preserveAspectRatio="none">
+                      <rect x="0" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="5" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="8" y="0" width="4" height="20" fill="#000"/>
+                      <rect x="14" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="18" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="21" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="26" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="30" y="0" width="5" height="20" fill="#000"/>
+                      <rect x="37" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="40" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="45" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="49" y="0" width="4" height="20" fill="#000"/>
+                      <rect x="55" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="58" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="63" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="67" y="0" width="4" height="20" fill="#000"/>
+                      <rect x="73" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="76" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="81" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="85" y="0" width="5" height="20" fill="#000"/>
+                      <rect x="92" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="96" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="99" y="0" width="4" height="20" fill="#000"/>
+                      <rect x="105" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="109" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="112" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="117" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="121" y="0" width="4" height="20" fill="#000"/>
+                      <rect x="127" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="130" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="135" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="139" y="0" width="5" height="20" fill="#000"/>
+                      <rect x="146" y="0" width="2" height="20" fill="#000"/>
+                      <rect x="150" y="0" width="1" height="20" fill="#000"/>
+                      <rect x="153" y="0" width="3" height="20" fill="#000"/>
+                      <rect x="158" y="0" width="2" height="20" fill="#000"/>
                     </svg>
                     <span class="barcode-serial">*CLYNTEN-DEV-2026*</span>
                   </div>
+                </div>
+
+                <!-- Bottom Contact Summary -->
+                <div class="back-contact-specs-line">
+                  billiampalad@gmail.com • github.com/billiampalad
                 </div>
               </div>
 

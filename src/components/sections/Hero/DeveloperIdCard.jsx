@@ -203,64 +203,68 @@ export default function DeveloperIdCard({
             <div className="id-card-diagonal-sheen" />
           </div>
 
-          {/* FRONT FACE */}
-          <div className="id-face id-face-front">
+          {/* FRONT FACE: Photo Only (Full Bleed Pure Portrait) */}
+          <div className="id-face id-face-front" title="Klik kartu untuk membalik dan melihat data diri">
+            <div className="front-photo-wrapper">
+              <img
+                className="front-photo-full"
+                src={image}
+                alt={name}
+                loading="eager"
+                onError={(e) => {
+                  e.target.onerror = null
+                  e.target.src =
+                    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='326' height='490' viewBox='0 0 326 490'><rect width='326' height='490' fill='%23111827'/><circle cx='163' cy='200' r='70' fill='%2338bdf8' opacity='0.3'/><path d='M60 440c0-60 45-90 103-90s103 30 103 90\' fill='%2338bdf8\' opacity='0.25'/><text x='163' y='470' font-family='sans-serif' font-size='14' fill='%2394a3b8' text-anchor='middle'>CLYNTEN BILLIAM PALAD</text></svg>"
+                }}
+              />
+              {/* Subtle interactive flip indicator prompt visible only on hover */}
+              <div className="front-flip-badge" aria-hidden="true">
+                <span>KLIK UNTUK BALIK</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* BACK FACE: Developer Credentials Dossier */}
+          <div className="id-face id-face-back">
             {/* Header: Monogram & Verified Badge */}
             <div className="id-header-bar">
               <div className="id-monogram-lockup">
                 <div className="id-monogram-crest">
                   C<span>.</span>
                 </div>
-                <span className="id-category-label">DEVELOPER IDENTITY</span>
+                <span className="id-category-label">DEVELOPER IDENTITY // DOSSIER</span>
               </div>
               <div className="id-clearance-pill">
                 <span className="id-clearance-dot" />
-                <span>VERIFIED</span>
+                <span>LVL 01 // PUBLIC</span>
               </div>
             </div>
 
-            {/* Middle Grid: EMV Chip & Photograph */}
-            <div className="id-mid-grid">
+            <div className="id-magnetic-stripe" />
+
+            {/* Middle Grid: EMV Chip & Name */}
+            <div className="back-identity-row">
               <div className="id-smart-chip-box">
                 <div className="id-gold-emv-chip">
                   <div className="chip-micro-center" />
                 </div>
-                <svg className="id-contactless-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg className="id-contactless-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M8.5 16.5a5 5 0 0 1 0-7" />
                   <path d="M12 19a8.5 8.5 0 0 0 0-14" />
                   <path d="M15.5 21.5a12 12 0 0 0 0-19" />
                 </svg>
               </div>
 
-              <div className="id-photo-outer">
-                <div className="id-photo-inner">
-                  <img
-                    className="id-photo-element"
-                    src={image}
-                    alt={name}
-                    loading="eager"
-                    onError={(e) => {
-                      e.target.onerror = null
-                      e.target.src =
-                        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='154' viewBox='0 0 140 154'><rect width='140' height='154' fill='%23111827'/><circle cx='70' cy='60' r='28' fill='%2338bdf8' opacity='0.4'/><path d='M20 140c0-30 25-45 50-45s50 15 50 45' fill='%2338bdf8' opacity='0.3'/><text x='70' y='148' font-family='sans-serif' font-size='9' fill='%2394a3b8' text-anchor='middle'>CLYNTEN</text></svg>"
-                    }}
-                  />
-                  <div className="id-photo-bracket tl" />
-                  <div className="id-photo-bracket tr" />
-                  <div className="id-photo-bracket bl" />
-                  <div className="id-photo-bracket br" />
-                  <div className="id-photo-seal">SYS.AUTH</div>
+              <div className="back-name-block">
+                <span className="id-profile-label">NAME // CITIZEN</span>
+                <h2 className="id-profile-name">{name}</h2>
+                <div className="id-profile-role">
+                  <span className="id-role-dot" />
+                  <span>{role}</span>
                 </div>
-              </div>
-            </div>
-
-            {/* Profile Credentials Typography */}
-            <div className="id-profile-details">
-              <span className="id-profile-label">NAME // CITIZEN</span>
-              <h2 className="id-profile-name">{name}</h2>
-              <div className="id-profile-role">
-                <span className="id-role-dot" />
-                <span>{role}</span>
               </div>
             </div>
 
@@ -279,102 +283,78 @@ export default function DeveloperIdCard({
                 <span className="id-spec-val">{stack}</span>
               </div>
               <div className="id-spec-row">
-                <span className="id-spec-key">CLEARANCE</span>
-                <span className="id-spec-val">LVL 01 // PUBLIC</span>
+                <span className="id-spec-key">STATUS</span>
+                <span className="id-spec-val">ONLINE // 3.20GHz</span>
               </div>
             </div>
 
-            {/* Hologram & QR Code Footer */}
-            <div className="id-footer-block">
-              <div className="id-hologram-seal">
-                <span className="id-hologram-text">SECURE ARCHITECTURE • AUTHENTIC</span>
+            {/* Signature Area */}
+            <div className="id-signature-area">
+              <span className="id-signature-caption">AUTHORIZED SIGNATURE</span>
+              <div className="id-signature-box">
+                <span className="id-signature-hand">Clynten B. Palad</span>
               </div>
+            </div>
+
+            {/* Hologram Strip */}
+            <div className="id-hologram-seal">
+              <span className="id-hologram-text">SECURE ARCHITECTURE • AUTHENTIC IDENTITY</span>
+            </div>
+
+            {/* Bottom Footer: QR & Barcode */}
+            <div className="back-footer-assembly">
               <div className="id-qr-holder" title="Scan to verify credentials">
                 <svg viewBox="0 0 29 29" fill="#000000">
                   <path d="M1 1h7v7H1zM3 3h3v3H3zM21 1h7v7h-7zM23 3h3v3h-3zM1 21h7v7H1zM3 23h3v3H3z" />
                   <path d="M10 2h1v1h-1zM13 2h1v1h-1zM15 2h2v1h-2zM10 4h2v1h-2zM14 4h1v1h-1zM17 4h1v1h-1zM10 6h1v1h-1zM13 6h2v1h-2zM17 6h1v1h-1zM2 10h1v1H2zM5 10h2v1H5zM9 10h2v1H9zM12 10h1v1h-1zM15 10h1v1h-1zM18 10h3v1h-3zM23 10h1v1h-1zM26 10h2v1h-2zM3 12h2v1H3zM7 12h1v1H7zM11 12h3v1h-3zM16 12h2v1h-2zM20 12h1v1h-1zM24 12h3v1h-3zM1 14h3v1H1zM6 14h2v1H6zM10 14h1v1h-1zM13 14h3v1h-3zM18 14h2v1h-2zM22 14h1v1h-1zM25 14h3v1h-3zM2 16h1v1H2zM5 16h3v1H5zM10 16h2v1h-2zM14 16h1v1h-1zM17 16h3v1h-3zM22 16h2v1h-2zM26 16h1v1h-1zM10 18h3v1h-3zM15 18h2v1h-2zM19 18h1v1h-1zM22 18h3v1h-3zM27 18h1v1h-1zM10 21h2v1h-2zM14 21h1v1h-1zM17 21h2v1h-2zM21 21h1v1h-1zM24 21h2v1h-2zM11 23h1v1h-1zM14 23h2v1h-2zM18 23h1v1h-1zM21 23h3v1h-3zM26 23h2v1h-2zM10 25h3v1h-3zM15 25h1v1h-1zM18 25h2v1h-2zM22 25h1v1h-1zM25 25h3v1h-3zM11 27h2v1h-2zM15 27h3v1h-3zM20 27h1v1h-1zM23 27h2v1h-2zM27 27h1v1h-1z" />
                 </svg>
               </div>
-            </div>
-          </div>
-
-          {/* BACK FACE */}
-          <div className="id-face id-face-back">
-            <div className="id-magnetic-stripe" />
-            <div className="id-back-padding">
-              <div className="id-signature-area">
-                <span className="id-signature-caption">AUTHORIZED SIGNATURE</span>
-                <div className="id-signature-box">
-                  <span className="id-signature-hand">Clynten B. Palad</span>
-                </div>
-              </div>
-
-              <p className="id-terms-paragraph">
-                This official digital identity token certifies the software engineering credentials of
-                Clynten Billiam Palad. Dedicated to building scalable, resilient, and high-performance
-                web architecture.
-              </p>
-
-              <div className="id-contact-specs">
-                <div className="id-contact-line">
-                  <span className="id-contact-lbl">ENGINEER:</span>
-                  <span className="id-contact-txt">{name}</span>
-                </div>
-                <div className="id-contact-line">
-                  <span className="id-contact-lbl">CONTACT:</span>
-                  <span className="id-contact-txt">billiampalad@gmail.com</span>
-                </div>
-                <div className="id-contact-line">
-                  <span className="id-contact-lbl">ROLE:</span>
-                  <span className="id-contact-txt">{role}</span>
-                </div>
-                <div className="id-contact-line">
-                  <span className="id-contact-lbl">REPOSITORY:</span>
-                  <span className="id-contact-txt">github.com/billiampalad</span>
-                </div>
-              </div>
 
               <div className="id-barcode-box">
-                <svg className="id-barcode-graphic" viewBox="0 0 160 30" preserveAspectRatio="none">
-                  <rect x="0" y="0" width="3" height="30" fill="#000" />
-                  <rect x="5" y="0" width="1" height="30" fill="#000" />
-                  <rect x="8" y="0" width="4" height="30" fill="#000" />
-                  <rect x="14" y="0" width="2" height="30" fill="#000" />
-                  <rect x="18" y="0" width="1" height="30" fill="#000" />
-                  <rect x="21" y="0" width="3" height="30" fill="#000" />
-                  <rect x="26" y="0" width="2" height="30" fill="#000" />
-                  <rect x="30" y="0" width="5" height="30" fill="#000" />
-                  <rect x="37" y="0" width="1" height="30" fill="#000" />
-                  <rect x="40" y="0" width="3" height="30" fill="#000" />
-                  <rect x="45" y="0" width="2" height="30" fill="#000" />
-                  <rect x="49" y="0" width="4" height="30" fill="#000" />
-                  <rect x="55" y="0" width="1" height="30" fill="#000" />
-                  <rect x="58" y="0" width="3" height="30" fill="#000" />
-                  <rect x="63" y="0" width="2" height="30" fill="#000" />
-                  <rect x="67" y="0" width="4" height="30" fill="#000" />
-                  <rect x="73" y="0" width="1" height="30" fill="#000" />
-                  <rect x="76" y="0" width="3" height="30" fill="#000" />
-                  <rect x="81" y="0" width="2" height="30" fill="#000" />
-                  <rect x="85" y="0" width="5" height="30" fill="#000" />
-                  <rect x="92" y="0" width="2" height="30" fill="#000" />
-                  <rect x="96" y="0" width="1" height="30" fill="#000" />
-                  <rect x="99" y="0" width="4" height="30" fill="#000" />
-                  <rect x="105" y="0" width="2" height="30" fill="#000" />
-                  <rect x="109" y="0" width="1" height="30" fill="#000" />
-                  <rect x="112" y="0" width="3" height="30" fill="#000" />
-                  <rect x="117" y="0" width="2" height="30" fill="#000" />
-                  <rect x="121" y="0" width="4" height="30" fill="#000" />
-                  <rect x="127" y="0" width="1" height="30" fill="#000" />
-                  <rect x="130" y="0" width="3" height="30" fill="#000" />
-                  <rect x="135" y="0" width="2" height="30" fill="#000" />
-                  <rect x="139" y="0" width="5" height="30" fill="#000" />
-                  <rect x="146" y="0" width="2" height="30" fill="#000" />
-                  <rect x="150" y="0" width="1" height="30" fill="#000" />
-                  <rect x="153" y="0" width="3" height="30" fill="#000" />
-                  <rect x="158" y="0" width="2" height="30" fill="#000" />
+                <svg className="id-barcode-graphic" viewBox="0 0 160 20" preserveAspectRatio="none">
+                  <rect x="0" y="0" width="3" height="20" fill="#000" />
+                  <rect x="5" y="0" width="1" height="20" fill="#000" />
+                  <rect x="8" y="0" width="4" height="20" fill="#000" />
+                  <rect x="14" y="0" width="2" height="20" fill="#000" />
+                  <rect x="18" y="0" width="1" height="20" fill="#000" />
+                  <rect x="21" y="0" width="3" height="20" fill="#000" />
+                  <rect x="26" y="0" width="2" height="20" fill="#000" />
+                  <rect x="30" y="0" width="5" height="20" fill="#000" />
+                  <rect x="37" y="0" width="1" height="20" fill="#000" />
+                  <rect x="40" y="0" width="3" height="20" fill="#000" />
+                  <rect x="45" y="0" width="2" height="20" fill="#000" />
+                  <rect x="49" y="0" width="4" height="20" fill="#000" />
+                  <rect x="55" y="0" width="1" height="20" fill="#000" />
+                  <rect x="58" y="0" width="3" height="20" fill="#000" />
+                  <rect x="63" y="0" width="2" height="20" fill="#000" />
+                  <rect x="67" y="0" width="4" height="20" fill="#000" />
+                  <rect x="73" y="0" width="1" height="20" fill="#000" />
+                  <rect x="76" y="0" width="3" height="20" fill="#000" />
+                  <rect x="81" y="0" width="2" height="20" fill="#000" />
+                  <rect x="85" y="0" width="5" height="20" fill="#000" />
+                  <rect x="92" y="0" width="2" height="20" fill="#000" />
+                  <rect x="96" y="0" width="1" height="20" fill="#000" />
+                  <rect x="99" y="0" width="4" height="20" fill="#000" />
+                  <rect x="105" y="0" width="2" height="20" fill="#000" />
+                  <rect x="109" y="0" width="1" height="20" fill="#000" />
+                  <rect x="112" y="0" width="3" height="20" fill="#000" />
+                  <rect x="117" y="0" width="2" height="20" fill="#000" />
+                  <rect x="121" y="0" width="4" height="20" fill="#000" />
+                  <rect x="127" y="0" width="1" height="20" fill="#000" />
+                  <rect x="130" y="0" width="3" height="20" fill="#000" />
+                  <rect x="135" y="0" width="2" height="20" fill="#000" />
+                  <rect x="139" y="0" width="5" height="20" fill="#000" />
+                  <rect x="146" y="0" width="2" height="20" fill="#000" />
+                  <rect x="150" y="0" width="1" height="20" fill="#000" />
+                  <rect x="153" y="0" width="3" height="20" fill="#000" />
+                  <rect x="158" y="0" width="2" height="20" fill="#000" />
                 </svg>
                 <span className="id-barcode-code">*{systemId}-2026*</span>
               </div>
+            </div>
+
+            <div className="back-contact-specs-line">
+              billiampalad@gmail.com • github.com/billiampalad
             </div>
           </div>
         </div>
