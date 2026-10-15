@@ -47,10 +47,16 @@
   word-break: break-word;
 }
 
-/* All Words Pure Bright White */
-.headline-word {
+/* All Words Pure Bright White & Exact Match Bold Weight */
+.headline-word,
+.phrase-text {
   display: inline;
   color: #ffffff;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 900;
+  line-height: inherit;
+  letter-spacing: inherit;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95),
     0 0 30px rgba(255, 255, 255, 0.2);
 }
@@ -67,7 +73,7 @@
   border-radius: 0;
   font-family: inherit;
   font-size: inherit;
-  font-weight: inherit;
+  font-weight: 900;
   line-height: inherit;
   letter-spacing: inherit;
   /* Clip sliding cover block cleanly without triggering the inline-block baseline shift caused by overflow:hidden */
@@ -126,7 +132,7 @@
   color: #ffffff;
   font-family: inherit;
   font-size: inherit;
-  font-weight: inherit;
+  font-weight: 900;
   line-height: inherit;
   letter-spacing: inherit;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95),
@@ -135,6 +141,7 @@
 
 .phrase-text.text-revealed {
   color: #ffffff;
+  font-weight: 900;
 }
 
 .headline-subtext {
@@ -175,7 +182,10 @@
     margin-right: 10px;
   }
 
-  .scroll-headline-text {
+  .scroll-headline-text,
+  .headline-word,
+  .headline-highlight-phrase,
+  .phrase-text {
     font-size: clamp(26px, 4.2vw, 46px);
     font-weight: 900;
     line-height: 1.04;
@@ -227,11 +237,17 @@
     height: clamp(2.8px, 0.75vw, 4px);
   }
 
+  .scroll-headline-text,
+  .headline-word,
+  .headline-highlight-phrase,
+  .phrase-text {
+    font-weight: 800;
+  }
+
   .scroll-headline-text {
     display: block;
     margin: 0;
     font-size: clamp(10.5px, 3.2vw, 16px);
-    font-weight: 800;
     line-height: 1.05;
     letter-spacing: clamp(-0.4px, -0.08vw, -0.2px);
   }

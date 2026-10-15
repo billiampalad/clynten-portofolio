@@ -25,7 +25,7 @@ export default function ScrollHeadline({ progress = 0 }) {
             '--laser-opacity': reveal1 > 0.01 && reveal1 < 0.99 ? 1 : 0,
           }}
         >
-          <span className={`phrase-text ${reveal1 > 0 ? 'text-revealed' : 'text-covered'}`}>
+          <span className={`headline-word phrase-text ${reveal1 > 0 ? 'text-revealed' : 'text-covered'}`}>
             COMPLEX
           </span>
         </span>{' '}
@@ -41,7 +41,7 @@ export default function ScrollHeadline({ progress = 0 }) {
             '--laser-opacity': reveal2 > 0.01 && reveal2 < 0.99 ? 1 : 0,
           }}
         >
-          <span className={`phrase-text ${reveal2 > 0 ? 'text-revealed' : 'text-covered'}`}>
+          <span className={`headline-word phrase-text ${reveal2 > 0 ? 'text-revealed' : 'text-covered'}`}>
             POWERFUL
           </span>
         </span>{' '}
