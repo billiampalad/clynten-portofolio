@@ -65,8 +65,10 @@
   margin: 0 2px;
   vertical-align: baseline;
   border-radius: 0;
-  /* Clip sliding cover block as it exits to the right — same as navbar item overflow:hidden */
-  overflow: hidden;
+  /* clip-path clips the sliding block without affecting inline-block baseline.
+     overflow:hidden would shift the baseline to the bottom edge, causing text
+     to appear misaligned/different size vs surrounding headline words. */
+  clip-path: inset(-4px -7px);
 }
 
 /* =========================================================
