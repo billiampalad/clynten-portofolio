@@ -65,10 +65,14 @@
   margin: 0 2px;
   vertical-align: baseline;
   border-radius: 0;
-  /* clip-path clips the sliding block without affecting inline-block baseline.
-     overflow:hidden would shift the baseline to the bottom edge, causing text
-     to appear misaligned/different size vs surrounding headline words. */
-  clip-path: inset(-4px -7px);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  /* Clip sliding cover block cleanly without triggering the inline-block baseline shift caused by overflow:hidden */
+  clip-path: inset(-8px 0 -8px 0);
+  overflow: visible;
 }
 
 /* =========================================================
@@ -114,11 +118,19 @@
   transition: opacity 0.15s ease;
 }
 
-/* Word Text — no highlight/glow, block animation only */
+/* Word Text — identical typography and optical weight to .headline-word */
 .phrase-text {
   position: relative;
   z-index: 1;
+  display: inline;
   color: #ffffff;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 .phrase-text.text-revealed {
