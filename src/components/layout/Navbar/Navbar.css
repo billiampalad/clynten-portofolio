@@ -3,34 +3,34 @@
    ========================================================================== */
 
 :root {
-  /* Dark Theme Palette (Default) — Solid Flat Non-Gradient */
-  --nav-bg: #000000;
-  --nav-border: rgba(255, 255, 255, 0.1);
-  --nav-brand: #f4f4f6;
-  --nav-link: rgba(255, 255, 255, 0.6);
+  /* Dark Theme Palette (Default) — Soft Neutral Obsidian Dark (#0b0f17) */
+  --nav-bg: #0b0f17;
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-brand: #f1f5f9;
+  --nav-link: #94a3b8;
   --nav-link-hover: #ffffff;
   --nav-badge-bg: rgba(245, 158, 11, 0.16);
   --nav-badge-text: #fbbf24;
   --nav-badge-border: rgba(245, 158, 11, 0.3);
-  --nav-icon: rgba(255, 255, 255, 0.7);
-  --nav-icon-hover: #ffffff;
-  --nav-home-bg: #ffffff;
-  --nav-home-text: #09090b;
-  --nav-drawer-bg: #000000;
-  --nav-drawer-border: rgba(255, 255, 255, 0.1);
-  --nav-tint-start: rgba(0, 0, 0, 0.96);
-  --nav-tint-mid1: rgba(0, 0, 0, 0.72);
-  --nav-tint-mid2: rgba(0, 0, 0, 0.38);
-  --nav-tint-mid3: rgba(0, 0, 0, 0.12);
-  --nav-tint-end: rgba(0, 0, 0, 0);
+  --nav-icon: #94a3b8;
+  --nav-icon-hover: #f1f5f9;
+  --nav-home-bg: #f1f5f9;
+  --nav-home-text: #0b0f17;
+  --nav-drawer-bg: #0b0f17;
+  --nav-drawer-border: rgba(255, 255, 255, 0.08);
+  --nav-tint-start: rgba(11, 15, 23, 0.96);
+  --nav-tint-mid1: rgba(11, 15, 23, 0.72);
+  --nav-tint-mid2: rgba(11, 15, 23, 0.38);
+  --nav-tint-mid3: rgba(11, 15, 23, 0.12);
+  --nav-tint-end: rgba(11, 15, 23, 0);
   --nav-hover-block: #830000;
 }
 
 [data-theme="light"],
 html.light-theme,
 body.light-theme {
-  /* Light Theme Palette — Clean Pure White matching About.jsx base */
-  --nav-bg: #ffffff;
+  /* Light Theme Palette — Soft Neutral Slate (#f8fafc) */
+  --nav-bg: #f8fafc;
   --nav-border: rgba(15, 23, 42, 0.08);
   --nav-brand: #0f172a;
   --nav-link: #475569;
@@ -41,14 +41,14 @@ body.light-theme {
   --nav-icon: #475569;
   --nav-icon-hover: #0f172a;
   --nav-home-bg: #0f172a;
-  --nav-home-text: #ffffff;
-  --nav-drawer-bg: #ffffff;
+  --nav-home-text: #f8fafc;
+  --nav-drawer-bg: #f8fafc;
   --nav-drawer-border: rgba(15, 23, 42, 0.08);
-  --nav-tint-start: rgba(255, 255, 255, 0.96);
-  --nav-tint-mid1: rgba(255, 255, 255, 0.72);
-  --nav-tint-mid2: rgba(255, 255, 255, 0.38);
-  --nav-tint-mid3: rgba(255, 255, 255, 0.12);
-  --nav-tint-end: rgba(255, 255, 255, 0);
+  --nav-tint-start: rgba(248, 250, 252, 0.96);
+  --nav-tint-mid1: rgba(248, 250, 252, 0.72);
+  --nav-tint-mid2: rgba(248, 250, 252, 0.38);
+  --nav-tint-mid3: rgba(248, 250, 252, 0.12);
+  --nav-tint-end: rgba(248, 250, 252, 0);
   --nav-hover-block: #bc0202;
 }
 
@@ -79,11 +79,11 @@ body.light-theme {
   pointer-events: none;
 }
 
-/* Layer 0: Solid Black Base Underlay matching Hero Canvas Pin Wrapper (#000000) */
+/* Layer 0: Solid Base Underlay matching Hero Canvas Pin Wrapper */
 .navbar-dark-base {
   position: absolute;
   inset: 0;
-  background-color: #000000;
+  background-color: #0b0f17;
   z-index: 0;
   pointer-events: none;
 }
@@ -92,9 +92,9 @@ body.light-theme {
 .navbar-theme-bg {
   position: absolute;
   inset: 0;
-  background: #ffffff;
+  background: var(--nav-bg, #f8fafc);
   border: none;
-  box-shadow: inset 0 -1px 0 #ffffff;
+  box-shadow: inset 0 -1px 0 var(--nav-bg, #f8fafc);
   /* Garis inset solid internal: 100% opak, tidak tembus warna/teks di belakangnya */
   z-index: 1;
   pointer-events: none;
@@ -105,18 +105,26 @@ body.light-theme {
 [data-theme="dark"] .navbar-theme-bg,
 html.dark-theme .navbar-theme-bg,
 html.dark .navbar-theme-bg {
-  background: #000000;
-  box-shadow: inset 0 -1px 0 #000000;
+  background: var(--nav-bg, #0b0f17);
+  box-shadow: inset 0 -1px 0 var(--nav-bg, #0b0f17);
 }
 
-/* Saat di-scroll di mode gelap: garis batas aktif dengan warna solid #262626 via inset shadow */
+/* Saat di-scroll di mode gelap: garis batas aktif dengan warna lembut #1e2638 via inset shadow */
 [data-theme="dark"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 [data-theme="dark"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.dark-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 html.dark-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.dark .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 html.dark .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
-  box-shadow: inset 0 -1px 0 #262626;
+  box-shadow: inset 0 -1px 0 #1e2638;
+}
+
+/* Saat di-scroll di mode terang: garis batas aktif dengan warna lembut #e2e8f0 via inset shadow */
+[data-theme="light"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+[data-theme="light"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
+html.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+html.light-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
+  box-shadow: inset 0 -1px 0 #e2e8f0;
 }
 
 /* ==========================================================================
@@ -150,20 +158,20 @@ html.dark .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
 .navbar-bottom-blur .blur-layer-light {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.08) 0%,
-    rgba(0, 0, 0, 0.03) 50%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(15, 23, 42, 0.05) 0%,
+    rgba(15, 23, 42, 0.02) 50%,
+    rgba(15, 23, 42, 0) 100%
   );
 }
 
-/* Layer Blur Mode Gelap - hitam pekat mewah tanpa celah transparan di tepi atas */
+/* Layer Blur Mode Gelap - netral lembut tanpa celah transparan di tepi atas */
 .navbar-bottom-blur .blur-layer-dark {
   background: linear-gradient(
     to bottom,
-    #000000 0%,
-    rgba(0, 0, 0, 0.90) 30%,
-    rgba(0, 0, 0, 0.60) 65%,
-    rgba(0, 0, 0, 0) 100%
+    #0b0f17 0%,
+    rgba(11, 15, 23, 0.90) 30%,
+    rgba(11, 15, 23, 0.60) 65%,
+    rgba(11, 15, 23, 0) 100%
   );
 }
 
@@ -441,14 +449,14 @@ body.dark-theme .brand-home-badge::before {
   color: #ffffff;
 }
 
-/* Mode Gelap: Warna teks dan blok hover #830000 (sesuai navbar.html) */
+/* Mode Gelap: Warna teks dan blok hover #830000 */
 html.dark .navbar-link,
 html.dark .nav-item,
 [data-theme="dark"] .navbar-link,
 [data-theme="dark"] .nav-item,
 body.dark-theme .navbar-link,
 body.dark-theme .nav-item {
-  color: #888888;
+  color: #94a3b8;
 }
 
 html.dark .navbar-link:hover,
@@ -457,7 +465,7 @@ html.dark .nav-item:hover,
 [data-theme="dark"] .nav-item:hover,
 body.dark-theme .navbar-link:hover,
 body.dark-theme .nav-item:hover {
-  color: #ffffff;
+  color: #f8fafc;
 }
 
 html.dark .navbar-link::before,

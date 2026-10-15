@@ -1,15 +1,15 @@
 .portfolio-app {
   width: 100%;
   min-height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #0b0f17;
+  color: #f1f5f9;
   overflow-x: hidden;
 }
 
 [data-theme="light"] .portfolio-app,
 html.light-theme .portfolio-app,
 body.light-theme .portfolio-app {
-  background-color: #ffffff;
+  background-color: #f8fafc;
   color: #0f172a;
 }
 

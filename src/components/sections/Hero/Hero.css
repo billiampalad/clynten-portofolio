@@ -4,26 +4,26 @@
 
 :root {
   /* Outer section bg – adapts to theme after hero animation completes */
-  --hero-bg: #000000;
+  --hero-bg: #0b0f17;
   /* Pin wrapper bg – ALWAYS black; canvas frames are opaque black */
   --hero-pinwrapper-bg: #000000;
   --hero-canvas-bg: #000000;
-  --hero-loading-bg: #000000;
+  --hero-loading-bg: #0b0f17;
   --hero-ambient-bg: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.05) 0%, transparent 70%),
-                     linear-gradient(180deg, #000000 0%, #020408 100%);
+                     linear-gradient(180deg, #0b0f17 0%, #06090e 100%);
 }
 
 [data-theme="light"],
 html.light-theme,
 body.light-theme {
   /* Outer section may use light color – won't bleed because it's outside the pin */
-  --hero-bg: #ffffff;
+  --hero-bg: #f8fafc;
   /* Pin wrapper stays BLACK in light mode – prevents white bleed through blur edges */
   --hero-pinwrapper-bg: #000000;
   --hero-canvas-bg: #000000;
-  --hero-loading-bg: #ffffff;
+  --hero-loading-bg: #f8fafc;
   --hero-ambient-bg: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 70%),
-                     linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+                     linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
 .hero-section {

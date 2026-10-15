@@ -6,7 +6,7 @@
   justify-content: center;
   padding: 80px 24px;
   box-sizing: border-box;
-  background: var(--nav-bg, #000000);
+  background: var(--nav-bg, #0b0f17);
   pointer-events: auto;
 }
 
@@ -92,7 +92,7 @@
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -1.5px;
-  color: #ffffff;
+  color: #f1f5f9;
   margin: 0 0 20px 0;
   max-width: 950px;
 }
@@ -107,7 +107,7 @@
 .about-description {
   font-size: 16px;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.75);
+  color: #94a3b8;
   max-width: 820px;
   margin: 0;
 }
@@ -189,7 +189,7 @@
 [data-theme="light"] .about-wrap,
 html.light-theme .about-wrap,
 body.light-theme .about-wrap {
-  background: var(--nav-bg, #ffffff);
+  background: var(--nav-bg, #f8fafc);
 }
 
 [data-theme="light"] .about-header-meta,

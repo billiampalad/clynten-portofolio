@@ -2,7 +2,7 @@
 
 :root {
   color-scheme: dark;
-  background-color: #000000;
+  background-color: #0b0f17;
   margin: 0;
   padding: 0;
   --font-mono: 'JetBrains Mono', Consolas, 'Courier New', ui-monospace, SFMono-Regular, monospace;
@@ -58,7 +58,7 @@ html {
 }
 
 ::-webkit-scrollbar-corner {
-  background: #000000;
+  background: #0b0f17;
 }
 
 html, body {
@@ -66,8 +66,8 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #0b0f17;
+  color: #f1f5f9;
   overflow-x: hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
@@ -76,14 +76,14 @@ html, body {
 html.light-theme,
 body.light-theme {
   color-scheme: light;
-  background-color: #ffffff;
+  background-color: #f8fafc;
   color: #0f172a;
 }
 
 [data-theme="light"] body,
 html.light-theme body,
 body.light-theme {
-  background-color: #ffffff;
+  background-color: #f8fafc;
   color: #0f172a;
 }
 
@@ -92,10 +92,10 @@ body.light-theme {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  background: #000000;
+  background: #0b0f17;
 }
 
 [data-theme="light"] #root,
 html.light-theme #root {
-  background: #ffffff;
+  background: #f8fafc;
 }
