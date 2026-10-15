@@ -3,8 +3,8 @@
    ========================================================================== */
 
 :root {
-  /* Dark Theme Palette (Default) — Soft Neutral Obsidian Dark (#0b0f17) */
-  --nav-bg: #0b0f17;
+  /* Dark Theme Palette (Default) — Rich Dark Espresso/Obsidian (#0A0907) */
+  --nav-bg: #0A0907;
   --nav-border: rgba(255, 255, 255, 0.08);
   --nav-brand: #f1f5f9;
   --nav-link: #94a3b8;
@@ -15,14 +15,14 @@
   --nav-icon: #94a3b8;
   --nav-icon-hover: #f1f5f9;
   --nav-home-bg: #f1f5f9;
-  --nav-home-text: #0b0f17;
-  --nav-drawer-bg: #0b0f17;
+  --nav-home-text: #0A0907;
+  --nav-drawer-bg: #0A0907;
   --nav-drawer-border: rgba(255, 255, 255, 0.08);
-  --nav-tint-start: rgba(11, 15, 23, 0.96);
-  --nav-tint-mid1: rgba(11, 15, 23, 0.72);
-  --nav-tint-mid2: rgba(11, 15, 23, 0.38);
-  --nav-tint-mid3: rgba(11, 15, 23, 0.12);
-  --nav-tint-end: rgba(11, 15, 23, 0);
+  --nav-tint-start: rgba(10, 9, 7, 0.96);
+  --nav-tint-mid1: rgba(10, 9, 7, 0.72);
+  --nav-tint-mid2: rgba(10, 9, 7, 0.38);
+  --nav-tint-mid3: rgba(10, 9, 7, 0.12);
+  --nav-tint-end: rgba(10, 9, 7, 0);
   --nav-hover-block: #830000;
 }
 
@@ -83,7 +83,7 @@ body.light-theme {
 .navbar-dark-base {
   position: absolute;
   inset: 0;
-  background-color: #0b0f17;
+  background-color: #0A0907;
   z-index: 0;
   pointer-events: none;
 }
@@ -105,18 +105,18 @@ body.light-theme {
 [data-theme="dark"] .navbar-theme-bg,
 html.dark-theme .navbar-theme-bg,
 html.dark .navbar-theme-bg {
-  background: var(--nav-bg, #0b0f17);
-  box-shadow: inset 0 -1px 0 var(--nav-bg, #0b0f17);
+  background: var(--nav-bg, #0A0907);
+  box-shadow: inset 0 -1px 0 var(--nav-bg, #0A0907);
 }
 
-/* Saat di-scroll di mode gelap: garis batas aktif dengan warna lembut #1e2638 via inset shadow */
+/* Saat di-scroll di mode gelap: garis batas aktif dengan warna lembut #22201d via inset shadow */
 [data-theme="dark"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 [data-theme="dark"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.dark-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 html.dark-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.dark .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 html.dark .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
-  box-shadow: inset 0 -1px 0 #1e2638;
+  box-shadow: inset 0 -1px 0 #22201d;
 }
 
 /* Saat di-scroll di mode terang: garis batas aktif dengan warna lembut #e2e8f0 via inset shadow */
@@ -168,10 +168,10 @@ html.light-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
 .navbar-bottom-blur .blur-layer-dark {
   background: linear-gradient(
     to bottom,
-    #0b0f17 0%,
-    rgba(11, 15, 23, 0.90) 30%,
-    rgba(11, 15, 23, 0.60) 65%,
-    rgba(11, 15, 23, 0) 100%
+    #0A0907 0%,
+    rgba(10, 9, 7, 0.90) 30%,
+    rgba(10, 9, 7, 0.60) 65%,
+    rgba(10, 9, 7, 0) 100%
   );
 }
 

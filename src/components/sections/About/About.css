@@ -6,7 +6,7 @@
   justify-content: center;
   padding: 80px 24px;
   box-sizing: border-box;
-  background: var(--nav-bg, #0b0f17);
+  background: var(--nav-bg, #0A0907);
   pointer-events: auto;
 }
 

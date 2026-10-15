@@ -4,13 +4,13 @@
 
 :root {
   /* Outer section bg – adapts to theme after hero animation completes */
-  --hero-bg: #0b0f17;
+  --hero-bg: #0A0907;
   /* Pin wrapper bg – ALWAYS black; canvas frames are opaque black */
   --hero-pinwrapper-bg: #000000;
   --hero-canvas-bg: #000000;
-  --hero-loading-bg: #0b0f17;
+  --hero-loading-bg: #0A0907;
   --hero-ambient-bg: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.05) 0%, transparent 70%),
-                     linear-gradient(180deg, #0b0f17 0%, #06090e 100%);
+                     linear-gradient(180deg, #0A0907 0%, #060504 100%);
 }
 
 [data-theme="light"],
