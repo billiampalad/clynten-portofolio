@@ -63,53 +63,60 @@ body.light-theme {
   background: transparent;
   border: none;
   box-sizing: border-box;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.15s ease-out;
+  opacity: var(--navbar-reveal, 0);
+  pointer-events: none;
+  transform: translateY(0);
+  transition: opacity 0.15s ease-out;
 }
 
 .portfolio-navbar.navbar-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: var(--navbar-reveal, 1);
   pointer-events: auto;
 }
 
 .portfolio-navbar.navbar-hidden {
   opacity: 0;
-  transform: translateY(-100%);
   pointer-events: none;
 }
 
-/* Layer 0: Solid Base Underlay matching Hero Canvas Pin Wrapper */
+/* Layer 0: Seamless base matching About surface (transparent so About background flows seamlessly) */
 .navbar-dark-base {
   position: absolute;
   inset: 0;
-  background-color: #0A0907;
+  background-color: transparent;
   z-index: 0;
   pointer-events: none;
 }
 
-/* Layer 1: Dynamic Theme Background matching About Section */
+/* Layer 1: Dynamic Theme Background matching About Section (Zero border/shadow by default) */
 .navbar-theme-bg {
   position: absolute;
   inset: 0;
-  background: var(--nav-bg, #f8fafc);
+  background: var(--nav-bg, #0A0907);
   border: none;
-  box-shadow: inset 0 -1px 0 var(--nav-bg, #f8fafc);
-  /* Garis inset solid internal: 100% opak, tidak tembus warna/teks di belakangnya */
+  box-shadow: none;
   z-index: 1;
   pointer-events: none;
   opacity: var(--navbar-reveal, 1);
 }
 
-/* Dark theme background & inset border */
+/* Dark theme background */
 [data-theme="dark"] .navbar-theme-bg,
 html.dark-theme .navbar-theme-bg,
 html.dark .navbar-theme-bg {
   background: var(--nav-bg, #0A0907);
-  box-shadow: inset 0 -1px 0 var(--nav-bg, #0A0907);
+  box-shadow: none;
 }
 
-/* Saat di-scroll di mode gelap: garis batas aktif dengan warna lembut #22201d via inset shadow */
+/* Light theme background */
+[data-theme="light"] .navbar-theme-bg,
+html.light-theme .navbar-theme-bg,
+body.light-theme .navbar-theme-bg {
+  background: var(--nav-bg, #f8fafc);
+  box-shadow: none;
+}
+
+/* Garis batas HANYA aktif saat scroll melewati section About (masuk ke Skills) */
 [data-theme="dark"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 [data-theme="dark"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.dark-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
@@ -119,7 +126,7 @@ html.dark .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
   box-shadow: inset 0 -1px 0 #22201d;
 }
 
-/* Saat di-scroll di mode terang: garis batas aktif dengan warna lembut #e2e8f0 via inset shadow */
+/* Garis batas mode terang saat scroll melewati About */
 [data-theme="light"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 [data-theme="light"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,

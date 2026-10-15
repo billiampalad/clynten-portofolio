@@ -50,13 +50,13 @@ export default function Navbar({
   useEffect(() => {
     let animationFrameId
     const checkScroll = () => {
-      const aboutEl = document.getElementById('about')
-      if (aboutEl) {
-        const rect = aboutEl.getBoundingClientRect()
-        // Default (landing at About): rect.top is ~0. Only active when scrolled past About by > 15px.
-        setIsScrolled(rect.top < -15)
+      // Blur and border lines are ONLY active when scrolled past About into the Skills section
+      const skillsEl = document.getElementById('skills')
+      if (skillsEl) {
+        const rect = skillsEl.getBoundingClientRect()
+        setIsScrolled(rect.top <= 60)
       } else {
-        setIsScrolled(window.scrollY > 15)
+        setIsScrolled(false)
       }
     }
 

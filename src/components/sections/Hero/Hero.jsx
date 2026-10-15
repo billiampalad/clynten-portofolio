@@ -310,27 +310,33 @@ export default function Hero({ onProgressChange }) {
         // =========================================================================
         // TAHAP 4: KEMUNCULAN SECTION VERIFIED PROFILE (DIAM KOKOH, TRANSISI OPACITY HALUS)
         // =========================================================================
+        let currentAboutReveal = 0
         if (backdropLayerRef.current) {
           // Backdrop mulai memudar masuk seawal frame mulai mengecil (~0.83)
           const ABOUT_FADE_START = SHRINK_START + 0.15 * (SHRINK_END - SHRINK_START)
           if (progress < ABOUT_FADE_START) {
             // Sebelum frame mengecil: Backdrop belum tampil
+            currentAboutReveal = 0
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
           } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
             // Saat frame mengecil: Verified Profile memudar masuk 0.0 -> 1.0
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
-            const aboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
-            backdropLayerRef.current.style.opacity = aboutReveal.toFixed(3)
-            backdropLayerRef.current.style.pointerEvents = aboutReveal > 0.5 ? 'auto' : 'none'
+            currentAboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
+            backdropLayerRef.current.style.opacity = currentAboutReveal.toFixed(3)
+            backdropLayerRef.current.style.pointerEvents = currentAboutReveal > 0.5 ? 'auto' : 'none'
           } else {
             // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
+            currentAboutReveal = 1
             backdropLayerRef.current.style.opacity = '1'
             backdropLayerRef.current.style.pointerEvents = 'auto'
           }
         }
 
-        // Beritahu Navbar saat frame mulai meredup ke About (0.88+)
+        // Sinkronkan CSS variable --navbar-reveal secara langsung di GSAP ticker (0 delay, 100% real-time)
+        document.documentElement.style.setProperty('--navbar-reveal', currentAboutReveal.toFixed(3))
+
+        // Beritahu Navbar & App state
         if (onProgressChange) {
           onProgressChange(progress)
         }

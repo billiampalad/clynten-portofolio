@@ -15,15 +15,14 @@ function App() {
   const [heroKey, setHeroKey] = useState(0)
 
   const handleHeroProgress = useCallback((progress) => {
-    // Sync Navbar dimming & reveal identically with About in Hero.jsx (0.83 -> 0.95)
-    const FADE_START = 0.83
+    // Sync Navbar dimming & reveal identically with About in Hero.jsx (0.831 -> 0.95)
+    const FADE_START = 0.831
     const FADE_END = 0.95
 
     if (progress < FADE_START) {
       setIsNavbarVisible(false)
       setNavbarReveal(0)
       setHasNavbarShadow(false)
-      document.documentElement.style.setProperty('--navbar-reveal', '0')
     } else if (progress >= FADE_START && progress < FADE_END) {
       setIsNavbarVisible(true)
       // Hermite smoothstep curve matching About reveal in Hero.jsx
@@ -31,12 +30,10 @@ function App() {
       const smoothed = t * t * (3 - 2 * t)
       setNavbarReveal(smoothed)
       setHasNavbarShadow(false)
-      document.documentElement.style.setProperty('--navbar-reveal', smoothed.toFixed(3))
     } else {
       setIsNavbarVisible(true)
       setNavbarReveal(1)
       setHasNavbarShadow(false)
-      document.documentElement.style.setProperty('--navbar-reveal', '1')
     }
   }, [])
 
