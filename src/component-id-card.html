@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium 3D Developer ID Card — Clynten Billiam Palad</title>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & CSS VARIABLES: Luxury Futuristic Tech Identity
+       ========================================================================== */
+    :root {
+      /* Studio Canvas Backgrounds */
+      --studio-bg: #07090e;
+      --studio-ambient: radial-gradient(circle at 65% 40%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 70%, rgba(20, 184, 166, 0.05) 0%, transparent 50%),
+                        linear-gradient(180deg, #07090e 0%, #040609 100%);
+      --studio-grid: rgba(255, 255, 255, 0.025);
+      
+      /* Card Physical Material Tokens */
+      --card-mat-dark: #0d121c;
+      --card-mat-slate: #151c2a;
+      --card-mat-border: rgba(255, 255, 255, 0.12);
+      --card-mat-bevel: rgba(255, 255, 255, 0.25);
+      
+      /* Tech Accent Palettes (Subtle Teal / Cyan, never overblown neon) */
+      --accent-teal: #14b8a6;
+      --accent-cyan: #38bdf8;
+      --accent-cyan-soft: rgba(56, 189, 248, 0.18);
+      --accent-teal-soft: rgba(20, 184, 166, 0.15);
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      
+      /* Metal & Hardware Finishes */
+      --metal-crimp: linear-gradient(135deg, #1f2937 0%, #4b5563 35%, #9ca3af 50%, #374151 75%, #111827 100%);
+      --metal-clasp: linear-gradient(145deg, #27303f 0%, #475569 25%, #cbd5e1 50%, #334155 75%, #0f172a 100%);
+      --metal-highlight: rgba(255, 255, 255, 0.75);
+      --metal-shadow: rgba(0, 0, 0, 0.85);
+      
+      /* Acrylic Badge Holder */
+      --acrylic-bg: rgba(255, 255, 255, 0.025);
+      --acrylic-rim: rgba(255, 255, 255, 0.18);
+      --acrylic-reflection: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(255, 255, 255, 0) 100%);
+      
+      /* Lanyard Straps */
+      --lanyard-base: #11151c;
+      --lanyard-pattern-1: #1a202c;
+      --lanyard-pattern-2: #0f141d;
+      --lanyard-stitch: rgba(255, 255, 255, 0.22);
+      --lanyard-text: rgba(255, 255, 255, 0.28);
+      
+      /* Typography */
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      
+      /* Dynamic 3D Interaction Variables (Updated via RAF loop) */
+      --rx: 0deg;
+      --ry: 0deg;
+      --tz: 0px;
+      --glare-x: 50%;
+      --glare-y: 50%;
+      --glare-opacity: 0.18;
+      --parallax-x: 0px;
+      --parallax-y: 0px;
+      --sway-angle: 0deg;
+      --card-scale: 1;
+    }
+
+    /* Light Studio Mode (Clean Architect Minimalist) */
+    [data-theme="light"] {
+      --studio-bg: #f1f5f9;
+      --studio-ambient: radial-gradient(circle at 65% 40%, rgba(14, 165, 233, 0.07) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 70%, rgba(20, 184, 166, 0.05) 0%, transparent 50%),
+                        linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+      --studio-grid: rgba(0, 0, 0, 0.035);
+      
+      --card-mat-dark: #0f172a;
+      --card-mat-slate: #1e293b;
+      --card-mat-border: rgba(255, 255, 255, 0.18);
+      
+      --lanyard-base: #1e293b;
+      --lanyard-pattern-1: #334155;
+      --lanyard-pattern-2: #0f172a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--studio-bg);
+      background-image: var(--studio-ambient);
+      color: #f1f5f9;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtle Architectural Floor Grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, var(--studio-grid) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--studio-grid) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 80%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 80%);
+    }
+
+    /* ==========================================================================
+       TOP WORKBENCH TOOLBAR & CONTROLS
+       ========================================================================== */
+    .workbench-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 24px;
+      background: rgba(10, 14, 22, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .wb-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wb-logo-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 6px;
+      color: var(--accent-cyan);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+    }
+
+    .wb-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wb-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wb-version-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-cyan);
+      border-radius: 4px;
+    }
+
+    .wb-subtitle {
+      font-size: 11px;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+    }
+
+    .wb-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .wb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .wb-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+    }
+
+    .wb-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-cyan);
+      color: #ffffff;
+    }
+
+    .wb-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Viewport preset pill bar */
+    .viewport-presets {
+      display: flex;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .vp-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .vp-btn:hover {
+      color: #ffffff;
+    }
+
+    .vp-btn.active {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       MAIN HERO WORKSPACE CONTAINER
+       ========================================================================== */
+    .workspace-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px 40px;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      transition: max-width 0.35s ease;
+    }
+
+    /* Simulated Hero Section Stage */
+    .hero-stage {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      min-height: 640px;
+    }
+
+    /* Center-Focus Mode (Card Only) */
+    .hero-stage.card-focus-mode {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .hero-stage.card-focus-mode .hero-text-side {
+      display: none;
+    }
+
+    /* ==========================================================================
+       HERO LEFT SIDE: NARRATIVE & INTRODUCTION
+       ========================================================================== */
+    .hero-text-side {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 20px;
+      user-select: none;
+    }
+
+    .hero-directive-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+    }
+
+    .directive-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-cyan);
+      animation: pulseGlow 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1.15); box-shadow: 0 0 12px var(--accent-cyan); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.2vw, 56px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+    }
+
+    .hero-title .highlight-tech {
+      color: transparent;
+      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-title .highlight-accent {
+      color: var(--accent-teal);
+      text-shadow: 0 0 30px rgba(20, 184, 166, 0.3);
+    }
+
+    .hero-description {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #94a3b8;
+      max-width: 520px;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 10px;
+    }
+
+    .meta-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-stat-num {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .meta-stat-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 10px;
+    }
+
+    .btn-primary-tech {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary-tech:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary-tech {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary-tech:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* ==========================================================================
+       HERO RIGHT SIDE: 3D DEVELOPER ID CARD RIG
+       ========================================================================== */
+    .id-card-stage-container {
+      position: relative;
+      width: 100%;
+      height: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      perspective: 1200px;
+      -webkit-perspective: 1200px;
+      user-select: none;
+    }
+
+    /* Studio Top Anchor fixture from which lanyard drops */
+    .lanyard-anchor-top {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 18px;
+      background: linear-gradient(180deg, #1f2937 0%, #0f172a 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .anchor-bolt {
+      width: 6px;
+      height: 6px;
+      background: #475569;
+      border-radius: 50%;
+      box-shadow: inset 0 1px 2px #000000, 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* The Main Suspended Rig (Pivot / Origin at top connection) */
+    .id-card-pendulum-rig {
+      position: relative;
+      width: 330px;
+      transform-origin: 50% 0%;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Idle Natural Sway Animation (smooth, gentle pendulum) */
+    .id-card-pendulum-rig.idle-swaying {
+      animation: realisticPendulum 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+    }
+
+    @keyframes realisticPendulum {
+      0% {
+        transform: rotateZ(-1.8deg) rotateY(-2.5deg);
+      }
+      100% {
+        transform: rotateZ(1.8deg) rotateY(2.5deg);
+      }
+    }
+
+    /* ==========================================================================
+       SECTION 3A: LANYARD STRAPS (Tali Gantungan Kain Bertekstur)
+       ========================================================================== */
+    .lanyard-straps-assembly {
+      position: relative;
+      width: 130px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      transform-style: preserve-3d;
+      z-index: 10;
+    }
+
+    /* Dual V-tapered hanging straps */
+    .lanyard-strap {
+      position: absolute;
+      top: 0;
+      width: 24px;
+      height: 124px;
+      background-color: var(--lanyard-base);
+      /* Herringbone Twill Fabric Weave Pattern */
+      background-image: 
+        repeating-linear-gradient(45deg, var(--lanyard-pattern-1) 0px, var(--lanyard-pattern-1) 2px, var(--lanyard-pattern-2) 2px, var(--lanyard-pattern-2) 4px),
+        repeating-linear-gradient(-45deg, var(--lanyard-pattern-1) 0px, var(--lanyard-pattern-1) 2px, var(--lanyard-pattern-2) 2px, var(--lanyard-pattern-2) 4px);
+      background-blend-mode: overlay;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.9), 0 8px 18px rgba(0, 0, 0, 0.6);
+      transform-origin: top center;
+      overflow: hidden;
+    }
+
+    /* Edge Stitching (Jahitan tipis tepi tali) */
+    .lanyard-strap::before,
+    .lanyard-strap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1.5px;
+      background-image: repeating-linear-gradient(to bottom, var(--lanyard-stitch) 0px, var(--lanyard-stitch) 3px, transparent 3px, transparent 6px);
+      opacity: 0.75;
+    }
+    .lanyard-strap::before { left: 2px; }
+    .lanyard-strap::after { right: 2px; }
+
+    /* Left Strap: Angled inward */
+    .strap-left {
+      left: 18px;
+      transform: rotate(9deg) translateZ(1px);
+    }
+
+    /* Right Strap: Angled inward */
+    .strap-right {
+      right: 18px;
+      transform: rotate(-9deg) translateZ(-1px);
+    }
+
+    /* Silk-screened Branding on Lanyard */
+    .lanyard-brand-text {
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+      transform-origin: center center;
+      font-family: var(--font-mono);
+      font-size: 6.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--lanyard-text);
+      white-space: nowrap;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+
+    /* ==========================================================================
+       SECTION 3B: METALLIC CLASP & SWIVEL MECHANISM (Pengait & Konektor)
+       ========================================================================== */
+    .clasp-connector-assembly {
+      position: relative;
+      margin-top: -8px;
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-style: preserve-3d;
+    }
+
+    /* Lanyard Crimp Collar (Metal crimp band holding fabric straps together) */
+    .crimp-collar {
+      width: 32px;
+      height: 14px;
+      background: var(--metal-crimp);
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crimp-indent {
+      width: 22px;
+      height: 2px;
+      background: #111827;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+      border-radius: 1px;
+    }
+
+    /* Swivel Ring / Round Eyelet */
+    .swivel-ring {
+      width: 14px;
+      height: 12px;
+      margin-top: -2px;
+      border: 2.5px solid #94a3b8;
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Swivel Barrel & Lobster Clasp Body */
+    .lobster-clasp {
+      position: relative;
+      width: 18px;
+      height: 32px;
+      margin-top: -3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Swivel Pivot Barrel */
+    .clasp-barrel {
+      width: 10px;
+      height: 8px;
+      background: var(--metal-clasp);
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Main Clasp Hook with Spring Gate */
+    .clasp-hook {
+      position: relative;
+      width: 18px;
+      height: 24px;
+      margin-top: -2px;
+      border: 3px solid #cbd5e1;
+      border-bottom: 3.5px solid #94a3b8;
+      border-radius: 9px 9px 8px 8px;
+      background: transparent;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    }
+
+    /* Spring-loaded gate lever detail */
+    .clasp-lever {
+      position: absolute;
+      top: 5px;
+      right: -2px;
+      width: 5px;
+      height: 10px;
+      background: #64748b;
+      border-radius: 2px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    /* Pivot Pin Rivet */
+    .clasp-rivet {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: #334155;
+      border-radius: 50%;
+      box-shadow: inset 0 1px 1px #000000, 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    /* Curved beak loop that loops through badge slot */
+    .clasp-beak-loop {
+      position: absolute;
+      bottom: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 14px;
+      border: 3px solid #94a3b8;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      z-index: 30;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    /* ==========================================================================
+       SECTION 3C & 3D: BADGE HOLDER & 3D INSERT CARD
+       ========================================================================== */
+    .card-3d-wrapper {
+      position: relative;
+      width: 326px;
+      height: 490px;
+      margin-top: -6px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      will-change: transform;
+      cursor: grab;
+      outline: none;
+    }
+
+    .card-3d-wrapper:active {
+      cursor: grabbing;
+    }
+
+    /* The interactive flipping inner card container */
+    .card-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-radius: 18px;
+    }
+
+    .card-flip-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* ==========================================================================
+       POLYCARBONATE CLEAR SLEEVE / BADGE HOLDER
+       ========================================================================== */
+    .acrylic-badge-holder {
+      position: absolute;
+      inset: -8px -8px -10px -8px;
+      border-radius: 20px;
+      background: var(--acrylic-bg);
+      border: 1px solid var(--acrylic-rim);
+      backdrop-filter: blur(1px);
+      -webkit-backdrop-filter: blur(1px);
+      box-shadow: 
+        0 25px 60px -10px rgba(0, 0, 0, 0.85),
+        0 10px 25px -5px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 0 1px 1px rgba(255, 255, 255, 0.15),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+      z-index: 15;
+      transform: translateZ(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Top Die-cut Extension with Oblong Slot */
+    .acrylic-slot-tab {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 68px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--acrylic-rim);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Oblong Slot Hole through which clasp beak loops */
+    .acrylic-slot-hole {
+      width: 24px;
+      height: 7px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      box-shadow: inset 0 2px 4px #000000, 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    /* Specular Glass Glare Layer (Moves with cursor) */
+    .card-specular-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      background: radial-gradient(circle at var(--glare-x) var(--glare-y), rgba(255, 255, 255, var(--glare-opacity)) 0%, rgba(255, 255, 255, 0.03) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 20;
+      mix-blend-mode: overlay;
+      transition: opacity 0.2s ease;
+      transform: translateZ(14px);
+    }
+
+    /* Diagonal Glass Sheen */
+    .acrylic-diagonal-sheen {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      background: var(--acrylic-reflection);
+      pointer-events: none;
+      z-index: 18;
+      opacity: 0.7;
+    }
+
+    /* ==========================================================================
+       FRONT & BACK CARD FACES (CR80 PHYSICAL CARD)
+       ========================================================================== */
+    .card-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    /* FRONT FACE: Luxury Titanium & Deep Charcoal */
+    .card-face-front {
+      background: 
+        radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 15% 85%, rgba(20, 184, 166, 0.06) 0%, transparent 40%),
+        linear-gradient(145deg, #121824 0%, #0a0e17 60%, #06090f 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 18px 20px 16px;
+      transform: rotateY(0deg) translateZ(1px);
+    }
+
+    /* Subtle Micro-grid texture on card */
+    .card-face-front::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-size: 16px 16px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      pointer-events: none;
+    }
+
+    /* Top Identity Header */
+    .card-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .brand-monogram-lockup {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .monogram-crest {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 13px;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+    }
+
+    .monogram-crest span {
+      color: var(--accent-cyan);
+    }
+
+    .card-category-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+
+    .badge-clearance {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--accent-teal);
+      background: rgba(20, 184, 166, 0.08);
+      border: 1px solid rgba(20, 184, 166, 0.25);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .clearance-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--accent-teal);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent-teal);
+    }
+
+    /* Middle Visual Section: Smart Chip & Profile Photo */
+    .card-mid-section {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Smart Chip (EMV IC Contact Plate) */
+    .smart-chip-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .emv-gold-chip {
+      width: 44px;
+      height: 34px;
+      background: linear-gradient(135deg, #d4af37 0%, #fef08a 40%, #b45309 70%, #fef08a 100%);
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.6),
+        0 3px 6px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Etched Microchip Circuit Contact Lines */
+    .emv-gold-chip::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.45);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .emv-gold-chip::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 45%;
+      width: 1px;
+      background: rgba(0, 0, 0, 0.45);
+      box-shadow: 1px 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .chip-micro-center {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.45);
+      border-radius: 3px;
+      background: rgba(212, 175, 55, 0.3);
+    }
+
+    .contactless-icon {
+      width: 16px;
+      height: 16px;
+      color: #64748b;
+      opacity: 0.7;
+    }
+
+    /* Photo Frame with Precision Chamfered Bevel */
+    .profile-photo-container {
+      position: relative;
+      width: 140px;
+      height: 154px;
+      margin: 0 auto;
+      border-radius: 12px;
+      padding: 3px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(56, 189, 248, 0.2) 50%, rgba(255, 255, 255, 0.05) 100%);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+    }
+
+    .profile-photo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 9px;
+      overflow: hidden;
+      background: #0b0f19;
+      position: relative;
+    }
+
+    .profile-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 18%;
+      display: block;
+      filter: contrast(1.05) brightness(1.02);
+      transition: transform 0.3s ease;
+    }
+
+    /* Corner Technical Registration Crosshairs */
+    .photo-bracket {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-color: rgba(56, 189, 248, 0.6);
+      pointer-events: none;
+    }
+    .bracket-tl { top: 6px; left: 6px; border-top: 1.5px solid; border-left: 1.5px solid; }
+    .bracket-tr { top: 6px; right: 6px; border-top: 1.5px solid; border-right: 1.5px solid; }
+    .bracket-bl { bottom: 6px; left: 6px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+    .bracket-br { bottom: 6px; right: 6px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+
+    /* Photo Micro Holographic Security Seal */
+    .photo-security-watermark {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      font-family: var(--font-mono);
+      font-size: 7px;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(20, 184, 166, 0.35));
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1px 4px;
+      border-radius: 3px;
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.5px;
+    }
+
+    /* Profile Information & Typography */
+    .card-profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .profile-tag-pill {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .profile-fullname {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .profile-title-role {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .title-role-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+    }
+
+    /* Technical Specification Grid */
+    .card-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .spec-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .spec-key {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      letter-spacing: 1px;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .spec-val {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .spec-val svg {
+      width: 10px;
+      height: 10px;
+      color: var(--accent-teal);
+    }
+
+    /* Bottom Security Footer: Holographic Seal & Vector QR Code */
+    .card-footer-assembly {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 8px;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Iridescent Hologram Security Seal */
+    .hologram-strip {
+      flex: 1;
+      height: 24px;
+      border-radius: 4px;
+      background: linear-gradient(
+        90deg,
+        rgba(56, 189, 248, 0.3) 0%,
+        rgba(168, 85, 247, 0.3) 25%,
+        rgba(236, 72, 153, 0.3) 50%,
+        rgba(34, 197, 94, 0.3) 75%,
+        rgba(56, 189, 248, 0.3) 100%
+      );
+      background-size: 200% 100%;
+      animation: hologramShimmer 6s linear infinite;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes hologramShimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .hologram-text {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      opacity: 0.9;
+    }
+
+    /* Vector SVG QR Code */
+    .card-qr-box {
+      width: 38px;
+      height: 38px;
+      background: #ffffff;
+      border-radius: 5px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-qr-box svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ==========================================================================
+       BACK FACE: MAGNETIC STRIPE, BARCODE, SIGNATURE, SPECIFICATIONS
+       ========================================================================== */
+    .card-face-back {
+      background: 
+        radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+        linear-gradient(155deg, #0e141f 0%, #070a10 60%, #030508 100%);
+      transform: rotateY(180deg) translateZ(1px);
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 16px;
+    }
+
+    /* Magnetic Stripe (Top Black Band) */
+    .magnetic-stripe {
+      width: 100%;
+      height: 48px;
+      background: #020305;
+      margin-top: 18px;
+      margin-bottom: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 2px 6px #000000;
+    }
+
+    .back-body-content {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    /* Authorized Signature Strip */
+    .signature-strip-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .signature-label {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: #64748b;
+      letter-spacing: 1px;
+    }
+
+    .signature-white-strip {
+      height: 28px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      overflow: hidden;
+    }
+
+    .signature-white-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 2px, transparent 2px, transparent 4px);
+    }
+
+    .signature-text {
+      font-family: 'Space Grotesk', cursive, sans-serif;
+      font-style: italic;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      transform: rotate(-1.5deg);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Terms of issuance */
+    .terms-text-block {
+      font-size: 8.5px;
+      line-height: 1.5;
+      color: #64748b;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 10px;
+    }
+
+    /* Socials and contact links */
+    .back-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .contact-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+    }
+
+    .contact-key {
+      color: #64748b;
+    }
+
+    .contact-val {
+      color: #cbd5e1;
+    }
+
+    /* Barcode (Code 128 style) */
+    .barcode-container {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: #ffffff;
+      padding: 6px 12px 4px;
+      border-radius: 6px;
+    }
+
+    .barcode-svg {
+      width: 100%;
+      height: 26px;
+      display: block;
+    }
+
+    .barcode-serial {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: 2px;
+    }
+
+    /* ==========================================================================
+       BOTTOM STUDIO PEDESTAL / AMBIENT SHADOW
+       ========================================================================== */
+    .card-ground-shadow {
+      position: absolute;
+      bottom: 20px;
+      width: 240px;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(8px);
+      pointer-events: none;
+      z-index: 2;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS & ACCESSIBILITY
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-stage {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+      }
+      .hero-text-side {
+        padding-right: 0;
+        align-items: center;
+      }
+      .hero-directive-badge {
+        margin: 0 auto;
+      }
+      .hero-description {
+        margin: 0 auto;
+      }
+      .hero-meta-row {
+        justify-content: center;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .id-card-stage-container {
+        height: 580px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .workbench-header {
+        padding: 10px 14px;
+      }
+      .workspace-wrapper {
+        padding: 16px 12px 30px;
+      }
+      .hero-title {
+        font-size: 28px;
+        letter-spacing: -1px;
+      }
+      .id-card-stage-container {
+        height: 520px;
+      }
+      .card-3d-wrapper {
+        transform: scale(0.85);
+        transform-origin: top center;
+      }
+      .lanyard-straps-assembly {
+        height: 90px;
+      }
+      .lanyard-strap {
+        height: 94px;
+      }
+    }
+
+    /* Reduced Motion fallback for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .id-card-pendulum-rig.idle-swaying {
+        animation: none;
+      }
+      .hologram-strip {
+        animation: none;
+      }
+      .card-3d-wrapper {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================================
+       TOP WORKBENCH TOOLBAR
+       ======================================================================== -->
+  <header class="workbench-header" role="banner">
+    <div class="wb-brand">
+      <div class="wb-logo-badge">C.</div>
+      <div class="wb-title-group">
+        <div class="wb-title">
+          <span>3D DEVELOPER ID CARD</span>
+          <span class="wb-version-tag">PROD v2.4</span>
+        </div>
+        <span class="wb-subtitle">Luxury Futuristic Tech Identity // Interactive Rig</span>
+      </div>
+    </div>
+
+    <!-- Interactive Rig Controls -->
+    <div class="wb-controls">
+      <!-- Layout Mode: Hero Section Pairing vs Card Focus -->
+      <button id="toggleLayoutBtn" class="wb-btn" title="Toggle between full Hero pairing and centered Card Focus">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+        <span id="layoutBtnLabel">Focus Card</span>
+      </button>
+
+      <!-- Flip Card Button -->
+      <button id="flipCardBtn" class="wb-btn" title="Inspect Front/Back of physical ID card">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span>Flip Card</span>
+      </button>
+
+      <!-- Pendulum Physics Toggle -->
+      <button id="toggleSwayBtn" class="wb-btn active" title="Toggle natural idle pendulum sway">
+        <svg viewBox="0 0 24 24"><path d="M12 2v10"/><circle cx="12" cy="16" r="4"/></svg>
+        <span>Physics Sway</span>
+      </button>
+
+      <!-- Theme Mode Toggle -->
+      <button id="toggleThemeBtn" class="wb-btn" title="Toggle Dark Charcoal vs Light Studio">
+        <svg id="themeIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <span id="themeBtnLabel">Light Studio</span>
+      </button>
+
+      <!-- Viewport Presets -->
+      <div class="viewport-presets" role="group" aria-label="Viewport size simulator">
+        <button class="vp-btn active" data-width="1440px">Desktop</button>
+        <button class="vp-btn" data-width="840px">Tablet</button>
+        <button class="vp-btn" data-width="420px">Mobile</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN HERO WORKSPACE STAGE
+       ======================================================================== -->
+  <main class="workspace-wrapper" id="workspaceWrapper">
+    <section class="hero-stage" id="heroStage" aria-label="Developer Portfolio Hero Section">
+
+      <!-- LEFT: Hero Section Introduction & Architecture Directives -->
+      <div class="hero-text-side">
+        <div class="hero-directive-badge">
+          <span class="directive-dot"></span>
+          <span>IDENTITY VERIFIED // NODE ACTIVE</span>
+        </div>
+
+        <h1 class="hero-title">
+          DECODING <span class="highlight-tech">COMPLEX SYSTEMS</span> INTO <span class="highlight-accent">POWERFUL</span> DIGITAL REALITIES.
+        </h1>
+
+        <p class="hero-description">
+          Bridging high-performance frontend architecture, cyber resilience, and interactive 3D experiences. Engineered with surgical precision and clean, maintainable code.
+        </p>
+
+        <div class="hero-meta-row">
+          <div class="meta-stat">
+            <span class="meta-stat-num">99.8%</span>
+            <span class="meta-stat-label">System Accuracy</span>
+          </div>
+          <div class="meta-stat">
+            <span class="meta-stat-num">&lt; 0.02ms</span>
+            <span class="meta-stat-label">Render Latency</span>
+          </div>
+          <div class="meta-stat">
+            <span class="meta-stat-num">3.20 GHz</span>
+            <span class="meta-stat-label">Signal Frequency</span>
+          </div>
+        </div>
+
+        <div class="hero-cta-group">
+          <button class="btn-primary-tech" type="button" onclick="document.getElementById('flipCardBtn').click()">
+            <span>Inspect Credentials</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button class="btn-secondary-tech" type="button" onclick="alert('Portfolio Repository: github.com/billiampalad')">
+            <span>Source Code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: Suspended 3D Developer ID Card Rig -->
+      <div class="id-card-stage-container" id="stageContainer" role="region" aria-label="3D Developer ID Card with Lanyard">
+        
+        <!-- Top Ceiling Mount Fixture -->
+        <div class="lanyard-anchor-top" aria-hidden="true">
+          <div class="anchor-bolt"></div>
+        </div>
+
+        <!-- 3D Suspended Rig Assembly (Pivots from top) -->
+        <div class="id-card-pendulum-rig idle-swaying" id="pendulumRig">
+          
+          <!-- Lanyard Fabric Straps with twill texture and edge stitching -->
+          <div class="lanyard-straps-assembly" aria-hidden="true">
+            <div class="lanyard-strap strap-left">
+              <span class="lanyard-brand-text">CLYNTEN // DEV ARCHITECT</span>
+            </div>
+            <div class="lanyard-strap strap-right">
+              <span class="lanyard-brand-text">CLYNTEN // DEV ARCHITECT</span>
+            </div>
+          </div>
+
+          <!-- Stainless Steel Crimp, Swivel & Carabiner Clasp -->
+          <div class="clasp-connector-assembly" aria-hidden="true">
+            <div class="crimp-collar">
+              <div class="crimp-indent"></div>
+            </div>
+            <div class="swivel-ring"></div>
+            <div class="lobster-clasp">
+              <div class="clasp-barrel"></div>
+              <div class="clasp-hook">
+                <div class="clasp-rivet"></div>
+                <div class="clasp-lever"></div>
+              </div>
+              <!-- Loop passes through the badge holder top slot -->
+              <div class="clasp-beak-loop"></div>
+            </div>
+          </div>
+
+          <!-- Physical 3D Card Interactive Vessel -->
+          <div class="card-3d-wrapper" id="card3D" tabindex="0" role="article" aria-label="Physical ID Card for Clynten Billiam Palad">
+            
+            <!-- Flipping Core Container -->
+            <div class="card-flip-inner" id="cardFlipInner">
+
+              <!-- Polycarbonate Transparent Badge Protector Sleeve -->
+              <div class="acrylic-badge-holder" aria-hidden="true">
+                <!-- Top Die-cut Extension with Loop Slot -->
+                <div class="acrylic-slot-tab">
+                  <div class="acrylic-slot-hole"></div>
+                </div>
+                <!-- Dynamic Specular Glare -->
+                <div class="card-specular-glare" id="cardGlare"></div>
+                <!-- Diagonal Optical Sheen -->
+                <div class="acrylic-diagonal-sheen"></div>
+              </div>
+
+              <!-- ==========================================
+                   CARD FRONT FACE: Official Identity
+                   ========================================== -->
+              <div class="card-face card-face-front">
+                
+                <!-- Header: Monogram, Label & Verified Clearance -->
+                <div class="card-header-bar">
+                  <div class="brand-monogram-lockup">
+                    <div class="monogram-crest">C<span>.</span></div>
+                    <span class="card-category-label">DEVELOPER IDENTITY</span>
+                  </div>
+                  <div class="badge-clearance">
+                    <span class="clearance-dot"></span>
+                    <span>VERIFIED</span>
+                  </div>
+                </div>
+
+                <!-- Mid Section: Smart Chip & Profile Photograph -->
+                <div class="card-mid-section">
+                  <!-- EMV Smart Chip -->
+                  <div class="smart-chip-wrapper" title="Contactless Smart Card Chip">
+                    <div class="emv-gold-chip">
+                      <div class="chip-micro-center"></div>
+                    </div>
+                    <!-- Contactless NFC Wave Icon -->
+                    <svg class="contactless-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M8.5 16.5a5 5 0 0 1 0-7"/>
+                      <path d="M12 19a8.5 8.5 0 0 0 0-14"/>
+                      <path d="M15.5 21.5a12 12 0 0 0 0-19"/>
+                    </svg>
+                  </div>
+
+                  <!-- High-Res Profile Photograph -->
+                  <div class="profile-photo-container">
+                    <div class="profile-photo-inner">
+                      <img
+                        id="profileImg"
+                        class="profile-photo-img"
+                        src="./assets/profile.webp"
+                        alt="Clynten Billiam Palad"
+                        loading="eager"
+                        onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'154\' viewBox=\'0 0 140 154\'><rect width=\'140\' height=\'154\' fill=\'%23111827\'/><circle cx=\'70\' cy=\'60\' r=\'28\' fill=\'%2338bdf8\' opacity=\'0.4\'/><path d=\'M20 140c0-30 25-45 50-45s50 15 50 45\' fill=\'%2338bdf8\' opacity=\'0.3\'/><text x=\'70\' y=\'148\' font-family=\'sans-serif\' font-size=\'9\' fill=\'%2394a3b8\' text-anchor=\'middle\'>CLYNTEN</text></svg>';"
+                      />
+                      <!-- Sci-Fi Registration Brackets -->
+                      <div class="photo-bracket bracket-tl"></div>
+                      <div class="photo-bracket bracket-tr"></div>
+                      <div class="photo-bracket bracket-bl"></div>
+                      <div class="photo-bracket bracket-br"></div>
+                      <!-- Holographic Security Micro-stamp -->
+                      <div class="photo-security-watermark">SYS.AUTH</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Profile Credentials Typography -->
+                <div class="card-profile-info">
+                  <span class="profile-tag-pill">NAME // CITIZEN</span>
+                  <h2 class="profile-fullname">Clynten Billiam Palad</h2>
+                  <div class="profile-title-role">
+                    <span class="title-role-dot"></span>
+                    <span>Junior Web Developer</span>
+                  </div>
+                </div>
+
+                <!-- Technical Specification Grid -->
+                <div class="card-specs-grid">
+                  <div class="spec-cell">
+                    <span class="spec-key">LOCATION</span>
+                    <span class="spec-val">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                      <span>Indonesia</span>
+                    </span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-key">SYS ID</span>
+                    <span class="spec-val">CLYNTEN-DEV</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-key">STACK</span>
+                    <span class="spec-val">React • Vite • GSAP</span>
+                  </div>
+                  <div class="spec-cell">
+                    <span class="spec-key">CLEARANCE</span>
+                    <span class="spec-val">LVL 01 // PUBLIC</span>
+                  </div>
+                </div>
+
+                <!-- Footer: Iridescent Hologram & Vector QR Code -->
+                <div class="card-footer-assembly">
+                  <div class="hologram-strip" title="Holographic Security Foil">
+                    <span class="hologram-text">SECURE ARCHITECTURE • AUTHENTIC</span>
+                  </div>
+
+                  <!-- Valid Clean Vector QR Code (Pointing to Portfolio) -->
+                  <div class="card-qr-box" title="Scan to verify credentials">
+                    <svg viewBox="0 0 29 29" fill="#000000">
+                      <!-- Position detection patterns -->
+                      <path d="M1 1h7v7H1zM3 3h3v3H3zM21 1h7v7h-7zM23 3h3v3h-3zM1 21h7v7H1zM3 23h3v3H3z"/>
+                      <!-- Timing patterns & Data modules -->
+                      <path d="M10 2h1v1h-1zM13 2h1v1h-1zM15 2h2v1h-2zM10 4h2v1h-2zM14 4h1v1h-1zM17 4h1v1h-1zM10 6h1v1h-1zM13 6h2v1h-2zM17 6h1v1h-1zM2 10h1v1H2zM5 10h2v1H5zM9 10h2v1H9zM12 10h1v1h-1zM15 10h1v1h-1zM18 10h3v1h-3zM23 10h1v1h-1zM26 10h2v1h-2zM3 12h2v1H3zM7 12h1v1H7zM11 12h3v1h-3zM16 12h2v1h-2zM20 12h1v1h-1zM24 12h3v1h-3zM1 14h3v1H1zM6 14h2v1H6zM10 14h1v1h-1zM13 14h3v1h-3zM18 14h2v1h-2zM22 14h1v1h-1zM25 14h3v1h-3zM2 16h1v1H2zM5 16h3v1H5zM10 16h2v1h-2zM14 16h1v1h-1zM17 16h3v1h-3zM22 16h2v1h-2zM26 16h1v1h-1zM10 18h3v1h-3zM15 18h2v1h-2zM19 18h1v1h-1zM22 18h3v1h-3zM27 18h1v1h-1zM10 21h2v1h-2zM14 21h1v1h-1zM17 21h2v1h-2zM21 21h1v1h-1zM24 21h2v1h-2zM11 23h1v1h-1zM14 23h2v1h-2zM18 23h1v1h-1zM21 23h3v1h-3zM26 23h2v1h-2zM10 25h3v1h-3zM15 25h1v1h-1zM18 25h2v1h-2zM22 25h1v1h-1zM25 25h3v1h-3zM11 27h2v1h-2zM15 27h3v1h-3zM20 27h1v1h-1zM23 27h2v1h-2zM27 27h1v1h-1z"/>
+                    </svg>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ==========================================
+                   CARD BACK FACE: Magnetic Stripe & Specs
+                   ========================================== -->
+              <div class="card-face card-face-back">
+                <!-- Magnetic Stripe -->
+                <div class="magnetic-stripe"></div>
+
+                <div class="back-body-content">
+                  <!-- Signature Section -->
+                  <div class="signature-strip-wrapper">
+                    <span class="signature-label">AUTHORIZED SIGNATURE</span>
+                    <div class="signature-white-strip">
+                      <span class="signature-text">Clynten B. Palad</span>
+                    </div>
+                  </div>
+
+                  <!-- Issuance & Identity Statement -->
+                  <p class="terms-text-block">
+                    This official digital identity token certifies the software engineering credentials of Clynten Billiam Palad. Dedicated to building scalable, resilient, and ultra-high-performance web architecture.
+                  </p>
+
+                  <!-- Contact Metadata -->
+                  <div class="back-contact-list">
+                    <div class="contact-item-row">
+                      <span class="contact-key">ENGINEER:</span>
+                      <span class="contact-val">Clynten Billiam Palad</span>
+                    </div>
+                    <div class="contact-item-row">
+                      <span class="contact-key">CONTACT:</span>
+                      <span class="contact-val">billiampalad@gmail.com</span>
+                    </div>
+                    <div class="contact-item-row">
+                      <span class="contact-key">ROLE:</span>
+                      <span class="contact-val">Junior Web Developer</span>
+                    </div>
+                    <div class="contact-item-row">
+                      <span class="contact-key">REPOSITORY:</span>
+                      <span class="contact-val">github.com/billiampalad</span>
+                    </div>
+                  </div>
+
+                  <!-- Code 128 Laser Barcode -->
+                  <div class="barcode-container">
+                    <svg class="barcode-svg" viewBox="0 0 160 30" preserveAspectRatio="none">
+                      <rect x="0" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="5" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="8" y="0" width="4" height="30" fill="#000"/>
+                      <rect x="14" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="18" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="21" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="26" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="30" y="0" width="5" height="30" fill="#000"/>
+                      <rect x="37" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="40" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="45" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="49" y="0" width="4" height="30" fill="#000"/>
+                      <rect x="55" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="58" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="63" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="67" y="0" width="4" height="30" fill="#000"/>
+                      <rect x="73" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="76" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="81" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="85" y="0" width="5" height="30" fill="#000"/>
+                      <rect x="92" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="96" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="99" y="0" width="4" height="30" fill="#000"/>
+                      <rect x="105" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="109" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="112" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="117" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="121" y="0" width="4" height="30" fill="#000"/>
+                      <rect x="127" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="130" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="135" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="139" y="0" width="5" height="30" fill="#000"/>
+                      <rect x="146" y="0" width="2" height="30" fill="#000"/>
+                      <rect x="150" y="0" width="1" height="30" fill="#000"/>
+                      <rect x="153" y="0" width="3" height="30" fill="#000"/>
+                      <rect x="158" y="0" width="2" height="30" fill="#000"/>
+                    </svg>
+                    <span class="barcode-serial">*CLYNTEN-DEV-2026*</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Ambient Ground Depth Shadow -->
+          <div class="card-ground-shadow" id="groundShadow" aria-hidden="true"></div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       HIGH-PERFORMANCE INTERACTIVE JAVASCRIPT
+       Zero state thrashing • RAF lerp interpolation • Touch & Pointer support
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // DOM Elements
+      const stageContainer = document.getElementById('stageContainer');
+      const card3D = document.getElementById('card3D');
+      const pendulumRig = document.getElementById('pendulumRig');
+      const cardFlipInner = document.getElementById('cardFlipInner');
+      const cardGlare = document.getElementById('cardGlare');
+      const groundShadow = document.getElementById('groundShadow');
+      
+      // Control Buttons
+      const toggleLayoutBtn = document.getElementById('toggleLayoutBtn');
+      const layoutBtnLabel = document.getElementById('layoutBtnLabel');
+      const heroStage = document.getElementById('heroStage');
+      const flipCardBtn = document.getElementById('flipCardBtn');
+      const toggleSwayBtn = document.getElementById('toggleSwayBtn');
+      const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+      const themeBtnLabel = document.getElementById('themeBtnLabel');
+      const themeIcon = document.getElementById('themeIcon');
+      const vpButtons = document.querySelectorAll('.vp-btn');
+      const workspaceWrapper = document.getElementById('workspaceWrapper');
+
+      // State Variables
+      let isHovered = false;
+      let isFlipped = false;
+      let isSwayEnabled = true;
+      let isFocusMode = false;
+
+      // Coordinate tracking for ultra-fluid interpolation
+      let targetRotX = 0;
+      let targetRotY = 0;
+      let targetTransX = 0;
+      let targetTransY = 0;
+      let currentRotX = 0;
+      let currentRotY = 0;
+      let currentTransX = 0;
+      let currentTransY = 0;
+      let targetGlareX = 50;
+      let targetGlareY = 50;
+      let currentGlareX = 50;
+      let currentGlareY = 50;
+
+      // Spring damping lerp factor (0.08 gives realistic mass & inertia)
+      const LERP_FACTOR = 0.085;
+      const MAX_ROT_X = 14; // Maximum degrees tilt on X
+      const MAX_ROT_Y = 18; // Maximum degrees tilt on Y
+
+      // ----------------------------------------------------------------------
+      // 1. Smooth RequestAnimationFrame Render Loop
+      // ----------------------------------------------------------------------
+      function updatePhysicsFrame() {
+        if (isHovered) {
+          // Lerp current values towards target values
+          currentRotX += (targetRotX - currentRotX) * LERP_FACTOR;
+          currentRotY += (targetRotY - currentRotY) * LERP_FACTOR;
+          currentTransX += (targetTransX - currentTransX) * LERP_FACTOR;
+          currentTransY += (targetTransY - currentTransY) * LERP_FACTOR;
+          currentGlareX += (targetGlareX - currentGlareX) * LERP_FACTOR;
+          currentGlareY += (targetGlareY - currentGlareY) * LERP_FACTOR;
+
+          // Apply 3D transforms to Card and Lanyard flex
+          const flipOffset = isFlipped ? 180 : 0;
+          card3D.style.transform = `rotateX(${currentRotX.toFixed(2)}deg) rotateY(${(currentRotY + flipOffset).toFixed(2)}deg) translate3d(${currentTransX.toFixed(2)}px, ${currentTransY.toFixed(2)}px, 15px)`;
+          
+          // Slight flex on the rig assembly anchor
+          pendulumRig.style.transform = `rotateZ(${(currentRotY * 0.15).toFixed(2)}deg)`;
+
+          // Move the specular glare
+          card3D.style.setProperty('--glare-x', `${currentGlareX.toFixed(1)}%`);
+          card3D.style.setProperty('--glare-y', `${currentGlareY.toFixed(1)}%`);
+          card3D.style.setProperty('--glare-opacity', '0.28');
+
+          // Dynamic ground shadow response
+          if (groundShadow) {
+            groundShadow.style.transform = `translateX(${(-currentRotY * 1.5).toFixed(1)}px) scale(${(1 - Math.abs(currentRotX) * 0.015).toFixed(2)})`;
+            groundShadow.style.opacity = '0.9';
+          }
+        } else {
+          // Smooth return to resting / spring-back state
+          currentRotX += (0 - currentRotX) * 0.06;
+          currentRotY += (0 - currentRotY) * 0.06;
+          currentTransX += (0 - currentTransX) * 0.06;
+          currentTransY += (0 - currentTransY) * 0.06;
+
+          const flipOffset = isFlipped ? 180 : 0;
+          card3D.style.transform = `rotateX(${currentRotX.toFixed(2)}deg) rotateY(${flipOffset}deg) translate3d(0px, 0px, 0px)`;
+          
+          if (!isSwayEnabled) {
+            pendulumRig.style.transform = `rotateZ(0deg)`;
+          }
+
+          card3D.style.setProperty('--glare-opacity', '0.12');
+
+          if (groundShadow) {
+            groundShadow.style.transform = 'translateX(0px) scale(1)';
+            groundShadow.style.opacity = '0.75';
+          }
+        }
+
+        requestAnimationFrame(updatePhysicsFrame);
+      }
+      requestAnimationFrame(updatePhysicsFrame);
+
+      // ----------------------------------------------------------------------
+      // 2. Pointer & Mouse Event Listeners
+      // ----------------------------------------------------------------------
+      function handlePointerMove(e) {
+        if (!card3D) return;
+
+        const rect = card3D.getBoundingClientRect();
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+        if (clientX === undefined || clientY === undefined) return;
+
+        // Calculate normalized offsets (-1 to 1) from card center
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const normX = Math.max(-1, Math.min(1, (clientX - centerX) / (rect.width / 2)));
+        const normY = Math.max(-1, Math.min(1, (clientY - centerY) / (rect.height / 2)));
+
+        // Target rotation angles (invert Y for natural tilt)
+        targetRotX = -normY * MAX_ROT_X;
+        targetRotY = normX * MAX_ROT_Y;
+        targetTransX = normX * 8;
+        targetTransY = normY * 4;
+
+        // Calculate specular glare position (0% - 100%)
+        targetGlareX = Math.max(0, Math.min(100, (normX + 1) * 50));
+        targetGlareY = Math.max(0, Math.min(100, (normY + 1) * 50));
+      }
+
+      function handlePointerEnter() {
+        isHovered = true;
+        // Pause the CSS idle sway smoothly while user interacts
+        pendulumRig.classList.remove('idle-swaying');
+      }
+
+      function handlePointerLeave() {
+        isHovered = false;
+        targetRotX = 0;
+        targetRotY = 0;
+        targetTransX = 0;
+        targetTransY = 0;
+
+        // Re-enable idle sway after a short settling pause if enabled
+        if (isSwayEnabled) {
+          setTimeout(() => {
+            if (!isHovered && isSwayEnabled) {
+              pendulumRig.classList.add('idle-swaying');
+            }
+          }, 350);
+        }
+      }
+
+      // Card Interaction Events (Mouse & Touch)
+      card3D.addEventListener('mouseenter', handlePointerEnter);
+      card3D.addEventListener('mousemove', handlePointerMove);
+      card3D.addEventListener('mouseleave', handlePointerLeave);
+
+      // Touch screen support
+      card3D.addEventListener('touchstart', (e) => {
+        handlePointerEnter();
+        handlePointerMove(e);
+      }, { passive: true });
+
+      card3D.addEventListener('touchmove', (e) => {
+        handlePointerMove(e);
+      }, { passive: true });
+
+      card3D.addEventListener('touchend', handlePointerLeave);
+
+      // Keyboard accessible flip
+      card3D.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCardFlip();
+        }
+      });
+
+      // ----------------------------------------------------------------------
+      // 3. Workbench Control Handlers
+      // ----------------------------------------------------------------------
+      function toggleCardFlip() {
+        isFlipped = !isFlipped;
+        cardFlipInner.classList.toggle('is-flipped', isFlipped);
+      }
+
+      flipCardBtn.addEventListener('click', toggleCardFlip);
+
+      // Layout Toggle (Hero vs Card Focus)
+      toggleLayoutBtn.addEventListener('click', () => {
+        isFocusMode = !isFocusMode;
+        heroStage.classList.toggle('card-focus-mode', isFocusMode);
+        toggleLayoutBtn.classList.toggle('active', isFocusMode);
+        layoutBtnLabel.textContent = isFocusMode ? 'Hero View' : 'Focus Card';
+      });
+
+      // Sway Physics Toggle
+      toggleSwayBtn.addEventListener('click', () => {
+        isSwayEnabled = !isSwayEnabled;
+        toggleSwayBtn.classList.toggle('active', isSwayEnabled);
+        if (isSwayEnabled && !isHovered) {
+          pendulumRig.classList.add('idle-swaying');
+        } else {
+          pendulumRig.classList.remove('idle-swaying');
+        }
+      });
+
+      // Theme Toggle (Dark vs Light Studio)
+      toggleThemeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeBtnLabel.textContent = newTheme === 'dark' ? 'Light Studio' : 'Dark Studio';
+        toggleThemeBtn.classList.toggle('active', newTheme === 'light');
+      });
+
+      // Viewport Presets
+      vpButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          vpButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const targetWidth = btn.getAttribute('data-width');
+          workspaceWrapper.style.maxWidth = targetWidth;
+        });
+      });
+
+      // Click on card to flip
+      card3D.addEventListener('click', (e) => {
+        // Prevent flip if clicking external links
+        if (e.target.tagName.toLowerCase() !== 'a' && e.target.tagName.toLowerCase() !== 'button') {
+          toggleCardFlip();
+        }
+      });
+
+    })();
+  </script>
+</body>
+
+</html>
