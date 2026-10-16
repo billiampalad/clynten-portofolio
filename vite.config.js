@@ -15,21 +15,27 @@ export default defineConfig({
     },
   },
   build: {
+    target: 'esnext',
+    modulePreload: {
+      polyfill: false,
+    },
     cssCodeSplit: true,
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor-react'
-            }
             if (id.includes('gsap') || id.includes('locomotive-scroll') || id.includes('lenis')) {
               return 'vendor-animation'
             }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons'
+            if (
+              id.includes('react') ||
+              id.includes('react-dom') ||
+              id.includes('react-router-dom') ||
+              id.includes('lucide-react')
+            ) {
+              return 'vendor-core'
             }
-            return 'vendor-core'
           }
         },
       },

@@ -23,6 +23,14 @@
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap"
       />
     </noscript>
+    <!-- Preload first hero canvas frame for instant LCP render -->
+    <link
+      rel="preload"
+      as="image"
+      href="/gif/ezgif-frame-011.jpg"
+      fetchpriority="high"
+      type="image/jpeg"
+    />
     <title>clynten-portfolio</title>
     <style>
       /* Critical Base CSS: prevent FOUC & layout shifts before main bundle loads */
