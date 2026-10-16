@@ -227,22 +227,17 @@ export default function Navbar({
       </div>
 
       <div className="navbar-container">
-        {/* Left: Brand Identity with Custom Tooltip */}
+        {/* Left: Brand Identity */}
         <div className="navbar-left">
-          <div className="nav-tooltip-wrapper nav-tooltip-start">
-            <a
-              href="#hero"
-              onClick={handleBrandClick}
-              onMouseEnter={handleBrandHover}
-              className="navbar-brand"
-              aria-label="Home — Restart from beginning"
-            >
-              {renderBrand()}
-            </a>
-            <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
-              <span className="tooltip-text">Restart</span>
-            </div>
-          </div>
+          <a
+            href="#hero"
+            onClick={handleBrandClick}
+            onMouseEnter={handleBrandHover}
+            className="navbar-brand"
+            aria-label="Home — Restart from beginning"
+          >
+            {renderBrand()}
+          </a>
         </div>
 
         {/* Center: Desktop Navigation Links */}

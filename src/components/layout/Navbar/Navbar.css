@@ -682,20 +682,6 @@ body.dark-theme .nav-icon-btn:hover {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Tooltip alignment for Brand / Home on the left */
-.nav-tooltip-wrapper.nav-tooltip-start .nav-custom-tooltip {
-  left: 0;
-  transform: translateY(4px);
-}
-
-.nav-tooltip-wrapper.nav-tooltip-start:hover .nav-custom-tooltip,
-.nav-tooltip-wrapper.nav-tooltip-start:focus-within .nav-custom-tooltip {
-  transform: translateY(0);
-}
-
-.nav-tooltip-wrapper.nav-tooltip-start .nav-custom-tooltip::before {
-  left: 18px;
-}
 
 /* Tooltip alignment for Email on desktop right edge */
 @media (min-width: 981px) {
