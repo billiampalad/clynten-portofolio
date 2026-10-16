@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import LocomotiveScroll from 'locomotive-scroll'
-import 'locomotive-scroll/locomotive-scroll.css'
 import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 
 const DEFAULT_OPTIONS = {}
