@@ -46,35 +46,27 @@ export default function Navbar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // Listen to scroll to activate blur & border on scroll (default: without blur & line)
+  // Observe Skills section entry using IntersectionObserver (Zero Forced Reflow)
   useEffect(() => {
-    let animationFrameId
-    const checkScroll = () => {
-      // Blur and border lines are ONLY active when scrolled past About into the Skills section
-      const skillsEl = document.getElementById('skills')
-      if (skillsEl) {
-        const rect = skillsEl.getBoundingClientRect()
-        setIsScrolled(rect.top <= 60)
-      } else {
-        setIsScrolled(false)
+    const skillsEl = document.getElementById('skills')
+    if (!skillsEl) return
+
+    // IntersectionObserver runs asynchronously without triggering synchronous layout reflow
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Activate blur & line when #skills reaches within 60px of the top or scrolls past it
+        setIsScrolled(entry.boundingClientRect.top <= 60)
+      },
+      {
+        rootMargin: '-60px 0px 0px 0px',
+        threshold: [0, 0.05, 0.1, 0.2, 0.5, 1],
       }
-    }
+    )
 
-    const handleScroll = () => {
-      cancelAnimationFrame(animationFrameId)
-      animationFrameId = requestAnimationFrame(checkScroll)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    checkScroll()
-
-    // Interval fallback to support smooth scroll libraries (Locomotive/Lenis)
-    const interval = setInterval(checkScroll, 100)
+    observer.observe(skillsEl)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      cancelAnimationFrame(animationFrameId)
-      clearInterval(interval)
+      observer.disconnect()
     }
   }, [])
 
