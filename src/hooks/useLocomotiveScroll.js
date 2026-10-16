@@ -3,13 +3,15 @@ import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
 import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 
+const DEFAULT_OPTIONS = {}
+
 /**
  * Custom hook to initialize Locomotive Scroll v5 and seamlessly sync with GSAP ScrollTrigger.
  *
  * @param {Object} customOptions - Optional overrides for LocomotiveScroll / Lenis options.
  * @returns {React.MutableRefObject<LocomotiveScroll|null>}
  */
-export function useLocomotiveScroll(customOptions = {}) {
+export function useLocomotiveScroll(customOptions = DEFAULT_OPTIONS) {
   const scrollRef = useRef(null)
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export function useLocomotiveScroll(customOptions = {}) {
         scrollRef.current = null
       }
     }
-  }, [])
+  }, [customOptions])
 
   return scrollRef
 }

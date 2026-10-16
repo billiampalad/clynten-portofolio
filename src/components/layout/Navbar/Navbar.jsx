@@ -3,7 +3,7 @@ import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
 
-export const REFERENCE_NAV_ITEMS = [
+const REFERENCE_NAV_ITEMS = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#' },
@@ -177,7 +177,7 @@ export default function Navbar({
   return (
     <header
       className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
-        isScrolledActive ? 'navbar-scrolled navbar-has-shadow' : ''
+        isScrolledActive || hasShadow ? 'navbar-scrolled navbar-has-shadow' : ''
       }`}
       style={{
         '--navbar-reveal': isVisible ? revealProgress : 0,
