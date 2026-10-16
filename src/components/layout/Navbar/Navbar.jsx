@@ -164,7 +164,7 @@ export default function Navbar({
     )
   }
 
-  const isScrolledActive = isScrolled || revealProgress > 0.05 || hasShadow
+  const isScrolledActive = isScrolled || hasShadow
 
   return (
     <header

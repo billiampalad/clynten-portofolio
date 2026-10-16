@@ -34,7 +34,7 @@ function App() {
     } else {
       setIsNavbarVisible(true)
       setNavbarReveal(1)
-      setHasNavbarShadow(false)
+      setHasNavbarShadow(true)
     }
   }, [])
 

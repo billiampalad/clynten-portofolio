@@ -116,21 +116,17 @@ body.light-theme .navbar-theme-bg {
   box-shadow: none;
 }
 
-/* Garis batas HANYA aktif saat scroll melewati section About (masuk ke Skills) */
-[data-theme="dark"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-[data-theme="dark"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
-html.dark-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-html.dark-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
-html.dark .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-html.dark .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
+/* Garis batas saat di-scroll (Default Dark Mode) */
+.portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+.portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
   box-shadow: inset 0 -1px 0 #22201d;
 }
 
-/* Garis batas mode terang saat scroll melewati About */
+/* Garis batas mode terang saat di-scroll */
 [data-theme="light"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
 [data-theme="light"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
 html.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-html.light-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
+body.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg {
   box-shadow: inset 0 -1px 0 #e2e8f0;
 }
 
