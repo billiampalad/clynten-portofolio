@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, lazy, Suspense } from 'react'
 import Navbar from '@/components/layout/Navbar/Navbar'
 import Hero from '@/components/sections/Hero/Hero'
-import Skills from '@/components/sections/Skills/Skills'
 import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
 import './App.css'
+
+const Skills = lazy(() => import('@/components/sections/Skills/Skills'))
 
 function App() {
   // Initialize Locomotive Scroll v5 (Lenis powered) with GSAP ScrollTrigger synchronization
@@ -72,7 +73,9 @@ function App() {
       <Hero key={heroKey} onProgressChange={handleHeroProgress} />
 
       {/* Next Section: Skills / Core Architecture Domains & Specs */}
-      <Skills />
+      <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
+        <Skills />
+      </Suspense>
     </div>
   )
 }

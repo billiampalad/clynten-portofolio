@@ -24,6 +24,23 @@
       />
     </noscript>
     <title>clynten-portfolio</title>
+    <style>
+      /* Critical Base CSS: prevent FOUC & layout shifts before main bundle loads */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        background-color: #0A0907;
+        color: #f1f5f9;
+        overflow-x: hidden;
+      }
+      #root {
+        width: 100%;
+        min-height: 100vh;
+        background: #0A0907;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
