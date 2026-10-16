@@ -10,10 +10,8 @@ import BodySignals from './BodySignals'
 import About from '@/components/sections/About/About'
 import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
-import frameUrls from '@/data/frameList.json'
+import clayHeroImage from '@/assets/clay.webp'
 import './Hero.css'
-
-const TOTAL_FRAMES = frameUrls.length
 
 export default function Hero({ onProgressChange }) {
   const heroSectionRef = useRef(null)
@@ -27,9 +25,7 @@ export default function Hero({ onProgressChange }) {
   const [loadProgress, setLoadProgress] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
 
-  const imagesRef = useRef([])
-  const playheadRef = useRef({ frame: 0 })
-  const lastRenderedIndexRef = useRef(-1)
+  const imageRef = useRef(null)
   const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
 
   // Synchronize canvas dimensions once on mount and on resize (Zero Forced Reflow during render/scroll)
@@ -51,15 +47,14 @@ export default function Hero({ onProgressChange }) {
     }
   }, [])
 
-  // Draw current frame to canvas using cached layout dimensions
-  const renderFrame = useCallback((rawIndex) => {
+  // Draw hero image to canvas using cached layout dimensions
+  const renderFrame = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true })
     if (!ctx) return
 
-    const index = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(rawIndex)))
-    const img = imagesRef.current[index]
+    const img = imageRef.current
     if (!img || !img.complete || img.naturalWidth === 0) return
 
     let { width, height, dpr } = canvasDimensionsRef.current
@@ -87,7 +82,6 @@ export default function Hero({ onProgressChange }) {
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
 
     ctx.restore()
-    lastRenderedIndexRef.current = index
   }, [updateCanvasSize])
 
   // Handle window resize with debouncing to prevent layout thrashing
@@ -99,9 +93,7 @@ export default function Hero({ onProgressChange }) {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(() => {
         updateCanvasSize()
-        if (lastRenderedIndexRef.current >= 0) {
-          renderFrame(lastRenderedIndexRef.current)
-        }
+        renderFrame()
       }, 100)
     }
 
@@ -112,61 +104,38 @@ export default function Hero({ onProgressChange }) {
     }
   }, [updateCanvasSize, renderFrame])
 
-  // Preload and GPU-decode all frames
+  // Preload and GPU-decode single hero image (clay.webp)
   useEffect(() => {
-    let loadedCount = 0
-    const images = []
     let isMounted = true
+    const img = new Image()
+    img.src = clayHeroImage
 
-    const loadImages = async () => {
-      for (let i = 0; i < TOTAL_FRAMES; i++) {
-        const img = new Image()
-        img.src = frameUrls[i]
-
-        img.onload = async () => {
-          try {
-            if (img.decode) {
-              await img.decode()
-            }
-          } catch {
-            // Fallback for browsers without image.decode
-          }
-
-          if (!isMounted) return
-
-          loadedCount++
-          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100))
-
-          if (loadedCount === 1) {
-            renderFrame(0)
-          }
-
-          if (loadedCount === TOTAL_FRAMES) {
-            renderFrame(0)
-            finishTimer = setTimeout(() => {
-              if (!isMounted) return
-              setLoading(false)
-              renderFrame(0)
-            }, 450)
-          }
+    const handleLoaded = async () => {
+      try {
+        if (img.decode) {
+          await img.decode()
         }
-
-        images.push(img)
+      } catch {
+        // Fallback for browsers without image.decode
       }
-      imagesRef.current = images
+
+      if (!isMounted) return
+
+      imageRef.current = img
+      setLoadProgress(100)
+      setLoading(false)
+      renderFrame()
     }
 
-    let finishTimer = null
-    loadImages()
+    if (img.complete && img.naturalWidth > 0) {
+      handleLoaded()
+    } else {
+      img.onload = handleLoaded
+    }
 
     return () => {
       isMounted = false
-      if (finishTimer) {
-        clearTimeout(finishTimer)
-      }
-      images.forEach((img) => {
-        img.onload = null
-      })
+      img.onload = null
     }
   }, [renderFrame])
 
@@ -177,9 +146,6 @@ export default function Hero({ onProgressChange }) {
     const canvas = canvasRef.current
     const gridOverlay = gridOverlayRef.current
     const hudLayer = hudLayerRef.current
-
-    const playhead = playheadRef.current
-    playhead.frame = 0
 
     // Set initial canvas and overlay state
     if (canvas) {
@@ -213,13 +179,10 @@ export default function Hero({ onProgressChange }) {
         const progress = self.progress // 0 to 1
 
         // =========================================================================
-        // TAHAP 1 (0.00 -> 0.75): Pemutaran 145 Frame & Resolusi Telemetri 100%
+        // TAHAP 1 (0.00 -> 0.75): Telemetri & Filter Visual 100%
         // =========================================================================
         const SCAN_END = 0.75
         const scanProgress = Math.min(1, Math.max(0, progress / SCAN_END))
-        const targetFrame = scanProgress * (TOTAL_FRAMES - 1)
-        playhead.frame = targetFrame
-        renderFrame(targetFrame)
 
         // Filter visual menajam sempurna dan cerah pada progress 0.65
         const filterProgress = Math.min(1, progress / 0.65)
@@ -394,7 +357,7 @@ export default function Hero({ onProgressChange }) {
 
     const handleResize = () => {
       ScrollTrigger.refresh()
-      renderFrame(playhead.frame)
+      renderFrame()
     }
 
     window.addEventListener('resize', handleResize)
@@ -450,8 +413,8 @@ export default function Hero({ onProgressChange }) {
           {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry */}
           {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline */}
-          {!loading && <ScrollHeadline progress={scrollProgress} />}
+          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Immediate LCP render) */}
+          <ScrollHeadline progress={scrollProgress} />
 
           {/* Layer 8: Developer Signal HUD */}
           {!loading && <DeveloperSignal progress={scrollProgress} />}
