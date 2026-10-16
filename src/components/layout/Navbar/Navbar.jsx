@@ -51,26 +51,18 @@ export default function Navbar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // Observe Skills section entry using IntersectionObserver (Zero Forced Reflow)
+  // Track scroll position to activate bottom blur and border line (matching navbar.html)
   useEffect(() => {
-    const skillsEl = document.getElementById('skills')
-    if (!skillsEl) return
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset || 0
+      setIsScrolled(scrollY > 15)
+    }
 
-    // IntersectionObserver runs asynchronously without triggering synchronous layout reflow
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsScrolled(entry.boundingClientRect.top <= 60)
-      },
-      {
-        rootMargin: '-60px 0px 0px 0px',
-        threshold: [0, 0.05, 0.1, 0.2, 0.5, 1],
-      }
-    )
-
-    observer.observe(skillsEl)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
 
     return () => {
-      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
@@ -172,7 +164,7 @@ export default function Navbar({
     )
   }
 
-  const isScrolledActive = isScrolled
+  const isScrolledActive = isScrolled || revealProgress > 0.05 || hasShadow
 
   return (
     <header

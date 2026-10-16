@@ -145,7 +145,7 @@ html.light-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
   width: 100%;
   height: 90px;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 /* Base style for both blur layers */
@@ -161,50 +161,51 @@ html.light-theme .portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
   opacity: 0;
 }
 
-/* Layer Blur Mode Terang - teduh halus & bersih */
+/* Layer Blur Mode Terang (::before di navbar.html) - teduh halus & bersih */
 .navbar-bottom-blur .blur-layer-light {
   background: linear-gradient(
     to bottom,
-    rgba(15, 23, 42, 0.05) 0%,
-    rgba(15, 23, 42, 0.02) 50%,
-    rgba(15, 23, 42, 0) 100%
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.03) 50%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
 
-/* Layer Blur Mode Gelap - netral lembut tanpa celah transparan di tepi atas */
+/* Layer Blur Mode Gelap (::after di navbar.html) - hitam pekat mewah tanpa celah transparan */
 .navbar-bottom-blur .blur-layer-dark {
   background: linear-gradient(
     to bottom,
-    #0A0907 0%,
-    rgba(10, 9, 7, 0.90) 30%,
-    rgba(10, 9, 7, 0.60) 65%,
-    rgba(10, 9, 7, 0) 100%
+    #000000 0%,
+    rgba(0, 0, 0, 0.90) 30%,
+    rgba(0, 0, 0, 0.60) 65%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
 
-/* Saat di-scroll di mode terang: blur terang aktif */
-.portfolio-navbar.navbar-scrolled .blur-layer-light,
-.portfolio-navbar.navbar-has-shadow .blur-layer-light {
+/* Saat di-scroll (Default Dark): blur gelap aktif, blur terang padam */
+.portfolio-navbar.navbar-scrolled .blur-layer-dark,
+.portfolio-navbar.navbar-has-shadow .blur-layer-dark {
   opacity: 1;
 }
 
-/* Saat di-scroll di mode gelap: blur terang padam, blur gelap aktif */
-[data-theme="dark"] .portfolio-navbar.navbar-scrolled .blur-layer-light,
-[data-theme="dark"] .portfolio-navbar.navbar-has-shadow .blur-layer-light,
-html.dark-theme .portfolio-navbar.navbar-scrolled .blur-layer-light,
-html.dark-theme .portfolio-navbar.navbar-has-shadow .blur-layer-light,
-html.dark .portfolio-navbar.navbar-scrolled .blur-layer-light,
-html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-light {
+.portfolio-navbar.navbar-scrolled .blur-layer-light,
+.portfolio-navbar.navbar-has-shadow .blur-layer-light {
   opacity: 0;
 }
 
-[data-theme="dark"] .portfolio-navbar.navbar-scrolled .blur-layer-dark,
-[data-theme="dark"] .portfolio-navbar.navbar-has-shadow .blur-layer-dark,
-html.dark-theme .portfolio-navbar.navbar-scrolled .blur-layer-dark,
-html.dark-theme .portfolio-navbar.navbar-has-shadow .blur-layer-dark,
-html.dark .portfolio-navbar.navbar-scrolled .blur-layer-dark,
-html.dark .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
+/* Saat di-scroll di Mode Terang: blur terang aktif, blur gelap padam */
+[data-theme="light"] .portfolio-navbar.navbar-scrolled .blur-layer-light,
+[data-theme="light"] .portfolio-navbar.navbar-has-shadow .blur-layer-light,
+html.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-light,
+body.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-light {
   opacity: 1;
+}
+
+[data-theme="light"] .portfolio-navbar.navbar-scrolled .blur-layer-dark,
+[data-theme="light"] .portfolio-navbar.navbar-has-shadow .blur-layer-dark,
+html.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-dark,
+body.light-theme .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
+  opacity: 0;
 }
 
 /* Inner Layout Container */
