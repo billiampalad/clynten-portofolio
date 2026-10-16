@@ -46,17 +46,7 @@ export function useLocomotiveScroll(customOptions = DEFAULT_OPTIONS) {
 
     scrollRef.current = locomotiveScroll
 
-    // Recalculate ScrollTrigger measurements once Locomotive CSS and Lenis initialize
-    let rafId = null
-    const timer = setTimeout(() => {
-      rafId = requestAnimationFrame(() => {
-        ScrollTrigger.refresh()
-      })
-    }, 200)
-
     return () => {
-      clearTimeout(timer)
-      if (rafId) cancelAnimationFrame(rafId)
       if (scrollRef.current) {
         scrollRef.current.destroy()
         scrollRef.current = null

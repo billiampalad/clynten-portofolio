@@ -15,12 +15,10 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'esnext',
     modulePreload: {
       polyfill: false,
     },
     cssCodeSplit: true,
-    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks(id) {
