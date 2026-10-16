@@ -99,9 +99,25 @@ export default function Navbar({
     }
   }, [triggerFirst, triggerLast, lastTarget])
 
-  // Toggle dark / light theme
+  // Toggle dark / light theme immediately without transition animations or border flash
   const handleToggleTheme = () => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
+
+    // Temporarily suppress all transitions across all elements
+    const css = document.createElement('style')
+    css.appendChild(
+      document.createTextNode(
+        `*, *::before, *::after {
+          -webkit-transition: none !important;
+          -moz-transition: none !important;
+          -o-transition: none !important;
+          -ms-transition: none !important;
+          transition: none !important;
+        }`
+      )
+    )
+    document.head.appendChild(css)
+
     setTheme(nextTheme)
     document.documentElement.setAttribute('data-theme', nextTheme)
     if (nextTheme === 'light') {
@@ -112,6 +128,18 @@ export default function Navbar({
       document.documentElement.classList.remove('light-theme')
     }
     localStorage.setItem('portfolio-theme', nextTheme)
+
+    // Force style flush so all theme tokens apply instantly
+    window.getComputedStyle(css).opacity
+
+    // Restore transitions on the next frame so interactive hovers continue functioning
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (css.parentNode) {
+          css.parentNode.removeChild(css)
+        }
+      })
+    })
   }
 
   // Handle Home / Brand click to reset website from loading state

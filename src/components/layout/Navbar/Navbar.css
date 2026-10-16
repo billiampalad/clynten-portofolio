@@ -94,11 +94,11 @@ body.light-theme {
   inset: 0;
   background: var(--nav-bg, #0A0907);
   border: none;
-  box-shadow: inset 0 -1px 0 var(--nav-bg, #0A0907);
+  box-shadow: none;
   z-index: 1;
   pointer-events: none;
   opacity: var(--navbar-reveal, 1);
-  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  transition: none;
 }
 
 /* Dark theme background */
@@ -106,7 +106,7 @@ body.light-theme {
 html.dark-theme .navbar-theme-bg,
 html.dark .navbar-theme-bg {
   background: var(--nav-bg, #0A0907);
-  box-shadow: inset 0 -1px 0 var(--nav-bg, #0A0907);
+  box-shadow: none;
 }
 
 /* Light theme background */
@@ -114,7 +114,7 @@ html.dark .navbar-theme-bg {
 html.light-theme .navbar-theme-bg,
 body.light-theme .navbar-theme-bg {
   background: var(--nav-bg, #f8fafc);
-  box-shadow: inset 0 -1px 0 var(--nav-bg, #f8fafc);
+  box-shadow: none;
 }
 
 /* Garis batas saat di-scroll (Default Dark Mode matching navbar.html #262626) */
