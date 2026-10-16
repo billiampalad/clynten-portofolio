@@ -65,11 +65,13 @@ export function useTextScramble(targetText, speed = 25, isContinuous = false) {
  */
 export function useHoverScramble(targetText, speed = 30, totalIterations = 8, charPool = LETTERS) {
   const [displayText, setDisplayText] = useState(targetText)
+  const [prevTargetText, setPrevTargetText] = useState(targetText)
   const animRef = useRef(null)
 
-  useEffect(() => {
+  if (prevTargetText !== targetText) {
+    setPrevTargetText(targetText)
     setDisplayText(targetText)
-  }, [targetText])
+  }
 
   const trigger = useCallback(() => {
     clearInterval(animRef.current)

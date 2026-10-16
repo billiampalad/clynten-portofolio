@@ -42,7 +42,12 @@ export default function Navbar({
   hasShadow = false,
   revealProgress = 1,
 }) {
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.getAttribute('data-theme') || 'dark'
+    }
+    return 'dark'
+  })
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -54,7 +59,6 @@ export default function Navbar({
     // IntersectionObserver runs asynchronously without triggering synchronous layout reflow
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Activate blur & line when #skills reaches within 60px of the top or scrolls past it
         setIsScrolled(entry.boundingClientRect.top <= 60)
       },
       {
@@ -87,27 +91,6 @@ export default function Navbar({
       triggerLast()
     }
   }, [triggerFirst, triggerLast, lastTarget])
-
-  // Initialize theme from document or localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('portfolio-theme')
-    const themeToApply =
-      savedTheme === 'light' || savedTheme === 'dark'
-        ? savedTheme
-        : window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'dark'
-
-    setTheme(themeToApply)
-    document.documentElement.setAttribute('data-theme', themeToApply)
-    if (themeToApply === 'light') {
-      document.documentElement.classList.add('light-theme')
-      document.documentElement.classList.remove('dark-theme', 'dark')
-    } else {
-      document.documentElement.classList.add('dark-theme', 'dark')
-      document.documentElement.classList.remove('light-theme')
-    }
-  }, [])
 
   // Toggle dark / light theme
   const handleToggleTheme = () => {

@@ -41,6 +41,20 @@
         background: #0A0907;
       }
     </style>
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+          document.documentElement.setAttribute('data-theme', theme);
+          if (theme === 'light') {
+            document.documentElement.classList.add('light-theme');
+          } else {
+            document.documentElement.classList.add('dark-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

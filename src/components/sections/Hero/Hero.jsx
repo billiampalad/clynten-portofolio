@@ -30,8 +30,28 @@ export default function Hero({ onProgressChange }) {
   const imagesRef = useRef([])
   const playheadRef = useRef({ frame: 0 })
   const lastRenderedIndexRef = useRef(-1)
+  const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
 
-  // Draw current frame to canvas with full cover fit & retina DPI
+  // Synchronize canvas dimensions once on mount and on resize (Zero Forced Reflow during render/scroll)
+  const updateCanvasSize = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const width = window.innerWidth
+    const height = window.innerHeight
+    const targetWidth = Math.round(width * dpr)
+    const targetHeight = Math.round(height * dpr)
+
+    canvasDimensionsRef.current = { width, height, dpr }
+
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+      canvas.width = targetWidth
+      canvas.height = targetHeight
+    }
+  }, [])
+
+  // Draw current frame to canvas using cached layout dimensions
   const renderFrame = useCallback((rawIndex) => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -42,16 +62,13 @@ export default function Hero({ onProgressChange }) {
     const img = imagesRef.current[index]
     if (!img || !img.complete || img.naturalWidth === 0) return
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const width = window.innerWidth
-    const height = window.innerHeight
-
-    const targetWidth = Math.round(width * dpr)
-    const targetHeight = Math.round(height * dpr)
-
-    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
-      canvas.width = targetWidth
-      canvas.height = targetHeight
+    let { width, height, dpr } = canvasDimensionsRef.current
+    if (width === 0 || height === 0) {
+      updateCanvasSize()
+      const current = canvasDimensionsRef.current
+      width = current.width
+      height = current.height
+      dpr = current.dpr
     }
 
     ctx.imageSmoothingEnabled = true
@@ -71,7 +88,29 @@ export default function Hero({ onProgressChange }) {
 
     ctx.restore()
     lastRenderedIndexRef.current = index
-  }, [])
+  }, [updateCanvasSize])
+
+  // Handle window resize with debouncing to prevent layout thrashing
+  useEffect(() => {
+    updateCanvasSize()
+
+    let resizeTimer = null
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        updateCanvasSize()
+        if (lastRenderedIndexRef.current >= 0) {
+          renderFrame(lastRenderedIndexRef.current)
+        }
+      }, 100)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      clearTimeout(resizeTimer)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [updateCanvasSize, renderFrame])
 
   // Preload and GPU-decode all frames
   useEffect(() => {
@@ -250,9 +289,9 @@ export default function Hero({ onProgressChange }) {
             const p = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
 
             // Hitung Rasio Skala Sangat Halus (Smooth Interpolation)
-            let cScale = 1.00
-            let cRadius = 0
-            let frameOpacity = 1.0
+            let cScale
+            let cRadius
+            let frameOpacity
 
             if (p <= 0.25) {
               // TAHAP 1 (100% -> 80%): Membentuk sudut lembut & cyber glow
