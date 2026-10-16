@@ -24,6 +24,10 @@
   --nav-tint-mid3: rgba(10, 9, 7, 0.12);
   --nav-tint-end: rgba(10, 9, 7, 0);
   --nav-hover-block: #830000;
+  --tooltip-bg: rgba(14, 18, 26, 0.96);
+  --tooltip-border: rgba(255, 255, 255, 0.12);
+  --tooltip-text: #f1f5f9;
+  --tooltip-shadow: rgba(0, 0, 0, 0.65);
 }
 
 [data-theme="light"],
@@ -50,6 +54,10 @@ body.light-theme {
   --nav-tint-mid3: rgba(248, 250, 252, 0.12);
   --nav-tint-end: rgba(248, 250, 252, 0);
   --nav-hover-block: #bc0202;
+  --tooltip-bg: rgba(255, 255, 255, 0.98);
+  --tooltip-border: rgba(15, 23, 42, 0.12);
+  --tooltip-text: #0f172a;
+  --tooltip-shadow: rgba(15, 23, 42, 0.15);
 }
 
 /* Base Top Header Bar */
@@ -604,6 +612,115 @@ html.dark .nav-icon-btn:hover,
 [data-theme="dark"] .nav-icon-btn:hover,
 body.dark-theme .nav-icon-btn:hover {
   color: #ffffff;
+}
+
+/* ==========================================================================
+   Cyberpunk / Modern Custom Tooltips (Home, Dark Mode, Email)
+   ========================================================================== */
+
+.nav-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-custom-tooltip {
+  position: absolute;
+  top: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 5px 10px;
+  background: var(--tooltip-bg);
+  border: 1px solid var(--tooltip-border);
+  border-radius: 6px;
+  color: var(--tooltip-text);
+  font-family: var(--font-mono), 'JetBrains Mono', Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 10px 24px -4px var(--tooltip-shadow), 0 2px 6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.18s;
+  z-index: 100;
+}
+
+/* Micro pointer caret arrow */
+.nav-custom-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -4.5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  background: var(--tooltip-bg);
+  border-top: 1px solid var(--tooltip-border);
+  border-left: 1px solid var(--tooltip-border);
+  border-top-left-radius: 1px;
+  pointer-events: none;
+}
+
+/* Tooltip text styling */
+.nav-custom-tooltip .tooltip-text {
+  display: inline-block;
+  line-height: 1.2;
+}
+
+/* Show on Hover and Focus-Within */
+.nav-tooltip-wrapper:hover .nav-custom-tooltip,
+.nav-tooltip-wrapper:focus-within .nav-custom-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip alignment for Brand / Home on the left */
+.nav-tooltip-wrapper.nav-tooltip-start .nav-custom-tooltip {
+  left: 0;
+  transform: translateY(4px);
+}
+
+.nav-tooltip-wrapper.nav-tooltip-start:hover .nav-custom-tooltip,
+.nav-tooltip-wrapper.nav-tooltip-start:focus-within .nav-custom-tooltip {
+  transform: translateY(0);
+}
+
+.nav-tooltip-wrapper.nav-tooltip-start .nav-custom-tooltip::before {
+  left: 18px;
+}
+
+/* Tooltip alignment for Email on desktop right edge */
+@media (min-width: 981px) {
+  .nav-tooltip-wrapper.nav-tooltip-end .nav-custom-tooltip {
+    left: auto;
+    right: 0;
+    transform: translateY(4px);
+  }
+
+  .nav-tooltip-wrapper.nav-tooltip-end:hover .nav-custom-tooltip,
+  .nav-tooltip-wrapper.nav-tooltip-end:focus-within .nav-custom-tooltip {
+    transform: translateY(0);
+  }
+
+  .nav-tooltip-wrapper.nav-tooltip-end .nav-custom-tooltip::before {
+    left: auto;
+    right: 13px;
+  }
+}
+
+/* Disable tooltips on touch devices to avoid stuck tooltips on tap */
+@media (hover: none) {
+  .nav-custom-tooltip {
+    display: none !important;
+  }
 }
 
 /* Mobile Hamburger Toggle */

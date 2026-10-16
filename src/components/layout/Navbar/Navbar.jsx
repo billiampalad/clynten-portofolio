@@ -209,9 +209,8 @@ export default function Navbar({
 
   return (
     <header
-      className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
-        isScrolled ? 'scrolled navbar-scrolled' : ''
-      }`}
+      className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${isScrolled ? 'scrolled navbar-scrolled' : ''
+        }`}
       style={{
         '--navbar-reveal': isVisible ? revealProgress : 0,
       }}
@@ -228,18 +227,22 @@ export default function Navbar({
       </div>
 
       <div className="navbar-container">
-        {/* Left: Brand Identity */}
+        {/* Left: Brand Identity with Custom Tooltip */}
         <div className="navbar-left">
-          <a
-            href="#hero"
-            onClick={handleBrandClick}
-            onMouseEnter={handleBrandHover}
-            className="navbar-brand"
-            aria-label="Home — Restart from beginning"
-            title="Restart from beginning"
-          >
-            {renderBrand()}
-          </a>
+          <div className="nav-tooltip-wrapper nav-tooltip-start">
+            <a
+              href="#hero"
+              onClick={handleBrandClick}
+              onMouseEnter={handleBrandHover}
+              className="navbar-brand"
+              aria-label="Home — Restart from beginning"
+            >
+              {renderBrand()}
+            </a>
+            <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
+              <span className="tooltip-text">Restart</span>
+            </div>
+          </div>
         </div>
 
         {/* Center: Desktop Navigation Links */}
@@ -255,29 +258,39 @@ export default function Navbar({
 
         {/* Right: Actions (Theme Toggle, Contact Mail, Mobile Menu) */}
         <div className="navbar-actions">
-          <button
-            type="button"
-            className="nav-icon-btn nav-theme-btn"
-            onClick={handleToggleTheme}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          >
-            {theme === 'dark' ? (
-              <Sun size={16} strokeWidth={1.8} className="theme-icon" />
-            ) : (
-              <Moon size={16} strokeWidth={1.8} className="theme-icon" />
-            )}
-          </button>
+          <div className="nav-tooltip-wrapper">
+            <button
+              type="button"
+              className="nav-icon-btn nav-theme-btn"
+              onClick={handleToggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <Sun size={16} strokeWidth={1.8} className="theme-icon" />
+              ) : (
+                <Moon size={16} strokeWidth={1.8} className="theme-icon" />
+              )}
+            </button>
+            <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
+              <span className="tooltip-text">
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </span>
+            </div>
+          </div>
 
-          <a
-            href={`mailto:${email}?subject=Project%20Inquiry`}
-            onClick={handleContactClick}
-            className="nav-icon-btn nav-mail-btn"
-            aria-label="Send email"
-            title="Work Together / Send Email"
-          >
-            <Mail size={16} strokeWidth={1.8} />
-          </a>
+          <div className="nav-tooltip-wrapper nav-tooltip-end">
+            <a
+              href={`mailto:${email}?subject=Project%20Inquiry`}
+              onClick={handleContactClick}
+              className="nav-icon-btn nav-mail-btn"
+              aria-label="Send email"
+            >
+              <Mail size={16} strokeWidth={1.8} />
+            </a>
+            <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
+              <span className="tooltip-text">Send Email</span>
+            </div>
+          </div>
 
           {/* Mobile hamburger toggle */}
           <button
