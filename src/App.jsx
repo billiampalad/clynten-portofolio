@@ -12,7 +12,6 @@ function App() {
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
   const [navbarReveal, setNavbarReveal] = useState(0)
-  const [hasNavbarShadow, setHasNavbarShadow] = useState(false)
   const [heroKey, setHeroKey] = useState(0)
 
   const handleHeroProgress = useCallback((progress) => {
@@ -23,26 +22,22 @@ function App() {
     if (progress < FADE_START) {
       setIsNavbarVisible(false)
       setNavbarReveal(0)
-      setHasNavbarShadow(false)
     } else if (progress >= FADE_START && progress < FADE_END) {
       setIsNavbarVisible(true)
       // Hermite smoothstep curve matching About reveal in Hero.jsx
       const t = (progress - FADE_START) / (FADE_END - FADE_START)
       const smoothed = t * t * (3 - 2 * t)
       setNavbarReveal(smoothed)
-      setHasNavbarShadow(false)
     } else {
       setIsNavbarVisible(true)
       setNavbarReveal(1)
-      setHasNavbarShadow(true)
     }
   }, [])
 
   const handleResetToHome = useCallback(() => {
-    // 1. Immediately hide navbar, reset dimming, and remove shadow
+    // 1. Immediately hide navbar and reset dimming
     setIsNavbarVisible(false)
     setNavbarReveal(0)
-    setHasNavbarShadow(false)
     document.documentElement.style.setProperty('--navbar-reveal', '0')
 
     // 2. Instantly reset window and locomotive scroll to top (0, 0)
@@ -65,7 +60,6 @@ function App() {
       <Navbar
         isVisible={isNavbarVisible}
         revealProgress={isNavbarVisible ? navbarReveal : 0}
-        hasShadow={hasNavbarShadow}
         onHomeClick={handleResetToHome}
       />
 

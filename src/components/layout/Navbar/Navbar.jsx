@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
+import { gsap } from '@/lib/animations/gsap'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
 
@@ -39,7 +40,6 @@ export default function Navbar({
   navItems = REFERENCE_NAV_ITEMS,
   email = 'billiampalad@gmail.com',
   onHomeClick,
-  hasShadow = false,
   revealProgress = 1,
 }) {
   const [theme, setTheme] = useState(() => {
@@ -52,17 +52,32 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false)
 
   // Track scroll position to activate bottom blur and border line (matching navbar.html)
+  // Default saat di About / top: garis dan blur tidak aktif.
+  // Aktif hanya ketika user melakukan scroll meninggalkan About (rect.top < -15).
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset || 0
-      setIsScrolled(scrollY > 15)
+      const aboutEl = document.getElementById('about')
+      if (aboutEl) {
+        const rect = aboutEl.getBoundingClientRect()
+        setIsScrolled(rect.top < -15)
+      } else {
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+        setIsScrolled(scrollY > 15)
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    if (typeof gsap !== 'undefined' && gsap.ticker) {
+      gsap.ticker.add(handleScroll)
+    }
+
     handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      if (typeof gsap !== 'undefined' && gsap.ticker) {
+        gsap.ticker.remove(handleScroll)
+      }
     }
   }, [])
 
@@ -164,12 +179,10 @@ export default function Navbar({
     )
   }
 
-  const isScrolledActive = isScrolled || hasShadow
-
   return (
     <header
       className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
-        isScrolledActive || hasShadow ? 'navbar-scrolled navbar-has-shadow' : ''
+        isScrolled ? 'scrolled navbar-scrolled' : ''
       }`}
       style={{
         '--navbar-reveal': isVisible ? revealProgress : 0,

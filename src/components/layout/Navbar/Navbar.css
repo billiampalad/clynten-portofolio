@@ -94,10 +94,11 @@ body.light-theme {
   inset: 0;
   background: var(--nav-bg, #0A0907);
   border: none;
-  box-shadow: none;
+  box-shadow: inset 0 -1px 0 var(--nav-bg, #0A0907);
   z-index: 1;
   pointer-events: none;
   opacity: var(--navbar-reveal, 1);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 /* Dark theme background */
@@ -105,7 +106,7 @@ body.light-theme {
 html.dark-theme .navbar-theme-bg,
 html.dark .navbar-theme-bg {
   background: var(--nav-bg, #0A0907);
-  box-shadow: none;
+  box-shadow: inset 0 -1px 0 var(--nav-bg, #0A0907);
 }
 
 /* Light theme background */
@@ -113,20 +114,22 @@ html.dark .navbar-theme-bg {
 html.light-theme .navbar-theme-bg,
 body.light-theme .navbar-theme-bg {
   background: var(--nav-bg, #f8fafc);
-  box-shadow: none;
+  box-shadow: inset 0 -1px 0 var(--nav-bg, #f8fafc);
 }
 
-/* Garis batas saat di-scroll (Default Dark Mode) */
+/* Garis batas saat di-scroll (Default Dark Mode matching navbar.html #262626) */
 .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-.portfolio-navbar.navbar-has-shadow .navbar-theme-bg {
-  box-shadow: inset 0 -1px 0 #22201d;
+.portfolio-navbar.scrolled .navbar-theme-bg {
+  box-shadow: inset 0 -1px 0 #262626;
 }
 
-/* Garis batas mode terang saat di-scroll */
+/* Garis batas mode terang saat di-scroll (matching navbar.html #e2e8f0) */
 [data-theme="light"] .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-[data-theme="light"] .portfolio-navbar.navbar-has-shadow .navbar-theme-bg,
+[data-theme="light"] .portfolio-navbar.scrolled .navbar-theme-bg,
 html.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
-body.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg {
+html.light-theme .portfolio-navbar.scrolled .navbar-theme-bg,
+body.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg,
+body.light-theme .portfolio-navbar.scrolled .navbar-theme-bg {
   box-shadow: inset 0 -1px 0 #e2e8f0;
 }
 
@@ -155,6 +158,7 @@ body.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg {
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 /* Layer Blur Mode Terang (::before di navbar.html) - teduh halus & bersih */
@@ -180,27 +184,31 @@ body.light-theme .portfolio-navbar.navbar-scrolled .navbar-theme-bg {
 
 /* Saat di-scroll (Default Dark): blur gelap aktif, blur terang padam */
 .portfolio-navbar.navbar-scrolled .blur-layer-dark,
-.portfolio-navbar.navbar-has-shadow .blur-layer-dark {
+.portfolio-navbar.scrolled .blur-layer-dark {
   opacity: 1;
 }
 
 .portfolio-navbar.navbar-scrolled .blur-layer-light,
-.portfolio-navbar.navbar-has-shadow .blur-layer-light {
+.portfolio-navbar.scrolled .blur-layer-light {
   opacity: 0;
 }
 
 /* Saat di-scroll di Mode Terang: blur terang aktif, blur gelap padam */
 [data-theme="light"] .portfolio-navbar.navbar-scrolled .blur-layer-light,
-[data-theme="light"] .portfolio-navbar.navbar-has-shadow .blur-layer-light,
+[data-theme="light"] .portfolio-navbar.scrolled .blur-layer-light,
 html.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-light,
-body.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-light {
+html.light-theme .portfolio-navbar.scrolled .blur-layer-light,
+body.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-light,
+body.light-theme .portfolio-navbar.scrolled .blur-layer-light {
   opacity: 1;
 }
 
 [data-theme="light"] .portfolio-navbar.navbar-scrolled .blur-layer-dark,
-[data-theme="light"] .portfolio-navbar.navbar-has-shadow .blur-layer-dark,
+[data-theme="light"] .portfolio-navbar.scrolled .blur-layer-dark,
 html.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-dark,
-body.light-theme .portfolio-navbar.navbar-has-shadow .blur-layer-dark {
+html.light-theme .portfolio-navbar.scrolled .blur-layer-dark,
+body.light-theme .portfolio-navbar.navbar-scrolled .blur-layer-dark,
+body.light-theme .portfolio-navbar.scrolled .blur-layer-dark {
   opacity: 0;
 }
 
