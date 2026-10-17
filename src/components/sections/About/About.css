@@ -38,59 +38,6 @@
   pointer-events: auto;
 }
 
-/* Header Technical Badge */
-.about-header-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 28px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 16px;
-}
-
-.about-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono), 'JetBrains Mono', Consolas, monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #00ffaa;
-  background: rgba(0, 255, 170, 0.08);
-  border: 1px solid rgba(0, 255, 170, 0.28);
-  padding: 5px 14px;
-  border-radius: 9999px;
-  box-shadow: 0 0 15px rgba(0, 255, 170, 0.15);
-}
-
-.about-badge .dot {
-  width: 6px;
-  height: 6px;
-  background: #00ffaa;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #00ffaa;
-  animation: pulse-verified-dot 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse-verified-dot {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 8px #00ffaa;
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(0.8);
-    box-shadow: 0 0 2px #00ffaa;
-  }
-}
-
-.about-sys-id {
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 1.5px;
-}
 
 /* Main Grid Layout */
 .about-grid {
@@ -232,33 +179,6 @@ body.light-theme .about-wrap {
   background: var(--nav-bg, #f8fafc);
 }
 
-[data-theme="light"] .about-header-meta,
-html.light-theme .about-header-meta,
-body.light-theme .about-header-meta {
-  border-bottom-color: rgba(15, 23, 42, 0.08);
-}
-
-[data-theme="light"] .about-badge,
-html.light-theme .about-badge,
-body.light-theme .about-badge {
-  color: #059669;
-  background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.28);
-  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.12);
-}
-
-[data-theme="light"] .about-badge .dot,
-html.light-theme .about-badge .dot,
-body.light-theme .about-badge .dot {
-  background: #059669;
-  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6);
-}
-
-[data-theme="light"] .about-sys-id,
-html.light-theme .about-sys-id,
-body.light-theme .about-sys-id {
-  color: #64748b;
-}
 
 [data-theme="light"] .about-tagline,
 html.light-theme .about-tagline,

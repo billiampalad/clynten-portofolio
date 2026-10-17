@@ -67,14 +67,6 @@ export default function About({ style = {} }) {
       </div>
 
       <div className="about-container">
-        {/* Top Technical Metadata */}
-        <div className="about-header-meta">
-          <div className="about-badge">
-            <span className="dot" />
-            <span>SYSTEM_PROFILE // VERIFIED</span>
-          </div>
-          <span className="about-sys-id">NODE_ID: {profile.systemId}</span>
-        </div>
 
         {/* Main Grid: Headline Info + Interactive 3D Profile Card */}
         <div className="about-grid">
