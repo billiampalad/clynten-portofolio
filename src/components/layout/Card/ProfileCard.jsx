@@ -196,7 +196,7 @@ const ProfileCard = ({
   patternSize = '100% 100%',
   patternRepeat = 'no-repeat',
   miniAvatarUrl,
-  name = 'Clynten Billiam Palad',
+  name = 'Clynten Palad',
   title = 'Software Engineer',
   handle = 'javicodes',
   status = 'Online',
@@ -400,7 +400,7 @@ const ProfileCard = ({
           .then(state => {
             if (state === 'granted') listen();
           })
-          .catch(() => {});
+          .catch(() => { });
       } else {
         listen();
       }

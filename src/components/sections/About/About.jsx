@@ -78,7 +78,7 @@ export default function About({ style = {} }) {
                 Engineering <span className="highlight">resilient software</span> and intelligent digital infrastructure.
               </h2>
               <p className="about-description">
-                Combining full-stack software development, cybersecurity, and computer vision to build 
+                Combining full-stack software development, cybersecurity, and computer vision to build
                 end-to-end digital solutions that scale seamlessly from local edge hardware to cloud environments.
               </p>
             </div>
@@ -98,9 +98,9 @@ export default function About({ style = {} }) {
 
           <div className="about-card-wrapper">
             <ProfileCard
-              name={profile.name || "Clynten Billiam Palad"}
+              name={profile.name || "Clynten Palad"}
               title={profile.role || "Software Engineer"}
-              handle="billiampalad"
+              handle="clyntenbilliam"
               status="Online"
               contactText="Contact"
               avatarUrl={profileAvatar}
