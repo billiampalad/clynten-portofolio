@@ -115,7 +115,7 @@ export default function About({ style = {} }) {
               intro
               showUserInfo
               enableMobileTilt={false}
-              theme={isLight ? 'light' : 'dark'}
+              theme="dark"
               onContactClick={handleContactClick}
             />
           </div>
