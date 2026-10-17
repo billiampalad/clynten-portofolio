@@ -192,7 +192,8 @@ const isDark = color => {
 
 const ProfileCard = ({
   avatarUrl = defaultProfile,
-  iconUrl = '/assets/demo/iconpattern.png',
+  iconUrl = '/assets/demo/code-svgrepo-com.svg',
+  patternSize = '44px 44px',
   miniAvatarUrl,
   name = 'Clynten Billiam Palad',
   title = 'Software Engineer',
@@ -438,7 +439,7 @@ const ProfileCard = ({
         '--pc-status': statusColor,
         '--pc-grain': GRAIN,
         '--pc-pattern': patternUrl,
-        '--pc-pattern-size': iconUrl ? '180% auto' : '64px 64px',
+        '--pc-pattern-size': patternSize,
         '--pc-holo-gain': iconUrl ? 1.25 : 0.75,
         '--pc-holo-detail': iconUrl && foil === 'dark' ? 1 : 0
       }}
