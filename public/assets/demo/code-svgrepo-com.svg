@@ -28,9 +28,41 @@
       <path d="M7 13.5C7 11 11.5 9 14.2 9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
     </g>
 
-    <!-- 5. Holographic Foil Star / Sparkle ✦ -->
-    <g id="sparkleIcon">
-      <path d="M12 0C12 6.6 6.6 12 0 12C6.6 12 12 17.4 12 24C12 17.4 17.4 12 24 12C17.4 12 12 6.6 12 0Z" fill="#ffffff"/>
+    <!-- 5. Slash Comment Icon // -->
+    <g id="slashIcon">
+      <path d="M9 4L4 20" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M16 4L11 20" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- 6. Arrow Function Icon => -->
+    <g id="arrowFnIcon">
+      <path d="M3 9H13M3 14H13" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M11 6L17 11.5L11 17" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 7. Square Brackets Icon [ ] -->
+    <g id="bracketIcon">
+      <path d="M8 4H4V20H8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M16 4H20V20H16" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+
+    <!-- 8. Hash / Octothorpe Icon # -->
+    <g id="hashIcon">
+      <path d="M7 3L5 21M17 3L15 21" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M3 8H20M2 16H19" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- 9. Semicolon Icon ; -->
+    <g id="semicolonIcon">
+      <circle cx="7" cy="6" r="2.2" fill="#ffffff"/>
+      <path d="M7 12C8.5 12 9.2 13 9.2 14.5C9.2 17 6 19.5 5 20" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </g>
+
+    <!-- 10. Not Equal Operator Icon != -->
+    <g id="notEqualIcon">
+      <path d="M5 6V11" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="5" cy="16" r="1.4" fill="#ffffff"/>
+      <path d="M11 9H19M11 14H19" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
     </g>
   </defs>
 
@@ -44,32 +76,32 @@
   <!-- 3. Code Icon 3 (Aksen) di kiri atas -->
   <use href="#codeIcon" transform="translate(24, 45) scale(2.2) rotate(-10)" opacity="0.85"/>
 
-  <!-- === ICON TAMBAHAN DI AREA KOSONG DENGAN UKURAN BERBEDA === -->
-  <!-- 4. Terminal >_ (Medium-Besar) di area kanan atas yang kosong -->
+  <!-- === ICON UTAMA LAINNYA DI AREA KOSONG === -->
+  <!-- 4. Terminal >_ (Besar) di kanan atas -->
   <use href="#terminalIcon" transform="translate(205, 42) scale(2.8) rotate(7)" opacity="0.92"/>
 
-  <!-- 5. Curly Braces { } (Medium) di area kanan bawah yang kosong -->
+  <!-- 5. Curly Braces { } (Sedang-Besar) di kanan bawah -->
   <use href="#bracesIcon" transform="translate(185, 268) scale(2.5) rotate(-8)" opacity="0.9"/>
 
-  <!-- 6. Git Branch (Sedang) di area kiri tengah yang kosong -->
+  <!-- 6. Git Branch (Sedang) di kiri tengah -->
   <use href="#gitBranchIcon" transform="translate(36, 155) scale(2.3) rotate(5)" opacity="0.88"/>
 
-  <!-- === AKSEN HOLOGRAPHIC FOIL SPARKLES (BERAGAM UKURAN) DI SELA KOSONG === -->
-  <!-- Sparkle atas-tengah (aksen mikro) -->
-  <use href="#sparkleIcon" transform="translate(132, 42) scale(0.95)" opacity="0.85"/>
+  <!-- === PENGGANTI BINTANG: SIMBOL SINTAKS KODE DENGAN BERBAGAI UKURAN === -->
+  <!-- 7. Slash Comment // di atas-tengah -->
+  <use href="#slashIcon" transform="translate(130, 40) scale(1.6) rotate(-5)" opacity="0.85"/>
 
-  <!-- Sparkle tengah-tengah kartu -->
-  <use href="#sparkleIcon" transform="translate(126, 185) scale(0.7) rotate(15)" opacity="0.8"/>
+  <!-- 8. Arrow Function => di tengah-tengah kartu -->
+  <use href="#arrowFnIcon" transform="translate(122, 185) scale(1.7) rotate(3)" opacity="0.85"/>
 
-  <!-- Sparkle pojok kanan paling atas -->
-  <use href="#sparkleIcon" transform="translate(286, 22) scale(0.75)" opacity="0.75"/>
+  <!-- 9. Semicolon ; di pojok kanan atas -->
+  <use href="#semicolonIcon" transform="translate(285, 22) scale(1.8) rotate(5)" opacity="0.8"/>
 
-  <!-- Sparkle bawah-tengah (antara kiri & kanan) -->
-  <use href="#sparkleIcon" transform="translate(136, 315) scale(0.85) rotate(-10)" opacity="0.85"/>
+  <!-- 10. Square Brackets [ ] di bawah-tengah -->
+  <use href="#bracketIcon" transform="translate(132, 315) scale(1.6) rotate(-4)" opacity="0.85"/>
 
-  <!-- Sparkle tepi kiri tengah -->
-  <use href="#sparkleIcon" transform="translate(12, 218) scale(0.55)" opacity="0.7"/>
+  <!-- 11. Hash # di tepi kiri tengah -->
+  <use href="#hashIcon" transform="translate(12, 215) scale(1.4) rotate(-8)" opacity="0.8"/>
 
-  <!-- Sparkle tepi kanan tengah -->
-  <use href="#sparkleIcon" transform="translate(288, 135) scale(0.65)" opacity="0.75"/>
+  <!-- 12. Not Equal != di tepi kanan tengah -->
+  <use href="#notEqualIcon" transform="translate(282, 135) scale(1.5) rotate(6)" opacity="0.82"/>
 </svg>
