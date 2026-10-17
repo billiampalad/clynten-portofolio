@@ -1,9 +1,32 @@
+import { useState, useEffect } from 'react'
 import { profile } from '@/content/profile'
 import ProfileCard from '@/components/layout/Card/ProfileCard'
 import profileAvatar from '@/assets/profile.webp'
+import Antigravity from '@/components/layout/Background/Antigravity'
 import './About.css'
 
 export default function About({ style = {} }) {
+  const [isLight, setIsLight] = useState(false)
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const isLightTheme =
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.documentElement.classList.contains('light-theme')
+      setIsLight(isLightTheme)
+    }
+
+    checkTheme()
+
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'class'],
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   const handleContactClick = () => {
     console.log('Contact clicked')
     const contactSection = document.getElementById('contact')
@@ -14,6 +37,35 @@ export default function About({ style = {} }) {
 
   return (
     <div id="about" className="about-wrap" style={style}>
+      {/* Antigravity Dynamic Particle Background */}
+      <div className="about-antigravity-bg">
+        <Antigravity
+          colors={["#0065ff", "#ec3a3a", "#5adb43"]}
+          count={1500}
+          magnetRadius={9}
+          ringRadius={7}
+          particleSize={0.9}
+          autoAnimate
+          colorMode="conic"
+          colorSpeed={0.05}
+          particleShape="capsule"
+          particleVariance={1}
+          fieldStrength={10}
+          waveAmplitude={1}
+          waveCount={3}
+          waveSpeed={0.4}
+          rotationSpeed={0}
+          pulseSpeed={3}
+          depthFactor={1}
+          ambient={0.25}
+          lerpSpeed={0.05}
+          interactive
+          clickBurst
+          intro
+          lightMode={isLight}
+        />
+      </div>
+
       <div className="about-container">
         {/* Top Technical Metadata */}
         <div className="about-header-meta">
