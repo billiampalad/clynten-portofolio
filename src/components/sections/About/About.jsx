@@ -105,15 +105,15 @@ export default function About({ style = {} }) {
               contactText="Contact"
               avatarUrl={profileAvatar}
               iconUrl="/assets/demo/iconpattern.png"
-              holo={1}
-              glare={0}
-              tiltStrength={12}
-              parallax={1}
-              radius={0}
+              holo={0.8}
+              glare={0.6}
+              tiltStrength={24}
+              parallax={0}
+              radius={16}
               enableTilt
               intro
               showUserInfo
-              enableMobileTilt
+              enableMobileTilt={false}
               theme="dark"
               onContactClick={handleContactClick}
             />
