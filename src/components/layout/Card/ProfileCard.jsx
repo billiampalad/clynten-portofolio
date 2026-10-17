@@ -65,7 +65,7 @@ const BARS =
   'repeating-linear-gradient(-45deg, #0e152e 0%, hsl(180, 10%, 60%) 3.8%, hsl(180, 29%, 66%) 4.5%, hsl(180, 10%, 60%) 5.2%, #0e152e 10%, #0e152e 12%)';
 const FALLOFF =
   'radial-gradient(farthest-corner circle at var(--pc-pointer-x) var(--pc-pointer-y), hsla(0, 0%, 0%, 0.1) 12%, hsla(0, 0%, 0%, 0.15) 20%, hsla(0, 0%, 0%, 0.25) 120%)';
-const PATTERN_POSITION = 'calc(50% - var(--pc-shift-x) * 1.5) calc(65% - var(--pc-shift-y) * 1.5)';
+const PATTERN_POSITION = 'calc(50% - var(--pc-shift-x) * 1.5) calc(50% - var(--pc-shift-y) * 1.5)';
 
 const ROOT_VARS = {
   '--pc-light-x': '50%',
@@ -100,11 +100,11 @@ const HOLO_STYLE = {
   WebkitMaskImage: 'var(--pc-pattern)',
   WebkitMaskSize: 'var(--pc-pattern-size)',
   WebkitMaskPosition: PATTERN_POSITION,
-  WebkitMaskRepeat: 'repeat',
+  WebkitMaskRepeat: 'var(--pc-pattern-repeat, no-repeat)',
   maskImage: 'var(--pc-pattern)',
   maskSize: 'var(--pc-pattern-size)',
   maskPosition: PATTERN_POSITION,
-  maskRepeat: 'repeat'
+  maskRepeat: 'var(--pc-pattern-repeat, no-repeat)'
 };
 
 const GLOW_STYLE = {
@@ -193,7 +193,8 @@ const isDark = color => {
 const ProfileCard = ({
   avatarUrl = defaultProfile,
   iconUrl = '/assets/demo/code-svgrepo-com.svg',
-  patternSize = '44px 44px',
+  patternSize = '100% 100%',
+  patternRepeat = 'no-repeat',
   miniAvatarUrl,
   name = 'Clynten Billiam Palad',
   title = 'Software Engineer',
@@ -440,6 +441,7 @@ const ProfileCard = ({
         '--pc-grain': GRAIN,
         '--pc-pattern': patternUrl,
         '--pc-pattern-size': patternSize,
+        '--pc-pattern-repeat': patternRepeat,
         '--pc-holo-gain': iconUrl ? 1.25 : 0.75,
         '--pc-holo-detail': iconUrl && foil === 'dark' ? 1 : 0
       }}
