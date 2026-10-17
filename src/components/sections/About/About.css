@@ -38,7 +38,6 @@
   pointer-events: auto;
 }
 
-
 /* Main Grid Layout */
 .about-grid {
   display: grid;
@@ -68,10 +67,11 @@
 .about-tagline {
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: 12px;
-  color: #38bdf8;
+  color: #ff2a55;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .about-title {
@@ -85,7 +85,7 @@
 }
 
 .about-title .highlight {
-  background: linear-gradient(135deg, #00ffaa 0%, #38bdf8 100%);
+  background: linear-gradient(135deg, #ff4d6d 0%, #ff2a55 50%, #e11d48 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -125,24 +125,25 @@
 
 .about-tab-btn:hover {
   color: #f1f5f9;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 42, 85, 0.06);
 }
 
 .about-tab-btn.tab-active {
-  background: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.35);
-  color: #38bdf8;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+  background: rgba(255, 42, 85, 0.12);
+  border-color: rgba(255, 42, 85, 0.35);
+  color: #ff3b69;
+  box-shadow: 0 0 12px rgba(255, 42, 85, 0.2);
 }
 
 .about-tab-btn .tab-idx {
   font-size: 10px;
-  opacity: 0.75;
+  opacity: 0.85;
   letter-spacing: 1px;
 }
 
 /* Active Content Card */
 .about-card-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -156,6 +157,17 @@
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
   animation: fadeInTab 0.25s ease-out;
+  overflow: hidden;
+}
+
+.about-card-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 42, 85, 0.6), transparent);
 }
 
 @keyframes fadeInTab {
@@ -179,9 +191,9 @@
   font-size: 10.5px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #00ffaa;
-  background: rgba(0, 255, 170, 0.08);
-  border: 1px solid rgba(0, 255, 170, 0.22);
+  color: #ff3b69;
+  background: rgba(255, 42, 85, 0.08);
+  border: 1px solid rgba(255, 42, 85, 0.25);
   padding: 3px 10px;
   border-radius: 4px;
 }
@@ -225,10 +237,10 @@
 }
 
 .pagination-dot.dot-active {
-  background: #38bdf8;
+  background: #ff2a55;
   width: 16px;
   border-radius: 3px;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 10px rgba(255, 42, 85, 0.7);
 }
 
 .pagination-text {
@@ -244,7 +256,7 @@
   font-family: var(--font-mono), 'JetBrains Mono', Consolas, monospace;
   font-size: 11.5px;
   font-weight: 600;
-  color: #38bdf8;
+  color: #ff3b69;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -255,7 +267,8 @@
 }
 
 .card-next-btn:hover {
-  background: rgba(56, 189, 248, 0.1);
+  background: rgba(255, 42, 85, 0.1);
+  color: #ff527b;
   transform: translateX(2px);
 }
 
@@ -316,7 +329,7 @@
 }
 
 .about-scroll-hint .scroll-arrow {
-  color: #38bdf8;
+  color: #ff3b69;
   animation: bounce-arrow 1.5s infinite;
 }
 
@@ -330,7 +343,7 @@
 }
 
 /* ==========================================================================
-   About Section — Light Theme
+   About Section — Light Theme (Clean Red Palette)
    ========================================================================== */
 
 [data-theme="light"] .about-wrap,
@@ -339,11 +352,10 @@ body.light-theme .about-wrap {
   background: var(--nav-bg, #f8fafc);
 }
 
-
 [data-theme="light"] .about-tagline,
 html.light-theme .about-tagline,
 body.light-theme .about-tagline {
-  color: #0284c7;
+  color: #e11d48;
 }
 
 [data-theme="light"] .about-title,
@@ -355,7 +367,7 @@ body.light-theme .about-title {
 [data-theme="light"] .about-title .highlight,
 html.light-theme .about-title .highlight,
 body.light-theme .about-title .highlight {
-  background: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -378,16 +390,16 @@ body.light-theme .about-tab-btn {
 html.light-theme .about-tab-btn:hover,
 body.light-theme .about-tab-btn:hover {
   color: #0f172a;
-  background: rgba(15, 23, 42, 0.04);
+  background: rgba(225, 29, 72, 0.04);
 }
 
 [data-theme="light"] .about-tab-btn.tab-active,
 html.light-theme .about-tab-btn.tab-active,
 body.light-theme .about-tab-btn.tab-active {
   background: #ffffff;
-  border-color: rgba(2, 132, 199, 0.35);
-  color: #0284c7;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  border-color: rgba(225, 29, 72, 0.35);
+  color: #e11d48;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.12);
 }
 
 [data-theme="light"] .about-card-content,
@@ -398,12 +410,16 @@ body.light-theme .about-card-content {
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
+[data-theme="light"] .about-card-content::before {
+  background: linear-gradient(90deg, transparent, rgba(225, 29, 72, 0.5), transparent);
+}
+
 [data-theme="light"] .content-badge,
 html.light-theme .content-badge,
 body.light-theme .content-badge {
-  color: #059669;
-  background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.28);
+  color: #e11d48;
+  background: rgba(225, 29, 72, 0.08);
+  border-color: rgba(225, 29, 72, 0.25);
 }
 
 [data-theme="light"] .about-paragraph,
@@ -427,8 +443,8 @@ body.light-theme .pagination-dot {
 [data-theme="light"] .pagination-dot.dot-active,
 html.light-theme .pagination-dot.dot-active,
 body.light-theme .pagination-dot.dot-active {
-  background: #0284c7;
-  box-shadow: 0 0 8px rgba(2, 132, 199, 0.5);
+  background: #e11d48;
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.5);
 }
 
 [data-theme="light"] .pagination-text,
@@ -440,13 +456,14 @@ body.light-theme .pagination-text {
 [data-theme="light"] .card-next-btn,
 html.light-theme .card-next-btn,
 body.light-theme .card-next-btn {
-  color: #0284c7;
+  color: #e11d48;
 }
 
 [data-theme="light"] .card-next-btn:hover,
 html.light-theme .card-next-btn:hover,
 body.light-theme .card-next-btn:hover {
-  background: rgba(2, 132, 199, 0.08);
+  background: rgba(225, 29, 72, 0.08);
+  color: #be123c;
 }
 
 [data-theme="light"] .about-telemetry-bar,
@@ -479,8 +496,12 @@ body.light-theme .about-scroll-hint {
 [data-theme="light"] .about-scroll-hint .scroll-arrow,
 html.light-theme .about-scroll-hint .scroll-arrow,
 body.light-theme .about-scroll-hint .scroll-arrow {
-  color: #0284c7;
+  color: #e11d48;
 }
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
 
 @media (max-width: 960px) {
   .about-grid {
@@ -520,5 +541,3 @@ body.light-theme .about-scroll-hint .scroll-arrow {
     font-size: 13.5px;
   }
 }
-
-

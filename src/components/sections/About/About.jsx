@@ -79,7 +79,7 @@ export default function About({ style = {} }) {
       {/* Antigravity Dynamic Particle Background */}
       <div className="about-antigravity-bg">
         <Antigravity
-          colors={["#0065ff", "#ec3a3a", "#5adb43"]}
+          colors={["#ff2a55", "#e11d48", "#ff4d6d"]}
           count={1500}
           magnetRadius={9}
           ringRadius={7}
