@@ -19,22 +19,28 @@ const THEMES = {
     '--pc-muted': 'rgba(244, 244, 245, 0.6)',
     '--pc-hover': 'brightness(1.12)',
     '--pc-press': 'brightness(0.8)',
-    '--pc-shade': 'rgba(0, 0, 0, 0.4)'
+    '--pc-shade': 'rgba(0, 0, 0, 0.4)',
+    '--pc-scrim': 'linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.52) 15%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0) 65%)',
+    '--pc-name-color': '#ffffff',
+    '--pc-title-color': 'rgba(255, 255, 255, 0.8)'
   },
   light: {
-    '--pc-frame': 'rgba(240, 240, 243, 0.8)',
-    '--pc-frame-edge': 'rgba(24, 24, 27, 0.07)',
-    '--pc-frame-highlight': 'rgba(255, 255, 255, 0.95)',
-    '--pc-frame-shadow': '0 22px 44px -22px rgba(24, 24, 27, 0.3), 0 6px 16px -10px rgba(24, 24, 27, 0.16)',
-    '--pc-tile': 'linear-gradient(180deg, #ffffff 0%, #f6f6f8 100%)',
-    '--pc-tile-edge': 'rgba(24, 24, 27, 0.08)',
+    '--pc-frame': 'rgba(255, 255, 255, 0.82)',
+    '--pc-frame-edge': 'rgba(15, 23, 42, 0.09)',
+    '--pc-frame-highlight': 'rgba(255, 255, 255, 1)',
+    '--pc-frame-shadow': '0 25px 50px -12px rgba(15, 23, 42, 0.14), 0 10px 20px -6px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.05)',
+    '--pc-tile': 'linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%)',
+    '--pc-tile-edge': 'rgba(15, 23, 42, 0.08)',
     '--pc-tile-highlight': 'rgba(255, 255, 255, 1)',
-    '--pc-tile-shadow': '0 4px 10px -5px rgba(24, 24, 27, 0.25)',
-    '--pc-ink': '#27272a',
-    '--pc-muted': 'rgba(39, 39, 42, 0.6)',
-    '--pc-hover': 'brightness(0.97)',
-    '--pc-press': 'brightness(0.92)',
-    '--pc-shade': 'rgba(24, 24, 27, 0.14)'
+    '--pc-tile-shadow': '0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -3px rgba(15, 23, 42, 0.04)',
+    '--pc-ink': '#0f172a',
+    '--pc-muted': 'rgba(71, 85, 105, 0.8)',
+    '--pc-hover': 'brightness(0.96)',
+    '--pc-press': 'brightness(0.90)',
+    '--pc-shade': 'rgba(15, 23, 42, 0.12)',
+    '--pc-scrim': 'linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.82) 20%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0) 70%)',
+    '--pc-name-color': '#0f172a',
+    '--pc-title-color': '#475569'
   }
 };
 
@@ -45,9 +51,9 @@ const FOILS = {
     '--pc-sheen': 'rgba(255, 255, 255, 0.16)'
   },
   light: {
-    '--pc-blend': 'multiply',
-    '--pc-holo-filter': 'invert(1) hue-rotate(180deg)',
-    '--pc-sheen': 'rgba(255, 255, 255, 0)'
+    '--pc-blend': 'overlay',
+    '--pc-holo-filter': 'contrast(1.15) saturate(1.35) hue-rotate(185deg)',
+    '--pc-sheen': 'rgba(255, 255, 255, 0.45)'
   }
 };
 
@@ -137,8 +143,7 @@ const PHOTO_STYLE = {
 };
 
 const SCRIM_STYLE = {
-  background:
-    'linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.57) 6%, rgba(0, 0, 0, 0.5) 12%, rgba(0, 0, 0, 0.4) 19%, rgba(0, 0, 0, 0.28) 26%, rgba(0, 0, 0, 0.16) 33%, rgba(0, 0, 0, 0.07) 40%, rgba(0, 0, 0, 0.02) 46%, rgba(0, 0, 0, 0) 52%)'
+  background: 'var(--pc-scrim)'
 };
 
 const GLARE_STYLE = {
@@ -162,9 +167,9 @@ const LAYER = 'pointer-events-none absolute inset-0 rounded-[inherit]';
 const HOLO = `${LAYER} [mix-blend-mode:var(--pc-blend)]`;
 const HOLO_LAYER = 'absolute inset-0';
 const PHOTO = 'pointer-events-none absolute select-none object-cover object-[50%_15%]';
-const INFO = 'absolute bottom-[18px] left-5 right-5 text-white';
-const NAME = 'm-0 text-[20px] font-semibold leading-[1.25] tracking-[-0.01em] text-[inherit]';
-const TITLE = 'mx-0 mb-0 mt-1 text-[14px] leading-[1.45] text-white/78';
+const INFO = 'absolute bottom-[18px] left-5 right-5';
+const NAME = 'm-0 text-[20px] font-semibold leading-[1.25] tracking-[-0.01em] text-[var(--pc-name-color)]';
+const TITLE = 'mx-0 mb-0 mt-1 text-[14px] leading-[1.45] text-[var(--pc-title-color)]';
 const TILE_RIM = `${LAYER} [box-shadow:inset_0_0_0_1px_var(--pc-tile-edge),inset_0_1px_0_var(--pc-tile-highlight)]`;
 const FOOTER = 'flex min-w-0 items-center gap-3 px-5 pb-2 pt-1.5';
 const AVATAR =
@@ -443,7 +448,7 @@ const ProfileCard = ({
         '--pc-pattern-size': patternSize,
         '--pc-pattern-repeat': patternRepeat,
         '--pc-holo-gain': iconUrl ? 1.25 : 0.75,
-        '--pc-holo-detail': iconUrl && foil === 'dark' ? 1 : 0
+        '--pc-holo-detail': iconUrl ? (foil === 'dark' ? 1 : 0.75) : 0
       }}
     >
       <div className={BODY}>
