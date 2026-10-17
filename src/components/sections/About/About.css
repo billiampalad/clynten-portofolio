@@ -42,7 +42,7 @@
 /* Main Grid Layout */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 306px;
+  grid-template-columns: 1fr 280px;
   gap: 48px;
   align-items: center;
 }

@@ -153,7 +153,7 @@ const SHADE_STYLE = {
   opacity: 'calc(var(--pc-glare) * var(--pc-tilt))'
 };
 
-const ROOT = 'relative w-[306px] max-w-full touch-pan-y [perspective:1000px] [-webkit-tap-highlight-color:transparent]';
+const ROOT = 'relative w-[280px] max-w-full touch-pan-y [perspective:1000px] [-webkit-tap-highlight-color:transparent]';
 const BODY =
   'relative flex flex-col gap-[10px] rounded-[calc(var(--pc-radius)+10px)] p-[10px] backdrop-blur-[20px] backdrop-saturate-[1.6] will-change-transform [background:var(--pc-frame)] [box-shadow:var(--pc-frame-shadow)] [transform:rotateX(var(--pc-rotate-x))_rotateY(var(--pc-rotate-y))]';
 const TILE =
