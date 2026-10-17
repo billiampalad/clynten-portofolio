@@ -50,6 +50,7 @@ export default function Navbar({
   })
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [dismissedTooltip, setDismissedTooltip] = useState(null)
 
   // Track scroll position to activate bottom blur and border line (matching navbar.html)
   // Default saat di About / top: garis dan blur tidak aktif.
@@ -100,7 +101,9 @@ export default function Navbar({
   }, [triggerFirst, triggerLast, lastTarget])
 
   // Toggle dark / light theme immediately without transition animations or border flash
-  const handleToggleTheme = () => {
+  const handleToggleTheme = (e) => {
+    e?.currentTarget?.blur?.()
+    setDismissedTooltip('theme')
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
 
     // Temporarily suppress all transitions across all elements
@@ -179,6 +182,8 @@ export default function Navbar({
   }, [email, onHomeClick])
 
   const handleContactClick = (e) => {
+    e?.currentTarget?.blur?.()
+    setDismissedTooltip('mail')
     const contactSection = document.getElementById('contact')
     if (contactSection) {
       e.preventDefault()
@@ -253,7 +258,12 @@ export default function Navbar({
 
         {/* Right: Actions (Theme Toggle, Contact Mail, Mobile Menu) */}
         <div className="navbar-actions">
-          <div className="nav-tooltip-wrapper">
+          <div
+            className={`nav-tooltip-wrapper ${dismissedTooltip === 'theme' ? 'tooltip-dismissed' : ''}`}
+            onMouseLeave={() => {
+              if (dismissedTooltip === 'theme') setDismissedTooltip(null)
+            }}
+          >
             <button
               type="button"
               className="nav-icon-btn nav-theme-btn"
@@ -273,7 +283,12 @@ export default function Navbar({
             </div>
           </div>
 
-          <div className="nav-tooltip-wrapper nav-tooltip-end">
+          <div
+            className={`nav-tooltip-wrapper nav-tooltip-end ${dismissedTooltip === 'mail' ? 'tooltip-dismissed' : ''}`}
+            onMouseLeave={() => {
+              if (dismissedTooltip === 'mail') setDismissedTooltip(null)
+            }}
+          >
             <a
               href={`mailto:${email}?subject=Project%20Inquiry`}
               onClick={handleContactClick}

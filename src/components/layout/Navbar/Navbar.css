@@ -674,14 +674,23 @@ body.dark-theme .nav-icon-btn:hover {
   line-height: 1.2;
 }
 
-/* Show on Hover and Focus-Within */
+/* Show on Hover and Keyboard Focus */
 .nav-tooltip-wrapper:hover .nav-custom-tooltip,
-.nav-tooltip-wrapper:focus-within .nav-custom-tooltip {
+.nav-tooltip-wrapper:has(:focus-visible) .nav-custom-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
 
+/* Instantly dismiss tooltip when clicking/pressing the button or marked as dismissed */
+.nav-tooltip-wrapper:active .nav-custom-tooltip,
+.nav-tooltip-wrapper.tooltip-dismissed .nav-custom-tooltip {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateX(-50%) translateY(4px) !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
 
 /* Tooltip alignment for Email on desktop right edge */
 @media (min-width: 981px) {
@@ -692,8 +701,13 @@ body.dark-theme .nav-icon-btn:hover {
   }
 
   .nav-tooltip-wrapper.nav-tooltip-end:hover .nav-custom-tooltip,
-  .nav-tooltip-wrapper.nav-tooltip-end:focus-within .nav-custom-tooltip {
+  .nav-tooltip-wrapper.nav-tooltip-end:has(:focus-visible) .nav-custom-tooltip {
     transform: translateY(0);
+  }
+
+  .nav-tooltip-wrapper.nav-tooltip-end:active .nav-custom-tooltip,
+  .nav-tooltip-wrapper.nav-tooltip-end.tooltip-dismissed .nav-custom-tooltip {
+    transform: translateY(4px) !important;
   }
 
   .nav-tooltip-wrapper.nav-tooltip-end .nav-custom-tooltip::before {
