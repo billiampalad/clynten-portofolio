@@ -8,40 +8,44 @@ import './About.css'
 const ABOUT_SECTIONS = [
   {
     id: 'intro',
-    idx: '01',
+    index: '01',
+    tabLabel: 'Introduction',
     title: 'Introduction',
-    items: [
-      'Aktif dalam organisasi Pelayanan Mahasiswa Pantekosta (PELMAP) di lingkungan kampus.',
-      'Memulai sebagai Koordinator Musik, bertanggung jawab mencari dan mengoordinasikan pemain musik untuk setiap kegiatan pelayanan.',
-      'Selanjutnya dipercaya menjabat sebagai Wakil Sekretaris (Wasek).',
+    tag: 'Academic Background & Passion',
+    paragraphs: [
+      'I am an Informatics graduate from Politeknik Negeri Manado, with a strong interest in web development, full-stack development, and emerging technologies. I enjoy learning how technology works and how software solutions can transform data into practical tools that improve business processes, operational efficiency, and information management.',
     ],
   },
   {
-    id: 'technical',
-    idx: '02',
+    id: 'experience',
+    index: '02',
+    tabLabel: 'Technical Experience',
     title: 'Technical Experience',
-    items: [
-      'Membantu mengelola kebutuhan administrasi dan alur publikasi kegiatan organisasi.',
-      'Membuat tema dan konsep kreatif pamflet/flyer untuk berbagai kegiatan PELMAP.',
-      'Membuat materi publikasi visual untuk memperingati hari-hari besar dan momen penting.',
-      'Mengatur kebutuhan dan koordinasi tim musik agar kegiatan pelayanan berjalan dengan baik.',
+    tag: 'Networks, Support & Web Systems',
+    paragraphs: [
+      'My technical experience includes network engineering and computer technical support, where I gained practical exposure to network configuration, connectivity testing, computer assembly, operating system installation, and hardware and software troubleshooting.',
+      'Currently, I am collaborating with a fellow developer to design and develop a web-based information system for managing institutional partnerships between Politeknik Negeri Manado and the business and industrial sectors. The project uses Laravel, MySQL, and Tailwind CSS, allowing me to strengthen my understanding of web application development and system design.',
     ],
   },
   {
     id: 'approach',
-    idx: '03',
+    index: '03',
+    tabLabel: 'Personal Approach',
     title: 'Personal Approach',
-    items: [
-      'Mengembangkan kemampuan kepemimpinan, koordinasi, dan komunikasi efektif melalui pengalaman organisasi.',
-      'Menerapkan kreativitas dan inovasi konsep dalam perancangan materi publikasi visual.',
-      'Membangun manajemen waktu yang disiplin dan dedikasi tanggung jawab tinggi dalam setiap pelayanan.',
+    tag: 'Values & Work Ethic',
+    paragraphs: [
+      'I am a disciplined, responsible, and detail-oriented person who values teamwork, independent problem-solving, and continuous learning. I aim to contribute to an IT team, develop my technical skills, and build reliable software solutions that address real-world needs.',
     ],
   },
 ]
 
 export default function About({ style = {} }) {
   const [isLight, setIsLight] = useState(false)
-  const [activeTab, setActiveTab] = useState(0)
+  const [activeTab, setActiveTab] = useState('intro')
+
+  const currentSectionIndex = ABOUT_SECTIONS.findIndex((s) => s.id === activeTab)
+  const currentSection = ABOUT_SECTIONS[currentSectionIndex] || ABOUT_SECTIONS[0]
+  const nextSection = ABOUT_SECTIONS[(currentSectionIndex + 1) % ABOUT_SECTIONS.length]
 
   useEffect(() => {
     const checkTheme = () => {
@@ -106,54 +110,72 @@ export default function About({ style = {} }) {
         {/* Main Grid: Headline Info + Interactive 3D Profile Card */}
         <div className="about-grid">
           <div className="about-left-col">
-            {/* Role & Organization Headline */}
+            {/* Technical Identity Headline */}
             <div className="about-headline-block">
-              <div className="about-tagline">ORGANIZATIONAL EXPERIENCE</div>
+              <div className="about-tagline">Profile &amp; Background</div>
               <h2 className="about-title">
-                Wakil Sekretaris <span className="highlight">— PELMAP</span>
+                About <span className="highlight">Me</span>
               </h2>
-              <div className="about-org-meta">
-                <span className="org-name">Pelayanan Mahasiswa Pantekosta</span>
-                <span className="org-divider">•</span>
-                <span className="org-period">Feb 2025 – Mar 2026</span>
+            </div>
+
+            {/* 3-Section Segmented Navigation */}
+            <div className="about-tabs-nav" role="tablist" aria-label="About Sections">
+              {ABOUT_SECTIONS.map((sec) => {
+                const isActive = activeTab === sec.id
+                return (
+                  <button
+                    key={sec.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActiveTab(sec.id)}
+                    className={`about-tab-btn ${isActive ? 'tab-active' : ''}`}
+                  >
+                    <span className="tab-idx">{sec.index}</span>
+                    <span className="tab-label">{sec.tabLabel}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Active Content Card */}
+            <div className="about-card-content" key={currentSection.id}>
+              <div className="card-content-header">
+                <span className="content-badge">
+                  {currentSection.index} // {currentSection.tag}
+                </span>
               </div>
-            </div>
-
-            {/* Mobile Tab Switcher (Visible on mobile screens) */}
-            <div className="about-tab-nav" role="tablist" aria-label="About Sections">
-              {ABOUT_SECTIONS.map((sec, idx) => (
-                <button
-                  key={sec.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeTab === idx}
-                  className={`about-tab-btn ${activeTab === idx ? 'tab-active' : ''}`}
-                  onClick={() => setActiveTab(idx)}
-                >
-                  <span className="tab-idx">{sec.idx}</span>
-                  <span className="tab-label">{sec.title}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* 3 Structured Sections: Introduction, Technical Experience, Personal Approach */}
-            <div className="about-sections-grid">
-              {ABOUT_SECTIONS.map((sec, idx) => (
-                <div
-                  key={sec.id}
-                  className={`about-section-card ${activeTab === idx ? 'card-active' : ''}`}
-                >
-                  <div className="section-card-header">
-                    <span className="section-card-idx">{sec.idx}</span>
-                    <h3 className="section-card-title">{sec.title}</h3>
-                  </div>
-                  <ul className="section-card-list">
-                    {sec.items.map((item, itemIdx) => (
-                      <li key={itemIdx}>{item}</li>
-                    ))}
-                  </ul>
+              <div className="card-content-body">
+                {currentSection.paragraphs.map((p, idx) => (
+                  <p key={idx} className="about-paragraph">
+                    {p}
+                  </p>
+                ))}
+              </div>
+              <div className="card-content-footer">
+                <div className="card-pagination">
+                  {ABOUT_SECTIONS.map((sec) => (
+                    <span
+                      key={sec.id}
+                      onClick={() => setActiveTab(sec.id)}
+                      className={`pagination-dot ${activeTab === sec.id ? 'dot-active' : ''}`}
+                      title={sec.tabLabel}
+                    />
+                  ))}
+                  <span className="pagination-text">
+                    {currentSection.index} / 0{ABOUT_SECTIONS.length}
+                  </span>
                 </div>
-              ))}
+                {nextSection && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab(nextSection.id)}
+                    className="card-next-btn"
+                  >
+                    Next: {nextSection.tabLabel} →
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Cyber Telemetry Status Bar & Scroll Hint */}
