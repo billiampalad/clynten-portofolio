@@ -92,7 +92,7 @@ export const SKILLS_CONFIG = [
     tag: 'SK_05',
     wrapperClass: 'db-wrapper',
     cardClass: 'db-card',
-    activeColor: 'cyan',
+    activeColor: 'green',
     threshold: 0.75,
     resolved: {
       header: 'SKILL_05 // DATABASE MGMT',
@@ -114,7 +114,7 @@ export const SKILLS_CONFIG = [
     tag: 'SK_06',
     wrapperClass: 'uiux-wrapper',
     cardClass: 'uiux-card',
-    activeColor: 'green',
+    activeColor: 'cyan',
     threshold: 0.9,
     resolved: {
       header: 'SKILL_06 // UI/UX DESIGN',
