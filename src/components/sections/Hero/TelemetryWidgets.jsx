@@ -70,9 +70,9 @@ export default function TelemetryWidgets({ progress = 0 }) {
         </div>
       </div>
 
-      {/* 2. Center Bottom Ambient Futuristic Scroll Prompt */}
+      {/* 2. Right Bottom Ambient Futuristic Scroll Prompt */}
       <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 transition-opacity duration-300"
+        className="absolute bottom-6 sm:bottom-9 right-6 sm:right-12 flex flex-col items-center gap-1.5 transition-opacity duration-300"
         style={{ opacity: Math.max(0, 1 - progress * 4) }}
       >
         <div className="w-4 h-7 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 bg-black/40 backdrop-blur-sm">
