@@ -2,15 +2,18 @@ import { SKILLS_CONFIG } from '@/content/skills'
 import { useTextScramble } from '@/hooks/useTextScramble'
 
 const POSITION_MAP = {
-  // Column 1: Outer-Left flank (docked along left, well above ScrollHeadline)
-  'webdev-wrapper': 'top-[7%] left-3 lg:left-5 xl:left-[calc(50%-550px)]',
-  'android-wrapper': 'top-[22%] left-3 lg:left-5 xl:left-[calc(50%-550px)]',
-  'db-wrapper': 'top-[37%] left-3 lg:left-5 xl:left-[calc(50%-550px)]',
-
-  // Column 2: Inner-Left flank (staggered ladder, completely clear of center 3D frame)
-  'net-wrapper': 'top-[14.5%] left-[175px] lg:left-[195px] xl:left-[calc(50%-370px)]',
-  'cyber-wrapper': 'top-[29.5%] left-[175px] lg:left-[195px] xl:left-[calc(50%-370px)]',
-  'uiux-wrapper': 'top-[44.5%] left-[175px] lg:left-[195px] xl:left-[calc(50%-370px)]',
+  // skil 1
+  'webdev-wrapper': 'top-[7%] left-3 lg:left-10 xl:left-[calc(50%-550px)]',
+  // skil 2
+  'android-wrapper': 'top-[10%] left-[175px] lg:left-[250px] xl:left-[calc(50%-370px)]',
+  // skil 3
+  'cyber-wrapper': 'top-[28%] left-3 lg:left-15 xl:left-[calc(50%-550px)]',
+  // skil 4
+  'net-wrapper': 'top-[30%] left-[175px] lg:left-[270px] xl:left-[calc(50%-370px)]',
+  // skil 5
+  'db-wrapper': 'top-[50%] left-3 lg:left-20 xl:left-[calc(50%-550px)]',
+  // skil 6
+  'uiux-wrapper': 'top-[50%] left-[175px] lg:left-[290px] xl:left-[calc(50%-370px)]',
 }
 
 function HudRow({ label, value, highlightColor = '', speed = 20, isContinuous = false }) {
@@ -34,8 +37,8 @@ function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
     color === 'red'
       ? 'text-rose-400'
       : color === 'cyan'
-      ? 'text-cyan-400'
-      : 'text-emerald-400'
+        ? 'text-cyan-400'
+        : 'text-emerald-400'
 
   return (
     <div className="flex items-center justify-between pb-1 mb-1 border-b border-white/10 whitespace-nowrap">
@@ -63,22 +66,22 @@ function SkillCard({ skill, progress, isScrollZero }) {
     color === 'red'
       ? 'border-rose-500/30 shadow-[0_0_12px_rgba(244,63,94,0.08)]'
       : color === 'cyan'
-      ? 'border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.08)]'
-      : 'border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.08)]'
+        ? 'border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.08)]'
+        : 'border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.08)]'
 
   const highlightClass =
     color === 'red'
       ? 'text-rose-400'
       : color === 'cyan'
-      ? 'text-cyan-400'
-      : 'text-emerald-400'
+        ? 'text-cyan-400'
+        : 'text-emerald-400'
 
   const beamGradient =
     color === 'red'
       ? 'from-transparent via-rose-500 to-transparent'
       : color === 'cyan'
-      ? 'from-transparent via-cyan-400 to-transparent'
-      : 'from-transparent via-emerald-400 to-transparent'
+        ? 'from-transparent via-cyan-400 to-transparent'
+        : 'from-transparent via-emerald-400 to-transparent'
 
   return (
     <div className={`absolute ${positionClass} pointer-events-none select-none z-10 transition-all duration-300`}>
