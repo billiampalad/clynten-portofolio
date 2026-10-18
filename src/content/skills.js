@@ -9,7 +9,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'SKILL_01 // WEB DEVELOPMENT',
       stackId: 'FULL_STACK_ARCH',
-      confidence: '99.4%',
+      confidence: '80%',
       frameworks: 'REACT / NEXT / LARAVEL',
       latency: 'OPTIMIZED — 0.02ms',
     },
@@ -31,7 +31,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'SKILL_02 // ANDROID DEV',
       stackId: 'MOBILE_OS_NODE',
-      confidence: '95.8%',
+      confidence: '75%',
       frameworks: 'KOTLIN / FLUTTER / SDK',
       latency: 'OPTIMIZED — 0.05ms',
     },
@@ -53,7 +53,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'SKILL_03 // CYBER SECURITY',
       stackId: 'SEC_AUDIT_PRO',
-      confidence: '96.2%',
+      confidence: '60%',
       frameworks: 'KALI / UBUNTU / NMAP',
       latency: 'SHIELD — 0.01ms',
     },
@@ -75,7 +75,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'SKILL_04 // NETWORK INFRA',
       stackId: 'NET_TOPOLOGY_V2',
-      confidence: '94.7%',
+      confidence: '75%',
       frameworks: 'MIKROTIK / CISCO / VPN',
       latency: 'LOW LATENCY — 0.03ms',
     },
@@ -97,7 +97,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'SKILL_05 // DATABASE MGMT',
       stackId: 'DATA_ENGINE_V3',
-      confidence: '96.8%',
+      confidence: '70%',
       frameworks: 'POSTGRES / MYSQL / MONGO',
       latency: 'OPTIMIZED — 0.03ms',
     },
@@ -119,7 +119,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'SKILL_06 // UI/UX DESIGN',
       stackId: 'DESIGN_SYSTEM_PRO',
-      confidence: '95.0%',
+      confidence: '70%',
       frameworks: 'FIGMA / PROTOTYPE / HUD',
       latency: 'OPTIMIZED — 0.03ms',
     },
