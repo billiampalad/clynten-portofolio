@@ -9,7 +9,7 @@ export default function TelemetryWidgets({ progress = 0 }) {
       style={{ opacity: fadeOpacity }}
     >
       {/* 1. Top Right Holographic Radar Widget */}
-      <div className="absolute top-5 right-6 sm:right-12 hidden md:flex items-center gap-3.5 px-3.5 py-2 rounded-xl bg-zinc-950/75 border border-white/10 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+      <div className="absolute top-12 right-6 sm:right-12 hidden md:flex items-center gap-3.5 px-3.5 py-2 rounded-xl bg-zinc-950/75 border border-white/10 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
         <div className="relative w-12 h-12 flex items-center justify-center">
           <svg className="w-12 h-12" viewBox="0 0 80 80">
             {/* Outer dotted track */}
