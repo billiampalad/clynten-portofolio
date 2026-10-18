@@ -144,11 +144,12 @@ export default function Hero({ onProgressChange }) {
 
           if (loadedCount === TOTAL_FRAMES) {
             renderFrame(0)
+            // Fallback safety timer to guarantee loading disengages even if animation is blocked
             finishTimer = setTimeout(() => {
               if (!isMounted) return
               setLoading(false)
               renderFrame(0)
-            }, 650)
+            }, 3000)
           }
         }
 
@@ -397,7 +398,15 @@ export default function Hero({ onProgressChange }) {
   return (
     <section id="hero" ref={heroSectionRef} className="hero-section">
       <div ref={pinWrapperRef} className="hero-pin-wrapper">
-        {loading && <HeroRadarLoader progress={loadProgress} />}
+        {loading && (
+          <HeroRadarLoader
+            progress={loadProgress}
+            onComplete={() => {
+              setLoading(false)
+              renderFrame(0)
+            }}
+          />
+        )}
 
         {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
         <div ref={backdropLayerRef} className="hero-backdrop-layer">

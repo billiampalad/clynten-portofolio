@@ -1,10 +1,19 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { developerSignals } from '@/content/developerSignals'
 import { useTextScramble } from '@/hooks/useTextScramble'
 import SignalLine from './SignalLine'
 import './DeveloperSignal.css'
 
 export default function DeveloperSignal({ progress = 0 }) {
+  const [hasEntered, setHasEntered] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasEntered(true)
+    }, 60)
+    return () => clearTimeout(timer)
+  }, [])
+
   const activeSignal = useMemo(() => {
     return (
       developerSignals.find(
@@ -24,7 +33,11 @@ export default function DeveloperSignal({ progress = 0 }) {
   const filledBlocks = Math.round((percentage / 100) * totalBlocks)
 
   return (
-    <div className={`developer-signal-container theme-${activeSignal.statusColor || 'green'}`}>
+    <div
+      className={`developer-signal-container theme-${activeSignal.statusColor || 'green'} -translate-y-1/2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        hasEntered ? 'translate-x-0 opacity-100' : 'translate-x-16 opacity-0'
+      }`}
+    >
       {/* Sci-Fi Decorative Corner Brackets */}
       <span className="hud-corner-bracket top-left" />
       <span className="hud-corner-bracket top-right" />
