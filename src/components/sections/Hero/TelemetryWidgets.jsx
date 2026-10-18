@@ -1,7 +1,7 @@
 export default function TelemetryWidgets({ progress = 0 }) {
   const radarRotation = Math.round(progress * 360)
-  // Smooth fade-out on scroll (1 at scroll 0, 0 by progress 0.18)
-  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.18))
+  // Tetap aktif dan terang penuh hingga telemetri mencapai 100%, baru kemudian memudar bersamaan dengan tampilan HUD lainnya
+  const fadeOpacity = progress < 1 ? 1 : Math.max(0, 1 - (progress - 1) / 0.05)
 
   return (
     <div

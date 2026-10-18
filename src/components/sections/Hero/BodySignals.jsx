@@ -135,11 +135,8 @@ function SkillCard({ skill, progress, isScrollZero }) {
 
 export default function BodySignals({ progress = 0 }) {
   const isScrollZero = progress < 0.04
-  // Selaraskan redupnya dengan tampilan HUD lain: tetap aktif penuh dan baru memudar halus bersama di fase outro (0.72 - 0.76)
-  const fadeOpacity =
-    progress <= 0.72
-      ? 1
-      : Math.max(0, 1 - (progress - 0.72) / 0.04)
+  // Tetap aktif dan terang penuh hingga telemetri mencapai 100%, baru kemudian memudar bersamaan dengan tampilan HUD lainnya
+  const fadeOpacity = progress < 1 ? 1 : Math.max(0, 1 - (progress - 1) / 0.05)
 
   return (
     <div
