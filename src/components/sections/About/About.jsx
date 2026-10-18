@@ -9,8 +9,6 @@ const ABOUT_SECTIONS = [
   {
     id: 'intro',
     index: '01',
-    tabLabel: 'Introduction',
-    title: 'Introduction',
     tag: 'Academic Background & Passion',
     paragraphs: [
       'I am an Informatics graduate from Politeknik Negeri Manado, with a strong interest in web development, full-stack development, and emerging technologies. I enjoy learning how technology works and how software solutions can transform data into practical tools that improve business processes, operational efficiency, and information management.',
@@ -19,8 +17,6 @@ const ABOUT_SECTIONS = [
   {
     id: 'experience',
     index: '02',
-    tabLabel: 'Technical Experience',
-    title: 'Technical Experience',
     tag: 'Networks, Support & Web Systems',
     paragraphs: [
       'My technical experience includes network engineering and computer technical support, where I gained practical exposure to network configuration, connectivity testing, computer assembly, operating system installation, and hardware and software troubleshooting.',
@@ -30,8 +26,6 @@ const ABOUT_SECTIONS = [
   {
     id: 'approach',
     index: '03',
-    tabLabel: 'Personal Approach',
-    title: 'Personal Approach',
     tag: 'Values & Work Ethic',
     paragraphs: [
       'I am a disciplined, responsible, and detail-oriented person who values teamwork, independent problem-solving, and continuous learning. I aim to contribute to an IT team, develop my technical skills, and build reliable software solutions that address real-world needs.',
@@ -118,26 +112,6 @@ export default function About({ style = {} }) {
               </h2>
             </div>
 
-            {/* 3-Section Segmented Navigation */}
-            <div className="about-tabs-nav" role="tablist" aria-label="About Sections">
-              {ABOUT_SECTIONS.map((sec) => {
-                const isActive = activeTab === sec.id
-                return (
-                  <button
-                    key={sec.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => setActiveTab(sec.id)}
-                    className={`about-tab-btn ${isActive ? 'tab-active' : ''}`}
-                  >
-                    <span className="tab-idx">{sec.index}</span>
-                    <span className="tab-label">{sec.tabLabel}</span>
-                  </button>
-                )
-              })}
-            </div>
-
             {/* Active Content Card */}
             <div className="about-card-content" key={currentSection.id}>
               <div className="card-content-header">
@@ -159,7 +133,7 @@ export default function About({ style = {} }) {
                       key={sec.id}
                       onClick={() => setActiveTab(sec.id)}
                       className={`pagination-dot ${activeTab === sec.id ? 'dot-active' : ''}`}
-                      title={sec.tabLabel}
+                      title={sec.tag}
                     />
                   ))}
                   <span className="pagination-text">
@@ -172,7 +146,7 @@ export default function About({ style = {} }) {
                     onClick={() => setActiveTab(nextSection.id)}
                     className="card-next-btn"
                   >
-                    Next: {nextSection.tabLabel} →
+                    Next →
                   </button>
                 )}
               </div>
