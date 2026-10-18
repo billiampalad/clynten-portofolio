@@ -100,5 +100,5 @@ body.light-theme {
   transition: opacity 0.1s linear, transform 0.1s linear;
 }
 
-/* Note: Loading overlay styling has been moved to HeroRadarLoader.css */
+/* Note: Loading overlay styling is implemented using Tailwind CSS in HeroRadarLoader.jsx */
 
