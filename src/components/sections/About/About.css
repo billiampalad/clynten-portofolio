@@ -67,7 +67,7 @@
 .about-tagline {
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: 12px;
-  color: #38bdf8;
+  color: #f43f5e;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 10px;
@@ -85,7 +85,7 @@
 }
 
 .about-title .highlight {
-  background: linear-gradient(135deg, #00ffaa 0%, #38bdf8 100%);
+  background: linear-gradient(135deg, #ff4d6d 0%, #e11d48 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -120,7 +120,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.8), transparent);
 }
 
 @keyframes fadeInTab {
@@ -144,9 +144,9 @@
   font-size: 10.5px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #00ffaa;
-  background: rgba(0, 255, 170, 0.08);
-  border: 1px solid rgba(0, 255, 170, 0.25);
+  color: #ff4d6d;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.3);
   padding: 3px 10px;
   border-radius: 6px;
 }
@@ -190,10 +190,10 @@
 }
 
 .pagination-dot.dot-active {
-  background: #38bdf8;
+  background: #f43f5e;
   width: 16px;
   border-radius: 3px;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.7);
 }
 
 .pagination-text {
@@ -213,7 +213,7 @@
   font-family: var(--font-mono), 'JetBrains Mono', Consolas, monospace;
   font-size: 11.5px;
   font-weight: 600;
-  color: #38bdf8;
+  color: #f43f5e;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -224,12 +224,12 @@
 }
 
 .card-next-btn:hover {
-  background: linear-gradient(180deg, #2e3544 0%, #1e2430 100%);
+  background: linear-gradient(180deg, #3d242a 0%, #27191d 100%);
   box-shadow: 
-    inset 0 0 0 1px rgba(56, 189, 248, 0.35),
+    inset 0 0 0 1px rgba(244, 63, 94, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 12px -2px rgba(56, 189, 248, 0.25);
-  color: #7dd3fc;
+    0 4px 12px -2px rgba(244, 63, 94, 0.25);
+  color: #fda4af;
   transform: translateX(2px);
 }
 
@@ -293,7 +293,7 @@
 }
 
 .about-scroll-hint .scroll-arrow {
-  color: #38bdf8;
+  color: #f43f5e;
   animation: bounce-arrow 1.5s infinite;
 }
 
@@ -319,7 +319,7 @@ body.light-theme .about-wrap {
 [data-theme="light"] .about-tagline,
 html.light-theme .about-tagline,
 body.light-theme .about-tagline {
-  color: #0284c7;
+  color: #e11d48;
 }
 
 [data-theme="light"] .about-title,
@@ -331,7 +331,7 @@ body.light-theme .about-title {
 [data-theme="light"] .about-title .highlight,
 html.light-theme .about-title .highlight,
 body.light-theme .about-title .highlight {
-  background: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -349,15 +349,15 @@ body.light-theme .about-card-content {
 }
 
 [data-theme="light"] .about-card-content::before {
-  background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.45), transparent);
+  background: linear-gradient(90deg, transparent, rgba(225, 29, 72, 0.5), transparent);
 }
 
 [data-theme="light"] .content-badge,
 html.light-theme .content-badge,
 body.light-theme .content-badge {
-  color: #059669;
-  background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.25);
+  color: #e11d48;
+  background: rgba(225, 29, 72, 0.08);
+  border-color: rgba(225, 29, 72, 0.25);
 }
 
 [data-theme="light"] .about-paragraph,
@@ -381,8 +381,8 @@ body.light-theme .pagination-dot {
 [data-theme="light"] .pagination-dot.dot-active,
 html.light-theme .pagination-dot.dot-active,
 body.light-theme .pagination-dot.dot-active {
-  background: #0284c7;
-  box-shadow: 0 0 8px rgba(2, 132, 199, 0.5);
+  background: #e11d48;
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.5);
 }
 
 [data-theme="light"] .pagination-text,
@@ -399,18 +399,18 @@ body.light-theme .card-next-btn {
     inset 0 0 0 1px rgba(24, 24, 27, 0.08),
     inset 0 1px 0 #ffffff,
     0 4px 10px -5px rgba(24, 24, 27, 0.2);
-  color: #0284c7;
+  color: #e11d48;
 }
 
 [data-theme="light"] .card-next-btn:hover,
 html.light-theme .card-next-btn:hover,
 body.light-theme .card-next-btn:hover {
-  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+  background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%);
   box-shadow: 
-    inset 0 0 0 1px rgba(2, 132, 199, 0.35),
+    inset 0 0 0 1px rgba(225, 29, 72, 0.35),
     inset 0 1px 0 #ffffff,
-    0 4px 12px -3px rgba(2, 132, 199, 0.2);
-  color: #0369a1;
+    0 4px 12px -3px rgba(225, 29, 72, 0.2);
+  color: #be123c;
 }
 
 [data-theme="light"] .about-telemetry-bar,
@@ -445,7 +445,7 @@ body.light-theme .about-scroll-hint {
 [data-theme="light"] .about-scroll-hint .scroll-arrow,
 html.light-theme .about-scroll-hint .scroll-arrow,
 body.light-theme .about-scroll-hint .scroll-arrow {
-  color: #0284c7;
+  color: #e11d48;
 }
 
 /* ==========================================================================
