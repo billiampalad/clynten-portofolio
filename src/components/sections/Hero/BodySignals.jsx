@@ -2,12 +2,15 @@ import { SKILLS_CONFIG } from '@/content/skills'
 import { useTextScramble } from '@/hooks/useTextScramble'
 
 const POSITION_MAP = {
-  'webdev-wrapper': 'top-[6%] left-[calc(50%-330px)]',
-  'android-wrapper': 'top-[15%] left-[calc(50%-550px)]',
-  'cyber-wrapper': 'top-[15%] left-[calc(50%+150px)]',
-  'net-wrapper': 'top-[24%] left-[calc(50%-130px)]',
-  'db-wrapper': 'top-[27%] left-[calc(50%-520px)]',
-  'uiux-wrapper': 'top-[36%] left-[calc(50%-460px)]',
+  // Column 1: Outer-Left flank (docked along left, well above ScrollHeadline)
+  'webdev-wrapper': 'top-[7%] left-3 lg:left-5 xl:left-[calc(50%-550px)]',
+  'android-wrapper': 'top-[22%] left-3 lg:left-5 xl:left-[calc(50%-550px)]',
+  'db-wrapper': 'top-[37%] left-3 lg:left-5 xl:left-[calc(50%-550px)]',
+
+  // Column 2: Inner-Left flank (staggered ladder, completely clear of center 3D frame)
+  'net-wrapper': 'top-[14.5%] left-[175px] lg:left-[195px] xl:left-[calc(50%-370px)]',
+  'cyber-wrapper': 'top-[29.5%] left-[175px] lg:left-[195px] xl:left-[calc(50%-370px)]',
+  'uiux-wrapper': 'top-[44.5%] left-[175px] lg:left-[195px] xl:left-[calc(50%-370px)]',
 }
 
 function HudRow({ label, value, highlightColor = '', speed = 20, isContinuous = false }) {
@@ -15,9 +18,9 @@ function HudRow({ label, value, highlightColor = '', speed = 20, isContinuous = 
   const scrambledVal = useTextScramble(value, speed, isContinuous)
 
   return (
-    <div className="flex items-center justify-between text-[8px] tracking-wider py-0.5 border-b border-white/[0.04] last:border-none">
+    <div className="flex items-center justify-between text-[7px] tracking-wider py-0.5 border-b border-white/[0.04] last:border-none whitespace-nowrap">
       <span className="text-zinc-500 uppercase">{scrambledLabel}</span>
-      <span className={`font-semibold truncate max-w-[120px] ${highlightColor || 'text-zinc-300'}`}>
+      <span className={`font-semibold truncate max-w-[85px] ml-1 ${highlightColor || 'text-zinc-300'}`}>
         {scrambledVal}
       </span>
     </div>
@@ -35,13 +38,13 @@ function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
       : 'text-emerald-400'
 
   return (
-    <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/10">
-      <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-wider text-white">
-        <span className={`text-[8px] ${squareColor}`}>■</span>
-        <span className="truncate max-w-[140px]">{scrambledText}</span>
+    <div className="flex items-center justify-between pb-1 mb-1 border-b border-white/10 whitespace-nowrap">
+      <div className="flex items-center gap-1 text-[8px] font-bold tracking-wider text-white">
+        <span className={`text-[7px] ${squareColor}`}>■</span>
+        <span className="truncate max-w-[100px]">{scrambledText}</span>
       </div>
       {tag && (
-        <span className="text-[7px] tracking-widest font-mono px-1.5 py-0.2 rounded bg-white/5 border border-white/10 text-zinc-400">
+        <span className="text-[6.5px] tracking-widest font-mono px-1 py-0.2 rounded bg-white/5 border border-white/10 text-zinc-400">
           {tag}
         </span>
       )}
@@ -58,10 +61,10 @@ function SkillCard({ skill, progress, isScrollZero }) {
 
   const borderColor =
     color === 'red'
-      ? 'border-rose-500/30 shadow-[0_0_15px_rgba(244,63,94,0.08)]'
+      ? 'border-rose-500/30 shadow-[0_0_12px_rgba(244,63,94,0.08)]'
       : color === 'cyan'
-      ? 'border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.08)]'
-      : 'border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.08)]'
+      ? 'border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.08)]'
+      : 'border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.08)]'
 
   const highlightClass =
     color === 'red'
@@ -78,14 +81,14 @@ function SkillCard({ skill, progress, isScrollZero }) {
       : 'from-transparent via-emerald-400 to-transparent'
 
   return (
-    <div className={`absolute ${positionClass} pointer-events-none select-none z-10`}>
-      <div className={`relative w-[210px] p-2.5 rounded-lg bg-zinc-950/85 backdrop-blur-xl border ${borderColor} shadow-2xl`}>
+    <div className={`absolute ${positionClass} pointer-events-none select-none z-10 transition-all duration-300`}>
+      <div className={`relative w-[155px] sm:w-[165px] p-2 rounded-lg bg-zinc-950/90 backdrop-blur-xl border ${borderColor} shadow-xl`}>
         {/* Top glowing laser line */}
         <div className={`absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r ${beamGradient} rounded-t-lg opacity-80`} />
 
         {/* Corner HUD ticks */}
-        <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 rounded-tl-[2px]" />
-        <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 rounded-br-[2px]" />
+        <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-white/30 rounded-tl-[2px]" />
+        <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-white/30 rounded-br-[2px]" />
 
         <HudHeader
           text={data.header}
