@@ -12,7 +12,6 @@ import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
 import frameUrls from '@/data/frameList.json'
 import HeroRadarLoader from './HeroRadarLoader'
-import './Hero.css'
 
 const TOTAL_FRAMES = frameUrls.length
 
@@ -396,8 +395,15 @@ export default function Hero({ onProgressChange }) {
   }, [loading, renderFrame, onProgressChange])
 
   return (
-    <section id="hero" ref={heroSectionRef} className="hero-section">
-      <div ref={pinWrapperRef} className="hero-pin-wrapper">
+    <section
+      id="hero"
+      ref={heroSectionRef}
+      className="relative w-full bg-[#0A0907]"
+    >
+      <div
+        ref={pinWrapperRef}
+        className="relative w-screen h-screen h-[100dvh] overflow-hidden flex items-center justify-center bg-black"
+      >
         {loading && (
           <HeroRadarLoader
             progress={loadProgress}
@@ -409,15 +415,24 @@ export default function Hero({ onProgressChange }) {
         )}
 
         {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
-        <div ref={backdropLayerRef} className="hero-backdrop-layer">
+        <div
+          ref={backdropLayerRef}
+          className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-0 will-change-[opacity]"
+        >
           <About />
         </div>
 
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
-        <canvas ref={canvasRef} className="hero-canvas" />
+        <canvas
+          ref={canvasRef}
+          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[filter,transform,opacity,border-radius] origin-center transition-[filter] duration-75"
+        />
 
         {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
-        <div ref={hudLayerRef} className="hero-hud-layer">
+        <div
+          ref={hudLayerRef}
+          className="absolute inset-0 w-full h-full pointer-events-none z-[5] opacity-100 scale-100 will-change-[opacity,transform] origin-center transition-[opacity,transform] duration-100"
+        >
           {/* Layer 2: Matrix Cyber Falling Code Streams */}
           {!loading && <CodeRain opacity={0.22} />}
 
