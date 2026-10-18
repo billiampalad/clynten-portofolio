@@ -135,11 +135,15 @@ function SkillCard({ skill, progress, isScrollZero }) {
 
 export default function BodySignals({ progress = 0 }) {
   const isScrollZero = progress < 0.04
-  const fadeOpacity = Math.max(0, Math.min(1, 1 - progress / 0.18))
+  // Selaraskan redupnya dengan tampilan HUD lain: tetap aktif penuh dan baru memudar halus bersama di fase outro (0.72 - 0.76)
+  const fadeOpacity =
+    progress <= 0.72
+      ? 1
+      : Math.max(0, 1 - (progress - 0.72) / 0.04)
 
   return (
     <div
-      className="absolute inset-0 pointer-events-none z-18 font-mono select-none transition-opacity duration-200 hidden lg:block"
+      className="absolute inset-0 pointer-events-none z-18 font-mono select-none transition-opacity duration-150 hidden lg:block"
       style={{ opacity: fadeOpacity }}
     >
       {SKILLS_CONFIG.map((skill) => (
