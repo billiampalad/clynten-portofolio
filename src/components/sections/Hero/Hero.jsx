@@ -11,6 +11,7 @@ import About from '@/components/sections/About/About'
 import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
 import frameUrls from '@/data/frameList.json'
+import HeroRadarLoader from './HeroRadarLoader'
 import './Hero.css'
 
 const TOTAL_FRAMES = frameUrls.length
@@ -147,7 +148,7 @@ export default function Hero({ onProgressChange }) {
               if (!isMounted) return
               setLoading(false)
               renderFrame(0)
-            }, 450)
+            }, 650)
           }
         }
 
@@ -396,20 +397,7 @@ export default function Hero({ onProgressChange }) {
   return (
     <section id="hero" ref={heroSectionRef} className="hero-section">
       <div ref={pinWrapperRef} className="hero-pin-wrapper">
-        {loading && (
-          <div className="hero-loading-overlay">
-            <div className="loading-cyber-box">
-              <div className="loading-glitch-text">INITIALIZING ASSETS</div>
-              <div className="loading-bar-container">
-                <div
-                  className="loading-bar"
-                  style={{ width: `${loadProgress}%` }}
-                />
-              </div>
-              <span className="loading-percentage">{loadProgress}%</span>
-            </div>
-          </div>
-        )}
+        {loading && <HeroRadarLoader progress={loadProgress} />}
 
         {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
         <div ref={backdropLayerRef} className="hero-backdrop-layer">

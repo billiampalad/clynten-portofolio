@@ -100,56 +100,5 @@ body.light-theme {
   transition: opacity 0.1s linear, transform 0.1s linear;
 }
 
-/* Loading Overlay */
-.hero-loading-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--hero-loading-bg);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Note: Loading overlay styling has been moved to HeroRadarLoader.css */
 
-[data-theme="light"] .loading-glitch-text,
-html.light-theme .loading-glitch-text {
-  color: #475569;
-}
-
-[data-theme="light"] .loading-bar-container,
-html.light-theme .loading-bar-container {
-  background: rgba(15, 23, 42, 0.08);
-}
-
-.loading-cyber-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  font-family: monospace;
-}
-
-.loading-glitch-text {
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.loading-bar-container {
-  width: 240px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  overflow: hidden;
-}
-
-.loading-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #00ffaa, #00bfff);
-  transition: width 0.15s ease-out;
-}
-
-.loading-percentage {
-  font-size: 13px;
-  color: #00ffaa;
-}
