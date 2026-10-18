@@ -5,7 +5,7 @@ export default function SignalLine({ progress = 0 }) {
   return (
     <div className="w-full my-2 flex items-center justify-center opacity-85 select-none pointer-events-none">
       <svg
-        className="w-full h-4 max-w-[280px]"
+        className="w-full h-4 max-w-full"
         viewBox="0 0 300 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
