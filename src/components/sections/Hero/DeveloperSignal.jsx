@@ -50,21 +50,21 @@ export default function DeveloperSignal({ progress = 0 }) {
       initial={{ x: 60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute top-[45%] right-4 sm:right-8 md:right-10 z-25 font-mono select-none pointer-events-none w-[calc(100vw-32px)] sm:w-[280px] md:w-[290px] p-2.5 sm:p-3 rounded-xl bg-zinc-950/85 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] -translate-y-1/2"
+      className="absolute top-[45%] right-4 sm:right-8 md:right-10 z-25 font-mono select-none pointer-events-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/85 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] -translate-y-1/2"
     >
       {/* Top Telemetry Header */}
-      <div className="flex items-center justify-between pb-1 border-b border-white/10 whitespace-nowrap">
-        <div className="flex items-center gap-1.5 shrink-0">
-          <span className="text-[7.5px] sm:text-[8px] tracking-wider text-zinc-400 font-semibold uppercase">
+      <div className="flex items-center justify-between pb-1.5 border-b border-white/10 whitespace-nowrap">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-[8.5px] sm:text-[9.5px] tracking-wider text-zinc-400 font-semibold uppercase">
             PROFILE SCANNED
           </span>
           <div className="flex items-center gap-0.5">
             {Array.from({ length: totalBlocks }).map((_, i) => (
               <span
                 key={i}
-                className={`h-1 w-1 rounded-[1px] transition-colors duration-150 ${
+                className={`h-1.5 w-1 rounded-[1px] transition-colors duration-150 ${
                   i < filledBlocks
-                    ? 'bg-emerald-400 shadow-[0_0_4px_#00ffaa]'
+                    ? 'bg-emerald-400 shadow-[0_0_5px_#00ffaa]'
                     : 'bg-zinc-800'
                 }`}
               />
@@ -72,49 +72,49 @@ export default function DeveloperSignal({ progress = 0 }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 shrink-0">
-          <span className="text-[10px] sm:text-[10.5px] font-bold text-emerald-400 font-mono">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-[12px] sm:text-[13px] font-bold text-emerald-400 font-mono">
             {percentage}%
           </span>
-          <div className={`flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[7px] font-bold tracking-widest uppercase border shrink-0 ${badgeClasses}`}>
-            <span className={`w-1 h-1 rounded-full animate-pulse ${dotClasses}`} />
+          <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[8px] font-bold tracking-widest uppercase border shrink-0 ${badgeClasses}`}>
+            <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${dotClasses}`} />
             <span>{activeSignal.status}</span>
           </div>
         </div>
       </div>
 
       {/* Dynamic ECG Waveform Line */}
-      <div className="my-0.5">
+      <div className="my-1">
         <SignalLine progress={progress} />
       </div>
 
       {/* Main Signal Display Card */}
       <div className="flex flex-col mt-0.5">
-        <div className="flex items-center justify-between text-[7.5px] tracking-widest text-zinc-400 whitespace-nowrap">
-          <span className="font-semibold text-emerald-400/90 bg-emerald-950/40 px-1 py-0.2 rounded border border-emerald-500/25 shrink-0">
+        <div className="flex items-center justify-between text-[8.5px] sm:text-[9px] tracking-widest text-zinc-400 whitespace-nowrap">
+          <span className="font-semibold text-emerald-400/90 bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-500/25 shrink-0">
             PHASE // {activeSignal.phase}
           </span>
-          <span className="text-zinc-500 font-medium truncate ml-1.5">
+          <span className="text-zinc-500 font-medium truncate ml-2 text-[9px] sm:text-[9.5px]">
             {scrambledLabel}
           </span>
         </div>
 
-        <h2 className="text-[11.5px] sm:text-[12.5px] font-black tracking-tight text-white mt-1 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
+        <h2 className="text-sm sm:text-[15px] font-black tracking-tight text-white mt-1.5 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
           {scrambledTitle}
         </h2>
-        <p className="text-[8.5px] sm:text-[9px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5">
+        <p className="text-[9.5px] sm:text-[10px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5">
           {activeSignal.subtitle}
         </p>
 
         {/* Dynamic Skill Stack Badges - 2x2 Grid */}
         {activeSignal.tags && (
-          <div className="grid grid-cols-2 gap-1 mt-1">
+          <div className="grid grid-cols-2 gap-1.5 mt-2">
             {activeSignal.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-[8.5px] sm:text-[9px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
               >
-                <span className="w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
                 <span className="truncate">{tag}</span>
               </span>
             ))}
@@ -127,36 +127,36 @@ export default function DeveloperSignal({ progress = 0 }) {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: 0.65 }}
-        className="grid grid-cols-4 gap-1 pt-1 mt-1 border-t border-white/10 text-center whitespace-nowrap"
+        className="grid grid-cols-4 gap-1.5 pt-2 mt-2 border-t border-white/10 text-center whitespace-nowrap"
       >
         <div className="flex flex-col">
-          <span className="text-[6.5px] tracking-wider text-zinc-500 uppercase">FREQ</span>
-          <span className="text-[8px] sm:text-[8.5px] font-bold text-emerald-300 truncate">
+          <span className="text-[7.5px] tracking-wider text-zinc-500 uppercase">FREQ</span>
+          <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-300 truncate">
             {activeSignal.metrics?.freq || '3.20 GHz'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[6.5px] tracking-wider text-zinc-500 uppercase">LATENCY</span>
-          <span className="text-[8px] sm:text-[8.5px] font-bold text-emerald-300 truncate">
+          <span className="text-[7.5px] tracking-wider text-zinc-500 uppercase">LATENCY</span>
+          <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-300 truncate">
             {activeSignal.metrics?.latency || '< 0.02 ms'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[6.5px] tracking-wider text-zinc-500 uppercase">ACCURACY</span>
-          <span className="text-[8px] sm:text-[8.5px] font-bold text-emerald-300 truncate">
+          <span className="text-[7.5px] tracking-wider text-zinc-500 uppercase">ACCURACY</span>
+          <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-300 truncate">
             {activeSignal.metrics?.accuracy || '99.8%'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[6.5px] tracking-wider text-zinc-500 uppercase">ENCRYPT</span>
-          <span className="text-[8px] sm:text-[8.5px] font-bold text-emerald-300 truncate">
+          <span className="text-[7.5px] tracking-wider text-zinc-500 uppercase">ENCRYPT</span>
+          <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-300 truncate">
             AES-256
           </span>
         </div>
       </motion.div>
 
       {/* Micro Status Bar */}
-      <div className="flex items-center justify-between text-[7px] tracking-widest text-zinc-500 pt-1 whitespace-nowrap">
+      <div className="flex items-center justify-between text-[8px] sm:text-[8.5px] tracking-widest text-zinc-500 pt-2 whitespace-nowrap">
         <span>SYS_ID: CLYNTEN-DEV</span>
         <span className="text-emerald-400/80 font-semibold">ONLINE // STREAM</span>
       </div>
