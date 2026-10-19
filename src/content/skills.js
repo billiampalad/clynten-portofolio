@@ -73,10 +73,10 @@ export const SKILLS_CONFIG = [
     activeColor: 'red',
     threshold: 0.6,
     resolved: {
-      header: 'NETWORK INFRA',
+      header: 'NETWORK - IOT',
       stackId: 'NET_TOPOLOGY_V2',
       confidence: '70%',
-      frameworks: 'MIKROTIK / CISCO',
+      frameworks: 'CISCO, ARDUINO',
       latency: 'LOW LATENCY — 0.03ms',
     },
     unresolved: {
