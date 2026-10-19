@@ -30,19 +30,25 @@ const wordVariants = {
   },
 }
 
-// Interactive 3D Fold Word Component (Rotates on cursor hover along X axis in 3D perspective)
+// Interactive 3D Fold Word Component (Active only when scroll reaches 80% / blocks finished)
 function FoldWord({
   children,
   colorClass = 'text-cyan-400',
   glowColor = '#06b6d4',
   shutter = null,
   mr = 'mr-[0.25em]',
+  isUnlocked = false,
 }) {
   const [isHovered, setIsHovered] = useState(false)
+  const shouldFold = isUnlocked && isHovered
 
   return (
     <span
-      className={`inline-block overflow-hidden align-baseline ${mr} [perspective:1000px] pointer-events-auto cursor-pointer select-none`}
+      className={`inline-block overflow-hidden align-baseline ${mr} [perspective:1000px] select-none transition-all duration-300 ${
+        isUnlocked
+          ? 'pointer-events-auto cursor-pointer'
+          : 'pointer-events-none cursor-default'
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -50,10 +56,10 @@ function FoldWord({
         variants={wordVariants}
         className="relative inline-block px-1 [transform-style:preserve-3d]"
       >
-        {/* Front Face: Pure White, Folds Upwards into 3D on Hover */}
+        {/* Front Face: Pure White, Folds Upwards into 3D on Hover (when unlocked) */}
         <motion.span
           animate={
-            isHovered
+            shouldFold
               ? { y: '-100%', rotateX: -90, opacity: 0 }
               : { y: '0%', rotateX: 0, opacity: 1 }
           }
@@ -63,11 +69,11 @@ function FoldWord({
           {children}
         </motion.span>
 
-        {/* 3D Folded Face: Cyber Color with Glow, Rolls into view from Bottom on Hover */}
+        {/* 3D Folded Face: Cyber Color with Glow, Rolls into view from Bottom on Hover (when unlocked) */}
         <motion.span
           initial={{ y: '100%', rotateX: 90, opacity: 0 }}
           animate={
-            isHovered
+            shouldFold
               ? { y: '0%', rotateX: 0, opacity: 1 }
               : { y: '100%', rotateX: 90, opacity: 0 }
           }
@@ -97,6 +103,9 @@ export default function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 3 (GROWING): Uncovers smoothly on scroll (0.56 -> 0.80)
   const reveal3 = Math.min(1, Math.max(0, (progress - 0.56) / 0.24))
 
+  // 3D Fold Text is unlocked & interactive only after blocks are completely revealed (scroll >= 80%)
+  const isUnlocked = progress >= 0.8 || reveal3 >= 1
+
   // Dynamic Scramble Decrypt Animation for Subtext
   const scrambledSubtext = useTextScramble(
     'TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE',
@@ -113,12 +122,17 @@ export default function ScrollHeadline({ progress = 0 }) {
         className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
       >
         {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
-        <FoldWord colorClass="text-cyan-400" glowColor="#06b6d4">
+        <FoldWord
+          isUnlocked={isUnlocked}
+          colorClass="text-cyan-400"
+          glowColor="#06b6d4"
+        >
           CONTINUOUSLY
         </FoldWord>
 
         {/* Word: LEARNING, (3D Fold: Rose / Red with Shutter Laser Block) */}
         <FoldWord
+          isUnlocked={isUnlocked}
           colorClass="text-rose-400"
           glowColor="#f43f5e"
           shutter={
@@ -147,6 +161,7 @@ export default function ScrollHeadline({ progress = 0 }) {
 
         {/* Word: BUILDING, (3D Fold: Cyan / Blue with Shutter Laser Block) */}
         <FoldWord
+          isUnlocked={isUnlocked}
           colorClass="text-cyan-400"
           glowColor="#06b6d4"
           shutter={
@@ -177,12 +192,17 @@ export default function ScrollHeadline({ progress = 0 }) {
         <span className="block w-full h-0 pointer-events-none select-none" />
 
         {/* Word: AND (3D Fold: Rose / Red) */}
-        <FoldWord colorClass="text-rose-400" glowColor="#f43f5e">
+        <FoldWord
+          isUnlocked={isUnlocked}
+          colorClass="text-rose-400"
+          glowColor="#f43f5e"
+        >
           AND
         </FoldWord>
 
         {/* Word: GROWING (3D Fold: Emerald / Green with Shutter Laser Block) */}
         <FoldWord
+          isUnlocked={isUnlocked}
           colorClass="text-emerald-400"
           glowColor="#10b981"
           shutter={
@@ -210,12 +230,21 @@ export default function ScrollHeadline({ progress = 0 }) {
         </FoldWord>
 
         {/* Word: THROUGH (3D Fold: Cyan / Blue) */}
-        <FoldWord colorClass="text-cyan-400" glowColor="#06b6d4">
+        <FoldWord
+          isUnlocked={isUnlocked}
+          colorClass="text-cyan-400"
+          glowColor="#06b6d4"
+        >
           THROUGH
         </FoldWord>
 
         {/* Word: TECHNOLOGY (3D Fold: Emerald / Green) */}
-        <FoldWord colorClass="text-emerald-400" glowColor="#10b981" mr="">
+        <FoldWord
+          isUnlocked={isUnlocked}
+          colorClass="text-emerald-400"
+          glowColor="#10b981"
+          mr=""
+        >
           TECHNOLOGY
         </FoldWord>
       </motion.h1>
