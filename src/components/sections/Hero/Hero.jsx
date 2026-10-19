@@ -448,8 +448,8 @@ export default function Hero({ onProgressChange }) {
           {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry */}
           {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Immediate LCP render) */}
-          <ScrollHeadline progress={scrollProgress} />
+          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline */}
+          {!loading && <ScrollHeadline progress={scrollProgress} />}
 
           {/* Layer 8: Developer Signal HUD */}
           {!loading && <DeveloperSignal progress={scrollProgress} />}
