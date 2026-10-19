@@ -5,7 +5,7 @@ export default function SignalLine({ progress = 0 }) {
   const strokeOffset = 100 * (1 - normalizedProgress)
 
   return (
-    <div className="w-full my-2 flex items-center justify-center opacity-85 select-none pointer-events-none">
+    <div className="w-full my-0.5 flex items-center justify-center opacity-85 select-none pointer-events-none">
       <svg
         className="w-full h-4 max-w-full"
         viewBox="0 0 300 24"

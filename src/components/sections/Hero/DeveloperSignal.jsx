@@ -50,86 +50,72 @@ export default function DeveloperSignal({ progress = 0 }) {
       initial={{ x: 60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute top-[45%] right-4 sm:right-8 md:right-10 z-25 font-mono select-none pointer-events-none w-[calc(100vw-32px)] sm:w-[365px] md:w-[375px] p-3.5 sm:p-4 rounded-xl bg-zinc-950/85 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] -translate-y-1/2"
+      className="absolute top-[45%] right-4 sm:right-8 md:right-10 z-25 font-mono select-none pointer-events-none w-[calc(100vw-32px)] sm:w-[265px] md:w-[275px] p-2.5 rounded-xl bg-zinc-950/85 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] -translate-y-1/2"
     >
-      {/* Sci-Fi Decorative Corner Brackets */}
-      <span className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-emerald-400/80 rounded-tl-[4px]" />
-      <span className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-emerald-400/80 rounded-tr-[4px]" />
-      <span className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-emerald-400/80 rounded-bl-[4px]" />
-      <span className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-emerald-400/80 rounded-br-[4px]" />
-
-      {/* Dynamic Glowing Top Laser Beam */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.6, delay: 0.55, ease: 'easeOut' }}
-        className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_10px_#00ffaa] rounded-t-xl opacity-90 origin-center"
-      />
-
       {/* Top Telemetry Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-white/10">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[9px] tracking-wider text-zinc-400 font-semibold">
-              PROFILE SCANNED
-            </span>
-            <div className="flex items-center gap-0.5">
-              {Array.from({ length: totalBlocks }).map((_, i) => (
-                <span
-                  key={i}
-                  className={`h-1.5 w-1.5 rounded-[1px] transition-colors duration-150 ${
-                    i < filledBlocks
-                      ? 'bg-emerald-400 shadow-[0_0_4px_#00ffaa]'
-                      : 'bg-zinc-800'
-                  }`}
-                />
-              ))}
-            </div>
+      <div className="flex items-center justify-between pb-1 border-b border-white/10 whitespace-nowrap">
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span className="text-[7px] sm:text-[7.5px] tracking-wider text-zinc-400 font-semibold uppercase">
+            PROFILE SCANNED
+          </span>
+          <div className="flex items-center gap-0.5">
+            {Array.from({ length: totalBlocks }).map((_, i) => (
+              <span
+                key={i}
+                className={`h-1 w-1 rounded-[1px] transition-colors duration-150 ${
+                  i < filledBlocks
+                    ? 'bg-emerald-400 shadow-[0_0_4px_#00ffaa]'
+                    : 'bg-zinc-800'
+                }`}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-emerald-400 font-mono">
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span className="text-[9.5px] sm:text-[10px] font-bold text-emerald-400 font-mono">
             {percentage}%
           </span>
-          <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-bold tracking-widest uppercase border ${badgeClasses}`}>
-            <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${dotClasses}`} />
+          <div className={`flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[6.5px] font-bold tracking-widest uppercase border shrink-0 ${badgeClasses}`}>
+            <span className={`w-1 h-1 rounded-full animate-pulse ${dotClasses}`} />
             <span>{activeSignal.status}</span>
           </div>
         </div>
       </div>
 
       {/* Dynamic ECG Waveform Line */}
-      <SignalLine progress={progress} />
+      <div className="my-0.5">
+        <SignalLine progress={progress} />
+      </div>
 
       {/* Main Signal Display Card */}
-      <div className="flex flex-col mt-1">
-        <div className="flex items-center justify-between text-[9px] tracking-widest text-zinc-400">
-          <span className="font-semibold text-emerald-400/90 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/25">
+      <div className="flex flex-col mt-0.5">
+        <div className="flex items-center justify-between text-[7px] tracking-widest text-zinc-400 whitespace-nowrap">
+          <span className="font-semibold text-emerald-400/90 bg-emerald-950/40 px-1 py-0.2 rounded border border-emerald-500/25 shrink-0">
             PHASE // {activeSignal.phase}
           </span>
-          <span className="text-zinc-500 font-medium">
+          <span className="text-zinc-500 font-medium truncate ml-1.5">
             {scrambledLabel}
           </span>
         </div>
 
-        <h2 className="text-lg sm:text-xl font-black tracking-tight text-white mt-1.5 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">
+        <h2 className="text-[11px] sm:text-xs font-black tracking-tight text-white mt-1 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
           {scrambledTitle}
         </h2>
-        <p className="text-xs text-zinc-400 font-normal mt-0.5 leading-relaxed">
+        <p className="text-[8px] sm:text-[8.5px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5">
           {activeSignal.subtitle}
         </p>
 
-        {/* Dynamic Skill Stack Badges */}
+        {/* Dynamic Skill Stack Badges - 2x2 Grid */}
         {activeSignal.tags && (
-          <div className="flex flex-wrap gap-1.5 mt-3">
+          <div className="grid grid-cols-2 gap-1 mt-1">
             {activeSignal.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm"
+                className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[7.5px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
               >
-                <span className="w-1 h-1 rounded-full bg-emerald-400" />
-                {tag}
+                <span className="w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
+                <span className="truncate">{tag}</span>
               </span>
             ))}
           </div>
@@ -141,36 +127,36 @@ export default function DeveloperSignal({ progress = 0 }) {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: 0.65 }}
-        className="grid grid-cols-4 gap-2 pt-3 mt-3 border-t border-white/10 text-center"
+        className="grid grid-cols-4 gap-1 pt-1 mt-1 border-t border-white/10 text-center whitespace-nowrap"
       >
         <div className="flex flex-col">
-          <span className="text-[8px] tracking-wider text-zinc-500 uppercase">FREQ</span>
-          <span className="text-[10px] font-bold text-emerald-300 truncate">
+          <span className="text-[6px] tracking-wider text-zinc-500 uppercase">FREQ</span>
+          <span className="text-[7.5px] sm:text-[8px] font-bold text-emerald-300 truncate">
             {activeSignal.metrics?.freq || '3.20 GHz'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[8px] tracking-wider text-zinc-500 uppercase">LATENCY</span>
-          <span className="text-[10px] font-bold text-emerald-300 truncate">
+          <span className="text-[6px] tracking-wider text-zinc-500 uppercase">LATENCY</span>
+          <span className="text-[7.5px] sm:text-[8px] font-bold text-emerald-300 truncate">
             {activeSignal.metrics?.latency || '< 0.02 ms'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[8px] tracking-wider text-zinc-500 uppercase">ACCURACY</span>
-          <span className="text-[10px] font-bold text-emerald-300 truncate">
+          <span className="text-[6px] tracking-wider text-zinc-500 uppercase">ACCURACY</span>
+          <span className="text-[7.5px] sm:text-[8px] font-bold text-emerald-300 truncate">
             {activeSignal.metrics?.accuracy || '99.8%'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[8px] tracking-wider text-zinc-500 uppercase">ENCRYPT</span>
-          <span className="text-[10px] font-bold text-emerald-300 truncate">
+          <span className="text-[6px] tracking-wider text-zinc-500 uppercase">ENCRYPT</span>
+          <span className="text-[7.5px] sm:text-[8px] font-bold text-emerald-300 truncate">
             AES-256
           </span>
         </div>
       </motion.div>
 
       {/* Micro Status Bar */}
-      <div className="flex items-center justify-between text-[8px] tracking-widest text-zinc-500 pt-2.5">
+      <div className="flex items-center justify-between text-[6.5px] tracking-widest text-zinc-500 pt-1 whitespace-nowrap">
         <span>SYS_ID: CLYNTEN-DEV</span>
         <span className="text-emerald-400/80 font-semibold">ONLINE // STREAM</span>
       </div>
