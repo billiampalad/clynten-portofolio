@@ -100,27 +100,6 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
         {/* Background Ambient Radial Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,170,0.08)_0%,transparent_70%)] pointer-events-none" />
 
-        {/* 4 Corner Tech HUD Brackets */}
-        <div className="absolute top-5 left-5 w-7 h-7 border-t-2 border-l-2 border-emerald-400/80 pointer-events-none">
-          <span className="absolute -top-3 left-0 text-[8px] tracking-widest text-emerald-400/50">
-            [SYS_INIT]
-          </span>
-        </div>
-        <div className="absolute top-5 right-5 w-7 h-7 border-t-2 border-r-2 border-emerald-400/80 pointer-events-none">
-          <span className="absolute -top-3 right-0 text-[8px] tracking-widest text-emerald-400/50">
-            [FREQ_LIVE]
-          </span>
-        </div>
-        <div className="absolute bottom-5 left-5 w-7 h-7 border-b-2 border-l-2 border-emerald-400/80 pointer-events-none">
-          <span className="absolute -bottom-3 left-0 text-[8px] tracking-widest text-emerald-400/50">
-            [07°14'N]
-          </span>
-        </div>
-        <div className="absolute bottom-5 right-5 w-7 h-7 border-b-2 border-r-2 border-emerald-400/80 pointer-events-none">
-          <span className="absolute -bottom-3 right-0 text-[8px] tracking-widest text-emerald-400/50">
-            [112°45'E]
-          </span>
-        </div>
 
         {/* Top Header Telemetry */}
         <div className="absolute top-7 left-8 right-8 sm:left-14 sm:right-14 flex items-center justify-between text-[10px] sm:text-xs tracking-widest text-zinc-400 pointer-events-none">
