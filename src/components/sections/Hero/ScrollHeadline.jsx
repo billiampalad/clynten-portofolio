@@ -57,7 +57,7 @@ export default function ScrollHeadline({ progress = 0 }) {
         animate="visible"
         className={`block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter transition-all duration-700 ${
           isFullyRevealed
-            ? 'animate-rgb-shimmer drop-shadow-[0_0_30px_rgba(6,182,212,0.35)]'
+            ? 'animate-shiny-text drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]'
             : 'text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]'
         }`}
       >
