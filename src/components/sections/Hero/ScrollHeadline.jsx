@@ -1,4 +1,33 @@
 import { motion } from 'framer-motion'
+import { useTextScramble } from '@/hooks/useTextScramble'
+
+const headlineContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.065,
+      delayChildren: 0.28,
+    },
+  },
+}
+
+const wordVariants = {
+  hidden: {
+    y: '105%',
+    opacity: 0,
+    filter: 'blur(4px)',
+  },
+  visible: {
+    y: '0%',
+    opacity: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
 
 export default function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 1 (COMPLEX): Starts 100% covered at scroll 0, uncovers smoothly on scroll (0.04 -> 0.38)
@@ -7,91 +36,134 @@ export default function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 2 (POWERFUL): Starts 100% covered at scroll 0, uncovers smoothly on scroll (0.42 -> 0.78)
   const reveal2 = Math.min(1, Math.max(0, (progress - 0.42) / 0.34))
 
+  // Dynamic Scramble Decrypt Animation for Directive & Subtext
+  const scrambledDirective = useTextScramble('CORE DIRECTIVE', 16)
+  const scrambledSubtext = useTextScramble(
+    'TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE',
+    22
+  )
+
   return (
     <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-6xl pointer-events-none select-none font-sans">
-      {/* HUD Directive Badge */}
+      {/* 1. HUD Directive Badge with Scale & Decrypt Animation */}
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ scale: 0.82, opacity: 0, y: -6 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
         className="inline-flex items-center gap-2 font-mono text-[10px] sm:text-[11px] tracking-[2px] text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1 rounded-full mb-2.5 backdrop-blur-md shadow-[0_0_14px_rgba(0,255,170,0.15)]"
       >
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#00ffaa] animate-pulse" />
-        <span className="font-semibold uppercase">CORE DIRECTIVE</span>
+        <span className="font-semibold uppercase tracking-widest">{scrambledDirective}</span>
       </motion.div>
 
-      {/* Main Bold Cinematic Headline */}
+      {/* 2. Main Bold Headline with Staggered Kinetic Word Reveal */}
       <motion.h1
-        initial={{ y: 25, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        variants={headlineContainerVariants}
+        initial="hidden"
+        animate="visible"
         className="text-[clamp(32px,4.5vw,70px)] font-black leading-[1.02] tracking-tighter text-white inline drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
       >
-        <span>DECODING </span>
+        {/* Word: DECODING */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            DECODING
+          </motion.span>
+        </span>
 
-        {/* Shutter Laser Reveal Block 1: COMPLEX */}
-        <span className="relative inline-block px-2 mx-0.5 align-baseline overflow-visible [clip-path:inset(-8px_0_-8px_0)]">
-          <span className="relative z-10 text-white font-black">
-            COMPLEX
-          </span>
-          {/* Sliding Cover Block */}
-          <span
-            className="absolute -inset-y-1 -inset-x-1.5 bg-[#830000] z-20 pointer-events-none will-change-transform"
-            style={{ transform: `translateX(${reveal1 * 100}%)` }}
-          />
-          {/* Laser Frontier Edge */}
-          <span
-            className="absolute -top-1.5 -bottom-1.5 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-            style={{
-              left: `calc(${reveal1 * 100}% - 2px)`,
-              opacity: reveal1 > 0.01 && reveal1 < 0.99 ? 1 : 0,
-            }}
-          />
-        </span>{' '}
+        {/* Word: COMPLEX (with Shutter Laser Block) */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            <span className="relative inline-block px-2 mx-0.5 align-baseline overflow-visible [clip-path:inset(-8px_0_-8px_0)]">
+              <span className="relative z-10 text-white font-black">
+                COMPLEX
+              </span>
+              {/* Sliding Cover Block */}
+              <span
+                className="absolute -inset-y-1 -inset-x-1.5 bg-[#830000] z-20 pointer-events-none will-change-transform"
+                style={{ transform: `translateX(${reveal1 * 100}%)` }}
+              />
+              {/* Laser Frontier Edge */}
+              <span
+                className="absolute -top-1.5 -bottom-1.5 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
+                style={{
+                  left: `calc(${reveal1 * 100}% - 2px)`,
+                  opacity: reveal1 > 0.01 && reveal1 < 0.99 ? 1 : 0,
+                }}
+              />
+            </span>
+          </motion.span>
+        </span>
 
-        <span>SYSTEMS </span>
-        <span>INTO </span>
+        {/* Word: SYSTEMS */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            SYSTEMS
+          </motion.span>
+        </span>
 
-        {/* Shutter Laser Reveal Block 2: POWERFUL */}
-        <span className="relative inline-block px-2 mx-0.5 align-baseline overflow-visible [clip-path:inset(-8px_0_-8px_0)]">
-          <span className="relative z-10 text-white font-black">
-            POWERFUL
-          </span>
-          {/* Sliding Cover Block */}
-          <span
-            className="absolute -inset-y-1 -inset-x-1.5 bg-[#830000] z-20 pointer-events-none will-change-transform"
-            style={{ transform: `translateX(${reveal2 * 100}%)` }}
-          />
-          {/* Laser Frontier Edge */}
-          <span
-            className="absolute -top-1.5 -bottom-1.5 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-            style={{
-              left: `calc(${reveal2 * 100}% - 2px)`,
-              opacity: reveal2 > 0.01 && reveal2 < 0.99 ? 1 : 0,
-            }}
-          />
-        </span>{' '}
+        {/* Word: INTO */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            INTO
+          </motion.span>
+        </span>
 
-        <span>DIGITAL </span>
-        <span>REALITIES.</span>
+        {/* Word: POWERFUL (with Shutter Laser Block) */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            <span className="relative inline-block px-2 mx-0.5 align-baseline overflow-visible [clip-path:inset(-8px_0_-8px_0)]">
+              <span className="relative z-10 text-white font-black">
+                POWERFUL
+              </span>
+              {/* Sliding Cover Block */}
+              <span
+                className="absolute -inset-y-1 -inset-x-1.5 bg-[#830000] z-20 pointer-events-none will-change-transform"
+                style={{ transform: `translateX(${reveal2 * 100}%)` }}
+              />
+              {/* Laser Frontier Edge */}
+              <span
+                className="absolute -top-1.5 -bottom-1.5 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
+                style={{
+                  left: `calc(${reveal2 * 100}% - 2px)`,
+                  opacity: reveal2 > 0.01 && reveal2 < 0.99 ? 1 : 0,
+                }}
+              />
+            </span>
+          </motion.span>
+        </span>
+
+        {/* Word: DIGITAL */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            DIGITAL
+          </motion.span>
+        </span>
+
+        {/* Word: REALITIES. */}
+        <span className="inline-block overflow-hidden align-baseline">
+          <motion.span variants={wordVariants} className="inline-block">
+            REALITIES.
+          </motion.span>
+        </span>
       </motion.h1>
 
-      {/* High-Tech Subtext with Laser Indicator Line */}
+      {/* 3. High-Tech Subtext with Laser Indicator Line & Text Decrypt */}
       <motion.div
-        initial={{ opacity: 0, x: -15 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.55, delay: 0.45, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
         className="flex items-center gap-3 mt-3 font-mono text-[9px] sm:text-[11px] tracking-[1.5px] text-zinc-400"
       >
         <motion.span
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5, delay: 0.48, ease: 'easeOut' }}
+          transition={{ duration: 0.55, delay: 0.75, ease: 'easeOut' }}
           style={{ transformOrigin: 'left' }}
           className="w-8 sm:w-12 h-[1px] bg-emerald-400/60 shadow-[0_0_6px_#00ffaa]"
         />
         <span className="text-zinc-300 font-medium">
-          TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE
+          {scrambledSubtext}
+          <span className="animate-pulse text-emerald-400 font-bold ml-1">_</span>
         </span>
       </motion.div>
     </div>
