@@ -30,11 +30,14 @@ const wordVariants = {
 }
 
 export default function ScrollHeadline({ progress = 0 }) {
-  // Reveal Progress 1 (COMPLEX): Starts 100% covered at scroll 0, uncovers smoothly on scroll (0.04 -> 0.38)
-  const reveal1 = Math.min(1, Math.max(0, (progress - 0.04) / 0.34))
+  // Reveal Progress 1 (LEARNING): Uncovers smoothly on scroll (0.04 -> 0.28)
+  const reveal1 = Math.min(1, Math.max(0, (progress - 0.04) / 0.24))
 
-  // Reveal Progress 2 (POWERFUL): Starts 100% covered at scroll 0, uncovers smoothly on scroll (0.42 -> 0.78)
-  const reveal2 = Math.min(1, Math.max(0, (progress - 0.42) / 0.34))
+  // Reveal Progress 2 (BUILDING): Uncovers smoothly on scroll (0.30 -> 0.54)
+  const reveal2 = Math.min(1, Math.max(0, (progress - 0.30) / 0.24))
+
+  // Reveal Progress 3 (GROWING): Uncovers smoothly on scroll (0.56 -> 0.80)
+  const reveal3 = Math.min(1, Math.max(0, (progress - 0.56) / 0.24))
 
   // Dynamic Scramble Decrypt Animation for Subtext
   const scrambledSubtext = useTextScramble(
@@ -51,18 +54,18 @@ export default function ScrollHeadline({ progress = 0 }) {
         animate="visible"
         className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
       >
-        {/* Word: DECODING */}
+        {/* Word: CONTINUOUSLY */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="inline-block">
-            DECODING
+            CONTINUOUSLY
           </motion.span>
         </span>
 
-        {/* Word: COMPLEX (with Shutter Laser Block - Shared True Baseline) */}
+        {/* Word: LEARNING, (with Shutter Laser Block) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="relative inline-block px-1">
             <span className="relative z-10 text-white font-black">
-              COMPLEX
+              LEARNING,
             </span>
             {/* Sliding Cover Block */}
             <span
@@ -80,28 +83,11 @@ export default function ScrollHeadline({ progress = 0 }) {
           </motion.span>
         </span>
 
-        {/* Word: SYSTEMS */}
-        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
-          <motion.span variants={wordVariants} className="inline-block">
-            SYSTEMS
-          </motion.span>
-        </span>
-
-        {/* Guaranteed 100% Reliable Line Break for All Laptop/Desktop Screens */}
-        <span className="block w-full h-0 pointer-events-none select-none" />
-
-        {/* Word: INTO */}
-        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
-          <motion.span variants={wordVariants} className="inline-block">
-            INTO
-          </motion.span>
-        </span>
-
-        {/* Word: POWERFUL (with Shutter Laser Block - Shared True Baseline) */}
+        {/* Word: BUILDING, (with Shutter Laser Block) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="relative inline-block px-1">
             <span className="relative z-10 text-white font-black">
-              POWERFUL
+              BUILDING,
             </span>
             {/* Sliding Cover Block */}
             <span
@@ -119,17 +105,49 @@ export default function ScrollHeadline({ progress = 0 }) {
           </motion.span>
         </span>
 
-        {/* Word: DIGITAL */}
+        {/* Guaranteed 100% Reliable Line Break for All Laptop/Desktop Screens */}
+        <span className="block w-full h-0 pointer-events-none select-none" />
+
+        {/* Word: AND */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="inline-block">
-            DIGITAL
+            AND
           </motion.span>
         </span>
 
-        {/* Word: REALITIES. */}
+        {/* Word: GROWING (with Shutter Laser Block) */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="relative inline-block px-1">
+            <span className="relative z-10 text-white font-black">
+              GROWING
+            </span>
+            {/* Sliding Cover Block */}
+            <span
+              className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
+              style={{ transform: `translateX(${reveal3 * 100}%)` }}
+            />
+            {/* Laser Frontier Edge */}
+            <span
+              className="absolute top-0 bottom-0 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
+              style={{
+                left: `calc(${reveal3 * 100}% - 2px)`,
+                opacity: reveal3 > 0.01 && reveal3 < 0.99 ? 1 : 0,
+              }}
+            />
+          </motion.span>
+        </span>
+
+        {/* Word: THROUGH */}
+        <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
+          <motion.span variants={wordVariants} className="inline-block">
+            THROUGH
+          </motion.span>
+        </span>
+
+        {/* Word: TECHNOLOGY */}
         <span className="inline-block overflow-hidden align-baseline">
           <motion.span variants={wordVariants} className="inline-block">
-            REALITIES.
+            TECHNOLOGY
           </motion.span>
         </span>
       </motion.h1>
