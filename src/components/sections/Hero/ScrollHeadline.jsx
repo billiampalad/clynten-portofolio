@@ -49,7 +49,7 @@ export default function ScrollHeadline({ progress = 0 }) {
         variants={headlineContainerVariants}
         initial="hidden"
         animate="visible"
-        className="block text-[clamp(32px,4.2vw,68px)] font-black leading-[1.05] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+        className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
       >
         {/* Word: DECODING */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
@@ -87,8 +87,8 @@ export default function ScrollHeadline({ progress = 0 }) {
           </motion.span>
         </span>
 
-        {/* Semantic Line Break: Ensures balanced 2-line layout on laptop (1024px+) without truncation */}
-        <br className="hidden lg:inline" />
+        {/* Guaranteed 100% Reliable Line Break for All Laptop/Desktop Screens */}
+        <span className="block w-full h-0 pointer-events-none select-none" />
 
         {/* Word: INTO */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
