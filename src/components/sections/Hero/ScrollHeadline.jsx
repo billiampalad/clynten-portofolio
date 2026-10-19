@@ -39,6 +39,9 @@ export default function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 3 (GROWING): Uncovers smoothly on scroll (0.56 -> 0.80)
   const reveal3 = Math.min(1, Math.max(0, (progress - 0.56) / 0.24))
 
+  // Trigger chromatic RGB shimmer when all blocks are fully uncovered or scroll reaches >= 80%
+  const isFullyRevealed = progress >= 0.8 || reveal3 >= 0.98
+
   // Dynamic Scramble Decrypt Animation for Subtext
   const scrambledSubtext = useTextScramble(
     'TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE',
@@ -52,7 +55,11 @@ export default function ScrollHeadline({ progress = 0 }) {
         variants={headlineContainerVariants}
         initial="hidden"
         animate="visible"
-        className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+        className={`block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter transition-all duration-700 ${
+          isFullyRevealed
+            ? 'animate-rgb-shimmer drop-shadow-[0_0_30px_rgba(6,182,212,0.35)]'
+            : 'text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]'
+        }`}
       >
         {/* Word: CONTINUOUSLY */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
@@ -64,13 +71,16 @@ export default function ScrollHeadline({ progress = 0 }) {
         {/* Word: LEARNING, (with Shutter Laser Block) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="relative inline-block px-1">
-            <span className="relative z-10 text-white font-black">
+            <span className="relative z-10 font-black">
               LEARNING,
             </span>
             {/* Sliding Cover Block */}
             <span
               className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
-              style={{ transform: `translateX(${reveal1 * 100}%)` }}
+              style={{
+                transform: `translateX(${reveal1 * 100}%)`,
+                opacity: reveal1 >= 1 ? 0 : 1,
+              }}
             />
             {/* Laser Frontier Edge */}
             <span
@@ -86,13 +96,16 @@ export default function ScrollHeadline({ progress = 0 }) {
         {/* Word: BUILDING, (with Shutter Laser Block) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="relative inline-block px-1">
-            <span className="relative z-10 text-white font-black">
+            <span className="relative z-10 font-black">
               BUILDING,
             </span>
             {/* Sliding Cover Block */}
             <span
               className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
-              style={{ transform: `translateX(${reveal2 * 100}%)` }}
+              style={{
+                transform: `translateX(${reveal2 * 100}%)`,
+                opacity: reveal2 >= 1 ? 0 : 1,
+              }}
             />
             {/* Laser Frontier Edge */}
             <span
@@ -118,13 +131,16 @@ export default function ScrollHeadline({ progress = 0 }) {
         {/* Word: GROWING (with Shutter Laser Block) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="relative inline-block px-1">
-            <span className="relative z-10 text-white font-black">
+            <span className="relative z-10 font-black">
               GROWING
             </span>
             {/* Sliding Cover Block */}
             <span
               className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
-              style={{ transform: `translateX(${reveal3 * 100}%)` }}
+              style={{
+                transform: `translateX(${reveal3 * 100}%)`,
+                opacity: reveal3 >= 1 ? 0 : 1,
+              }}
             />
             {/* Laser Frontier Edge */}
             <span

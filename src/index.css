@@ -122,3 +122,34 @@ body.light-theme {
 html.light-theme #root {
   background: #f8fafc;
 }
+
+/* ==========================================================================
+   Chromatic RGB Text Shimmer for Hero Headline (Merah -> Biru -> Hijau)
+   ========================================================================== */
+@keyframes rgb-text-shimmer {
+  0% {
+    background-position: 250% center;
+  }
+  100% {
+    background-position: -250% center;
+  }
+}
+
+.animate-rgb-shimmer {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 12%,
+    #f43f5e 28%,
+    #06b6d4 50%,
+    #10b981 72%,
+    #ffffff 88%,
+    #ffffff 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent !important;
+  animation: rgb-text-shimmer 4s ease-in-out infinite;
+}
