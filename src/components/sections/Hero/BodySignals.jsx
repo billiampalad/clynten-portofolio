@@ -77,13 +77,6 @@ function SkillCard({ skill, index, progress, isScrollZero }) {
         ? 'text-cyan-400'
         : 'text-emerald-400'
 
-  const beamGradient =
-    color === 'red'
-      ? 'from-transparent via-rose-500 to-transparent'
-      : color === 'cyan'
-      ? 'from-transparent via-cyan-400 to-transparent'
-      : 'from-transparent via-emerald-400 to-transparent'
-
   return (
     <motion.div
       initial={{ scale: 0.88, opacity: 0 }}
@@ -96,18 +89,6 @@ function SkillCard({ skill, index, progress, isScrollZero }) {
       className={`absolute ${positionClass} pointer-events-none select-none z-10 transition-all duration-300`}
     >
       <div className={`relative w-[155px] sm:w-[165px] p-2 rounded-lg bg-zinc-950/90 backdrop-blur-xl border ${borderColor} shadow-xl`}>
-        {/* Top glowing laser line */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.45, delay: 0.55 + index * 0.08, ease: 'easeOut' }}
-          className={`absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r ${beamGradient} rounded-t-lg opacity-80 origin-center`}
-        />
-
-        {/* Corner HUD ticks */}
-        <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-white/30 rounded-tl-[2px]" />
-        <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-white/30 rounded-br-[2px]" />
-
         <HudHeader
           text={data.header}
           tag={skill.tag}
