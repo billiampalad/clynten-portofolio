@@ -43,13 +43,13 @@ export default function ScrollHeadline({ progress = 0 }) {
   )
 
   return (
-    <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-6xl pointer-events-none select-none font-sans">
+    <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-7xl pointer-events-none select-none font-sans">
       {/* Main Bold Headline with Staggered Kinetic Word Reveal */}
       <motion.h1
         variants={headlineContainerVariants}
         initial="hidden"
         animate="visible"
-        className="block text-[clamp(32px,4.5vw,70px)] font-black leading-[1.02] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+        className="block text-[clamp(32px,4.2vw,68px)] font-black leading-[1.05] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
       >
         {/* Word: DECODING */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
@@ -58,27 +58,25 @@ export default function ScrollHeadline({ progress = 0 }) {
           </motion.span>
         </span>
 
-        {/* Word: COMPLEX (with Shutter Laser Block) */}
+        {/* Word: COMPLEX (with Shutter Laser Block - Shared True Baseline) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
-          <motion.span variants={wordVariants} className="inline-block">
-            <span className="relative inline-block px-2 mx-0.5 align-baseline overflow-visible [clip-path:inset(-8px_0_-8px_0)]">
-              <span className="relative z-10 text-white font-black">
-                COMPLEX
-              </span>
-              {/* Sliding Cover Block */}
-              <span
-                className="absolute -inset-y-1 -inset-x-1.5 bg-[#830000] z-20 pointer-events-none will-change-transform"
-                style={{ transform: `translateX(${reveal1 * 100}%)` }}
-              />
-              {/* Laser Frontier Edge */}
-              <span
-                className="absolute -top-1.5 -bottom-1.5 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-                style={{
-                  left: `calc(${reveal1 * 100}% - 2px)`,
-                  opacity: reveal1 > 0.01 && reveal1 < 0.99 ? 1 : 0,
-                }}
-              />
+          <motion.span variants={wordVariants} className="relative inline-block px-1">
+            <span className="relative z-10 text-white font-black">
+              COMPLEX
             </span>
+            {/* Sliding Cover Block */}
+            <span
+              className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
+              style={{ transform: `translateX(${reveal1 * 100}%)` }}
+            />
+            {/* Laser Frontier Edge */}
+            <span
+              className="absolute top-0 bottom-0 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
+              style={{
+                left: `calc(${reveal1 * 100}% - 2px)`,
+                opacity: reveal1 > 0.01 && reveal1 < 0.99 ? 1 : 0,
+              }}
+            />
           </motion.span>
         </span>
 
@@ -89,6 +87,9 @@ export default function ScrollHeadline({ progress = 0 }) {
           </motion.span>
         </span>
 
+        {/* Semantic Line Break: Ensures balanced 2-line layout on laptop (1024px+) without truncation */}
+        <br className="hidden lg:inline" />
+
         {/* Word: INTO */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
           <motion.span variants={wordVariants} className="inline-block">
@@ -96,27 +97,25 @@ export default function ScrollHeadline({ progress = 0 }) {
           </motion.span>
         </span>
 
-        {/* Word: POWERFUL (with Shutter Laser Block) */}
+        {/* Word: POWERFUL (with Shutter Laser Block - Shared True Baseline) */}
         <span className="inline-block overflow-hidden align-baseline mr-[0.25em]">
-          <motion.span variants={wordVariants} className="inline-block">
-            <span className="relative inline-block px-2 mx-0.5 align-baseline overflow-visible [clip-path:inset(-8px_0_-8px_0)]">
-              <span className="relative z-10 text-white font-black">
-                POWERFUL
-              </span>
-              {/* Sliding Cover Block */}
-              <span
-                className="absolute -inset-y-1 -inset-x-1.5 bg-[#830000] z-20 pointer-events-none will-change-transform"
-                style={{ transform: `translateX(${reveal2 * 100}%)` }}
-              />
-              {/* Laser Frontier Edge */}
-              <span
-                className="absolute -top-1.5 -bottom-1.5 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-                style={{
-                  left: `calc(${reveal2 * 100}% - 2px)`,
-                  opacity: reveal2 > 0.01 && reveal2 < 0.99 ? 1 : 0,
-                }}
-              />
+          <motion.span variants={wordVariants} className="relative inline-block px-1">
+            <span className="relative z-10 text-white font-black">
+              POWERFUL
             </span>
+            {/* Sliding Cover Block */}
+            <span
+              className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
+              style={{ transform: `translateX(${reveal2 * 100}%)` }}
+            />
+            {/* Laser Frontier Edge */}
+            <span
+              className="absolute top-0 bottom-0 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
+              style={{
+                left: `calc(${reveal2 * 100}% - 2px)`,
+                opacity: reveal2 > 0.01 && reveal2 < 0.99 ? 1 : 0,
+              }}
+            />
           </motion.span>
         </span>
 
