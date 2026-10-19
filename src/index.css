@@ -124,30 +124,32 @@ html.light-theme #root {
 }
 
 /* ==========================================================================
-   Ultra-Clean Metallic / Glossy Shiny Text Animation
+   Chromatic RGB Text Shimmer for Hero Headline (Merah -> Biru -> Hijau)
    ========================================================================== */
-@keyframes shiny-text {
+@keyframes rgb-text-shimmer {
   0% {
-    background-position: 200% 0;
+    background-position: 250% center;
   }
   100% {
-    background-position: -200% 0;
+    background-position: -250% center;
   }
 }
 
-.animate-shiny-text {
+.animate-rgb-shimmer {
   background: linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0.42) 0%,
-    rgba(255, 255, 255, 0.42) 36%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0.42) 64%,
-    rgba(255, 255, 255, 0.42) 100%
+    90deg,
+    #ffffff 0%,
+    #ffffff 12%,
+    #f43f5e 28%,
+    #06b6d4 50%,
+    #10b981 72%,
+    #ffffff 88%,
+    #ffffff 100%
   );
-  background-size: 200% 100%;
+  background-size: 250% 100%;
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   color: transparent !important;
-  animation: shiny-text 3.5s ease-in-out infinite;
+  animation: rgb-text-shimmer 4s ease-in-out infinite;
 }
