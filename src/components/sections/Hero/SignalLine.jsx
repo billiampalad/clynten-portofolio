@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-export default function SignalLine({ progress = 0 }) {
+export default function SignalLine({ progress = 0, color = '#00ffaa' }) {
   const normalizedProgress = Math.min(1, Math.max(0, progress))
   const strokeOffset = 100 * (1 - normalizedProgress)
 
@@ -30,14 +30,15 @@ export default function SignalLine({ progress = 0 }) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
           d="M0 12 H70 L80 4 L90 20 L100 8 L110 16 L120 12 H180 L190 2 L200 22 L210 12 H300"
-          stroke="#00ffaa"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
           pathLength="100"
           strokeDasharray="100"
           strokeDashoffset={strokeOffset}
-          className="drop-shadow-[0_0_6px_#00ffaa] transition-all duration-75 ease-linear"
+          style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+          className="transition-colors duration-300 ease-linear"
         />
       </svg>
     </div>

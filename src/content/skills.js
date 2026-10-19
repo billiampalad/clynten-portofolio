@@ -9,7 +9,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'WEB DEVELOPMENT',
       stackId: 'FULL_STACK_ARCH',
-      confidence: '80%',
+      confidence: '85%',
       frameworks: 'REACT / LARAVEL / NEXT',
       latency: 'OPTIMIZED — 0.02ms',
     },
@@ -31,7 +31,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'ANDROID DEV',
       stackId: 'MOBILE_OS_NODE',
-      confidence: '65%',
+      confidence: '75%',
       frameworks: 'KOTLIN / FLUTTER',
       latency: 'OPTIMIZED — 0.05ms',
     },
@@ -53,7 +53,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'CYBER SECURITY',
       stackId: 'SEC_AUDIT_PRO',
-      confidence: '60%',
+      confidence: '70%',
       frameworks: 'KALI / UBUNTU',
       latency: 'SHIELD — 0.01ms',
     },
@@ -75,7 +75,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'NETWORK - IOT',
       stackId: 'NET_TOPOLOGY_V2',
-      confidence: '70%',
+      confidence: '80%',
       frameworks: 'CISCO, ARDUINO',
       latency: 'LOW LATENCY — 0.03ms',
     },
@@ -119,7 +119,7 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'UI/UX DESIGN',
       stackId: 'DESIGN_SYSTEM_PRO',
-      confidence: '60%',
+      confidence: '75%',
       frameworks: 'FIGMA / PROTOTYPE',
       latency: 'OPTIMIZED — 0.03ms',
     },
