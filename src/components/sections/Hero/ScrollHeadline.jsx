@@ -36,8 +36,7 @@ export default function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 2 (POWERFUL): Starts 100% covered at scroll 0, uncovers smoothly on scroll (0.42 -> 0.78)
   const reveal2 = Math.min(1, Math.max(0, (progress - 0.42) / 0.34))
 
-  // Dynamic Scramble Decrypt Animation for Directive & Subtext
-  const scrambledDirective = useTextScramble('CORE DIRECTIVE', 16)
+  // Dynamic Scramble Decrypt Animation for Subtext
   const scrambledSubtext = useTextScramble(
     'TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE',
     22
@@ -45,20 +44,7 @@ export default function ScrollHeadline({ progress = 0 }) {
 
   return (
     <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-6xl pointer-events-none select-none font-sans">
-      {/* 1. HUD Directive Badge with Scale & Decrypt Animation */}
-      <div className="flex items-center mb-3 sm:mb-4">
-        <motion.div
-          initial={{ scale: 0.82, opacity: 0, y: -6 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 font-mono text-[9.5px] sm:text-[10.5px] tracking-[2px] text-emerald-400 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur-md shadow-[0_0_14px_rgba(0,255,170,0.15)]"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#00ffaa] animate-pulse" />
-          <span className="font-semibold uppercase tracking-widest">{scrambledDirective}</span>
-        </motion.div>
-      </div>
-
-      {/* 2. Main Bold Headline with Staggered Kinetic Word Reveal */}
+      {/* Main Bold Headline with Staggered Kinetic Word Reveal */}
       <motion.h1
         variants={headlineContainerVariants}
         initial="hidden"
