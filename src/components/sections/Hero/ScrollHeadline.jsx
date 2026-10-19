@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 export default function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 1 (COMPLEX): Starts 100% covered at scroll 0, uncovers smoothly on scroll (0.04 -> 0.38)
   const reveal1 = Math.min(1, Math.max(0, (progress - 0.04) / 0.34))
@@ -8,13 +10,23 @@ export default function ScrollHeadline({ progress = 0 }) {
   return (
     <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-6xl pointer-events-none select-none font-sans">
       {/* HUD Directive Badge */}
-      <div className="inline-flex items-center gap-2 font-mono text-[10px] sm:text-[11px] tracking-[2px] text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1 rounded-full mb-2.5 backdrop-blur-md shadow-[0_0_14px_rgba(0,255,170,0.15)]">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        className="inline-flex items-center gap-2 font-mono text-[10px] sm:text-[11px] tracking-[2px] text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1 rounded-full mb-2.5 backdrop-blur-md shadow-[0_0_14px_rgba(0,255,170,0.15)]"
+      >
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#00ffaa] animate-pulse" />
         <span className="font-semibold uppercase">CORE DIRECTIVE</span>
-      </div>
+      </motion.div>
 
       {/* Main Bold Cinematic Headline */}
-      <h1 className="text-[clamp(32px,4.5vw,70px)] font-black leading-[1.02] tracking-tighter text-white inline drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+      <motion.h1
+        initial={{ y: 25, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        className="text-[clamp(32px,4.5vw,70px)] font-black leading-[1.02] tracking-tighter text-white inline drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+      >
         <span>DECODING </span>
 
         {/* Shutter Laser Reveal Block 1: COMPLEX */}
@@ -62,15 +74,26 @@ export default function ScrollHeadline({ progress = 0 }) {
 
         <span>DIGITAL </span>
         <span>REALITIES.</span>
-      </h1>
+      </motion.h1>
 
       {/* High-Tech Subtext with Laser Indicator Line */}
-      <div className="flex items-center gap-3 mt-3 font-mono text-[9px] sm:text-[11px] tracking-[1.5px] text-zinc-400">
-        <span className="w-8 sm:w-12 h-[1px] bg-emerald-400/60 shadow-[0_0_6px_#00ffaa]" />
+      <motion.div
+        initial={{ opacity: 0, x: -15 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.55, delay: 0.45, ease: 'easeOut' }}
+        className="flex items-center gap-3 mt-3 font-mono text-[9px] sm:text-[11px] tracking-[1.5px] text-zinc-400"
+      >
+        <motion.span
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, delay: 0.48, ease: 'easeOut' }}
+          style={{ transformOrigin: 'left' }}
+          className="w-8 sm:w-12 h-[1px] bg-emerald-400/60 shadow-[0_0_6px_#00ffaa]"
+        />
         <span className="text-zinc-300 font-medium">
           TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE
         </span>
-      </div>
+      </motion.div>
     </div>
   )
 }

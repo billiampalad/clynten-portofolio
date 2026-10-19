@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { SKILLS_CONFIG } from '@/content/skills'
 import { useTextScramble } from '@/hooks/useTextScramble'
 
@@ -55,7 +56,7 @@ function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
   )
 }
 
-function SkillCard({ skill, progress, isScrollZero }) {
+function SkillCard({ skill, index, progress, isScrollZero }) {
   const isResolved = progress >= skill.threshold
   const data = isResolved ? skill.resolved : skill.unresolved
   const color = skill.activeColor
@@ -80,14 +81,28 @@ function SkillCard({ skill, progress, isScrollZero }) {
     color === 'red'
       ? 'from-transparent via-rose-500 to-transparent'
       : color === 'cyan'
-        ? 'from-transparent via-cyan-400 to-transparent'
-        : 'from-transparent via-emerald-400 to-transparent'
+      ? 'from-transparent via-cyan-400 to-transparent'
+      : 'from-transparent via-emerald-400 to-transparent'
 
   return (
-    <div className={`absolute ${positionClass} pointer-events-none select-none z-10 transition-all duration-300`}>
+    <motion.div
+      initial={{ scale: 0.88, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.45 + index * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={`absolute ${positionClass} pointer-events-none select-none z-10 transition-all duration-300`}
+    >
       <div className={`relative w-[155px] sm:w-[165px] p-2 rounded-lg bg-zinc-950/90 backdrop-blur-xl border ${borderColor} shadow-xl`}>
         {/* Top glowing laser line */}
-        <div className={`absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r ${beamGradient} rounded-t-lg opacity-80`} />
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.45, delay: 0.55 + index * 0.08, ease: 'easeOut' }}
+          className={`absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r ${beamGradient} rounded-t-lg opacity-80 origin-center`}
+        />
 
         {/* Corner HUD ticks */}
         <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-white/30 rounded-tl-[2px]" />
@@ -129,7 +144,7 @@ function SkillCard({ skill, progress, isScrollZero }) {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -143,10 +158,11 @@ export default function BodySignals({ progress = 0 }) {
       className="absolute inset-0 pointer-events-none z-18 font-mono select-none transition-opacity duration-150 hidden lg:block"
       style={{ opacity: fadeOpacity }}
     >
-      {SKILLS_CONFIG.map((skill) => (
+      {SKILLS_CONFIG.map((skill, index) => (
         <SkillCard
           key={skill.id}
           skill={skill}
+          index={index}
           progress={progress}
           isScrollZero={isScrollZero}
         />
