@@ -74,6 +74,9 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
               transitionDelay: `${idx * 80}ms`,
             }}
           >
+            {/* Slat Top Glowing Red Laser Blade */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent shadow-[0_0_12px_#f43f5e]" />
+
             {/* Slat Bottom Glowing Red Laser Blade */}
             <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent shadow-[0_0_12px_#f43f5e]" />
 
