@@ -228,14 +228,27 @@ export default function Hero({ onProgressChange }) {
           canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // Digital Scanlines melarut halus seiring ketajaman visual
-        const gridOpacity = gsap.utils.interpolate(
-          HERO_CONFIG.gridOpacityStart,
-          HERO_CONFIG.gridOpacityEnd,
-          filterProgress
-        )
+        // Digital Scanlines melarut halus seiring ketajaman visual (lenyap total pada progress >= 0.75)
+        let gridOpacity = 0
+        if (progress < 0.65) {
+          gridOpacity = gsap.utils.interpolate(
+            HERO_CONFIG.gridOpacityStart,
+            HERO_CONFIG.gridOpacityEnd,
+            filterProgress
+          )
+        } else if (progress < 0.75) {
+          gridOpacity = gsap.utils.interpolate(
+            HERO_CONFIG.gridOpacityEnd,
+            0,
+            (progress - 0.65) / 0.10
+          )
+        } else {
+          gridOpacity = 0
+        }
+
         if (gridOverlay) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
+          gridOverlay.style.display = gridOpacity > 0.01 ? 'block' : 'none'
         }
 
         // =========================================================================
@@ -264,6 +277,7 @@ export default function Hero({ onProgressChange }) {
         if (canvasCard) {
           if (progress < 0.75) {
             // Fase A: 100% Fullscreen, no border, flat 2D
+            canvasCard.style.display = 'block'
             canvasCard.style.transform = 'translate3d(0, 0, 0) scale(1) rotateX(0deg)'
             canvasCard.style.opacity = '1'
             canvasCard.style.borderRadius = '0px'
@@ -271,6 +285,7 @@ export default function Hero({ onProgressChange }) {
             if (panelBevel) panelBevel.style.opacity = '0'
           } else if (progress >= 0.75 && progress < 0.84) {
             // Fase B: Cinematic Camera Pull-Back (Progress 0.75 -> 0.84)
+            canvasCard.style.display = 'block'
             const t = smoothStep((progress - 0.75) / 0.09)
             const cScale = 1.00 - t * 0.28 // 1.00 -> 0.72
             const cTranslateZ = -t * 160 // 0 -> -160px
@@ -285,6 +300,7 @@ export default function Hero({ onProgressChange }) {
             if (panelBevel) panelBevel.style.opacity = bevelAlpha.toFixed(2)
           } else if (progress >= 0.84 && progress < 0.92) {
             // Fase C: Deep Space Tunnel Traversal (Progress 0.84 -> 0.92)
+            canvasCard.style.display = 'block'
             const t = smoothStep((progress - 0.84) / 0.08)
             const cScale = 0.72 - t * 0.37 // 0.72 -> 0.35
             const cTranslateZ = -160 - t * 260 // -160 -> -420px
@@ -297,9 +313,10 @@ export default function Hero({ onProgressChange }) {
             canvasCard.style.borderRadius = `${cRadius.toFixed(1)}px`
             canvasCard.style.boxShadow = `0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.3)`
             if (panelBevel) panelBevel.style.opacity = '1'
-          } else if (progress >= 0.92 && progress <= 0.97) {
-            // Fase D: Focus Convergence (Progress 0.92 -> 0.97)
-            const t = smoothStep((progress - 0.92) / 0.05)
+          } else if (progress >= 0.92 && progress <= 0.96) {
+            // Fase D: Focus Convergence (Progress 0.92 -> 0.96)
+            canvasCard.style.display = 'block'
+            const t = smoothStep((progress - 0.92) / 0.04)
             const cScale = Math.max(0.01, 0.35 * (1 - t)) // 0.35 -> 0.00
             const cTranslateZ = -420 - t * 380 // -420 -> -800px
             const frameOpacity = Math.max(0, 0.85 * (1 - t * 1.2))
@@ -310,9 +327,10 @@ export default function Hero({ onProgressChange }) {
             canvasCard.style.boxShadow = frameOpacity > 0.1 ? `0 0 25px rgba(6, 182, 212, ${(0.4 * frameOpacity).toFixed(2)})` : 'none'
             if (panelBevel) panelBevel.style.opacity = frameOpacity.toFixed(2)
           } else {
-            // Fase E (0.97 -> 1.00): Canvas completely dissolved into focal stillness
+            // Fase E (0.96 -> 1.00): Canvas completely dissolved into focal stillness
             canvasCard.style.transform = 'translate3d(0, 0, -800px) scale(0)'
             canvasCard.style.opacity = '0'
+            canvasCard.style.display = 'none'
             canvasCard.style.boxShadow = 'none'
             if (panelBevel) panelBevel.style.opacity = '0'
           }
@@ -330,11 +348,13 @@ export default function Hero({ onProgressChange }) {
             currentAboutReveal = 0
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
+            backdropLayerRef.current.style.zIndex = '0'
           } else {
             const tOverall = smoothStep(Math.min(1, Math.max(0, (progress - EMERGE_START) / (EMERGE_END - EMERGE_START))))
             currentAboutReveal = tOverall
             backdropLayerRef.current.style.opacity = tOverall.toFixed(3)
-            backdropLayerRef.current.style.pointerEvents = tOverall > 0.8 ? 'auto' : 'none'
+            backdropLayerRef.current.style.pointerEvents = tOverall > 0.75 ? 'auto' : 'none'
+            backdropLayerRef.current.style.zIndex = tOverall > 0.05 ? '30' : '0'
 
             // Stage 1: Headline emerges first (0.96 -> 0.98)
             const tH = smoothStep(Math.min(1, Math.max(0, (progress - 0.96) / 0.02)))

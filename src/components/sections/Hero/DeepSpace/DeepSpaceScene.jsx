@@ -128,16 +128,27 @@ function DeepSpaceScene({ progress = 0 }) {
     }
   }, [reducedMotion])
 
-  // Dynamic vignette opacity: deepens as camera traverses the deep space tunnel (0.75 -> 0.97)
-  const isTunnelActive = progress >= 0.75
-  const vignetteOpacity = isTunnelActive
-    ? Math.min(1, 0.4 + ((progress - 0.75) / 0.22) * 0.6)
-    : 0.25
+  // DeepSpaceScene should only be visible during tunnel transition (0.73 -> 0.96)
+  // and MUST dissolve completely to 0 as About emerges (0.96 -> 0.99)
+  let sceneOpacity = 0
+  if (progress >= 0.73 && progress < 0.96) {
+    sceneOpacity = Math.min(1, (progress - 0.73) / 0.05)
+  } else if (progress >= 0.96 && progress < 0.99) {
+    sceneOpacity = Math.max(0, 1 - (progress - 0.96) / 0.03)
+  } else {
+    sceneOpacity = 0
+  }
 
-  // Anamorphic focus beam visible during focus convergence (0.91 -> 0.96)
-  const isConverging = progress >= 0.91 && progress <= 0.97
+  // Dynamic vignette opacity: only active during tunnel traversal, fades to 0 before About
+  const isTunnelActive = progress >= 0.75 && progress < 0.96
+  const vignetteOpacity = isTunnelActive
+    ? Math.min(1, 0.4 + ((progress - 0.75) / 0.20) * 0.6)
+    : 0
+
+  // Anamorphic focus beam visible only during focus convergence (0.91 -> 0.96)
+  const isConverging = progress >= 0.91 && progress < 0.96
   const beamOpacity = isConverging
-    ? Math.sin(((progress - 0.91) / 0.06) * Math.PI) * 0.85
+    ? Math.sin(((progress - 0.91) / 0.05) * Math.PI) * 0.85
     : 0
 
   return (
@@ -145,8 +156,10 @@ function DeepSpaceScene({ progress = 0 }) {
       ref={containerRef}
       className="deep-space-container"
       style={{
-        opacity: progress >= 0.73 ? Math.min(1, (progress - 0.73) / 0.05) : 0,
-        transition: 'opacity 0.4s ease-out',
+        opacity: sceneOpacity,
+        display: sceneOpacity <= 0 ? 'none' : 'block',
+        visibility: sceneOpacity <= 0 ? 'hidden' : 'visible',
+        transition: 'opacity 0.25s ease-out',
       }}
     >
       <canvas ref={canvasRef} className="deep-space-canvas" />
