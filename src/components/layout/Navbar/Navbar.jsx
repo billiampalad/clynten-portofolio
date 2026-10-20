@@ -213,15 +213,6 @@ export default function Navbar({
     )
   }
 
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  // Reset isExpanded when navbar is hidden so the entrance animation can replay cleanly
-  useEffect(() => {
-    if (!isVisible) {
-      setIsExpanded(false)
-    }
-  }, [isVisible])
-
   if (!isVisible) return null
 
   return (
@@ -231,24 +222,16 @@ export default function Navbar({
         isScrolled ? 'scrolled navbar-scrolled' : ''
       }`}
       initial={{
-        y: -28,
+        y: -40,
         opacity: 0,
-        clipPath: 'inset(4px 26% 4px 26% round 9999px)',
       }}
       animate={{
         y: 0,
         opacity: 1,
-        clipPath: 'inset(0px 0% 0px 0% round 0px)',
         transition: {
-          duration: 0.65,
+          duration: 0.5,
           ease: [0.16, 1, 0.3, 1],
         },
-      }}
-      onAnimationComplete={() => {
-        setIsExpanded(true)
-      }}
-      style={{
-        clipPath: isExpanded ? 'none' : undefined,
       }}
     >
           {/* Dark base underlay matching Hero backdrop (#000000) */}
