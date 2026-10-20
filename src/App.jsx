@@ -15,22 +15,13 @@ function App() {
   const [heroKey, setHeroKey] = useState(0)
 
   const handleHeroProgress = useCallback((progress) => {
-    // Sync Navbar dimming & reveal identically with Soft Emergence of About in Hero.jsx (0.95 -> 0.99)
-    const FADE_START = 0.95
-    const FADE_END = 0.99
-
-    if (progress < FADE_START) {
-      setIsNavbarVisible(false)
-      setNavbarReveal(0)
-    } else if (progress >= FADE_START && progress < FADE_END) {
-      setIsNavbarVisible(true)
-      // Hermite smoothstep curve matching About reveal in Hero.jsx
-      const t = (progress - FADE_START) / (FADE_END - FADE_START)
-      const smoothed = t * t * (3 - 2 * t)
-      setNavbarReveal(smoothed)
-    } else {
+    // Only reveal Navbar when Hero canvas frame sequence is 100% finished (0% scale at progress >= 0.95)
+    if (progress >= 0.95) {
       setIsNavbarVisible(true)
       setNavbarReveal(1)
+    } else {
+      setIsNavbarVisible(false)
+      setNavbarReveal(0)
     }
   }, [])
 

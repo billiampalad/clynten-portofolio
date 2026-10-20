@@ -12,7 +12,6 @@ import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
 import { calculateCoverFit } from '@/lib/utils/canvas'
 import frameUrls from '@/data/frameList.json'
 import HeroRadarLoader from './HeroRadarLoader'
-import DeepSpaceScene from './DeepSpace/DeepSpaceScene'
 
 const TOTAL_FRAMES = frameUrls.length
 
@@ -21,8 +20,6 @@ export default function Hero({ onProgressChange }) {
   const pinWrapperRef = useRef(null)
   const backdropLayerRef = useRef(null)
   const canvasRef = useRef(null)
-  const canvasCardRef = useRef(null)
-  const panelBevelRef = useRef(null)
   const gridOverlayRef = useRef(null)
   const hudLayerRef = useRef(null)
 
@@ -228,27 +225,14 @@ export default function Hero({ onProgressChange }) {
           canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
         }
 
-        // Digital Scanlines melarut halus seiring ketajaman visual (lenyap total pada progress >= 0.75)
-        let gridOpacity = 0
-        if (progress < 0.65) {
-          gridOpacity = gsap.utils.interpolate(
-            HERO_CONFIG.gridOpacityStart,
-            HERO_CONFIG.gridOpacityEnd,
-            filterProgress
-          )
-        } else if (progress < 0.75) {
-          gridOpacity = gsap.utils.interpolate(
-            HERO_CONFIG.gridOpacityEnd,
-            0,
-            (progress - 0.65) / 0.10
-          )
-        } else {
-          gridOpacity = 0
-        }
-
+        // Digital Scanlines melarut halus seiring ketajaman visual
+        const gridOpacity = gsap.utils.interpolate(
+          HERO_CONFIG.gridOpacityStart,
+          HERO_CONFIG.gridOpacityEnd,
+          filterProgress
+        )
         if (gridOverlay) {
           gridOverlay.style.opacity = gridOpacity.toFixed(2)
-          gridOverlay.style.display = gridOpacity > 0.01 ? 'block' : 'none'
         }
 
         // =========================================================================
@@ -265,116 +249,114 @@ export default function Hero({ onProgressChange }) {
         }
 
         // =========================================================================
-        // TAHAP 3: INFINITE DEEP SPACE TUNNEL 2.0 (Fase B, C, D)
-        // 0.75 -> 0.84 (Fase B: Camera Pull-Back, Floating 3D Panel with Bevel Glow)
-        // 0.84 -> 0.92 (Fase C: Deep Space Tunnel Traversal)
-        // 0.92 -> 0.97 (Fase D: Focus Convergence)
+        // TAHAP 3 (0.77 -> 0.95): SMOOTH MULTI-STAGE RATIO (FULL/100% -> 80% -> 50% -> 30% -> 10%)
         // =========================================================================
+        const HOLD_FULL_END = 0.81 // Fase TAHAN di 100% Fullscreen Bersih setelah HUD hilang
+        const SHRINK_START = 0.81  // Titik mulai mengecil bertahap
+        const SHRINK_END = 0.95    // Titik akhir mencapai 10% & meredup habis
+
+        // Fungsi Easing Hermite Smoothstep (Transisi sangat halus tanpa patahan)
         const smoothStep = (t) => t * t * (3 - 2 * t)
-        const canvasCard = canvasCardRef.current
-        const panelBevel = panelBevelRef.current
 
-        if (canvasCard) {
-          if (progress < 0.75) {
-            // Fase A: 100% Fullscreen, no border, flat 2D
-            canvasCard.style.display = 'block'
-            canvasCard.style.transform = 'translate3d(0, 0, 0) scale(1) rotateX(0deg)'
-            canvasCard.style.opacity = '1'
-            canvasCard.style.borderRadius = '0px'
-            canvasCard.style.boxShadow = 'none'
-            if (panelBevel) panelBevel.style.opacity = '0'
-          } else if (progress >= 0.75 && progress < 0.84) {
-            // Fase B: Cinematic Camera Pull-Back (Progress 0.75 -> 0.84)
-            canvasCard.style.display = 'block'
-            const t = smoothStep((progress - 0.75) / 0.09)
-            const cScale = 1.00 - t * 0.28 // 1.00 -> 0.72
-            const cTranslateZ = -t * 160 // 0 -> -160px
-            const cRotateX = t * 2.5 // 0 -> 2.5deg
-            const cRadius = t * 24 // 0 -> 24px
-            const bevelAlpha = Math.min(1, t * 1.5)
+        if (canvas) {
+          if (progress < HOLD_FULL_END) {
+            // TAHAP FULL / 100%: Tampilan Fullscreen Penuh Bersih, 100% Terang & Jernih
+            canvas.style.transform = 'scale(1)'
+            canvas.style.opacity = '1'
+            canvas.style.borderRadius = '0px'
+            canvas.style.boxShadow = 'none'
+            canvas.style.border = 'none'
+          } else if (progress >= SHRINK_START && progress <= SHRINK_END) {
+            // Normalisasi progres outro (0.00 -> 1.00)
+            const p = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
 
-            canvasCard.style.transform = `translate3d(0, ${(-t * 10).toFixed(1)}px, ${cTranslateZ.toFixed(1)}px) scale(${cScale.toFixed(4)}) rotateX(${cRotateX.toFixed(2)}deg)`
-            canvasCard.style.opacity = '1'
-            canvasCard.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvasCard.style.boxShadow = `0 25px 80px rgba(0, 0, 0, 0.85), 0 0 45px rgba(6, 182, 212, ${(0.35 * bevelAlpha).toFixed(2)})`
-            if (panelBevel) panelBevel.style.opacity = bevelAlpha.toFixed(2)
-          } else if (progress >= 0.84 && progress < 0.92) {
-            // Fase C: Deep Space Tunnel Traversal (Progress 0.84 -> 0.92)
-            canvasCard.style.display = 'block'
-            const t = smoothStep((progress - 0.84) / 0.08)
-            const cScale = 0.72 - t * 0.37 // 0.72 -> 0.35
-            const cTranslateZ = -160 - t * 260 // -160 -> -420px
-            const cRotateX = 2.5 - t * 1.5 // 2.5 -> 1.0deg
-            const cRadius = 24 + t * 8 // 24 -> 32px
-            const frameOpacity = 1.0 - t * 0.15 // 1.0 -> 0.85
+            // Hitung Rasio Skala Sangat Halus (Smooth Interpolation)
+            let cScale
+            let cRadius
+            let frameOpacity
 
-            canvasCard.style.transform = `translate3d(0, ${(-10 + t * 10).toFixed(1)}px, ${cTranslateZ.toFixed(1)}px) scale(${cScale.toFixed(4)}) rotateX(${cRotateX.toFixed(2)}deg)`
-            canvasCard.style.opacity = frameOpacity.toFixed(3)
-            canvasCard.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvasCard.style.boxShadow = `0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.3)`
-            if (panelBevel) panelBevel.style.opacity = '1'
-          } else if (progress >= 0.92 && progress <= 0.96) {
-            // Fase D: Focus Convergence (Progress 0.92 -> 0.96)
-            canvasCard.style.display = 'block'
-            const t = smoothStep((progress - 0.92) / 0.04)
-            const cScale = Math.max(0.01, 0.35 * (1 - t)) // 0.35 -> 0.00
-            const cTranslateZ = -420 - t * 380 // -420 -> -800px
-            const frameOpacity = Math.max(0, 0.85 * (1 - t * 1.2))
+            if (p <= 0.25) {
+              // TAHAP 1 (100% -> 80%): Membentuk sudut lembut & cyber glow
+              const t = smoothStep(p / 0.25)
+              cScale = 1.00 - t * 0.20 // 1.00 -> 0.80
+              cRadius = t * 20
+              frameOpacity = 1.0 // 100% Jernih
+            } else if (p <= 0.55) {
+              // TAHAP 2 (80% -> 50%): Medium Floating Card
+              const t = smoothStep((p - 0.25) / 0.30)
+              cScale = 0.80 - t * 0.30 // 0.80 -> 0.50
+              cRadius = 20 + t * 12
+              frameOpacity = 1.0 // 100% Jernih
+            } else if (p <= 0.80) {
+              // TAHAP 3 (50% -> 30%): Compact Mini Card (Mulai Meredup Halus)
+              const t = smoothStep((p - 0.55) / 0.25)
+              cScale = 0.50 - t * 0.20 // 0.50 -> 0.30
+              cRadius = 32
+              frameOpacity = 1.0 - t * 0.50 // 1.0 -> 0.50
+            } else {
+              // TAHAP 4 (30% -> 10%): Pinpoint Dissolve (Meredup Tuntas)
+              const t = smoothStep((p - 0.80) / 0.20)
+              cScale = 0.30 - t * 0.20 // 0.30 -> 0.10
+              cRadius = 32
+              frameOpacity = Math.max(0, 0.50 * (1 - t)) // 0.50 -> 0.00
+            }
 
-            canvasCard.style.transform = `translate3d(0, 0, ${cTranslateZ.toFixed(1)}px) scale(${cScale.toFixed(4)}) rotateX(0deg)`
-            canvasCard.style.opacity = frameOpacity.toFixed(3)
-            canvasCard.style.borderRadius = '32px'
-            canvasCard.style.boxShadow = frameOpacity > 0.1 ? `0 0 25px rgba(6, 182, 212, ${(0.4 * frameOpacity).toFixed(2)})` : 'none'
-            if (panelBevel) panelBevel.style.opacity = frameOpacity.toFixed(2)
+            const glowAlpha = Math.min(0.85, p * 1.2)
+
+            const isLight =
+              document.documentElement.getAttribute('data-theme') === 'light' ||
+              document.documentElement.classList.contains('light-theme')
+
+            canvas.style.transform = `scale(${cScale.toFixed(4)})`
+            canvas.style.opacity = frameOpacity.toFixed(3)
+            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
+            canvas.style.border = 'none'
+
+            if (frameOpacity > 0.02 && cScale > 0.08) {
+              canvas.style.boxShadow = isLight
+                ? `0 20px 60px rgba(15, 23, 42, ${(0.18 * frameOpacity).toFixed(2)}), 0 0 35px rgba(244, 63, 94, ${(0.28 * frameOpacity).toFixed(2)}), inset 0 0 15px rgba(244, 63, 94, ${(0.12 * frameOpacity).toFixed(2)})`
+                : `0 25px 90px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 50px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 100px rgba(255, 30, 70, ${(glowAlpha * 0.6 * frameOpacity).toFixed(2)}), inset 0 0 25px rgba(255, 0, 60, ${(0.25 * frameOpacity).toFixed(2)})`
+            } else {
+              canvas.style.boxShadow = 'none'
+            }
           } else {
-            // Fase E (0.96 -> 1.00): Canvas completely dissolved into focal stillness
-            canvasCard.style.transform = 'translate3d(0, 0, -800px) scale(0)'
-            canvasCard.style.opacity = '0'
-            canvasCard.style.display = 'none'
-            canvasCard.style.boxShadow = 'none'
-            if (panelBevel) panelBevel.style.opacity = '0'
+            // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
+            canvas.style.transform = 'scale(0)'
+            canvas.style.opacity = '0'
+            canvas.style.boxShadow = 'none'
+            canvas.style.border = 'none'
           }
         }
 
         // =========================================================================
-        // TAHAP 4 & 5: SOFT EMERGENCE SECTION ABOUT ME (Fase E: 0.96 -> 1.00)
+        // TAHAP 4: KEMUNCULAN SECTION VERIFIED PROFILE (DIAM KOKOH, TRANSISI OPACITY HALUS)
         // =========================================================================
         let currentAboutReveal = 0
         if (backdropLayerRef.current) {
-          const EMERGE_START = 0.96
-          const EMERGE_END = 1.00
-
-          if (progress < EMERGE_START) {
+          // Backdrop mulai memudar masuk seawal frame mulai mengecil (~0.83)
+          const ABOUT_FADE_START = SHRINK_START + 0.15 * (SHRINK_END - SHRINK_START)
+          if (progress < ABOUT_FADE_START) {
+            // Sebelum frame mengecil: Backdrop belum tampil
             currentAboutReveal = 0
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
-            backdropLayerRef.current.style.zIndex = '0'
+          } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
+            // Saat frame mengecil: Verified Profile memudar masuk 0.0 -> 1.0
+            const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
+            currentAboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
+            backdropLayerRef.current.style.opacity = currentAboutReveal.toFixed(3)
+            backdropLayerRef.current.style.pointerEvents = currentAboutReveal > 0.5 ? 'auto' : 'none'
           } else {
-            const tOverall = smoothStep(Math.min(1, Math.max(0, (progress - EMERGE_START) / (EMERGE_END - EMERGE_START))))
-            currentAboutReveal = tOverall
-            backdropLayerRef.current.style.opacity = tOverall.toFixed(3)
-            backdropLayerRef.current.style.pointerEvents = tOverall > 0.75 ? 'auto' : 'none'
-            backdropLayerRef.current.style.zIndex = tOverall > 0.05 ? '30' : '0'
-
-            // Stage 1: Headline emerges first (0.96 -> 0.98)
-            const tH = smoothStep(Math.min(1, Math.max(0, (progress - 0.96) / 0.02)))
-            backdropLayerRef.current.style.setProperty('--emerge-headline-opacity', tH.toFixed(3))
-            backdropLayerRef.current.style.setProperty('--emerge-headline-y', `${((1 - tH) * 22).toFixed(1)}px`)
-
-            // Stage 2: Profile Card emerges with soft scale (0.97 -> 0.99)
-            const tC = smoothStep(Math.min(1, Math.max(0, (progress - 0.97) / 0.02)))
-            backdropLayerRef.current.style.setProperty('--emerge-card-opacity', tC.toFixed(3))
-            backdropLayerRef.current.style.setProperty('--emerge-card-scale', (0.95 + tC * 0.05).toFixed(3))
-
-            // Stage 3: Body & Telemetry emerge (0.98 -> 1.00)
-            const tB = smoothStep(Math.min(1, Math.max(0, (progress - 0.98) / 0.02)))
-            backdropLayerRef.current.style.setProperty('--emerge-body-opacity', tB.toFixed(3))
-            backdropLayerRef.current.style.setProperty('--emerge-body-y', `${((1 - tB) * 16).toFixed(1)}px`)
+            // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
+            currentAboutReveal = 1
+            backdropLayerRef.current.style.opacity = '1'
+            backdropLayerRef.current.style.pointerEvents = 'auto'
           }
         }
 
-        // Sinkronkan CSS variable --navbar-reveal secara langsung di GSAP ticker (0 delay, 100% real-time)
-        document.documentElement.style.setProperty('--navbar-reveal', currentAboutReveal.toFixed(3))
+        // Sinkronkan CSS variable --navbar-reveal hanya ketika canvas sudah 0% (progress >= 0.95)
+        const navRevealVal = progress >= 0.95 ? '1' : '0'
+        document.documentElement.style.setProperty('--navbar-reveal', navRevealVal)
 
         // Beritahu Navbar & App state
         if (onProgressChange) {
@@ -441,26 +423,11 @@ export default function Hero({ onProgressChange }) {
           <About />
         </div>
 
-        {/* Layer 0.5: Three.js Infinite Deep Space Tunnel 2.0 (Scene + Camera + Particles + Fog + Vignette) */}
-        <DeepSpaceScene progress={scrollProgress} />
-
-        {/* Layer 1: Cinematic Canvas Frame Sequence (3D Floating Card in Deep Space) */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[2] [perspective:1200px]">
-          <div
-            ref={canvasCardRef}
-            className="relative w-full h-full overflow-hidden will-change-[transform,opacity,border-radius,box-shadow]"
-          >
-            <canvas
-              ref={canvasRef}
-              className="w-full h-full block bg-black [filter:blur(8px)_brightness(0.65)_contrast(0.9)] will-change-[filter] transition-[filter] duration-75"
-            />
-            {/* Cinematic Cyan & Crimson Dual-Color Edge Bevel */}
-            <div
-              ref={panelBevelRef}
-              className="deep-space-panel-bevel opacity-0"
-            />
-          </div>
-        </div>
+        {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
+        <canvas
+          ref={canvasRef}
+          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[filter,transform,opacity,border-radius] origin-center transition-[filter] duration-75"
+        />
 
         {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
         <div

@@ -71,19 +71,15 @@ body.light-theme {
   background: transparent;
   border: none;
   box-sizing: border-box;
-  opacity: var(--navbar-reveal, 0);
   pointer-events: none;
   transform: translateY(0);
-  transition: opacity 0.15s ease-out;
 }
 
 .portfolio-navbar.navbar-visible {
-  opacity: var(--navbar-reveal, 1);
   pointer-events: auto;
 }
 
 .portfolio-navbar.navbar-hidden {
-  opacity: 0;
   pointer-events: none;
 }
 
@@ -105,7 +101,6 @@ body.light-theme {
   box-shadow: none;
   z-index: 1;
   pointer-events: none;
-  opacity: var(--navbar-reveal, 1);
   transition: none;
 }
 
