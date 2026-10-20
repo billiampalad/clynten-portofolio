@@ -40,6 +40,40 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
     }
   }, [isComplete, onComplete])
 
+  // Disable scrolling & hide scrollbar while loader is active
+  useEffect(() => {
+    const originalHtmlOverflow = document.documentElement.style.overflow
+    const originalBodyOverflow = document.body.style.overflow
+
+    // Hide scrollbar and prevent scroll gestures during loader
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+
+    const preventScroll = (e) => {
+      e.preventDefault()
+    }
+
+    const preventKeyScroll = (e) => {
+      if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)) {
+        e.preventDefault()
+      }
+    }
+
+    window.addEventListener('wheel', preventScroll, { passive: false })
+    window.addEventListener('touchmove', preventScroll, { passive: false })
+    window.addEventListener('keydown', preventKeyScroll, { passive: false })
+
+    window.scrollTo(0, 0)
+
+    return () => {
+      document.documentElement.style.overflow = originalHtmlOverflow
+      document.body.style.overflow = originalBodyOverflow
+      window.removeEventListener('wheel', preventScroll)
+      window.removeEventListener('touchmove', preventScroll)
+      window.removeEventListener('keydown', preventKeyScroll)
+    }
+  }, [])
+
   // Dynamic telemetry status text based on scan progress
   const statusText = useMemo(() => {
     if (isShutterOpen) return 'DECRYPTING BIOMETRICS // OPENING SHUTTER...'
@@ -58,7 +92,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
   const activeBlocks = Math.round((percentage / 100) * totalBlocks)
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden font-mono select-none pointer-events-none">
+    <div className="fixed inset-0 z-50 overflow-hidden font-mono select-none pointer-events-auto">
       {/* ====================================================================
           LAYER 1: Staggered Cyber Shutter (Multi-Bar Curtain Wipe)
           5 vertical slats that slide up sequentially to reveal the hero canvas
