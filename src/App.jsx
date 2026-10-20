@@ -15,9 +15,9 @@ function App() {
   const [heroKey, setHeroKey] = useState(0)
 
   const handleHeroProgress = useCallback((progress) => {
-    // Sync Navbar dimming & reveal identically with About in Hero.jsx (0.831 -> 0.95)
-    const FADE_START = 0.831
-    const FADE_END = 0.95
+    // Sync Navbar dimming & reveal identically with Soft Emergence of About in Hero.jsx (0.95 -> 0.99)
+    const FADE_START = 0.95
+    const FADE_END = 0.99
 
     if (progress < FADE_START) {
       setIsNavbarVisible(false)

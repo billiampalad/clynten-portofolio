@@ -105,7 +105,7 @@ export default function About({ style = {} }) {
         <div className="about-grid">
           <div className="about-left-col">
             {/* Technical Identity Headline */}
-            <div className="about-headline-block">
+            <div className="about-headline-block soft-emerge-headline">
               <div className="about-tagline">Profile &amp; Background</div>
               <h2 className="about-title">
                 About <span className="highlight">Me</span>
@@ -113,7 +113,7 @@ export default function About({ style = {} }) {
             </div>
 
             {/* Active Content Card */}
-            <div className="about-card-content" key={currentSection.id}>
+            <div className="about-card-content soft-emerge-body" key={currentSection.id}>
               <div className="card-content-header">
                 <span className="content-badge">
                   {currentSection.index} // {currentSection.tag}
@@ -153,7 +153,7 @@ export default function About({ style = {} }) {
             </div>
 
             {/* Cyber Telemetry Status Bar & Scroll Hint */}
-            <div className="about-telemetry-bar">
+            <div className="about-telemetry-bar soft-emerge-body">
               <div className="about-status">
                 <span className="status-ping" />
                 <span className="status-text">SCAN_STATUS: 100% COMPLETE // IDENTITY_SYNCHRONIZED</span>
@@ -165,7 +165,7 @@ export default function About({ style = {} }) {
             </div>
           </div>
 
-          <div className="about-card-wrapper">
+          <div className="about-card-wrapper soft-emerge-card">
             <ProfileCard
               name={profile.name || "Clynten Palad"}
               title={profile.role || "Software Engineer"}
