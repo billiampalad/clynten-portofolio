@@ -92,7 +92,7 @@ export default function DeveloperSignal({ progress = 0 }) {
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, delay: 0.60, ease: [0.16, 1, 0.3, 1] }}
         className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/90 backdrop-blur-2xl border ${cardBorderClass} transition-[border-color,box-shadow] duration-500`}
       >
       {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
