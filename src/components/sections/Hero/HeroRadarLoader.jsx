@@ -12,15 +12,8 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
   const percentage = Math.min(100, Math.max(0, Math.round(progress)))
   const isComplete = percentage >= 100
 
-  // Dynamic Tri-Color Spectrum based on progress:
-  // 0% -> 34%: Merah (Rose / Red)
-  // 35% -> 69%: Biru (Cyan / Electric Blue)
-  // 70% -> 100%: Hijau (Emerald / Cyber Green)
-  const isRed = percentage < 35
-  const isBlue = percentage >= 35 && percentage < 70
-  const isGreen = percentage >= 70
-
-  const activeColorHex = isRed ? '#f43f5e' : isBlue ? '#06b6d4' : '#10b981'
+  // Active theme color (Cyber Neon Red)
+  const activeColorHex = '#f43f5e'
 
   // State to control the staggered shutter wipe transition
   const [isShutterOpen, setIsShutterOpen] = useState(false)
@@ -50,9 +43,9 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
   // Dynamic telemetry status text based on scan progress
   const statusText = useMemo(() => {
     if (isShutterOpen) return 'DECRYPTING BIOMETRICS // OPENING SHUTTER...'
-    if (percentage < 25) return 'CALIBRATING OPTICAL SENSORS [RED SPECTRUM]...'
-    if (percentage < 50) return 'SCANNING DEVELOPER FREQUENCY [BLUE SPECTRUM]...'
-    if (percentage < 75) return 'SYNCHRONIZING FRAME TELEMETRY [GREEN SPECTRUM]...'
+    if (percentage < 25) return 'CALIBRATING OPTICAL SENSORS...'
+    if (percentage < 50) return 'SCANNING DEVELOPER FREQUENCY...'
+    if (percentage < 75) return 'SYNCHRONIZING FRAME TELEMETRY...'
     if (percentage < 100) return 'TARGET DETECTED // DECRYPTING DATA...'
     return 'SIGNAL LOCKED // INITIALIZING HUD'
   }, [percentage, isShutterOpen])
@@ -104,114 +97,86 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
           isShutterOpen ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100'
         }`}
       >
-        {/* Background Ambient Radial Glow adapting to active spectrum */}
+        {/* Background Ambient Radial Glow (Pure Neon Red) */}
         <div
-          className="absolute inset-0 pointer-events-none transition-all duration-700"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background: isRed
-              ? 'radial-gradient(circle at center, rgba(244,63,94,0.09) 0%, transparent 70%)'
-              : isBlue
-              ? 'radial-gradient(circle at center, rgba(6,182,212,0.09) 0%, transparent 70%)'
-              : 'radial-gradient(circle at center, rgba(16,185,129,0.09) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at center, rgba(244,63,94,0.12) 0%, transparent 70%)',
           }}
         />
 
         {/* Main Radar Scope */}
         <div className="relative flex items-center justify-center w-72 h-72 sm:w-80 sm:h-80 max-w-[82vw] max-h-[82vw]">
-          {/* Outer Rotating Compass Degree Ring - Cyan / Electric Blue */}
-          <div className="absolute inset-0 rounded-full border border-dashed border-cyan-400/35 animate-[spin_35s_linear_infinite]" />
+          {/* Outer Rotating Compass Degree Ring - Neon Red */}
+          <div className="absolute inset-0 rounded-full border border-dashed border-rose-500/35 animate-[spin_35s_linear_infinite]" />
 
-          {/* Cardinal Azimuth Degrees in Cyan */}
-          <span className="absolute top-1 text-[8px] tracking-widest text-cyan-400/70 font-bold">
+          {/* Cardinal Azimuth Degrees in Neon Red */}
+          <span className="absolute top-1 text-[8px] tracking-widest text-rose-400/80 font-bold">
             000°
           </span>
-          <span className="absolute right-1 text-[8px] tracking-widest text-cyan-400/70 font-bold">
+          <span className="absolute right-1 text-[8px] tracking-widest text-rose-400/80 font-bold">
             090°
           </span>
-          <span className="absolute bottom-1 text-[8px] tracking-widest text-cyan-400/70 font-bold">
+          <span className="absolute bottom-1 text-[8px] tracking-widest text-rose-400/80 font-bold">
             180°
           </span>
-          <span className="absolute left-1 text-[8px] tracking-widest text-cyan-400/70 font-bold">
+          <span className="absolute left-1 text-[8px] tracking-widest text-rose-400/80 font-bold">
             270°
           </span>
 
           {/* Middle Concentric Sonar Ring - Rose / Red */}
           <div className="absolute w-[68%] h-[68%] rounded-full border border-rose-500/25" />
 
-          {/* Inner Concentric Sonar Ring - Emerald / Green */}
-          <div className="absolute w-[42%] h-[42%] rounded-full border border-emerald-400/35 border-dotted" />
+          {/* Inner Concentric Sonar Ring - Rose / Red Dotted */}
+          <div className="absolute w-[42%] h-[42%] rounded-full border border-rose-500/35 border-dotted" />
 
-          {/* Crosshair Center Lines with Subtle Gradient */}
-          <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent pointer-events-none" />
-          <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-emerald-400/30 to-transparent pointer-events-none" />
+          {/* Crosshair Center Lines with Subtle Red Gradient */}
+          <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-rose-500/30 to-transparent pointer-events-none" />
+          <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-rose-500/30 to-transparent pointer-events-none" />
 
-          {/* Sweeping Conical Radar Beam */}
+          {/* Sweeping Conical Radar Beam (Neon Red) */}
           <div
-            className="absolute inset-0 rounded-full animate-[spin_2.8s_linear_infinite] pointer-events-none transition-all duration-500"
+            className="absolute inset-0 rounded-full animate-[spin_2.8s_linear_infinite] pointer-events-none"
             style={{
-              background: isRed
-                ? 'conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(244,63,94,0.06) 320deg, rgba(244,63,94,0.38) 360deg)'
-                : isBlue
-                ? 'conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(6,182,212,0.06) 320deg, rgba(6,182,212,0.38) 360deg)'
-                : 'conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(16,185,129,0.06) 320deg, rgba(16,185,129,0.38) 360deg)',
+              background: 'conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(244,63,94,0.06) 320deg, rgba(244,63,94,0.40) 360deg)',
             }}
           >
-            {/* Laser Sweep Leading Ray with Active Glow */}
+            {/* Laser Sweep Leading Ray with Active Red Glow */}
             <div
-              className="absolute top-0 left-1/2 w-1/2 h-[1.5px] transition-all duration-300"
+              className="absolute top-0 left-1/2 w-1/2 h-[1.5px]"
               style={{
-                background: `linear-gradient(to right, transparent, ${activeColorHex})`,
-                boxShadow: `0 0 10px ${activeColorHex}`,
+                background: 'linear-gradient(to right, transparent, #f43f5e)',
+                boxShadow: '0 0 10px #f43f5e',
               }}
             />
           </div>
 
-          {/* Simulated Detected Signal Blip Targets (Merah, Biru, Hijau) */}
+          {/* Simulated Detected Signal Blip Targets (Neon Red) */}
           {/* 1. Red Signal Blip (Sector Alpha) */}
           <div className="absolute top-[26%] left-[70%] flex items-center gap-1 pointer-events-none">
             <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-ping" />
             <span className="text-[7px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-01</span>
           </div>
 
-          {/* 2. Blue Signal Blip (Sector Beta) */}
+          {/* 2. Red Signal Blip (Sector Beta) */}
           <div className="absolute top-[72%] left-[32%] flex items-center gap-1 pointer-events-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4] animate-pulse" />
-            <span className="text-[7px] text-cyan-400/80 font-mono tracking-widest hidden sm:inline">B-02</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse" />
+            <span className="text-[7px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-02</span>
           </div>
 
-          {/* 3. Green Signal Blip (Sector Gamma) */}
+          {/* 3. Red Signal Blip (Sector Gamma) */}
           <div className="absolute top-[36%] left-[24%] flex items-center gap-1 pointer-events-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981] animate-pulse" />
-            <span className="text-[7px] text-emerald-400/80 font-mono tracking-widest hidden sm:inline">G-03</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse" />
+            <span className="text-[7px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-03</span>
           </div>
 
           {/* Center Digital HUD Target Hub */}
-          <div
-            className={`relative z-10 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-black/90 backdrop-blur-md transition-all duration-300 border ${
-              isRed
-                ? 'border-rose-500/40 shadow-[0_0_30px_rgba(244,63,94,0.22)]'
-                : isBlue
-                ? 'border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.22)]'
-                : 'border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.22)]'
-            }`}
-          >
+          <div className="relative z-10 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-black/90 backdrop-blur-md border border-rose-500/40 shadow-[0_0_30px_rgba(244,63,94,0.25)]">
             {/* Rotating Hub Trim Ring */}
-            <div
-              className={`absolute inset-[-4px] rounded-full border border-dashed animate-[spin_18s_linear_infinite] transition-colors duration-300 ${
-                isRed ? 'border-rose-500/30' : isBlue ? 'border-cyan-400/30' : 'border-emerald-400/30'
-              }`}
-            />
+            <div className="absolute inset-[-4px] rounded-full border border-dashed border-rose-500/30 animate-[spin_18s_linear_infinite]" />
 
             {/* Percentage Value */}
-            <div
-              className={`flex items-baseline justify-center transition-colors duration-300 ${
-                isRed
-                  ? 'text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.7)]'
-                  : isBlue
-                  ? 'text-cyan-400 drop-shadow-[0_0_12px_rgba(6,182,212,0.7)]'
-                  : 'text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.7)]'
-              }`}
-            >
+            <div className="flex items-baseline justify-center text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.7)]">
               <span className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 {formattedPercentage}
               </span>
@@ -222,17 +187,13 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
 
             {/* Target Status Badge */}
             <span
-              className={`mt-1 text-[8px] sm:text-[9px] tracking-widest font-bold uppercase transition-all duration-300 ${
+              className={`mt-1 text-[8px] sm:text-[9px] tracking-widest font-bold uppercase ${
                 isComplete
-                  ? 'text-emerald-300 drop-shadow-[0_0_8px_#10b981]'
-                  : isRed
-                  ? 'text-rose-400/90'
-                  : isBlue
-                  ? 'text-cyan-400/90'
-                  : 'text-emerald-400/90'
+                  ? 'text-rose-300 drop-shadow-[0_0_8px_#f43f5e]'
+                  : 'text-rose-400/90'
               }`}
             >
-              {isComplete ? 'TARGET LOCKED' : isRed ? 'SEARCHING // RED' : isBlue ? 'TRACKING // BLUE' : 'LOCKING // GREEN'}
+              {isComplete ? 'TARGET LOCKED' : 'SEARCHING FREQUENCY'}
             </span>
           </div>
         </div>
@@ -241,11 +202,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
         <div className="mt-8 sm:mt-10 flex flex-col items-center gap-3 w-72 sm:w-84 max-w-[85vw] pointer-events-none">
           {/* Dynamic Status Text Line */}
           <div className="flex items-center gap-2 text-[10px] sm:text-xs tracking-widest text-zinc-300 text-center font-medium">
-            <span
-              className={`font-bold animate-pulse transition-colors duration-300 ${
-                isRed ? 'text-rose-400' : isBlue ? 'text-cyan-400' : 'text-emerald-400'
-              }`}
-            >
+            <span className="font-bold animate-pulse text-rose-400">
               &gt;
             </span>
             <span className="truncate">{statusText}</span>
@@ -259,22 +216,16 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
             />
           </div>
 
-          {/* 10 Segmented Cyber Data Blocks with Red (0-2), Blue (3-5), Green (6-9) Spectrum */}
+          {/* 10 Segmented Cyber Data Blocks in Neon Red */}
           <div className="flex items-center justify-between w-full gap-1 pt-1">
             {Array.from({ length: totalBlocks }).map((_, idx) => {
               const isBlockActive = idx < activeBlocks
-              const blockColorClass =
-                idx < 3
-                  ? 'bg-rose-500 shadow-[0_0_5px_#f43f5e]'
-                  : idx < 6
-                  ? 'bg-cyan-400 shadow-[0_0_5px_#06b6d4]'
-                  : 'bg-emerald-400 shadow-[0_0_5px_#10b981]'
 
               return (
                 <div
                   key={idx}
                   className={`h-1 flex-1 rounded-[1px] transition-all duration-200 ${
-                    isBlockActive ? blockColorClass : 'bg-zinc-800'
+                    isBlockActive ? 'bg-rose-500 shadow-[0_0_5px_#f43f5e]' : 'bg-zinc-800'
                   }`}
                 />
               )
@@ -284,11 +235,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
           {/* Coordinates Metadata Row */}
           <div className="flex items-center justify-between w-full text-[8px] sm:text-[9px] tracking-widest text-zinc-500 pt-0.5">
             <span>LAT: 07°14'N // LON: 112°45'E</span>
-            <span
-              className={`font-semibold transition-colors duration-300 ${
-                isRed ? 'text-rose-400/80' : isBlue ? 'text-cyan-400/80' : 'text-emerald-400/80'
-              }`}
-            >
+            <span className="font-semibold text-rose-400/80">
               CBP-SIGNAL 99.4%
             </span>
           </div>
