@@ -1,11 +1,11 @@
 import { useMemo, useState, useEffect } from 'react'
 
 const SLATS = [
-  { id: '01', code: 'SYS_RECON', borderClass: 'border-rose-500/20', textClass: 'text-rose-400/50' },
-  { id: '02', code: 'RADAR_SYNC', borderClass: 'border-rose-500/20', textClass: 'text-rose-400/50' },
-  { id: '03', code: 'CBP_SIGNAL', borderClass: 'border-cyan-500/20', textClass: 'text-cyan-400/50' },
-  { id: '04', code: 'HUD_LOCK', borderClass: 'border-emerald-500/20', textClass: 'text-emerald-400/50' },
-  { id: '05', code: 'INITIALIZE', borderClass: 'border-emerald-500/20', textClass: 'text-emerald-400/50' },
+  { id: '01', code: 'SYS_RECON' },
+  { id: '02', code: 'RADAR_SYNC' },
+  { id: '03', code: 'CBP_SIGNAL' },
+  { id: '04', code: 'HUD_LOCK' },
+  { id: '05', code: 'INITIALIZE' },
 ]
 
 export default function HeroRadarLoader({ progress = 0, onComplete }) {
@@ -74,23 +74,20 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
         {SLATS.map((slat, idx) => (
           <div
             key={slat.id}
-            className={`relative h-full flex-1 bg-[#0A0907] border-r ${slat.borderClass} transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+            className={`relative h-full flex-1 bg-[#0A0907] transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
               isShutterOpen ? '-translate-y-full' : 'translate-y-0'
             }`}
             style={{
               transitionDelay: `${idx * 80}ms`,
             }}
           >
-            {/* Background Subtle Tech Grid within each slat */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] opacity-35" />
-
-            {/* Slat Bottom Glowing Tri-Color Laser Blade */}
-            <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-rose-500 via-cyan-400 to-emerald-400 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+            {/* Slat Bottom Glowing Red Laser Blade */}
+            <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent shadow-[0_0_12px_#f43f5e]" />
 
             {/* Slat Tactical Micro Identifier */}
-            <div className={`absolute bottom-5 inset-x-0 flex flex-col items-center gap-0.5 text-[8px] sm:text-[9px] tracking-widest ${slat.textClass} select-none`}>
+            <div className="absolute bottom-5 inset-x-0 flex flex-col items-center gap-0.5 text-[8px] sm:text-[9px] tracking-widest text-zinc-600 select-none">
               <span>// {slat.id}</span>
-              <span className="hidden sm:inline-block text-[7px] text-zinc-500 font-semibold">
+              <span className="hidden sm:inline-block text-[7px] text-zinc-600 font-semibold">
                 {slat.code}
               </span>
             </div>
@@ -118,53 +115,6 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
               : 'radial-gradient(circle at center, rgba(16,185,129,0.09) 0%, transparent 70%)',
           }}
         />
-
-        {/* Top Header Telemetry with Tri-Color Status */}
-        <div className="absolute top-7 left-8 right-8 sm:left-14 sm:right-14 flex items-center justify-between text-[10px] sm:text-xs tracking-widest text-zinc-400 pointer-events-none">
-          <div
-            className={`flex items-center gap-2.5 px-3 py-1 rounded-full border backdrop-blur-md transition-all duration-300 ${
-              isRed
-                ? 'bg-rose-950/40 border-rose-500/35 text-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.18)]'
-                : isBlue
-                ? 'bg-cyan-950/40 border-cyan-500/35 text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.18)]'
-                : 'bg-emerald-950/40 border-emerald-500/35 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.18)]'
-            }`}
-          >
-            {/* Tri-Color RGB Channel Lights */}
-            <div className="flex items-center gap-1.5">
-              <span
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  isRed ? 'bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse' : 'bg-rose-500/30'
-                }`}
-              />
-              <span
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  isBlue ? 'bg-cyan-400 shadow-[0_0_8px_#06b6d4] animate-pulse' : 'bg-cyan-400/30'
-                }`}
-              />
-              <span
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  isGreen ? 'bg-emerald-400 shadow-[0_0_8px_#10b981] animate-pulse' : 'bg-emerald-400/30'
-                }`}
-              />
-            </div>
-            <span className="font-semibold tracking-wider">TRI-BAND RADAR // V2.4</span>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-3 text-zinc-500 tracking-wider text-[9px]">
-            <span className={`transition-colors duration-300 ${isRed ? 'text-rose-400 font-bold' : ''}`}>
-              CH-01: RED
-            </span>
-            <span>•</span>
-            <span className={`transition-colors duration-300 ${isBlue ? 'text-cyan-400 font-bold' : ''}`}>
-              CH-02: BLUE
-            </span>
-            <span>•</span>
-            <span className={`transition-colors duration-300 ${isGreen ? 'text-emerald-400 font-bold' : ''}`}>
-              CH-03: GREEN
-            </span>
-          </div>
-        </div>
 
         {/* Main Radar Scope */}
         <div className="relative flex items-center justify-center w-72 h-72 sm:w-80 sm:h-80 max-w-[82vw] max-h-[82vw]">
@@ -301,10 +251,10 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
             <span className="truncate">{statusText}</span>
           </div>
 
-          {/* Modern Sleek Neon Tri-Color Progress Bar (Merah -> Biru -> Hijau) */}
-          <div className="w-full h-1.5 bg-zinc-900/90 border border-white/15 rounded-full overflow-hidden p-[1px] shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]">
+          {/* Modern Sleek Neon Red Progress Bar */}
+          <div className="w-full h-1.5 bg-zinc-900/90 border border-rose-500/25 rounded-full overflow-hidden p-[1px] shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-rose-500 via-cyan-400 to-emerald-400 shadow-[0_0_12px_rgba(6,182,212,0.6)] transition-all duration-200 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-rose-600 via-rose-500 to-red-500 shadow-[0_0_12px_#f43f5e] transition-all duration-200 ease-out"
               style={{ width: `${percentage}%` }}
             />
           </div>
