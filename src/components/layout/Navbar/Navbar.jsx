@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import { gsap } from '@/lib/animations/gsap'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
@@ -215,44 +215,42 @@ export default function Navbar({
 
   const [isExpanded, setIsExpanded] = useState(false)
 
+  // Reset isExpanded when navbar is hidden so the entrance animation can replay cleanly
+  useEffect(() => {
+    if (!isVisible) {
+      setIsExpanded(false)
+    }
+  }, [isVisible])
+
+  if (!isVisible) return null
+
   return (
-    <AnimatePresence onExitComplete={() => setIsExpanded(false)}>
-      {isVisible && (
-        <motion.header
-          key="portfolio-navbar"
-          className={`portfolio-navbar navbar-visible ${
-            isScrolled ? 'scrolled navbar-scrolled' : ''
-          }`}
-          initial={{
-            y: -28,
-            opacity: 0,
-            clipPath: 'inset(4px 26% 4px 26% round 9999px)',
-          }}
-          animate={{
-            y: 0,
-            opacity: 1,
-            clipPath: 'inset(0px 0% 0px 0% round 0px)',
-            transition: {
-              duration: 0.65,
-              ease: [0.16, 1, 0.3, 1],
-            },
-          }}
-          exit={{
-            y: -28,
-            opacity: 0,
-            clipPath: 'inset(4px 26% 4px 26% round 9999px)',
-            transition: {
-              duration: 0.32,
-              ease: [0.16, 1, 0.3, 1],
-            },
-          }}
-          onAnimationComplete={() => {
-            setIsExpanded(true)
-          }}
-          style={{
-            clipPath: isExpanded ? 'none' : undefined,
-          }}
-        >
+    <motion.header
+      key="portfolio-navbar"
+      className={`portfolio-navbar navbar-visible ${
+        isScrolled ? 'scrolled navbar-scrolled' : ''
+      }`}
+      initial={{
+        y: -28,
+        opacity: 0,
+        clipPath: 'inset(4px 26% 4px 26% round 9999px)',
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+        clipPath: 'inset(0px 0% 0px 0% round 0px)',
+        transition: {
+          duration: 0.65,
+          ease: [0.16, 1, 0.3, 1],
+        },
+      }}
+      onAnimationComplete={() => {
+        setIsExpanded(true)
+      }}
+      style={{
+        clipPath: isExpanded ? 'none' : undefined,
+      }}
+    >
           {/* Dark base underlay matching Hero backdrop (#000000) */}
           <div className="navbar-dark-base" aria-hidden="true" />
           {/* Dynamic theme background matching About */}
@@ -371,7 +369,5 @@ export default function Navbar({
             </nav>
           </div>
         </motion.header>
-      )}
-    </AnimatePresence>
   )
 }
