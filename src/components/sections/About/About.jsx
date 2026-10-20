@@ -36,6 +36,15 @@ const ABOUT_SECTIONS = [
 export default function About({ style = {} }) {
   const [isLight, setIsLight] = useState(false)
   const [activeTab, setActiveTab] = useState('intro')
+  const [skillIndex, setSkillIndex] = useState(0)
+
+  // Rotate through 6 core skills every 2.6s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSkillIndex((prev) => (prev + 1) % SKILLS_ROTATION.length)
+    }, 2600)
+    return () => clearInterval(interval)
+  }, [])
 
   const currentSectionIndex = ABOUT_SECTIONS.findIndex((s) => s.id === activeTab)
   const currentSection = ABOUT_SECTIONS[currentSectionIndex] || ABOUT_SECTIONS[0]
@@ -106,10 +115,36 @@ export default function About({ style = {} }) {
           <div className="about-left-col">
             {/* Technical Identity Headline */}
             <div className="about-headline-block">
-              <div className="about-tagline">Profile &amp; Background</div>
+              <div className="about-tagline">
+                <span className="about-tagline-badge">
+                  <span className="about-tagline-dot" />
+                  <span>IDENTITY // BIO</span>
+                </span>
+                <span className="about-greeting-text">Hallo, I'm</span>
+              </div>
+
               <h2 className="about-title">
-                About <span className="highlight">Me</span>
+                Clynten Palad
               </h2>
+
+              <div className="about-role-subline">
+                <span className="about-role-prefix">And I'm a</span>
+                <span className="about-skill-rotator">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={SKILLS_ROTATION[skillIndex]}
+                      initial={{ y: 14, opacity: 0, filter: 'blur(3px)' }}
+                      animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                      exit={{ y: -14, opacity: 0, filter: 'blur(3px)' }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="about-skill-text"
+                    >
+                      {SKILLS_ROTATION[skillIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                  <span className="about-cursor-blink" aria-hidden="true">_</span>
+                </span>
+              </div>
             </div>
 
             {/* Active Content Card */}
