@@ -66,8 +66,10 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
     window.scrollTo(0, 0)
 
     return () => {
-      document.documentElement.style.overflow = originalHtmlOverflow
-      document.body.style.overflow = originalBodyOverflow
+      // Re-enable normal scrolling after loader completes
+      document.documentElement.classList.remove('is-loading')
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
       window.removeEventListener('wheel', preventScroll)
       window.removeEventListener('touchmove', preventScroll)
       window.removeEventListener('keydown', preventKeyScroll)

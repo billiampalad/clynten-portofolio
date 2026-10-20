@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="is-loading" style="overflow: hidden;">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -34,6 +34,9 @@
     <title>clynten-portfolio</title>
     <style>
       /* Critical Base CSS: prevent FOUC & layout shifts before main bundle loads */
+      html.is-loading, html.is-loading body {
+        overflow: hidden !important;
+      }
       html, body {
         margin: 0;
         padding: 0;
