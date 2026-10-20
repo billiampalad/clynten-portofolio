@@ -16,7 +16,7 @@ export default function SignalLine({ progress = 0, color = '#00ffaa' }) {
         <motion.path
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.45, ease: 'easeOut' }}
+          transition={{ duration: 0.5, delay: 0.22, ease: 'easeOut' }}
           d="M0 12 H70 L80 4 L90 20 L100 8 L110 16 L120 12 H180 L190 2 L200 22 L210 12 H300"
           stroke="rgba(255, 255, 255, 0.2)"
           strokeWidth="1.5"
@@ -28,7 +28,7 @@ export default function SignalLine({ progress = 0, color = '#00ffaa' }) {
         <motion.path
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
           d="M0 12 H70 L80 4 L90 20 L100 8 L110 16 L120 12 H180 L190 2 L200 22 L210 12 H300"
           stroke={color}
           strokeWidth="2"

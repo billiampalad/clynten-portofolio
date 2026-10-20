@@ -88,12 +88,13 @@ export default function DeveloperSignal({ progress = 0 }) {
     : 'text-emerald-400/80'
 
   return (
-    <motion.div
-      initial={{ x: 60, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className={`absolute top-[45%] right-4 sm:right-8 md:right-10 z-25 font-mono select-none pointer-events-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/90 backdrop-blur-2xl border ${cardBorderClass} -translate-y-1/2 transition-all duration-500`}
-    >
+    <div className="absolute top-[45%] right-4 sm:right-8 md:right-10 -translate-y-1/2 z-25 pointer-events-none">
+      <motion.div
+        initial={{ x: 40, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/90 backdrop-blur-2xl border ${cardBorderClass} transition-[border-color,box-shadow] duration-500`}
+      >
       {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">
         <defs>
@@ -195,12 +196,7 @@ export default function DeveloperSignal({ progress = 0 }) {
       </div>
 
       {/* Bottom Diagnostics Matrix */}
-      <motion.div
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, delay: 0.65 }}
-        className="grid grid-cols-4 gap-1.5 pt-2 mt-2 border-t border-white/10 text-center whitespace-nowrap relative z-10"
-      >
+      <div className="grid grid-cols-4 gap-1.5 pt-2 mt-2 border-t border-white/10 text-center whitespace-nowrap relative z-10">
         <div className="flex flex-col">
           <span className="text-[7.5px] tracking-wider text-zinc-500 uppercase">FREQ</span>
           <span className={`text-[9.5px] sm:text-[10px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
@@ -225,7 +221,7 @@ export default function DeveloperSignal({ progress = 0 }) {
             AES-256
           </span>
         </div>
-      </motion.div>
+      </div>
 
       {/* Micro Status Bar */}
       <div className="flex items-center justify-between text-[8px] sm:text-[8.5px] tracking-widest text-zinc-500 pt-2 whitespace-nowrap relative z-10">
@@ -235,5 +231,6 @@ export default function DeveloperSignal({ progress = 0 }) {
         </span>
       </div>
     </motion.div>
+  </div>
   )
 }
