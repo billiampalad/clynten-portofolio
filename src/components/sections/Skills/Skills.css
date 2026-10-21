@@ -4,7 +4,8 @@
   min-height: 100vh;
   background: var(--nav-bg, #0A0907);
   color: #f1f5f9;
-  padding: 120px 24px 100px 24px;
+  padding: 60px 24px 80px 24px;
+  scroll-margin-top: 50px;
   box-sizing: border-box;
   overflow: hidden;
   z-index: 10;
@@ -449,7 +450,8 @@ body.light-theme .pillar-card:hover .tech-chip {
 
 @media (max-width: 768px) {
   .skills-section {
-    padding: 80px 16px 60px 16px;
+    padding: 40px 16px 50px 16px;
+    scroll-margin-top: 50px;
   }
 
   .skills-stats-grid {
