@@ -28,7 +28,7 @@ export const PROJECTS_DATA = [
     accentColor: '#d60407',
     ambientGlow: 'from-amber-600/20 via-red-950/40 to-transparent',
     themeColor: 'rgba(214, 4, 7, 0.4)',
-    image: '/assets/projects/sim-polimdo.jpg',
+    image: '/assets/projects/gambar 1/1.webp',
     screenMockup: {
       headline: 'PARTNERSHIP INTELLIGENCE // DUDI',
       subline: 'Real-time agreement lifecycle & compliance monitoring engine',
