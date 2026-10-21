@@ -10,32 +10,32 @@ const STATS = [
 
 const DOMAINS = [
   {
-    idx: 'DOMAIN // 01',
+    idx: 'SKILLS // 01',
     tag: 'FULL STACK ARCH',
     title: 'Web & Distributed Systems',
     desc: 'Crafting responsive, high-performance web applications with modular frontend architectures and robust backend services.',
-    techs: ['React', 'Next.js', 'Laravel', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
+    techs: ['React', 'Next.js', 'Laravel', 'Node.js', 'MySQL', 'Vite', 'Tailwind CSS'],
   },
   {
-    idx: 'DOMAIN // 02',
+    idx: 'SKILLS // 02',
     tag: 'MOBILE ECOSYSTEM',
     title: 'Android & Native Solutions',
     desc: 'Building scalable mobile applications utilizing native Android SDK, Kotlin Coroutines, Jetpack Compose, and cross-platform Flutter.',
-    techs: ['Kotlin', 'Android SDK', 'Flutter', 'Jetpack Compose', 'REST APIs'],
+    techs: ['Kotlin', 'Android SDK', 'Flutter', 'react Native', 'REST APIs'],
   },
   {
-    idx: 'DOMAIN // 03',
+    idx: 'SKILLS // 03',
     tag: 'DEFENSE & INFRA',
     title: 'Network & Cyber Security',
     desc: 'Architecting secure network infrastructures, managing Mikrotik and Cisco routing, configuring VLANs/BGP, and enforcing OWASP standards.',
-    techs: ['MikroTik', 'Cisco IOS', 'VLAN / BGP', 'OWASP Top 10', 'VPN / TLS 1.3'],
+    techs: ['MikroTik', 'Routing', 'Switching', 'Cisco', 'BGP', 'OSPF'],
   },
   {
-    idx: 'DOMAIN // 04',
+    idx: 'SKILLS // 04',
     tag: 'INTELLIGENCE & AI',
     title: 'Spatial Data & Machine Learning',
     desc: 'Transforming complex datasets and geospatial imagery into actionable insights using Python data science stack, QGIS, and YOLO vision models.',
-    techs: ['Python', 'YOLOv8 Vision', 'QGIS Spatial', 'Pandas', 'Figma UI/UX'],
+    techs: ['Python', 'YOLOv8 Vision', 'QGIS', 'Pandas', 'Figma UI/UX'],
   },
 ]
 
