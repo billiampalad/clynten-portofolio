@@ -132,7 +132,7 @@
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: clamp(16px, 2vw, 22px);
   font-weight: 700;
@@ -144,6 +144,7 @@
   color: #f1f5f9;
   font-weight: 600;
   letter-spacing: -0.3px;
+  margin-right: 6px;
 }
 
 .about-skill-rotator {
@@ -157,17 +158,21 @@
 .about-skill-text {
   display: inline-block;
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  letter-spacing: -0.3px;
   color: #f43f5e;
-  font-weight: 800;
-  letter-spacing: -0.2px;
-  text-shadow: 0 0 16px rgba(244, 63, 94, 0.45);
 }
 
 .about-cursor-blink {
   display: inline-block;
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  letter-spacing: -0.3px;
   color: #f43f5e;
-  font-weight: 900;
   margin-left: 2px;
   animation: cursor-blink 1s steps(2, start) infinite;
 }
@@ -445,7 +450,6 @@ body.light-theme .about-role-prefix {
 html.light-theme .about-skill-text,
 body.light-theme .about-skill-text {
   color: #e11d48;
-  text-shadow: 0 0 12px rgba(225, 29, 72, 0.25);
 }
 
 [data-theme="light"] .about-cursor-blink,

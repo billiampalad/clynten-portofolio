@@ -144,10 +144,10 @@ export default function About({ style = {} }) {
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={SKILLS_ROTATION[skillIndex]}
-                        initial={{ y: 14, opacity: 0, filter: 'blur(3px)' }}
-                        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                        exit={{ y: -14, opacity: 0, filter: 'blur(3px)' }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -10, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         className="about-skill-text"
                       >
                         {SKILLS_ROTATION[skillIndex]}
