@@ -109,6 +109,13 @@
   text-transform: uppercase;
 }
 
+.about-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
 .about-title {
   font-size: clamp(32px, 4.8vw, 56px);
   font-weight: 900;
@@ -116,20 +123,18 @@
   letter-spacing: -1.5px;
   color: #ffffff;
   margin: 0;
-  max-width: 950px;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
 /* Dynamic Rotating Subtitle ("And I'm a <Skill>") */
 .about-role-subline {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  font-size: clamp(17px, 2.2vw, 24px);
+  font-size: clamp(16px, 2vw, 22px);
   font-weight: 700;
-  line-height: 1.25;
-  margin-top: 2px;
+  line-height: 1.2;
 }
 
 .about-role-prefix {

@@ -133,27 +133,29 @@ export default function About({ style = {} }) {
                 <span className="about-greeting-text">Hallo, I'm</span>
               </div>
 
-              <h2 className="about-title">
-                Clynten Palad
-              </h2>
+              <div className="about-title-row">
+                <h2 className="about-title">
+                  Clynten Palad
+                </h2>
 
-              <div className="about-role-subline">
-                <span className="about-role-prefix">And I'm a</span>
-                <span className="about-skill-rotator">
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={SKILLS_ROTATION[skillIndex]}
-                      initial={{ y: 14, opacity: 0, filter: 'blur(3px)' }}
-                      animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                      exit={{ y: -14, opacity: 0, filter: 'blur(3px)' }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="about-skill-text"
-                    >
-                      {SKILLS_ROTATION[skillIndex]}
-                    </motion.span>
-                  </AnimatePresence>
-                  <span className="about-cursor-blink" aria-hidden="true">_</span>
-                </span>
+                <div className="about-role-subline">
+                  <span className="about-role-prefix">And I'm a</span>
+                  <span className="about-skill-rotator">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={SKILLS_ROTATION[skillIndex]}
+                        initial={{ y: 14, opacity: 0, filter: 'blur(3px)' }}
+                        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                        exit={{ y: -14, opacity: 0, filter: 'blur(3px)' }}
+                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        className="about-skill-text"
+                      >
+                        {SKILLS_ROTATION[skillIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                    <span className="about-cursor-blink" aria-hidden="true">_</span>
+                  </span>
+                </div>
               </div>
             </div>
 
