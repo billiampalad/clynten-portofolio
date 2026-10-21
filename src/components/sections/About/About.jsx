@@ -128,7 +128,7 @@ export default function About({ style = {} }) {
               <div className="about-tagline">
                 <span className="about-tagline-badge">
                   <span className="about-tagline-dot" />
-                  <span>IDENTITY // BIO</span>
+                  <span>About</span>
                 </span>
                 <span className="about-greeting-text">Hallo, I'm</span>
               </div>

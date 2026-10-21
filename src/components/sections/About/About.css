@@ -104,7 +104,7 @@
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: 13px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #f1f5f9;
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -117,11 +117,12 @@
 }
 
 .about-title {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: clamp(32px, 4.8vw, 56px);
   font-weight: 900;
   line-height: 1.06;
   letter-spacing: -1.5px;
-  color: #ffffff;
+  color: #f1f5f9;
   margin: 0;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
@@ -132,13 +133,15 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: clamp(16px, 2vw, 22px);
   font-weight: 700;
   line-height: 1.2;
 }
 
 .about-role-prefix {
-  color: #cbd5e1;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  color: #f1f5f9;
   font-weight: 600;
   letter-spacing: -0.3px;
 }
@@ -167,9 +170,12 @@
 }
 
 @keyframes cursor-blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -423,7 +429,7 @@ body.light-theme .about-title {
 [data-theme="light"] .about-greeting-text,
 html.light-theme .about-greeting-text,
 body.light-theme .about-greeting-text {
-  color: #64748b;
+  color: #0f172a;
 }
 
 [data-theme="light"] .about-role-prefix,
