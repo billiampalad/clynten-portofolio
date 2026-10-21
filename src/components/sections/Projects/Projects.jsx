@@ -751,19 +751,19 @@ export default function Projects() {
       <AnimatePresence>
         {isDrawerOpen && selectedProject && (
           <>
-            {/* Modal Backdrop - Pure dark overlay without blur to keep background projects slightly visible and sharp */}
+            {/* Modal Backdrop - Lighter transparent overlay to keep background projects clearly visible */}
             <motion.div
               key="case-study-backdrop"
               variants={drawerBackdropVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed inset-0 bg-black/45 z-[1100]"
+              className="fixed inset-0 bg-black/20 z-[1100]"
               onClick={handleCloseDrawer}
               aria-hidden="true"
             />
 
-            {/* Modal Drawer Aside Panel - Glassmorphism Transparent Blur on Left */}
+            {/* Modal Drawer Aside Panel - Ultra-transparent Glassmorphism with Smooth Blur */}
             <motion.aside
               key="case-study-panel"
               variants={drawerPanelVariants}
@@ -774,13 +774,13 @@ export default function Projects() {
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
               style={{
-                backdropFilter: 'blur(24px)',
-                WebkitBackdropFilter: 'blur(24px)',
+                backdropFilter: 'blur(18px)',
+                WebkitBackdropFilter: 'blur(18px)',
               }}
               className={`fixed top-0 left-0 w-full max-w-lg h-full ${
                 isLight
-                  ? 'bg-white/55 text-slate-900 border-r border-slate-200/80 shadow-2xl'
-                  : 'bg-[#0a090d]/50 text-slate-100 border-r border-white/15 shadow-2xl'
+                  ? 'bg-white/30 text-slate-900 border-r border-slate-200/60 shadow-2xl'
+                  : 'bg-[#0a090d]/25 text-slate-100 border-r border-white/10 shadow-2xl'
               } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
@@ -837,7 +837,7 @@ export default function Projects() {
                 <motion.div
                   variants={drawerItemVariants}
                   className={`p-4 rounded-xl ${
-                    isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
+                    isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
                   } border`}
                 >
                   <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-2">
@@ -856,7 +856,7 @@ export default function Projects() {
                       whileHover={{ scale: 1.03 }}
                       transition={{ duration: 0.2 }}
                       className={`p-3 rounded-lg ${
-                        isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
+                        isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
                       } border text-center`}
                     >
                       <span
