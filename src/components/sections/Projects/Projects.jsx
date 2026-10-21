@@ -980,6 +980,37 @@ export default function Projects() {
                     ))}
                   </div>
                 </motion.div>
+
+                {/* 9. Project Gallery */}
+                {selectedProject.gallery && selectedProject.gallery.length > 0 && (
+                  <motion.div variants={drawerItemVariants} className="flex flex-col gap-3">
+                    <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase">
+                      // GALLERY
+                    </span>
+                    <div className="flex flex-col gap-3.5">
+                      {selectedProject.gallery.map((imgUrl, gIdx) => (
+                        <div
+                          key={gIdx}
+                          className={`group relative w-full overflow-hidden rounded-xl border ${
+                            isLight
+                              ? 'border-slate-200/80 bg-slate-100/50 shadow-sm'
+                              : 'border-white/10 bg-white/[0.02] shadow-md'
+                          } transition-all duration-300`}
+                        >
+                          <div className="w-full aspect-[16/10] overflow-hidden">
+                            <img
+                              src={imgUrl}
+                              alt={`${selectedProject.title} gallery preview ${gIdx + 1}`}
+                              className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                              loading="lazy"
+                              draggable={false}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             </motion.aside>
           </>

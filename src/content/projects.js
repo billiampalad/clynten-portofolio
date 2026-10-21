@@ -29,6 +29,11 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-amber-600/20 via-red-950/40 to-transparent',
     themeColor: 'rgba(214, 4, 7, 0.4)',
     image: '/assets/projects/gambar 1/1.webp',
+    gallery: [
+      '/assets/projects/gambar 1/1.2.webp',
+      '/assets/projects/gambar 1/1.3.webp',
+      '/assets/projects/gambar 1/1.4.webp',
+    ],
     screenMockup: {
       headline: 'PARTNERSHIP INTELLIGENCE // DUDI',
       subline: 'Real-time agreement lifecycle & compliance monitoring engine',
@@ -92,6 +97,11 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-purple-600/20 via-indigo-950/40 to-transparent',
     themeColor: 'rgba(139, 92, 246, 0.4)',
     image: '/assets/projects/ai-cctv.jpg',
+    gallery: [
+      '/assets/projects/ai-cctv.jpg',
+      '/assets/projects/spatial-gis.jpg',
+      '/assets/projects/campus-vlan.jpg',
+    ],
     screenMockup: {
       headline: 'NEURAL SURVEILLANCE MATRIX',
       subline: 'Multi-stream RTSP tensor inference & intrusion detection',
@@ -154,6 +164,11 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-cyan-600/20 via-blue-950/40 to-transparent',
     themeColor: 'rgba(6, 182, 212, 0.4)',
     image: '/assets/projects/campus-vlan.jpg',
+    gallery: [
+      '/assets/projects/campus-vlan.jpg',
+      '/assets/projects/ai-cctv.jpg',
+      '/assets/projects/spatial-gis.jpg',
+    ],
     screenMockup: {
       headline: 'ENTERPRISE ROUTING TOPOLOGY',
       subline: 'Multi-tier 802.1Q VLAN trunking & bandwidth management',
@@ -216,6 +231,11 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-emerald-600/20 via-teal-950/40 to-transparent',
     themeColor: 'rgba(16, 185, 129, 0.4)',
     image: '/assets/projects/spatial-gis.jpg',
+    gallery: [
+      '/assets/projects/spatial-gis.jpg',
+      '/assets/projects/ai-cctv.jpg',
+      '/assets/projects/campus-vlan.jpg',
+    ],
     screenMockup: {
       headline: 'VECTOR SPATIAL INTELLIGENCE',
       subline: 'Multi-layer demographic clustering & zoning classification',
