@@ -113,12 +113,12 @@
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 10px 18px;
+  gap: 8px 16px;
 }
 
 .about-title {
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
-  font-size: clamp(32px, 4.8vw, 56px);
+  font-size: clamp(30px, 4.8vw, 52px);
   font-weight: 900;
   line-height: 1.06;
   letter-spacing: -1.5px;
@@ -151,10 +151,12 @@
   display: inline-flex;
   align-items: center;
   min-height: 32px;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
 }
 
 .about-skill-text {
   display: inline-block;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
   color: #f43f5e;
   font-weight: 800;
   letter-spacing: -0.2px;
@@ -163,6 +165,7 @@
 
 .about-cursor-blink {
   display: inline-block;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
   color: #f43f5e;
   font-weight: 900;
   margin-left: 2px;
