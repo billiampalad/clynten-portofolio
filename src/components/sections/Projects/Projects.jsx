@@ -815,6 +815,27 @@ export default function Projects() {
                   </button>
                 </motion.div>
 
+                {/* Project Preview Image & Date */}
+                {selectedProject.image && (
+                  <motion.div variants={drawerItemVariants} className="flex flex-col gap-2.5">
+                    <div className={`w-full rounded-xl overflow-hidden border ${
+                      isLight ? 'border-slate-200/80 shadow-md' : 'border-white/10 shadow-lg'
+                    }`}>
+                      <img
+                        src={selectedProject.image}
+                        alt={selectedProject.title}
+                        className="w-full aspect-[16/10] object-cover"
+                      />
+                    </div>
+                    {selectedProject.date && (
+                      <div className="flex items-center gap-2 font-mono text-xs text-red-500 font-semibold tracking-wider">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                        <span>{selectedProject.date}</span>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+
                 {/* 2. Title & Subtitle */}
                 <motion.div variants={drawerItemVariants}>
                   <h3
