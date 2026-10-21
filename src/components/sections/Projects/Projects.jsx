@@ -981,13 +981,28 @@ export default function Projects() {
                   </div>
                 </motion.div>
 
-                {/* 9. Project Gallery */}
+                {/* 9. Project Gallery (Distinct Visual Page Section) */}
                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
-                  <motion.div variants={drawerItemVariants} className="flex flex-col gap-3">
-                    <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase">
-                      // GALLERY
-                    </span>
-                    <div className="flex flex-col gap-3.5">
+                  <motion.div
+                    variants={drawerItemVariants}
+                    className={`mt-10 pt-8 border-t ${
+                      isLight ? 'border-slate-200' : 'border-white/10'
+                    } flex flex-col gap-4`}
+                  >
+                    <div className="flex flex-col gap-1.5">
+                      <span className="font-mono text-xs font-bold text-red-500 tracking-[0.2em] uppercase">
+                        // VISUAL ARCHIVE
+                      </span>
+                      <h3
+                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none ${
+                          isLight ? 'text-slate-950' : 'text-white'
+                        }`}
+                      >
+                        GALLERY
+                      </h3>
+                    </div>
+
+                    <div className="flex flex-col gap-4 mt-2">
                       {selectedProject.gallery.map((imgUrl, gIdx) => (
                         <div
                           key={gIdx}

@@ -9,7 +9,7 @@ export const PROJECTS_DATA = [
     step: '01',
     code: 'SYS // PRJ-01',
     shortTitle: 'SIM POLIMDO',
-    title: 'POLIMDO DUDIKA',
+    title: 'SIM POLIMDO',
     subtitle: 'Institutional Partnership & Industrial Management System',
     category: 'Full Stack & Enterprise System',
     period: '2024 — PRESENT',
