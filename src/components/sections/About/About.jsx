@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { profile } from '@/content/profile'
 import ProfileCard from '@/components/layout/Card/ProfileCard'
 import profileAvatar from '@/assets/profile.webp'
@@ -47,14 +46,43 @@ export default function About({ style = {} }) {
   const [isLight, setIsLight] = useState(false)
   const [activeTab, setActiveTab] = useState('intro')
   const [skillIndex, setSkillIndex] = useState(0)
+  const [displayedText, setDisplayedText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
 
-  // Rotate through 6 core skills every 2.6s
+  // Typing and Deleting Effect (Typewriter)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSkillIndex((prev) => (prev + 1) % SKILLS_ROTATION.length)
-    }, 2600)
-    return () => clearInterval(interval)
-  }, [])
+    const currentWord = SKILLS_ROTATION[skillIndex]
+    let timer
+
+    if (!isDeleting) {
+      if (displayedText.length < currentWord.length) {
+        // Ketik karakter demi karakter
+        timer = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1))
+        }, 90)
+      } else {
+        // Teks selesai diketik, jeda sebelum mulai menghapus
+        timer = setTimeout(() => {
+          setIsDeleting(true)
+        }, 1800)
+      }
+    } else {
+      if (displayedText.length > 0) {
+        // Hapus karakter demi karakter
+        timer = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length - 1))
+        }, 45)
+      } else {
+        // Teks selesai dihapus, jeda sejenak lalu ganti ke teks berikutnya
+        timer = setTimeout(() => {
+          setIsDeleting(false)
+          setSkillIndex((prev) => (prev + 1) % SKILLS_ROTATION.length)
+        }, 320)
+      }
+    }
+
+    return () => clearTimeout(timer)
+  }, [displayedText, isDeleting, skillIndex])
 
   const currentSectionIndex = ABOUT_SECTIONS.findIndex((s) => s.id === activeTab)
   const currentSection = ABOUT_SECTIONS[currentSectionIndex] || ABOUT_SECTIONS[0]
@@ -141,18 +169,9 @@ export default function About({ style = {} }) {
                 <div className="about-role-subline">
                   <span className="about-role-prefix">And I'm a</span>
                   <span className="about-skill-rotator">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={SKILLS_ROTATION[skillIndex]}
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="about-skill-text"
-                      >
-                        {SKILLS_ROTATION[skillIndex]}
-                      </motion.span>
-                    </AnimatePresence>
+                    <span className="about-skill-text">
+                      {displayedText}
+                    </span>
                     <span className="about-cursor-blink" aria-hidden="true">_</span>
                   </span>
                 </div>
