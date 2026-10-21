@@ -777,11 +777,10 @@ export default function Projects() {
                 backdropFilter: 'blur(18px)',
                 WebkitBackdropFilter: 'blur(18px)',
               }}
-              className={`fixed top-0 left-0 w-full max-w-lg h-full ${
-                isLight
+              className={`fixed top-0 left-0 w-full max-w-lg h-full ${isLight
                   ? 'bg-white/30 text-slate-900 border-r border-slate-200/60 shadow-2xl'
                   : 'bg-[#0a090d]/25 text-slate-100 border-r border-white/10 shadow-2xl'
-              } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
+                } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
               role="dialog"
@@ -795,9 +794,8 @@ export default function Projects() {
                 {/* 1. Top Bar: Code Badge & Close Button */}
                 <motion.div
                   variants={drawerItemVariants}
-                  className={`flex items-center justify-between pb-4 border-b ${
-                    isLight ? 'border-slate-200' : 'border-white/10'
-                  }`}
+                  className={`flex items-center justify-between pb-4 border-b ${isLight ? 'border-slate-200' : 'border-white/10'
+                    }`}
                 >
                   <span className="font-mono text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-md">
                     {selectedProject.code}
@@ -805,11 +803,10 @@ export default function Projects() {
                   <button
                     type="button"
                     onClick={handleCloseDrawer}
-                    className={`px-3 py-1.5 rounded-lg ${
-                      isLight
+                    className={`px-3 py-1.5 rounded-lg ${isLight
                         ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
                         : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
-                    } font-mono text-xs font-bold transition-all cursor-pointer`}
+                      } font-mono text-xs font-bold transition-all cursor-pointer`}
                   >
                     ✕ CLOSE
                   </button>
@@ -818,9 +815,8 @@ export default function Projects() {
                 {/* Project Preview Image & Date */}
                 {selectedProject.image && (
                   <motion.div variants={drawerItemVariants} className="flex flex-col gap-2.5">
-                    <div className={`w-full rounded-xl overflow-hidden border ${
-                      isLight ? 'border-slate-200/80 shadow-md' : 'border-white/10 shadow-lg'
-                    }`}>
+                    <div className={`w-full rounded-xl overflow-hidden border ${isLight ? 'border-slate-200/80 shadow-md' : 'border-white/10 shadow-lg'
+                      }`}>
                       <img
                         src={selectedProject.image}
                         alt={selectedProject.title}
@@ -839,16 +835,14 @@ export default function Projects() {
                 {/* 2. Title & Subtitle */}
                 <motion.div variants={drawerItemVariants}>
                   <h3
-                    className={`font-mono font-black text-2xl sm:text-3xl ${
-                      isLight ? 'text-slate-900' : 'text-white'
-                    } tracking-tight mb-1`}
+                    className={`font-mono font-black text-2xl sm:text-3xl ${isLight ? 'text-slate-900' : 'text-white'
+                      } tracking-tight mb-1`}
                   >
                     {selectedProject.title}
                   </h3>
                   <p
-                    className={`font-mono text-xs sm:text-sm ${
-                      isLight ? 'text-slate-600' : 'text-slate-400'
-                    }`}
+                    className={`font-mono text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'
+                      }`}
                   >
                     {selectedProject.subtitle}
                   </p>
@@ -857,9 +851,8 @@ export default function Projects() {
                 {/* 3. System Overview */}
                 <motion.div
                   variants={drawerItemVariants}
-                  className={`p-4 rounded-xl ${
-                    isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
-                  } border`}
+                  className={`p-4 rounded-xl ${isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
+                    } border`}
                 >
                   <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-2">
                     // SYSTEM OVERVIEW
@@ -876,21 +869,18 @@ export default function Projects() {
                       key={idx}
                       whileHover={{ scale: 1.03 }}
                       transition={{ duration: 0.2 }}
-                      className={`p-3 rounded-lg ${
-                        isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
-                      } border text-center`}
+                      className={`p-3 rounded-lg ${isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
+                        } border text-center`}
                     >
                       <span
-                        className={`block font-mono text-lg font-black ${
-                          isLight ? 'text-slate-900' : 'text-white'
-                        }`}
+                        className={`block font-mono text-lg font-black ${isLight ? 'text-slate-900' : 'text-white'
+                          }`}
                       >
                         {m.val}
                       </span>
                       <span
-                        className={`font-mono text-[9px] ${
-                          isLight ? 'text-slate-500' : 'text-slate-400'
-                        } uppercase tracking-wider`}
+                        className={`font-mono text-[9px] ${isLight ? 'text-slate-500' : 'text-slate-400'
+                          } uppercase tracking-wider`}
                       >
                         {m.label}
                       </span>
@@ -907,9 +897,8 @@ export default function Projects() {
                     {selectedProject.caseStudy.challenges.map((ch, idx) => (
                       <li
                         key={idx}
-                        className={`flex items-start gap-2.5 text-sm ${
-                          isLight ? 'text-slate-700' : 'text-slate-300'
-                        }`}
+                        className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'
+                          }`}
                       >
                         <span className="text-red-500 font-bold font-mono">▸</span>
                         <span>{ch}</span>
@@ -927,9 +916,8 @@ export default function Projects() {
                     {selectedProject.caseStudy.solutions.map((sol, idx) => (
                       <li
                         key={idx}
-                        className={`flex items-start gap-2.5 text-sm ${
-                          isLight ? 'text-slate-700' : 'text-slate-300'
-                        }`}
+                        className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'
+                          }`}
                       >
                         <span className="text-emerald-500 font-bold font-mono">✓</span>
                         <span>{sol}</span>
@@ -947,9 +935,8 @@ export default function Projects() {
                     {selectedProject.caseStudy.deliverables.map((del, idx) => (
                       <li
                         key={idx}
-                        className={`flex items-start gap-2.5 text-sm ${
-                          isLight ? 'text-slate-700' : 'text-slate-300'
-                        }`}
+                        className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'
+                          }`}
                       >
                         <span className="text-red-500 font-bold font-mono">■</span>
                         <span>{del}</span>
@@ -969,11 +956,10 @@ export default function Projects() {
                         key={t}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.15 }}
-                        className={`px-3 py-1 rounded-md ${
-                          isLight
+                        className={`px-3 py-1 rounded-md ${isLight
                             ? 'bg-slate-100 border-slate-200 text-slate-800'
                             : 'bg-white/[0.05] border-white/10 text-slate-300'
-                        } border font-mono text-xs font-semibold`}
+                          } border font-mono text-xs font-semibold`}
                       >
                         {t}
                       </motion.span>
@@ -985,18 +971,12 @@ export default function Projects() {
                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
                   <motion.div
                     variants={drawerItemVariants}
-                    className={`mt-10 pt-8 border-t ${
-                      isLight ? 'border-slate-200' : 'border-white/10'
-                    } flex flex-col gap-4`}
+                    className="mt-10 flex flex-col gap-4"
                   >
                     <div className="flex flex-col gap-1.5">
-                      <span className="font-mono text-xs font-bold text-red-500 tracking-[0.2em] uppercase">
-                        // VISUAL ARCHIVE
-                      </span>
                       <h3
-                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none ${
-                          isLight ? 'text-slate-950' : 'text-white'
-                        }`}
+                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                          }`}
                       >
                         GALLERY
                       </h3>
@@ -1006,11 +986,10 @@ export default function Projects() {
                       {selectedProject.gallery.map((imgUrl, gIdx) => (
                         <div
                           key={gIdx}
-                          className={`group relative w-full overflow-hidden rounded-xl border ${
-                            isLight
+                          className={`group relative w-full overflow-hidden rounded-xl border ${isLight
                               ? 'border-slate-200/80 bg-slate-100/50 shadow-sm'
                               : 'border-white/10 bg-white/[0.02] shadow-md'
-                          } transition-all duration-300`}
+                            } transition-all duration-300`}
                         >
                           <div className="w-full aspect-[16/10] overflow-hidden">
                             <img
