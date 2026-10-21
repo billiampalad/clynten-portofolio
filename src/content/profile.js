@@ -1,6 +1,6 @@
 export const profile = {
-  name: 'Clynten Palad',
-  role: 'Web Developer & System Architect',
+  // name: 'Clynten Palad',
+  // role: 'Web Developer & System Architect',
   tagline: 'Transforming complex systems into powerful digital realities.',
   status: 'ONLINE // STREAM',
   systemId: 'CLYNTEN-DEV',

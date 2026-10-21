@@ -233,8 +233,8 @@ export default function About({ style = {} }) {
 
           <div className="about-card-wrapper">
             <ProfileCard
-              name={profile.name || "Clynten Palad"}
-              title={profile.role || "Software Engineer"}
+              name=""
+              title=""
               handle="clyntenbilliam"
               status="Online"
               contactText="Contact"
