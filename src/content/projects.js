@@ -46,31 +46,6 @@ export const PROJECTS_DATA = [
       badge: 'RBAC_SECURITY_LAYER',
       spec: 'MULTI_ROLE_AUTH // DOCUMENT_LIFECYCLE // AUDIT_TRAIL',
     },
-    caseStudy: {
-      overview:
-        'Engineered to eliminate manual archiving bottlenecks and streamline lifecycle tracking for hundreds of institutional MoUs and MoAs between the polytechnic and enterprise industrial partners across Indonesia.',
-      challenges: [
-        'Physical partnership data fragmentation that hindered accreditation reporting and legal compliance verification.',
-        'Multi-tiered role-based access control requirements across Administrators, Academic Departments, Industry Partners, and Executive Leadership.',
-        'Automated digital document validation and intelligent expiration notification pipelines for institutional agreements.',
-      ],
-      solutions: [
-        'Modular MVC architecture built with Laravel leveraging the Service-Repository pattern for scalable domain separation.',
-        'Normalized relational database schema (MySQL) featuring optimized B-tree indexing and strict ACID transactional guarantees.',
-        'Robust authentication layer with granular Role-Based Access Control (RBAC) and immutable system activity audit logging.',
-        'Interactive metric dashboards providing real-time visibility into partner sector distributions, active agreements, and evaluation milestones.',
-      ],
-      deliverables: [
-        'Campus MoU/MoA Enterprise Management Portal',
-        'Automated Document Verification & Agreement Lifecycle Engine',
-        'RESTful API Endpoints for Centralized Higher-Education Database Ingestion',
-        'Executive Analytics Dashboard with Automated Data Export Pipelines',
-      ],
-      links: {
-        demo: '#',
-        repo: '#',
-      },
-    },
   },
   {
     id: 'ai-cctv',
@@ -113,30 +88,6 @@ export const PROJECTS_DATA = [
       tag: 'EDGE_INFERENCE_ENGINE',
       badge: 'YOLO_TENSOR_PIPELINE',
       spec: 'RTSP_INGEST // ZERO_COPY_BUFFER // EVENT_DISPATCH',
-    },
-    caseStudy: {
-      overview:
-        'Mengembangkan sistem pengawasan berbasis visi komputer di perangkat edge yang mampu menganalisis aliran RTSP kamera CCTV secara simultan tanpa membebani bandwidth jaringan cloud.',
-      challenges: [
-        'Keterbatasan daya komputasi perangkat edge saat memproses multiple video stream resolusi 1080p.',
-        'Penurunan akurasi deteksi pada kondisi pencahayaan malam atau sudut kamera ekstrem.',
-        'Kebutuhan waktu respons milidetik saat mendeteksi anomali objek terlarang.',
-      ],
-      solutions: [
-        'Kuantisasi model YOLOv8 (TensorRT / FP16) untuk memaksimalkan throughput akselerasi GPU lokal.',
-        'Algoritma frame skipping adaptif dan tracking centroid untuk menghemat beban CPU hingga 40%.',
-        'Penyusunan arsitektur event-driven dengan FastAPI WebSocket untuk broadcast peringatan seketika.',
-      ],
-      deliverables: [
-        'Edge Video Inference Service Daemon',
-        'Real-time Anomaly Detection Engine',
-        'WebSocket Streaming Telemetry Client',
-        'Automated Incident Clip Recording Storage',
-      ],
-      links: {
-        demo: '#',
-        repo: '#',
-      },
     },
   },
   {
@@ -181,30 +132,6 @@ export const PROJECTS_DATA = [
       badge: 'VLAN_TRUNKING_802.1Q',
       spec: 'INTER_VLAN_ROUTING // FIREWALL_FILTER // QUEUE_TREE',
     },
-    caseStudy: {
-      overview:
-        'Penyusunan blueprint arsitektur jaringan skala kampus untuk memisahkan domain siaran (broadcast domain) antara ruang server, laboratorium komputasi, administrasi, dan akses publik.',
-      challenges: [
-        'Tingginya broadcast storm dan risiko keamanan lateral akibat topologi jaringan flat (tanpa segmentasi).',
-        'Monopoli bandwidth oleh lalu lintas non-prioritas yang mengganggu layanan server internal.',
-        'Kebutuhan failover routing otomatis antara dua link ISP berbeda.',
-      ],
-      solutions: [
-        'Pemisahan 12 subnet VLAN dengan trunking standar IEEE 802.1Q pada switch managed Cisco.',
-        'Konfigurasi routing dinamis OSPF dan Static Policy-Based Routing (PBR) pada MikroTik Core Router.',
-        'Penerapan firewall filter stateful dan Queue Tree PCQ (Per Connection Queue) untuk keadilan bandwidth.',
-      ],
-      deliverables: [
-        'Topologi Jaringan Enterprise Terstandarisasi',
-        'Skema Segmentasi VLAN & Alokasi VLSM Subnetting',
-        'Aturan Firewall Hardening & Port Security',
-        'Dokumentasi Audit Analisis Paket Wireshark',
-      ],
-      links: {
-        demo: '#',
-        repo: '#',
-      },
-    },
   },
   {
     id: 'spatial-gis',
@@ -247,30 +174,6 @@ export const PROJECTS_DATA = [
       tag: 'SPATIAL_VECTOR_LAYER',
       badge: 'EPSG_COORDINATE_GRID',
       spec: 'BUFFER_ZONE_ANALYSIS // HEATMAP_CLUSTERING // GEOJSON_EXPORT',
-    },
-    caseStudy: {
-      overview:
-        'Pengolahan dan pemetaan kumpulan data spasial berskala besar untuk menghasilkan visualisasi zonasi informatif dengan akurasi koordinat tinggi.',
-      challenges: [
-        'Inkonsistensi sistem proyeksi koordinat peta (CRS) antar berbagai layer data tabular dan shapefile.',
-        'Volume data geometri poligon besar yang lambat dirender tanpa optimasi simplifikasi.',
-        'Penyajian output kartografis yang harus mudah dipahami oleh pemangku kebijakan non-teknis.',
-      ],
-      solutions: [
-        'Standardisasi transformasi CRS terpadu menggunakan pustaka GeoPandas dan PyProj.',
-        'Optimasi pemrosesan spasial berbasis algoritma R-Tree spatial indexing dan topologi simplifikasi.',
-        'Perancangan visualisasi antarmuka peta tematik berstandar kartografi modern di QGIS dan Figma.',
-      ],
-      deliverables: [
-        'Peta Zonasi Tematik Multi-layer Beresolusi Tinggi',
-        'Skrip Otomasi Pengolahan Data Spasial Python',
-        'Dataset GeoJSON Terintegrasi',
-        'Laporan Analisis Klaster Geospasial',
-      ],
-      links: {
-        demo: '#',
-        repo: '#',
-      },
     },
   },
 ]

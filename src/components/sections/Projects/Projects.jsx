@@ -848,21 +848,7 @@ export default function Projects() {
                   </p>
                 </motion.div>
 
-                {/* 3. System Overview */}
-                <motion.div
-                  variants={drawerItemVariants}
-                  className={`p-4 rounded-xl ${isLight ? 'bg-slate-100/40 border-slate-200/60' : 'bg-white/[0.03] border-white/5'
-                    } border`}
-                >
-                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-2">
-                    // SYSTEM OVERVIEW
-                  </span>
-                  <p className={`text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'} leading-relaxed`}>
-                    {selectedProject.caseStudy.overview}
-                  </p>
-                </motion.div>
-
-                {/* 4. Metrics Grid */}
+                {/* 3. Metrics Grid */}
                 <motion.div variants={drawerItemVariants} className="grid grid-cols-3 gap-3">
                   {selectedProject.metrics.map((m, idx) => (
                     <motion.div
@@ -888,64 +874,7 @@ export default function Projects() {
                   ))}
                 </motion.div>
 
-                {/* 5. Architectural Challenges */}
-                <motion.div variants={drawerItemVariants}>
-                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                    // ARCHITECTURAL CHALLENGES
-                  </span>
-                  <ul className="flex flex-col gap-2">
-                    {selectedProject.caseStudy.challenges.map((ch, idx) => (
-                      <li
-                        key={idx}
-                        className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'
-                          }`}
-                      >
-                        <span className="text-red-500 font-bold font-mono">▸</span>
-                        <span>{ch}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-
-                {/* 6. Engineered Solutions */}
-                <motion.div variants={drawerItemVariants}>
-                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                    // ENGINEERED SOLUTIONS
-                  </span>
-                  <ul className="flex flex-col gap-2">
-                    {selectedProject.caseStudy.solutions.map((sol, idx) => (
-                      <li
-                        key={idx}
-                        className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'
-                          }`}
-                      >
-                        <span className="text-emerald-500 font-bold font-mono">✓</span>
-                        <span>{sol}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-
-                {/* 7. System Deliverables */}
-                <motion.div variants={drawerItemVariants}>
-                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                    // SYSTEM DELIVERABLES
-                  </span>
-                  <ul className="flex flex-col gap-2">
-                    {selectedProject.caseStudy.deliverables.map((del, idx) => (
-                      <li
-                        key={idx}
-                        className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'
-                          }`}
-                      >
-                        <span className="text-red-500 font-bold font-mono">■</span>
-                        <span>{del}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-
-                {/* 8. Technology Stack */}
+                {/* 4. Technology Stack */}
                 <motion.div variants={drawerItemVariants}>
                   <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
                     // TECHNOLOGY STACK
@@ -967,7 +896,7 @@ export default function Projects() {
                   </div>
                 </motion.div>
 
-                {/* 9. Project Gallery (Distinct Visual Page Section) */}
+                {/* 5. Project Gallery (Distinct Visual Page Section) */}
                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
                   <motion.div
                     variants={drawerItemVariants}
