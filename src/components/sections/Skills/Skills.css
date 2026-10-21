@@ -10,9 +10,12 @@
   z-index: 10;
 }
 
-.skills-container {
+.skills-headline-block,
+.skills-stats-grid,
+.skills-pillars-grid {
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Header Technical Badge */
@@ -22,7 +25,16 @@
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 14px;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.skills-header-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .skills-badge {
@@ -49,11 +61,14 @@
 }
 
 @keyframes pulse-dot {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
     box-shadow: 0 0 8px #f43f5e;
   }
+
   50% {
     opacity: 0.4;
     transform: scale(0.8);
@@ -79,17 +94,19 @@
   color: #f43f5e;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 .skills-title {
-  font-size: clamp(32px, 5vw, 64px);
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: clamp(30px, 4.8vw, 52px);
   font-weight: 900;
-  line-height: 1.08;
+  line-height: 1.06;
   letter-spacing: -1.5px;
   color: #f1f5f9;
   margin: 0 0 20px 0;
   max-width: 950px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
 .skills-title .highlight {
@@ -304,6 +321,7 @@ body.light-theme .skills-tagline {
 html.light-theme .skills-title,
 body.light-theme .skills-title {
   color: #0f172a;
+  text-shadow: none;
 }
 
 [data-theme="light"] .skills-title .highlight,
@@ -431,14 +449,16 @@ body.light-theme .pillar-card:hover .tech-chip {
   .skills-section {
     padding: 80px 16px 60px 16px;
   }
+
   .skills-stats-grid {
     grid-template-columns: repeat(1, 1fr);
   }
+
   .skills-pillars-grid {
     grid-template-columns: 1fr;
   }
+
   .skills-title {
     font-size: 28px;
   }
 }
-
