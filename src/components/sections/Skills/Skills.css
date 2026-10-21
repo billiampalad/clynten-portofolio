@@ -32,9 +32,9 @@
   font-family: var(--font-mono), 'JetBrains Mono', Consolas, monospace;
   font-size: 11px;
   letter-spacing: 2px;
-  color: #00ffaa;
-  background: rgba(0, 255, 170, 0.08);
-  border: 1px solid rgba(0, 255, 170, 0.25);
+  color: #f43f5e;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.25);
   padding: 4px 12px;
   border-radius: 9999px;
 }
@@ -42,9 +42,9 @@
 .skills-badge .dot {
   width: 6px;
   height: 6px;
-  background: #00ffaa;
+  background: #f43f5e;
   border-radius: 50%;
-  box-shadow: 0 0 8px #00ffaa;
+  box-shadow: 0 0 8px #f43f5e;
   animation: pulse-dot 1.5s infinite ease-in-out;
 }
 
@@ -52,12 +52,12 @@
   0%, 100% {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 0 8px #00ffaa;
+    box-shadow: 0 0 8px #f43f5e;
   }
   50% {
     opacity: 0.4;
     transform: scale(0.8);
-    box-shadow: 0 0 2px #00ffaa;
+    box-shadow: 0 0 2px #f43f5e;
   }
 }
 
@@ -76,7 +76,7 @@
 .skills-tagline {
   font-family: var(--font-mono), monospace;
   font-size: 12px;
-  color: #38bdf8;
+  color: #f43f5e;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -93,7 +93,7 @@
 }
 
 .skills-title .highlight {
-  background: linear-gradient(135deg, #00ffaa 0%, #38bdf8 100%);
+  background: linear-gradient(135deg, #ff4d6d 0%, #f43f5e 50%, #e11d48 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -128,8 +128,9 @@
 
 .stat-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(0, 255, 170, 0.3);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  border-color: rgba(244, 63, 94, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(244, 63, 94, 0.15);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .stat-top-line {
@@ -138,8 +139,8 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #00ffaa, transparent);
-  opacity: 0.6;
+  background: linear-gradient(90deg, #f43f5e, transparent);
+  opacity: 0.8;
 }
 
 .stat-num {
@@ -154,7 +155,7 @@
 .stat-title {
   font-size: 13px;
   font-weight: 600;
-  color: #38bdf8;
+  color: #f43f5e;
   margin-bottom: 4px;
 }
 
@@ -185,10 +186,10 @@
 }
 
 .pillar-card:hover {
-  border-color: rgba(56, 189, 248, 0.3);
+  border-color: rgba(244, 63, 94, 0.35);
   transform: translateY(-3px);
-  background: rgba(12, 20, 32, 0.85);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(18, 12, 16, 0.85);
+  box-shadow: 0 12px 30px rgba(244, 63, 94, 0.12);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -212,9 +213,9 @@
   letter-spacing: 1.2px;
   padding: 2px 8px;
   border-radius: 4px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  color: #38bdf8;
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #f43f5e;
 }
 
 .pillar-title {
@@ -250,9 +251,9 @@
 }
 
 .pillar-card:hover .tech-chip {
-  border-color: rgba(0, 255, 170, 0.2);
-  color: #00ffaa;
-  background: rgba(0, 255, 170, 0.04);
+  border-color: rgba(244, 63, 94, 0.3);
+  color: #ff4d6d;
+  background: rgba(244, 63, 94, 0.08);
 }
 
 /* ==========================================================================
@@ -275,16 +276,16 @@ body.light-theme .skills-header-meta {
 [data-theme="light"] .skills-badge,
 html.light-theme .skills-badge,
 body.light-theme .skills-badge {
-  color: #059669;
-  background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.28);
+  color: #e11d48;
+  background: rgba(244, 63, 94, 0.08);
+  border-color: rgba(244, 63, 94, 0.28);
 }
 
 [data-theme="light"] .skills-badge .dot,
 html.light-theme .skills-badge .dot,
 body.light-theme .skills-badge .dot {
-  background: #059669;
-  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6);
+  background: #e11d48;
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.6);
 }
 
 [data-theme="light"] .skills-sys-id,
@@ -296,7 +297,7 @@ body.light-theme .skills-sys-id {
 [data-theme="light"] .skills-tagline,
 html.light-theme .skills-tagline,
 body.light-theme .skills-tagline {
-  color: #0284c7;
+  color: #e11d48;
 }
 
 [data-theme="light"] .skills-title,
@@ -308,7 +309,7 @@ body.light-theme .skills-title {
 [data-theme="light"] .skills-title .highlight,
 html.light-theme .skills-title .highlight,
 body.light-theme .skills-title .highlight {
-  background: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+  background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -332,14 +333,14 @@ body.light-theme .stat-card {
 [data-theme="light"] .stat-card:hover,
 html.light-theme .stat-card:hover,
 body.light-theme .stat-card:hover {
-  border-color: rgba(5, 150, 105, 0.35);
-  box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.08);
+  border-color: rgba(225, 29, 72, 0.35);
+  box-shadow: 0 10px 25px -4px rgba(225, 29, 72, 0.12);
 }
 
 [data-theme="light"] .stat-top-line,
 html.light-theme .stat-top-line,
 body.light-theme .stat-top-line {
-  background: linear-gradient(90deg, #059669, transparent);
+  background: linear-gradient(90deg, #e11d48, transparent);
 }
 
 [data-theme="light"] .stat-num,
@@ -351,7 +352,7 @@ body.light-theme .stat-num {
 [data-theme="light"] .stat-title,
 html.light-theme .stat-title,
 body.light-theme .stat-title {
-  color: #0284c7;
+  color: #e11d48;
 }
 
 [data-theme="light"] .stat-desc,
@@ -373,8 +374,8 @@ body.light-theme .pillar-card {
 html.light-theme .pillar-card:hover,
 body.light-theme .pillar-card:hover {
   background: #ffffff;
-  border-color: rgba(2, 132, 199, 0.35);
-  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.09);
+  border-color: rgba(225, 29, 72, 0.35);
+  box-shadow: 0 16px 36px -4px rgba(225, 29, 72, 0.12);
 }
 
 [data-theme="light"] .pillar-idx,
@@ -386,9 +387,9 @@ body.light-theme .pillar-idx {
 [data-theme="light"] .pillar-tag,
 html.light-theme .pillar-tag,
 body.light-theme .pillar-tag {
-  background: rgba(2, 132, 199, 0.08);
-  border-color: rgba(2, 132, 199, 0.22);
-  color: #0284c7;
+  background: rgba(244, 63, 94, 0.08);
+  border-color: rgba(244, 63, 94, 0.22);
+  color: #e11d48;
 }
 
 [data-theme="light"] .pillar-title,
@@ -414,9 +415,9 @@ body.light-theme .tech-chip {
 [data-theme="light"] .pillar-card:hover .tech-chip,
 html.light-theme .pillar-card:hover .tech-chip,
 body.light-theme .pillar-card:hover .tech-chip {
-  border-color: rgba(5, 150, 105, 0.3);
-  color: #059669;
-  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(225, 29, 72, 0.3);
+  color: #e11d48;
+  background: rgba(244, 63, 94, 0.08);
 }
 
 /* Responsive */
