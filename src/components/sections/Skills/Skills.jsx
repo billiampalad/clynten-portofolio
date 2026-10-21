@@ -1,4 +1,5 @@
 import { profile } from '@/content/profile'
+import TechIcon from './TechIcon'
 import './Skills.css'
 
 const STATS = [
@@ -86,7 +87,10 @@ export default function Skills({ style = {} }) {
             <p className="pillar-desc">{domain.desc}</p>
             <div className="pillar-techs">
               {domain.techs.map((tech, tIdx) => (
-                <span key={tIdx} className="tech-chip">{tech}</span>
+                <span key={tIdx} className="tech-chip">
+                  <TechIcon name={tech} />
+                  <span>{tech}</span>
+                </span>
               ))}
             </div>
           </div>

@@ -251,6 +251,9 @@
 }
 
 .tech-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-family: var(--font-mono), monospace;
   font-size: 10px;
   padding: 3px 8px;
@@ -258,12 +261,36 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.tech-chip-icon {
+  width: 11px;
+  height: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tech-chip-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .pillar-card:hover .tech-chip {
   border-color: rgba(244, 63, 94, 0.3);
   color: #ff4d6d;
   background: rgba(244, 63, 94, 0.08);
+}
+
+.tech-chip:hover {
+  border-color: rgba(244, 63, 94, 0.5) !important;
+  color: #ffffff !important;
+  background: rgba(244, 63, 94, 0.16) !important;
+  transform: translateY(-1px);
 }
 
 /* ==========================================================================
@@ -423,6 +450,14 @@ body.light-theme .pillar-card:hover .tech-chip {
   border-color: rgba(225, 29, 72, 0.3);
   color: #e11d48;
   background: rgba(244, 63, 94, 0.08);
+}
+
+[data-theme="light"] .tech-chip:hover,
+html.light-theme .tech-chip:hover,
+body.light-theme .tech-chip:hover {
+  border-color: rgba(225, 29, 72, 0.5) !important;
+  color: #0f172a !important;
+  background: rgba(244, 63, 94, 0.14) !important;
 }
 
 /* Responsive */
