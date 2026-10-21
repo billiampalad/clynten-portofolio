@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { profile } from '@/content/profile'
 import ProfileCard from '@/components/layout/Card/ProfileCard'
 import profileAvatar from '@/assets/profile.webp'
 import Antigravity from '@/components/layout/Background/Antigravity'
 import './About.css'
+
+const SKILLS_ROTATION = [
+  'Web Development',
+  'Android Dev',
+  'Cyber Security',
+  'Network - IoT',
+  'Database MGMT',
+  'UI/UX Design',
+]
 
 const ABOUT_SECTIONS = [
   {
