@@ -43,23 +43,23 @@ export const PROJECTS_DATA = [
     },
     caseStudy: {
       overview:
-        'Sistem ini dirancang untuk mengatasi inefisiensi pengarsipan manual dan pelacakan status MoU/MoA kemitraan kampus dengan ratusan mitra industri di seluruh Indonesia.',
+        'Engineered to eliminate manual archiving bottlenecks and streamline lifecycle tracking for hundreds of institutional MoUs and MoAs between the polytechnic and enterprise industrial partners across Indonesia.',
       challenges: [
-        'Fragmentasi data kemitraan fisik yang memperlambat pelaporan akreditasi dan verifikasi legalitas.',
-        'Kebutuhan kontrol hak akses bertingkat (Admin, Jurusan, Mitra Industri, Pimpinan).',
-        'Validasi dokumen digital dan sistem notifikasi kedaluwarsa masa berlaku perjanjian kerjasama.',
+        'Physical partnership data fragmentation that hindered accreditation reporting and legal compliance verification.',
+        'Multi-tiered role-based access control requirements across Administrators, Academic Departments, Industry Partners, and Executive Leadership.',
+        'Automated digital document validation and intelligent expiration notification pipelines for institutional agreements.',
       ],
       solutions: [
-        'Arsitektur MVC termodularisasi menggunakan Laravel dengan Service Repository pattern.',
-        'Implementasi skema database relasional ternormalisasi (MySQL) dengan indexing teroptimasi.',
-        'Sistem autentikasi aman dengan granular Role-Based Access Control (RBAC) dan audit logging aktivitas.',
-        'Dashboard metrik interaktif untuk memonitor distribusi sektor mitra, dokumen aktif, dan timeline evaluasi.',
+        'Modular MVC architecture built with Laravel leveraging the Service-Repository pattern for scalable domain separation.',
+        'Normalized relational database schema (MySQL) featuring optimized B-tree indexing and strict ACID transactional guarantees.',
+        'Robust authentication layer with granular Role-Based Access Control (RBAC) and immutable system activity audit logging.',
+        'Interactive metric dashboards providing real-time visibility into partner sector distributions, active agreements, and evaluation milestones.',
       ],
       deliverables: [
-        'Portal Manajemen MoU/MoA Kemitraan Kampus',
-        'Sistem Verifikasi Dokumen & Masa Berlaku Otomatis',
-        'RESTful API Endpoint untuk Integrasi Pangkalan Data',
-        'Executive Analytics Dashboard & Export Rekap',
+        'Campus MoU/MoA Enterprise Management Portal',
+        'Automated Document Verification & Agreement Lifecycle Engine',
+        'RESTful API Endpoints for Centralized Higher-Education Database Ingestion',
+        'Executive Analytics Dashboard with Automated Data Export Pipelines',
       ],
       links: {
         demo: '#',
