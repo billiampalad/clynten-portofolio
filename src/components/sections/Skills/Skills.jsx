@@ -67,7 +67,6 @@ export default function Skills({ style = {} }) {
       <div className="skills-stats-grid">
         {STATS.map((stat, i) => (
           <div key={i} className="stat-card">
-            <div className="stat-top-line" />
             <div className="stat-num">{stat.num}</div>
             <div className="stat-title">{stat.title}</div>
             <div className="stat-desc">{stat.desc}</div>
