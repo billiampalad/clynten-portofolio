@@ -217,8 +217,10 @@ export default function Projects() {
               {currentProject.shortTitle}
             </h2>
             <p
-              className={`font-mono text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'
-                } mt-3 max-w-xs font-medium transition-colors`}
+              className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
+                : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
+                } mt-3 font-medium transition-colors`}
             >
               {currentProject.category}
             </p>
