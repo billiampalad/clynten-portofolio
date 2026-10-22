@@ -574,19 +574,10 @@ export default function Projects() {
                 return (
                   <motion.div
                     key={project.id}
-                    onClick={() => {
-                      if (isFocus) {
-                        handleOpenDrawer(project)
-                      } else if (isTop || isBottom) {
-                        setCurrentIndex(index)
-                      }
-                    }}
-                    className={`absolute inset-0 w-full h-full overflow-hidden shadow-2xl transition-[filter] duration-300 ${
+                    className={`absolute inset-0 w-full h-full overflow-hidden shadow-2xl pointer-events-none select-none ${
                       isFocus
-                        ? 'cursor-pointer border border-white/15 shadow-black/90 hover:scale-[1.015]'
-                        : isTop || isBottom
-                        ? 'cursor-pointer border border-white/10 shadow-black/60 hover:brightness-100 hover:scale-[0.39]'
-                        : 'pointer-events-none border border-white/5 shadow-black/40'
+                        ? 'border border-white/15 shadow-black/90'
+                        : 'border border-white/10 shadow-black/60'
                     }`}
                     style={{
                       transformStyle: 'preserve-3d',
@@ -602,18 +593,6 @@ export default function Projects() {
                       filter: `brightness(${brightness})`,
                     }}
                     transition={COVERFLOW_SPRING}
-                    title={isFocus ? `Click to inspect ${project.title}` : `Jump to ${project.title}`}
-                    role="button"
-                    tabIndex={isFocus || isTop || isBottom ? 0 : -1}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        if (isFocus) {
-                          handleOpenDrawer(project)
-                        } else if (isTop || isBottom) {
-                          setCurrentIndex(index)
-                        }
-                      }
-                    }}
                   >
                     <img
                       src={project.image}
