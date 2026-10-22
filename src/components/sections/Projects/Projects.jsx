@@ -576,8 +576,8 @@ export default function Projects() {
                     key={project.id}
                     className={`absolute inset-0 w-full h-full overflow-hidden shadow-2xl pointer-events-none select-none ${
                       isFocus
-                        ? 'border border-white/15 shadow-black/90'
-                        : 'border border-white/10 shadow-black/60'
+                        ? 'shadow-black/90'
+                        : 'shadow-black/60'
                     }`}
                     style={{
                       transformStyle: 'preserve-3d',
