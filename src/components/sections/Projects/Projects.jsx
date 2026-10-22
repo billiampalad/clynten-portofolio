@@ -8,6 +8,7 @@ export default function Projects() {
   const pinWrapperRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [hasScrolled, setHasScrolled] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isLightMode, setIsLightMode] = useState(() => {
@@ -55,6 +56,7 @@ export default function Projects() {
       onUpdate: (self) => {
         const progress = Math.max(0, Math.min(1, self.progress))
         setScrollProgress(progress)
+        setHasScrolled(progress > 0.001)
 
         // Calculate active project index based on scroll range
         const total = PROJECTS_DATA.length
@@ -118,7 +120,7 @@ export default function Projects() {
         {/* =========================================================================
             DYNAMIC BLURRED PROJECT BACKGROUND LAYERS (GPU-Accelerated Crossfade)
             - At Scroll 0 on Project 01: Clean theme background (dark or light)
-            - Once scroll starts (scrollProgress > 0.008): Project 01 image smoothly fades in
+            - Once scroll starts (hasScrolled / progress > 0.001): Project 01 image smoothly fades in
             - On subsequent projects: Smooth crossfades to current project image
             ========================================================================= */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
@@ -126,33 +128,33 @@ export default function Projects() {
             const isActive = idx === currentIndex
             // For Project 01 (idx === 0): visible only after scrolling has started
             // For other projects: visible when index matches currentIndex
-            const isVisible = isActive && (idx > 0 || scrollProgress > 0.008)
+            const isVisible = isActive && (idx > 0 || hasScrolled || scrollProgress > 0.001)
 
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity] ${
+                className={`absolute inset-0 transition-opacity duration-700 ease-out will-change-[opacity] ${
                   isVisible ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center scale-110 filter blur-[52px] ${
-                    isLightMode ? 'brightness-105 opacity-60' : 'brightness-[0.7] opacity-65'
-                  } contrast-[1.08] transition-all duration-700`}
+                  className={`w-full h-full object-cover object-center scale-110 filter blur-[38px] ${
+                    isLightMode ? 'brightness-105 opacity-85' : 'brightness-100 opacity-95'
+                  } contrast-[1.12] transition-transform duration-1000 ease-out`}
                   draggable={false}
                 />
               </div>
             )
           })}
 
-          {/* Contrast Tint Overlay: Preserves text legibility in both Dark and Light mode */}
+          {/* Contrast Tint Overlay: Balanced opacity so blurred project image is vividly visible while keeping text 100% readable */}
           <div
             className={`absolute inset-0 transition-all duration-700 ease-out ${
               isLightMode
-                ? 'bg-gradient-to-b from-[#f8fafc]/90 via-[#f8fafc]/80 to-[#f8fafc]/92'
-                : 'bg-gradient-to-b from-[#0A0907]/80 via-[#0A0907]/70 to-[#0A0907]/85'
+                ? 'bg-gradient-to-b from-[#f8fafc]/75 via-[#f8fafc]/50 to-[#f8fafc]/80'
+                : 'bg-gradient-to-b from-[#0A0907]/60 via-[#0A0907]/40 to-[#0A0907]/70'
             }`}
           />
 
@@ -208,7 +210,7 @@ export default function Projects() {
             </span>
             <h2
               className={`font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter uppercase leading-none transition-all duration-500 ${
-                isLightMode ? 'text-slate-900' : 'text-white'
+                isLightMode ? 'text-slate-900 drop-shadow-sm' : 'text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]'
               }`}
             >
               {currentProject.shortTitle}
