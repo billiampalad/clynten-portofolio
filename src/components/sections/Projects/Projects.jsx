@@ -574,11 +574,7 @@ export default function Projects() {
                 return (
                   <motion.div
                     key={project.id}
-                    className={`absolute inset-0 w-full h-full overflow-hidden shadow-2xl pointer-events-none select-none ${
-                      isFocus
-                        ? 'shadow-black/90'
-                        : 'shadow-black/60'
-                    }`}
+                    className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none"
                     style={{
                       transformStyle: 'preserve-3d',
                       transformOrigin: 'center center',
