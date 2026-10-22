@@ -390,7 +390,7 @@ export default function Projects() {
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center filter blur-[2px] sm:blur-[3px] md:blur-[4px] transition-all duration-800 ${isLight
+                  className={`w-full h-full object-cover object-center filter blur-[6px] sm:blur-[8px] md:blur-[10px] transition-all duration-800 ${isLight
                     ? 'brightness-[1.0] contrast-[1.04] saturate-[1.1]'
                     : 'brightness-[0.88] contrast-[1.08] saturate-[1.2]'
                     }`}
