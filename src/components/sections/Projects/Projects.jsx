@@ -131,13 +131,15 @@ export default function Projects() {
             {/* 1. TOP PREVIOUS PROJECT IMAGE (Only rendered when currentIndex > 0) */}
             <div className="h-12 sm:h-16 w-full flex items-end justify-center pointer-events-none select-none z-10">
               {prevProject ? (
-                <div className="transform -rotate-x-12 scale-75 opacity-40 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <div className="relative transform -rotate-x-12 scale-75 opacity-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
                   <img
                     src={prevProject.image}
                     alt=""
-                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-75"
+                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
                     draggable={false}
                   />
+                  {/* Subtle edge depth gradient maintaining ~90% clarity */}
+                  <div className="pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent to-[#0A0907]/20" />
                 </div>
               ) : null}
             </div>
@@ -167,13 +169,15 @@ export default function Projects() {
             {/* 3. BOTTOM NEXT PROJECT IMAGE (Upcoming teaser, non-clickable, no frame, no text) */}
             <div className="h-12 sm:h-16 w-full flex items-start justify-center pointer-events-none select-none z-10">
               {nextProject ? (
-                <div className="transform rotate-x-12 scale-75 opacity-40 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <div className="relative transform rotate-x-12 scale-75 opacity-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
                   <img
                     src={nextProject.image}
                     alt=""
-                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-75"
+                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
                     draggable={false}
                   />
+                  {/* Subtle edge depth gradient maintaining ~90% clarity */}
+                  <div className="pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent to-[#0A0907]/20" />
                 </div>
               ) : null}
             </div>
