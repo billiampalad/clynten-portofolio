@@ -660,23 +660,14 @@ export default function Projects() {
                   }}
                 />
               </svg>
-              {/* Odometer Rolling Counter Display */}
+              {/* Step Counter Display (Static without motion) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                <div className="h-8 sm:h-10 overflow-hidden flex items-center justify-center">
-                  <AnimatePresence mode="popLayout" initial={false}>
-                    <motion.span
-                      key={currentIndex}
-                      initial={{ y: '100%', opacity: 0, filter: 'blur(3px)' }}
-                      animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-                      exit={{ y: '-100%', opacity: 0, filter: 'blur(3px)' }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
-                        } tracking-tight transition-colors text-center inline-block`}
-                    >
-                      0{currentIndex + 1}
-                    </motion.span>
-                  </AnimatePresence>
-                </div>
+                <span
+                  className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                    } tracking-tight transition-colors text-center inline-block`}
+                >
+                  0{currentIndex + 1}
+                </span>
               </div>
             </div>
           </div>
