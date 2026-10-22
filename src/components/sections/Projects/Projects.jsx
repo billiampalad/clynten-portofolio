@@ -189,7 +189,7 @@ export default function Projects() {
               className={`font-mono text-[10px] sm:text-xs font-bold tracking-widest ${isLight ? 'text-slate-700' : 'text-slate-300'
                 } uppercase transition-colors`}
             >
-              WORK // 0{currentIndex + 1} OF 0{PROJECTS_DATA.length}
+              Projects
             </span>
           </div>
 
