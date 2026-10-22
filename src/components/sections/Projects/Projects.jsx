@@ -190,21 +190,14 @@ export default function Projects() {
             <div className="w-20 sm:w-28 h-5 sm:h-6 bg-gradient-to-b from-zinc-600 via-zinc-800 to-zinc-950 rounded-b-md shadow-lg border-t border-white/10" />
             <div className="w-32 sm:w-44 h-2 bg-zinc-800 rounded-full border border-white/10 shadow-md" />
 
-            {/* Bottom Next-Project Teaser Thumbnail (matching screenshot) */}
-            <div
-              onClick={() => handleOpenDrawer(nextProject)}
-              className="mt-3 sm:mt-5 flex items-center gap-3 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/30 backdrop-blur-md cursor-pointer transition-all duration-300 group"
-              title={`Next: ${nextProject.shortTitle}`}
-            >
-              <div className="w-9 h-6 rounded bg-zinc-800 border border-white/15 overflow-hidden flex items-center justify-center">
-                <span className="font-mono text-[9px] font-bold text-red-400">0{((currentIndex + 1) % PROJECTS_DATA.length) + 1}</span>
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="font-mono text-[9px] text-slate-400 font-semibold uppercase tracking-wider">UPCOMING // NEXT</span>
-                <span className="font-mono text-xs font-bold text-white group-hover:text-red-400 transition-colors">
-                  {nextProject.shortTitle}
-                </span>
-              </div>
+            {/* Bottom Next-Project Image (Plain image, no text, no frame, non-clickable) */}
+            <div className="mt-4 sm:mt-6 flex items-center justify-center pointer-events-none select-none">
+              <img
+                src={nextProject.image}
+                alt=""
+                className="w-36 sm:w-48 md:w-56 h-auto object-contain rounded-md opacity-80 shadow-2xl transition-all duration-700 ease-out"
+                draggable={false}
+              />
             </div>
           </div>
 

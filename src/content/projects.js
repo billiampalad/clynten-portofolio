@@ -28,6 +28,7 @@ export const PROJECTS_DATA = [
     accentColor: '#d60407',
     ambientGlow: 'from-amber-600/20 via-red-950/40 to-transparent',
     themeColor: 'rgba(214, 4, 7, 0.4)',
+    image: '/assets/projects/sim-polimdo.jpg',
     screenMockup: {
       headline: 'PARTNERSHIP INTELLIGENCE // DUDI',
       subline: 'Real-time agreement lifecycle & compliance monitoring engine',
@@ -90,6 +91,7 @@ export const PROJECTS_DATA = [
     accentColor: '#8b5cf6',
     ambientGlow: 'from-purple-600/20 via-indigo-950/40 to-transparent',
     themeColor: 'rgba(139, 92, 246, 0.4)',
+    image: '/assets/projects/ai-cctv.jpg',
     screenMockup: {
       headline: 'NEURAL SURVEILLANCE MATRIX',
       subline: 'Multi-stream RTSP tensor inference & intrusion detection',
@@ -151,6 +153,7 @@ export const PROJECTS_DATA = [
     accentColor: '#06b6d4',
     ambientGlow: 'from-cyan-600/20 via-blue-950/40 to-transparent',
     themeColor: 'rgba(6, 182, 212, 0.4)',
+    image: '/assets/projects/campus-vlan.jpg',
     screenMockup: {
       headline: 'ENTERPRISE ROUTING TOPOLOGY',
       subline: 'Multi-tier 802.1Q VLAN trunking & bandwidth management',
@@ -212,6 +215,7 @@ export const PROJECTS_DATA = [
     accentColor: '#10b981',
     ambientGlow: 'from-emerald-600/20 via-teal-950/40 to-transparent',
     themeColor: 'rgba(16, 185, 129, 0.4)',
+    image: '/assets/projects/spatial-gis.jpg',
     screenMockup: {
       headline: 'VECTOR SPATIAL INTELLIGENCE',
       subline: 'Multi-layer demographic clustering & zoning classification',
