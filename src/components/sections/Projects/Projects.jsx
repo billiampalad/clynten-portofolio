@@ -10,6 +10,35 @@ export default function Projects() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [selectedProject, setSelectedProject] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [isLightMode, setIsLightMode] = useState(() => {
+    if (typeof document !== 'undefined') {
+      return (
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.documentElement.classList.contains('light-theme')
+      )
+    }
+    return false
+  })
+
+  // Observe theme changes (dark/light toggle)
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    const checkTheme = () => {
+      const isLight =
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.documentElement.classList.contains('light-theme')
+      setIsLightMode(isLight)
+    }
+
+    checkTheme()
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'class'],
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   // GSAP ScrollTrigger Pinned Showcase Timeline
   useEffect(() => {
@@ -75,38 +104,97 @@ export default function Projects() {
   const strokeDashoffset = CIRCUMFERENCE - scrollProgress * CIRCUMFERENCE
 
   return (
-    <section id="projects" className="relative w-full bg-[#0A0907] text-slate-100">
+    <section
+      id="projects"
+      className={`relative w-full transition-colors duration-700 ${
+        isLightMode ? 'bg-[#f8fafc] text-slate-800' : 'bg-[#0A0907] text-slate-100'
+      }`}
+    >
       {/* Pinned 100vh Fullscreen Viewport Stage */}
       <div
         ref={pinWrapperRef}
         className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between p-6 sm:p-10 md:p-14 select-none box-border"
       >
-        {/* Dynamic Ambient Background Glow matched to active project */}
-        <div
-          className={`absolute inset-0 pointer-events-none transition-all duration-1000 ease-out bg-gradient-to-tr ${currentProject.ambientGlow} blur-3xl opacity-45`}
-          aria-hidden="true"
-        />
+        {/* =========================================================================
+            DYNAMIC BLURRED PROJECT BACKGROUND LAYERS (GPU-Accelerated Crossfade)
+            - At Scroll 0 on Project 01: Clean theme background (dark or light)
+            - Once scroll starts (scrollProgress > 0.008): Project 01 image smoothly fades in
+            - On subsequent projects: Smooth crossfades to current project image
+            ========================================================================= */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
+          {PROJECTS_DATA.map((project, idx) => {
+            const isActive = idx === currentIndex
+            // For Project 01 (idx === 0): visible only after scrolling has started
+            // For other projects: visible when index matches currentIndex
+            const isVisible = isActive && (idx > 0 || scrollProgress > 0.008)
 
-        {/* Cyberpunk Blueprint Subtitle Overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.035]"
-          style={{
-            backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-            backgroundSize: '48px 48px',
-          }}
-          aria-hidden="true"
-        />
+            return (
+              <div
+                key={project.id}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity] ${
+                  isVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <img
+                  src={project.image}
+                  alt=""
+                  className={`w-full h-full object-cover object-center scale-110 filter blur-[52px] ${
+                    isLightMode ? 'brightness-105 opacity-60' : 'brightness-[0.7] opacity-65'
+                  } contrast-[1.08] transition-all duration-700`}
+                  draggable={false}
+                />
+              </div>
+            )
+          })}
+
+          {/* Contrast Tint Overlay: Preserves text legibility in both Dark and Light mode */}
+          <div
+            className={`absolute inset-0 transition-all duration-700 ease-out ${
+              isLightMode
+                ? 'bg-gradient-to-b from-[#f8fafc]/90 via-[#f8fafc]/80 to-[#f8fafc]/92'
+                : 'bg-gradient-to-b from-[#0A0907]/80 via-[#0A0907]/70 to-[#0A0907]/85'
+            }`}
+          />
+
+          {/* Dynamic Ambient Neon Glow matched to active project */}
+          <div
+            className={`absolute inset-0 transition-all duration-1000 ease-out bg-gradient-to-tr ${currentProject.ambientGlow} blur-3xl ${
+              isLightMode ? 'opacity-25' : 'opacity-40'
+            }`}
+          />
+
+          {/* Cyberpunk Blueprint Subtitle Overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.035]"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${isLightMode ? '#000000' : '#ffffff'} 1px, transparent 1px), linear-gradient(to bottom, ${isLightMode ? '#000000' : '#ffffff'} 1px, transparent 1px)`,
+              backgroundSize: '48px 48px',
+            }}
+          />
+        </div>
 
         {/* Top Header Row */}
         <div className="relative z-10 w-full flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+          <div
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md transition-colors duration-300 ${
+              isLightMode ? 'bg-black/5 border border-black/10' : 'bg-white/5 border border-white/10'
+            }`}
+          >
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest text-slate-300 uppercase">
+            <span
+              className={`font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase ${
+                isLightMode ? 'text-slate-700' : 'text-slate-300'
+              }`}
+            >
               WORK // 0{currentIndex + 1} OF 0{PROJECTS_DATA.length}
             </span>
           </div>
 
-          <div className="font-mono text-xs text-slate-400 tracking-wider hidden sm:block">
+          <div
+            className={`font-mono text-xs tracking-wider hidden sm:block ${
+              isLightMode ? 'text-slate-600' : 'text-slate-400'
+            }`}
+          >
             {currentProject.client}
           </div>
         </div>
@@ -118,10 +206,18 @@ export default function Projects() {
             <span className="font-mono text-xs font-bold text-red-500 tracking-widest uppercase mb-2">
               {currentProject.code}
             </span>
-            <h2 className="font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter text-white uppercase leading-none transition-all duration-500">
+            <h2
+              className={`font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter uppercase leading-none transition-all duration-500 ${
+                isLightMode ? 'text-slate-900' : 'text-white'
+              }`}
+            >
               {currentProject.shortTitle}
             </h2>
-            <p className="font-mono text-xs sm:text-sm text-slate-400 mt-3 max-w-xs font-medium">
+            <p
+              className={`font-mono text-xs sm:text-sm mt-3 max-w-xs font-medium ${
+                isLightMode ? 'text-slate-600' : 'text-slate-400'
+              }`}
+            >
               {currentProject.category}
             </p>
           </div>
@@ -186,7 +282,11 @@ export default function Projects() {
           {/* Right Column: Narrative Summary & Circular Step Progress */}
           <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left md:text-right gap-6">
             <div className="flex flex-col md:items-end">
-              <p className="text-xs sm:text-sm md:text-[13.5px] text-slate-300 font-sans leading-relaxed tracking-normal max-w-xs transition-all duration-500">
+              <p
+                className={`text-xs sm:text-sm md:text-[13.5px] font-sans leading-relaxed tracking-normal max-w-xs transition-all duration-500 ${
+                  isLightMode ? 'text-slate-700' : 'text-slate-300'
+                }`}
+              >
                 {currentProject.summary}
               </p>
 
@@ -204,7 +304,7 @@ export default function Projects() {
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center mt-2">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 86 86">
                 <circle
-                  className="stroke-white/15"
+                  stroke={isLightMode ? 'rgba(15, 23, 42, 0.12)' : 'rgba(255, 255, 255, 0.15)'}
                   strokeWidth="2.5"
                   fill="transparent"
                   cx="43"
@@ -212,7 +312,8 @@ export default function Projects() {
                   r="35"
                 />
                 <circle
-                  className="stroke-white transition-all duration-300 ease-out"
+                  stroke={isLightMode ? '#0f172a' : '#ffffff'}
+                  className="transition-all duration-300 ease-out"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   fill="transparent"
@@ -226,7 +327,11 @@ export default function Projects() {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-mono italic font-bold text-2xl sm:text-3xl text-white tracking-tight">
+                <span
+                  className={`font-mono italic font-bold text-2xl sm:text-3xl tracking-tight ${
+                    isLightMode ? 'text-slate-900' : 'text-white'
+                  }`}
+                >
                   0{currentIndex + 1}
                 </span>
               </div>
@@ -235,9 +340,15 @@ export default function Projects() {
         </div>
 
         {/* Bottom Status Ticker Bar */}
-        <div className="relative z-10 w-full flex items-center justify-between pt-3 border-t border-white/10 font-mono text-[10px] sm:text-xs text-slate-500">
+        <div
+          className={`relative z-10 w-full flex items-center justify-between pt-3 border-t font-mono text-[10px] sm:text-xs ${
+            isLightMode ? 'border-slate-900/10 text-slate-500' : 'border-white/10 text-slate-500'
+          }`}
+        >
           <span className="hidden sm:inline">SCROLL DOWN TO ADVANCE NEXT SYSTEM</span>
-          <span className="text-slate-400 font-bold uppercase">{currentProject.tech.slice(0, 4).join(' • ')}</span>
+          <span className={`${isLightMode ? 'text-slate-700' : 'text-slate-400'} font-bold uppercase`}>
+            {currentProject.tech.slice(0, 4).join(' • ')}
+          </span>
           <span>{currentProject.period}</span>
         </div>
       </div>
