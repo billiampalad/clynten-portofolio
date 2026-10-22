@@ -517,7 +517,7 @@ export default function Projects() {
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
           <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-6 sm:py-10">
-            <div className="relative w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+            <div className="relative w-full max-w-[460px] lg:max-w-[520px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
@@ -531,17 +531,17 @@ export default function Projects() {
                 let zIndex = 20
                 let opacity = 1
                 let brightness = 1
-                let borderRadius = 16
+                let borderRadius = 8
 
                 if (isFocus) {
-                  // Kartu Tengah (Hero Utama)
+                  // Kartu Tengah (Hero Utama - diperkecil dan border radius sama 8px)
                   translateY = '0%'
                   rotateX = 0
                   scale = 1
                   zIndex = 30
                   opacity = 1
                   brightness = 1
-                  borderRadius = 16
+                  borderRadius = 8
                 } else if (isTop) {
                   // Thumbnail Atas (Diperkecil lebih ramping dengan gap seimbang)
                   translateY = '-69%'
