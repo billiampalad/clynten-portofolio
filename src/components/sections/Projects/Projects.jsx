@@ -125,70 +125,27 @@ export default function Projects() {
             </p>
           </div>
 
-          {/* Center Column: The Central Device Monitor Stage */}
+          {/* Center Column: Active Project Image (Clean image without text or frame, clickable to open modal) */}
           <div className="w-full md:w-2/4 flex flex-col items-center justify-center">
-            {/* Monitor Screen Frame */}
             <div
               onClick={() => handleOpenDrawer(currentProject)}
-              className="relative w-full max-w-[580px] lg:max-w-[640px] aspect-[16/10] bg-[#121115] border border-white/20 rounded-2xl shadow-2xl shadow-black/95 p-3 sm:p-4 backdrop-blur-xl overflow-hidden cursor-pointer group hover:border-red-500/50 transition-all duration-500 transform hover:-translate-y-1"
+              className="relative w-full max-w-[580px] lg:max-w-[640px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/90 cursor-pointer group transition-all duration-500 transform hover:scale-[1.02]"
+              title={`Click to inspect ${currentProject.title}`}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleOpenDrawer(currentProject)
+                }
+              }}
             >
-              {/* Glossy Screen Sheen Reflection */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent z-20" />
-
-              {/* Monitor Window Header Dots */}
-              <div className="relative z-10 flex items-center justify-between pb-2 border-b border-white/10 mb-3">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                </div>
-                <span className="font-mono text-[9px] sm:text-[10px] text-slate-400 tracking-widest uppercase">
-                  {currentProject.screenMockup.statusText}
-                </span>
-                <span className="w-2.5" />
-              </div>
-
-              {/* High-Impact Screen Content Simulation */}
-              <div className="relative z-10 w-full h-[calc(100%-32px)] flex flex-col justify-between p-2 sm:p-4 rounded-xl bg-black/60 border border-white/5 overflow-hidden">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] sm:text-xs font-bold text-red-400 tracking-wider">
-                    {currentProject.screenMockup.headline}
-                  </span>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-white/10 text-slate-200">
-                    {currentProject.status}
-                  </span>
-                </div>
-
-                {/* Central Futuristic Radar Visual Component */}
-                <div className="my-auto flex flex-col items-center justify-center py-2 sm:py-4">
-                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-red-500/30 flex items-center justify-center animate-[spin_15s_linear_infinite]">
-                    <div className="w-16 h-16 rounded-full border border-dashed border-red-400/50 flex items-center justify-center">
-                      <div className="w-6 h-6 rounded-full bg-red-500/40 shadow-[0_0_16px_#ef4444] animate-ping" />
-                    </div>
-                  </div>
-                  <p className="font-mono text-[11px] sm:text-xs text-slate-300 mt-3 text-center font-semibold">
-                    {currentProject.screenMockup.subline}
-                  </p>
-                </div>
-
-                {/* Bottom Screen Bar: Key Metric */}
-                <div className="flex items-center justify-between pt-2 border-t border-white/10 font-mono text-[10px] sm:text-xs">
-                  <span className="text-slate-400">{currentProject.screenMockup.statLabel}</span>
-                  <span className="font-bold text-white tracking-wider">{currentProject.screenMockup.statVal}</span>
-                </div>
-
-                {/* Hover Click Inspector Badge */}
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="px-4 py-2 rounded-full bg-red-600 text-white font-mono text-xs font-bold tracking-wider shadow-lg shadow-red-600/50 transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                    INSPECT ARCHITECTURE ↗
-                  </span>
-                </div>
-              </div>
+              <img
+                src={currentProject.image}
+                alt={currentProject.title}
+                className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:brightness-105"
+                draggable={false}
+              />
             </div>
-
-            {/* Monitor Stand Base */}
-            <div className="w-20 sm:w-28 h-5 sm:h-6 bg-gradient-to-b from-zinc-600 via-zinc-800 to-zinc-950 rounded-b-md shadow-lg border-t border-white/10" />
-            <div className="w-32 sm:w-44 h-2 bg-zinc-800 rounded-full border border-white/10 shadow-md" />
 
             {/* Bottom Next-Project Image (Plain image, no text, no frame, non-clickable) */}
             <div className="mt-4 sm:mt-6 flex items-center justify-center pointer-events-none select-none">
