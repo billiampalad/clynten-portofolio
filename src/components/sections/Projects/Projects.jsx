@@ -8,7 +8,6 @@ export default function Projects() {
   const pinWrapperRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [hasScrolled, setHasScrolled] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isLightMode, setIsLightMode] = useState(() => {
@@ -56,7 +55,6 @@ export default function Projects() {
       onUpdate: (self) => {
         const progress = Math.max(0, Math.min(1, self.progress))
         setScrollProgress(progress)
-        setHasScrolled(progress > 0.001)
 
         // Calculate active project index based on scroll range
         const total = PROJECTS_DATA.length
@@ -105,17 +103,12 @@ export default function Projects() {
   const nextProject = currentIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[currentIndex + 1] : null
   const strokeDashoffset = CIRCUMFERENCE - scrollProgress * CIRCUMFERENCE
 
-  const isEffectActive = currentIndex > 0 || hasScrolled || scrollProgress > 0.001
-
   return (
     <section
       id="projects"
       className={`relative w-full transition-colors duration-700 ${
-        isLightMode ? 'text-[#0f172a]' : 'text-[#f1f5f9]'
+        isLightMode ? 'bg-[#f8fafc] text-slate-800' : 'bg-[#0A0907] text-slate-100'
       }`}
-      style={{
-        background: isLightMode ? 'var(--nav-bg, #f8fafc)' : 'var(--nav-bg, #0A0907)',
-      }}
     >
       {/* Pinned 100vh Fullscreen Viewport Stage */}
       <div
@@ -124,51 +117,49 @@ export default function Projects() {
       >
         {/* =========================================================================
             DYNAMIC BLURRED PROJECT BACKGROUND LAYERS (GPU-Accelerated Crossfade)
-            - At Scroll 0 on Project 01: Clean theme background 100% identical to Skills.jsx
-            - Once scroll starts (isEffectActive): Project image, ambient glow, and tint smoothly fade in
+            - At Scroll 0 on Project 01: Clean theme background (dark or light)
+            - Once scroll starts (scrollProgress > 0.008): Project 01 image smoothly fades in
             - On subsequent projects: Smooth crossfades to current project image
             ========================================================================= */}
-        <div
-          className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 transition-opacity duration-700 ease-out ${
-            isEffectActive ? 'opacity-100' : 'opacity-0'
-          }`}
-          aria-hidden="true"
-        >
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
           {PROJECTS_DATA.map((project, idx) => {
             const isActive = idx === currentIndex
+            // For Project 01 (idx === 0): visible only after scrolling has started
+            // For other projects: visible when index matches currentIndex
+            const isVisible = isActive && (idx > 0 || scrollProgress > 0.008)
 
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-opacity duration-700 ease-out will-change-[opacity] ${
-                  isActive ? 'opacity-100' : 'opacity-0'
+                className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity] ${
+                  isVisible ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center scale-105 filter blur-[6px] ${
-                    isLightMode ? 'brightness-105 opacity-95' : 'brightness-100 opacity-100'
-                  } contrast-[1.08] transition-transform duration-1000 ease-out`}
+                  className={`w-full h-full object-cover object-center scale-110 filter blur-[52px] ${
+                    isLightMode ? 'brightness-105 opacity-60' : 'brightness-[0.7] opacity-65'
+                  } contrast-[1.08] transition-all duration-700`}
                   draggable={false}
                 />
               </div>
             )
           })}
 
-          {/* Contrast Tint Overlay: Lightweight tint so project image details are crisp and clear */}
+          {/* Contrast Tint Overlay: Preserves text legibility in both Dark and Light mode */}
           <div
             className={`absolute inset-0 transition-all duration-700 ease-out ${
               isLightMode
-                ? 'bg-gradient-to-b from-[#f8fafc]/50 via-[#f8fafc]/25 to-[#f8fafc]/55'
-                : 'bg-gradient-to-b from-[#0A0907]/35 via-[#0A0907]/15 to-[#0A0907]/45'
+                ? 'bg-gradient-to-b from-[#f8fafc]/90 via-[#f8fafc]/80 to-[#f8fafc]/92'
+                : 'bg-gradient-to-b from-[#0A0907]/80 via-[#0A0907]/70 to-[#0A0907]/85'
             }`}
           />
 
           {/* Dynamic Ambient Neon Glow matched to active project */}
           <div
             className={`absolute inset-0 transition-all duration-1000 ease-out bg-gradient-to-tr ${currentProject.ambientGlow} blur-3xl ${
-              isLightMode ? 'opacity-15' : 'opacity-20'
+              isLightMode ? 'opacity-25' : 'opacity-40'
             }`}
           />
         </div>
@@ -208,7 +199,7 @@ export default function Projects() {
             </span>
             <h2
               className={`font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter uppercase leading-none transition-all duration-500 ${
-                isLightMode ? 'text-slate-900 drop-shadow-sm' : 'text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]'
+                isLightMode ? 'text-slate-900' : 'text-white'
               }`}
             >
               {currentProject.shortTitle}
