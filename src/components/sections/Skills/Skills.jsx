@@ -8,7 +8,7 @@ const STATS = [
   { num: '05+', title: 'Engineered Systems', desc: 'Web apps, AI CCTV & Spatial pipelines' },
   { num: '03+', title: 'Years Technical Focus', desc: 'Continuous architecture & codecraft' },
   { num: '12+', title: 'Core Tech Modules', desc: 'React, Next, Kotlin, Python, Linux' },
-  { num: '99.8%', title: 'Target Reliability', desc: 'High concurrency & zero downtime' },
+  { num: '88.8%', title: 'Target Reliability', desc: 'High concurrency & zero downtime' },
 ]
 
 const DOMAIN_DETAILS = {
