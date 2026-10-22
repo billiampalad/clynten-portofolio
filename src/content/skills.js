@@ -31,8 +31,8 @@ export const SKILLS_CONFIG = [
     resolved: {
       header: 'ANDROID DEV',
       stackId: 'MOBILE_OS_NODE',
-      confidence: '75%',
-      frameworks: 'KOTLIN / FLUTTER',
+      confidence: '80%',
+      frameworks: 'KOTLIN, FLUTTER, REACT NATIVE',
       latency: 'OPTIMIZED — 0.05ms',
     },
     unresolved: {
@@ -54,7 +54,7 @@ export const SKILLS_CONFIG = [
       header: 'CYBER SECURITY',
       stackId: 'SEC_AUDIT_PRO',
       confidence: '70%',
-      frameworks: 'KALI / UBUNTU',
+      frameworks: 'KALI LINUX / NMAP / WIRESHARK / OPENVAS',
       latency: 'SHIELD — 0.01ms',
     },
     unresolved: {
@@ -76,7 +76,7 @@ export const SKILLS_CONFIG = [
       header: 'NETWORK - IOT',
       stackId: 'NET_TOPOLOGY_V2',
       confidence: '80%',
-      frameworks: 'CISCO, ARDUINO',
+      frameworks: 'CISCO, MIKROTIK, SUBNETTING, BGP, OSPF, VLAN, ROUTING & SWITCHING, MIKROKONTROLER',
       latency: 'LOW LATENCY — 0.03ms',
     },
     unresolved: {
@@ -95,10 +95,10 @@ export const SKILLS_CONFIG = [
     activeColor: 'green',
     threshold: 0.75,
     resolved: {
-      header: 'DATABASE MGMT',
+      header: 'DBMS',
       stackId: 'DATA_ENGINE_V3',
       confidence: '70%',
-      frameworks: 'MYSQL',
+      frameworks: 'MYSQL, SQL/NoSQL',
       latency: 'OPTIMIZED — 0.03ms',
     },
     unresolved: {
