@@ -5,6 +5,7 @@ import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
 import './App.css'
 
 const Skills = lazy(() => import('@/components/sections/Skills/Skills'))
+const Projects = lazy(() => import('@/components/sections/Projects/Projects'))
 
 function App() {
   // Initialize Locomotive Scroll v5 (Lenis powered) with GSAP ScrollTrigger synchronization
@@ -60,6 +61,11 @@ function App() {
       {/* Next Section: Skills / Core Architecture Domains & Specs */}
       <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
         <Skills />
+      </Suspense>
+
+      {/* Section: Projects (Meer Mohsin Reference: Layered Stacking & Case Studies) */}
+      <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
+        <Projects />
       </Suspense>
     </div>
   )
