@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from 'react'
+import { useState, useRef, useCallback, lazy, Suspense } from 'react'
 import Navbar from '@/components/layout/Navbar/Navbar'
 import Hero from '@/components/sections/Hero/Hero'
 import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
@@ -15,14 +15,14 @@ function App() {
   const [navbarReveal, setNavbarReveal] = useState(0)
   const [heroKey, setHeroKey] = useState(0)
 
+  const isNavbarVisibleRef = useRef(false)
   const handleHeroProgress = useCallback((progress) => {
     // Only reveal Navbar when Hero canvas frame sequence is 100% finished (0% scale at progress >= 0.95)
-    if (progress >= 0.95) {
-      setIsNavbarVisible(true)
-      setNavbarReveal(1)
-    } else {
-      setIsNavbarVisible(false)
-      setNavbarReveal(0)
+    const shouldShow = progress >= 0.95
+    if (shouldShow !== isNavbarVisibleRef.current) {
+      isNavbarVisibleRef.current = shouldShow
+      setIsNavbarVisible(shouldShow)
+      setNavbarReveal(shouldShow ? 1 : 0)
     }
   }, [])
 

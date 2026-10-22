@@ -218,11 +218,14 @@ const drawerItemVariants = {
 export default function Projects() {
   const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
+  const circleRef = useRef(null)
+  const rotatingIconRef1 = useRef(null)
+  const rotatingIconRef2 = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollDirection, setScrollDirection] = useState(1)
   const prevIndexRef = useRef(0)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const [circleProgress, setCircleProgress] = useState(0)
+  const hasScrolledPastStartRef = useRef(false)
+  const [hasScrolledPastStart, setHasScrolledPastStart] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isLight, setIsLight] = useState(() => {
@@ -254,7 +257,7 @@ export default function Projects() {
     return () => observer.disconnect()
   }, [])
 
-  // GSAP ScrollTrigger Pinned Showcase Timeline
+  // GSAP ScrollTrigger Pinned Showcase Timeline with Damped Scrub & Zero Render Flooding
   useEffect(() => {
     const section = sectionRef.current
     const pinWrapper = pinWrapperRef.current
@@ -267,31 +270,46 @@ export default function Projects() {
       end: '+=300%',
       pin: pinWrapper,
       pinSpacing: true,
-      scrub: true,
+      scrub: 0.8,
       anticipatePin: 0,
       refreshPriority: -1,
       onUpdate: (self) => {
         const progress = Math.max(0, Math.min(1, self.progress))
-        setScrollProgress(progress)
 
-        // Calculate active project index and circle fill progress across all projects equally
+        // 1. Toggle background reveal only once when crossing 0.02 threshold
+        const hasStarted = progress > 0.02
+        if (hasStarted !== hasScrolledPastStartRef.current) {
+          hasScrolledPastStartRef.current = hasStarted
+          setHasScrolledPastStart(hasStarted)
+        }
+
+        // 2. Calculate active project step
         const total = PROJECTS_DATA.length
         const scaled = progress * total
         const step = Math.min(Math.floor(scaled), total - 1)
-        
+
+        // 3. Update current index & direction ONLY when project step changes (avoids 120Hz React re-renders)
         if (step !== prevIndexRef.current) {
           const dir = step > prevIndexRef.current ? 1 : -1
           setScrollDirection(dir)
           prevIndexRef.current = step
-        } else if (self.direction) {
-          setScrollDirection(self.direction)
+          setCurrentIndex(step)
         }
-        setCurrentIndex(step)
 
-        // Circle reaches 100% reliably at 85% of each step and holds full before advancing
+        // 4. Update circular stroke & rotating plus icon directly via DOM ref without component re-render
         const cycle = scaled - step
         const currentCycle = Math.min(1, Math.max(0, cycle / 0.85))
-        setCircleProgress(currentCycle)
+        if (circleRef.current) {
+          const dashoffset = CIRCUMFERENCE - currentCycle * CIRCUMFERENCE
+          circleRef.current.style.strokeDashoffset = `${dashoffset}`
+        }
+        const rotDeg = `rotate(${Math.round(currentCycle * 360)}deg)`
+        if (rotatingIconRef1.current) {
+          rotatingIconRef1.current.style.transform = rotDeg
+        }
+        if (rotatingIconRef2.current) {
+          rotatingIconRef2.current.style.transform = rotDeg
+        }
       },
     })
 
@@ -359,7 +377,6 @@ export default function Projects() {
   const currentProject = PROJECTS_DATA[currentIndex] || PROJECTS_DATA[0]
   const prevProject = currentIndex > 0 ? PROJECTS_DATA[currentIndex - 1] : null
   const nextProject = currentIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[currentIndex + 1] : null
-  const strokeDashoffset = CIRCUMFERENCE - circleProgress * CIRCUMFERENCE
 
   return (
     <section
@@ -376,10 +393,10 @@ export default function Projects() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
           {PROJECTS_DATA.map((project, idx) => {
             const isActive = idx === currentIndex
-            // Pada Project 01 (idx === 0): saat scroll 0 (scrollProgress <= 0.02), background polos/gelap/terang.
-            // Saat mulai scroll (scrollProgress > 0.02), gambar Project 01 bertransisi fade-in secara halus!
+            // Pada Project 01 (idx === 0): saat scroll 0, background polos.
+            // Saat mulai scroll (hasScrolledPastStart === true), gambar Project 01 bertransisi fade-in secara halus!
             // Untuk Project berikutnya (idx > 0): opacity penuh saat aktif.
-            const isVisible = isActive && (idx > 0 || scrollProgress > 0.02)
+            const isVisible = isActive && (idx > 0 || hasScrolledPastStart)
 
             return (
               <div
@@ -390,7 +407,7 @@ export default function Projects() {
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center filter blur-[6px] sm:blur-[8px] md:blur-[10px] transition-all duration-800 ${isLight
+                  className={`w-full h-full object-cover object-center filter blur-[6px] sm:blur-[8px] md:blur-[10px] transform-gpu ${isLight
                     ? 'brightness-[1.0] contrast-[1.04] saturate-[1.1]'
                     : 'brightness-[0.88] contrast-[1.08] saturate-[1.2]'
                     }`}
@@ -409,18 +426,18 @@ export default function Projects() {
             )
           })}
 
-          {/* Adaptive Contrast Overlay: Dark/Light Mode (Fade in only on scroll > 0.02) */}
+          {/* Adaptive Contrast Overlay: Dark/Light Mode (Fade in only on scroll past start) */}
           <div
-            className={`absolute inset-0 transition-opacity duration-700 ease-out ${scrollProgress > 0.02 ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 transition-opacity duration-700 ease-out ${hasScrolledPastStart ? 'opacity-100' : 'opacity-0'
               } ${isLight
                 ? 'bg-[#f8fafc]/45 backdrop-brightness-95'
                 : 'bg-[#0A0907]/35 backdrop-brightness-95'
               }`}
           />
 
-          {/* Radial Vignette: keeps center stage clear and focused (Fade in only on scroll > 0.02) */}
+          {/* Radial Vignette: keeps center stage clear and focused (Fade in only on scroll past start) */}
           <div
-            className={`absolute inset-0 transition-opacity duration-700 ${scrollProgress > 0.02 ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 transition-opacity duration-700 ${hasScrolledPastStart ? 'opacity-100' : 'opacity-0'
               } ${isLight
                 ? 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(248,250,252,0.65)_92%)]'
                 : 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(10,9,7,0.50)_92%)]'
@@ -629,6 +646,7 @@ export default function Projects() {
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center mt-2">
               <svg className="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 86 86">
                 <circle
+                  ref={circleRef}
                   className={`${isLight ? 'stroke-slate-900' : 'stroke-white'} transition-colors duration-500`}
                   strokeWidth="1.5"
                   strokeLinecap="round"
@@ -638,7 +656,7 @@ export default function Projects() {
                   r="35"
                   style={{
                     strokeDasharray: CIRCUMFERENCE,
-                    strokeDashoffset,
+                    strokeDashoffset: CIRCUMFERENCE,
                   }}
                 />
               </svg>
@@ -679,8 +697,8 @@ export default function Projects() {
           {/* Dynamic Rotating + Divider (Desktop: between Left & Center) */}
           <div className="hidden sm:flex flex-1 items-center justify-center px-4">
             <span
+              ref={rotatingIconRef1}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
-              style={{ transform: `rotate(${Math.round(circleProgress * 360)}deg)` }}
               aria-hidden="true"
             >
               <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
@@ -709,8 +727,8 @@ export default function Projects() {
           {/* Dynamic Rotating + Divider (between Center & Right) */}
           <div className="flex flex-1 items-center justify-center px-4">
             <span
+              ref={rotatingIconRef2}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
-              style={{ transform: `rotate(${Math.round(circleProgress * 360)}deg)` }}
               aria-hidden="true"
             >
               <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">

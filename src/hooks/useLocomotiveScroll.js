@@ -16,13 +16,16 @@ export function useLocomotiveScroll(customOptions = DEFAULT_OPTIONS) {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    // Initialize Locomotive Scroll v5 with synchronized GSAP ticker & ScrollTrigger
+    // 1. Configure GSAP ticker lagSmoothing to prevent frame-drop stutter (Meer Mohsin standard)
+    gsap.ticker.lagSmoothing(1000, 16)
+
+    // 2. Initialize Locomotive Scroll v5 (Lenis powered) with synchronized GSAP ticker & ScrollTrigger
     const locomotiveScroll = new LocomotiveScroll({
       lenisOptions: {
         wrapper: window,
         content: document.documentElement,
-        lerp: 0.09,
-        duration: 1.15,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,

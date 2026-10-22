@@ -223,7 +223,11 @@ export default function Hero({ onProgressChange }) {
         )
 
         if (canvas) {
-          canvas.style.filter = `blur(${currentBlur.toFixed(2)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
+          if (filterProgress >= 1) {
+            canvas.style.filter = 'none'
+          } else {
+            canvas.style.filter = `blur(${currentBlur.toFixed(1)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
+          }
         }
 
         // Digital Scanlines melarut halus seiring ketajaman visual
@@ -430,13 +434,13 @@ export default function Hero({ onProgressChange }) {
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
         <canvas
           ref={canvasRef}
-          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[filter,transform,opacity,border-radius] origin-center transition-[filter] duration-75"
+          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[filter,transform,opacity,border-radius] origin-center"
         />
 
         {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
         <div
           ref={hudLayerRef}
-          className="absolute inset-0 w-full h-full pointer-events-none z-[5] opacity-100 scale-100 will-change-[opacity,transform] origin-center transition-[opacity,transform] duration-100"
+          className="absolute inset-0 w-full h-full pointer-events-none z-[5] opacity-100 scale-100 will-change-[opacity,transform] origin-center"
         >
           {/* Layer 2: Matrix Cyber Falling Code Streams */}
           {!loading && <CodeRain opacity={0.22} />}
