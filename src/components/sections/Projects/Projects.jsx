@@ -560,21 +560,21 @@ export default function Projects() {
                   brightness = 1
                   borderRadius = 8
                 } else if (isTop) {
-                  // Thumbnail Atas (Diperkecil lebih ramping dengan gap seimbang)
+                  // Thumbnail Atas (Diperkecil lebih ramping dengan gap seimbang & sedikit transparan)
                   translateY = '-69%'
                   rotateX = -8
                   scale = 0.28
                   zIndex = 20
-                  opacity = 0.95
+                  opacity = 0.55
                   brightness = 0.92
                   borderRadius = 8
                 } else if (isBottom) {
-                  // Thumbnail Bawah (Diperkecil lebih ramping dengan gap seimbang)
+                  // Thumbnail Bawah (Diperkecil lebih ramping dengan gap seimbang & sedikit transparan)
                   translateY = '69%'
                   rotateX = 8
                   scale = 0.28
                   zIndex = 20
-                  opacity = 0.95
+                  opacity = 0.55
                   brightness = 0.92
                   borderRadius = 8
                 } else {
