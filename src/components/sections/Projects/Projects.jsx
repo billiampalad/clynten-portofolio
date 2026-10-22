@@ -290,11 +290,11 @@ export default function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left md:text-right gap-6">
-            <div className="flex flex-col md:items-end">
+          <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left gap-6">
+            <div className="flex flex-col items-start text-left w-full max-w-xs">
               <p
                 className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
-                  } font-sans leading-relaxed tracking-normal max-w-xs transition-all duration-500`}
+                  } font-sans leading-relaxed tracking-normal text-left transition-all duration-500`}
               >
                 {currentProject.summary}
               </p>
