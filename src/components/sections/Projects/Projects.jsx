@@ -543,19 +543,19 @@ export default function Projects() {
                   brightness = 1
                   borderRadius = 16
                 } else if (isTop) {
-                  // Thumbnail Atas (Tampil utuh mengambang di atas kartu utama dengan gap)
-                  translateY = '-74%'
+                  // Thumbnail Atas (Diperkecil lebih ramping dengan gap seimbang)
+                  translateY = '-69%'
                   rotateX = -8
-                  scale = 0.38
+                  scale = 0.28
                   zIndex = 20
                   opacity = 0.95
                   brightness = 0.92
                   borderRadius = 8
                 } else if (isBottom) {
-                  // Thumbnail Bawah (Tampil utuh mengambang di bawah kartu utama dengan gap)
-                  translateY = '74%'
+                  // Thumbnail Bawah (Diperkecil lebih ramping dengan gap seimbang)
+                  translateY = '69%'
                   rotateX = 8
-                  scale = 0.38
+                  scale = 0.28
                   zIndex = 20
                   opacity = 0.95
                   brightness = 0.92
