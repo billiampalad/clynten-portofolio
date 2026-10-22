@@ -147,21 +147,21 @@ export default function Projects() {
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center scale-110 filter blur-[38px] ${
-                    isLightMode ? 'brightness-105 opacity-85' : 'brightness-100 opacity-95'
-                  } contrast-[1.12] transition-transform duration-1000 ease-out`}
+                  className={`w-full h-full object-cover object-center scale-110 filter blur-[18px] ${
+                    isLightMode ? 'brightness-105 opacity-90' : 'brightness-100 opacity-100'
+                  } contrast-[1.1] transition-transform duration-1000 ease-out`}
                   draggable={false}
                 />
               </div>
             )
           })}
 
-          {/* Contrast Tint Overlay: Balanced opacity so blurred project image is vividly visible while keeping text 100% readable */}
+          {/* Contrast Tint Overlay: Softened so project UI details shine through more clearly */}
           <div
             className={`absolute inset-0 transition-all duration-700 ease-out ${
               isLightMode
-                ? 'bg-gradient-to-b from-[#f8fafc]/75 via-[#f8fafc]/50 to-[#f8fafc]/80'
-                : 'bg-gradient-to-b from-[#0A0907]/60 via-[#0A0907]/40 to-[#0A0907]/70'
+                ? 'bg-gradient-to-b from-[#f8fafc]/65 via-[#f8fafc]/40 to-[#f8fafc]/70'
+                : 'bg-gradient-to-b from-[#0A0907]/50 via-[#0A0907]/30 to-[#0A0907]/60'
             }`}
           />
 
