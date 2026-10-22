@@ -5,6 +5,7 @@ import { PROJECTS_DATA } from '@/content/projects'
 const CIRCUMFERENCE = 219.91 // 2 * PI * 35
 
 export default function Projects() {
+  const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -41,16 +42,19 @@ export default function Projects() {
 
   // GSAP ScrollTrigger Pinned Showcase Timeline
   useEffect(() => {
+    const section = sectionRef.current
     const pinWrapper = pinWrapperRef.current
-    if (!pinWrapper) return
+    if (!section || !pinWrapper) return
 
     const trigger = ScrollTrigger.create({
-      trigger: pinWrapper,
+      trigger: section,
       start: 'top top',
       end: '+=350%',
-      pin: true,
+      pin: pinWrapper,
+      pinSpacing: true,
       scrub: 0.8,
-      anticipatePin: 1,
+      anticipatePin: 0,
+      refreshPriority: -1,
       onUpdate: (self) => {
         const progress = Math.max(0, Math.min(1, self.progress))
         setScrollProgress(progress)
@@ -62,7 +66,13 @@ export default function Projects() {
       },
     })
 
+    // Recalculate accurately once surrounding sections have mounted
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 250)
+
     return () => {
+      clearTimeout(refreshTimer)
       trigger.kill()
     }
   }, [])
@@ -105,6 +115,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
+      ref={sectionRef}
       className={`relative w-full ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
     >
       {/* Pinned 100vh Fullscreen Viewport Stage */}

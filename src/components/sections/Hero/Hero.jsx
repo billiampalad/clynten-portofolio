@@ -375,6 +375,9 @@ export default function Hero({ onProgressChange }) {
       },
     })
 
+    // Refresh ScrollTrigger to recalculate accurate start offsets for downstream sections (Skills, Projects)
+    ScrollTrigger.refresh()
+
     let resizeTimer = null
     const handleResize = () => {
       clearTimeout(resizeTimer)
