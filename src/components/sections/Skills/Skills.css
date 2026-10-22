@@ -207,7 +207,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.pillar-header-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .pillar-idx {
@@ -226,6 +234,106 @@
   background: rgba(244, 63, 94, 0.1);
   border: 1px solid rgba(244, 63, 94, 0.3);
   color: #f43f5e;
+  font-weight: 600;
+}
+
+/* Dynamic Percentage Badge */
+.pillar-metric-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono), 'JetBrains Mono', Consolas, monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.18), rgba(225, 29, 72, 0.08));
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.2);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.pillar-metric-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f43f5e;
+  box-shadow: 0 0 8px #f43f5e;
+  animation: pulse-dot 1.5s infinite ease-in-out;
+}
+
+.pillar-metric-num {
+  letter-spacing: 0.5px;
+  color: #ff4d6d;
+}
+
+.pillar-card:hover .pillar-metric-badge {
+  border-color: rgba(244, 63, 94, 0.7);
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+  transform: scale(1.04);
+}
+
+/* Telemetry & Progress Gauge */
+.pillar-telemetry {
+  margin: 4px 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pillar-telemetry-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.pillar-telemetry-label {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.pillar-telemetry-latency {
+  color: rgba(244, 63, 94, 0.85);
+  font-size: 9.5px;
+  letter-spacing: 0.8px;
+}
+
+.pillar-gauge-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pillar-gauge-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e11d48 0%, #f43f5e 60%, #fb7185 100%);
+  border-radius: 9999px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+}
+
+.pillar-gauge-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  background: #ffffff;
+  border-radius: 9999px;
+  opacity: 0.85;
+  filter: blur(1.5px);
+}
+
+.pillar-card:hover .pillar-gauge-fill {
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.85);
 }
 
 .pillar-title {
@@ -434,6 +542,55 @@ body.light-theme .pillar-title {
 html.light-theme .pillar-desc,
 body.light-theme .pillar-desc {
   color: #475569;
+}
+
+/* Light Theme Pillar Dynamic Badges and Gauge */
+[data-theme="light"] .pillar-metric-badge,
+html.light-theme .pillar-metric-badge,
+body.light-theme .pillar-metric-badge {
+  color: #e11d48;
+  background: rgba(244, 63, 94, 0.08);
+  border-color: rgba(244, 63, 94, 0.3);
+  box-shadow: 0 2px 10px rgba(225, 29, 72, 0.12);
+}
+
+[data-theme="light"] .pillar-metric-num,
+html.light-theme .pillar-metric-num,
+body.light-theme .pillar-metric-num {
+  color: #e11d48;
+}
+
+[data-theme="light"] .pillar-metric-dot,
+html.light-theme .pillar-metric-dot,
+body.light-theme .pillar-metric-dot {
+  background: #e11d48;
+  box-shadow: 0 0 6px rgba(225, 29, 72, 0.6);
+}
+
+[data-theme="light"] .pillar-telemetry-label,
+html.light-theme .pillar-telemetry-label,
+body.light-theme .pillar-telemetry-label {
+  color: #64748b;
+}
+
+[data-theme="light"] .pillar-telemetry-latency,
+html.light-theme .pillar-telemetry-latency,
+body.light-theme .pillar-telemetry-latency {
+  color: #e11d48;
+}
+
+[data-theme="light"] .pillar-gauge-track,
+html.light-theme .pillar-gauge-track,
+body.light-theme .pillar-gauge-track {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+[data-theme="light"] .pillar-gauge-fill,
+html.light-theme .pillar-gauge-fill,
+body.light-theme .pillar-gauge-fill {
+  background: linear-gradient(90deg, #e11d48 0%, #f43f5e 100%);
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.35);
 }
 
 [data-theme="light"] .tech-chip,

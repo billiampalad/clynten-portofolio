@@ -275,6 +275,120 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'kalilinux':
+    case 'kali':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 21.5s7.5-3.8 7.5-9.5V5.5L12 2.5 4.5 5.5V12c0 5.7 7.5 9.5 7.5 9.5Z" stroke="#278BF5" strokeWidth="1.5" fill="rgba(39,139,245,0.18)" />
+            <path d="M12 7c-1.8 1.8-1.8 4.6 0 6.4 1.3 1.3 2.8.5 3.2 0-.9-.9-1.3-1.8-1.3-3.2 0-1.8 1.8-2.7 1.8-2.7S14.2 7 12 7Z" fill="#278BF5" />
+          </svg>
+        </span>
+      )
+
+    case 'wireshark':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 18c3-1 6-2 8-2 3.5 0 5.5 2 8 2M5 18c2-4 5.5-12 11-12-1 3-1 8 0 12" stroke="#167EC2" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="rgba(22,126,194,0.22)" />
+          </svg>
+        </span>
+      )
+
+    case 'nmap':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="8.5" stroke="#2684FF" strokeWidth="1.5" fill="rgba(38,132,255,0.12)" />
+            <circle cx="12" cy="12" r="4.5" stroke="#00D2FF" strokeWidth="1.2" strokeDasharray="3 2" />
+            <circle cx="12" cy="12" r="1.8" fill="#00D2FF" />
+            <path d="M12 12 17.5 6.5" stroke="#00D2FF" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </span>
+      )
+
+    case 'openvas':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2.5 4.5 5.8v5.5c0 4.8 3.2 9.2 7.5 10.7 4.3-1.5 7.5-5.9 7.5-10.7V5.8L12 2.5Z" stroke="#28A745" strokeWidth="1.5" fill="rgba(40,167,69,0.18)" />
+            <path d="m9.2 12 2 2 3.8-4" stroke="#28A745" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      )
+
+    case 'vlan':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="4" width="7" height="5.5" rx="1.5" stroke="#A855F7" strokeWidth="1.4" fill="rgba(168,85,247,0.15)" />
+            <rect x="14" y="4" width="7" height="5.5" rx="1.5" stroke="#A855F7" strokeWidth="1.4" fill="rgba(168,85,247,0.15)" />
+            <rect x="8.5" y="14.5" width="7" height="5.5" rx="1.5" stroke="#A855F7" strokeWidth="1.4" fill="rgba(168,85,247,0.15)" />
+            <path d="M6.5 9.5V12a1.5 1.5 0 0 0 1.5 1.5h8a1.5 1.5 0 0 0 1.5-1.5V9.5M12 14.5v-1" stroke="#A855F7" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </span>
+      )
+
+    case 'subnetting':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="5" cy="12" r="2" fill="#38BDF8" />
+            <circle cx="12" cy="12" r="2" fill="#38BDF8" />
+            <circle cx="19" cy="12" r="2" fill="#38BDF8" />
+            <path d="M7 12h3M14 12h3M12 5.5v4.5M12 14v4.5" stroke="#38BDF8" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </span>
+      )
+
+    case 'sql':
+    case 'database':
+    case 'dbms':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="5.5" rx="8" ry="2.5" stroke="#00758F" strokeWidth="1.5" fill="rgba(0,117,143,0.2)" />
+            <path d="M4 5.5v4.5c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5.5M4 10v4.5c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V10M4 14.5v4c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-4" stroke="#00758F" strokeWidth="1.5" />
+          </svg>
+        </span>
+      )
+
+    case 'nosql':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 6.5h16M4 12h16M4 17.5h16" stroke="#10B981" strokeWidth="1.8" strokeLinecap="round" />
+            <circle cx="8" cy="6.5" r="2.2" fill="#10B981" />
+            <circle cx="16" cy="12" r="2.2" fill="#10B981" />
+            <circle cx="10" cy="17.5" r="2.2" fill="#10B981" />
+          </svg>
+        </span>
+      )
+
+    case 'prototype':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="4" width="6" height="6" rx="1.5" stroke="#EC4899" strokeWidth="1.5" fill="rgba(236,72,153,0.15)" />
+            <rect x="14" y="14" width="6" height="6" rx="1.5" stroke="#EC4899" strokeWidth="1.5" fill="rgba(236,72,153,0.15)" />
+            <path d="M10 7h4a3 3 0 0 1 3 3v4M14 11l3 3 3-3" stroke="#EC4899" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      )
+
+    case 'uiux':
+    case 'design':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="3" stroke="#A855F7" strokeWidth="1.5" />
+            <path d="M3 9h18M9 9v12" stroke="#A855F7" strokeWidth="1.3" />
+            <circle cx="6" cy="6" r="1.2" fill="#A855F7" />
+            <circle cx="15" cy="15" r="2.5" stroke="#EC4899" strokeWidth="1.4" fill="rgba(236,72,153,0.2)" />
+          </svg>
+        </span>
+      )
+
     default:
       return (
         <span className={className} aria-hidden="true">
