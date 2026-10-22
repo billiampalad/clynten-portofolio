@@ -70,7 +70,8 @@ export default function Projects() {
   }
 
   const currentProject = PROJECTS_DATA[currentIndex] || PROJECTS_DATA[0]
-  const nextProject = PROJECTS_DATA[(currentIndex + 1) % PROJECTS_DATA.length]
+  const prevProject = currentIndex > 0 ? PROJECTS_DATA[currentIndex - 1] : null
+  const nextProject = currentIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[currentIndex + 1] : null
   const strokeDashoffset = CIRCUMFERENCE - scrollProgress * CIRCUMFERENCE
 
   return (
@@ -125,11 +126,27 @@ export default function Projects() {
             </p>
           </div>
 
-          {/* Center Column: Active Project Image (Clean image without text or frame, clickable to open modal) */}
-          <div className="w-full md:w-2/4 flex flex-col items-center justify-center">
+          {/* Center Column: 3D Vertical Cover Flow Stage (Top Prev, Center Active, Bottom Next) */}
+          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1200px]">
+            {/* 1. TOP PREVIOUS PROJECT IMAGE (Only rendered when currentIndex > 0) */}
+            <div className="h-12 sm:h-16 w-full flex items-end justify-center pointer-events-none select-none z-10">
+              {prevProject ? (
+                <div className="transform -rotate-x-12 scale-75 opacity-40 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <img
+                    src={prevProject.image}
+                    alt=""
+                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-75"
+                    draggable={false}
+                  />
+                </div>
+              ) : null}
+            </div>
+
+            {/* 2. CENTER ACTIVE PROJECT IMAGE (Hero focus, full size, clickable to open case study drawer) */}
             <div
+              key={currentProject.id}
               onClick={() => handleOpenDrawer(currentProject)}
-              className="relative w-full max-w-[580px] lg:max-w-[640px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/90 cursor-pointer group transition-all duration-500 transform hover:scale-[1.02]"
+              className="relative z-20 w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/95 cursor-pointer group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform hover:scale-[1.02]"
               title={`Click to inspect ${currentProject.title}`}
               role="button"
               tabIndex={0}
@@ -147,14 +164,18 @@ export default function Projects() {
               />
             </div>
 
-            {/* Bottom Next-Project Image (Plain image, no text, no frame, non-clickable) */}
-            <div className="mt-4 sm:mt-6 flex items-center justify-center pointer-events-none select-none">
-              <img
-                src={nextProject.image}
-                alt=""
-                className="w-36 sm:w-48 md:w-56 h-auto object-contain rounded-md opacity-80 shadow-2xl transition-all duration-700 ease-out"
-                draggable={false}
-              />
+            {/* 3. BOTTOM NEXT PROJECT IMAGE (Upcoming teaser, non-clickable, no frame, no text) */}
+            <div className="h-12 sm:h-16 w-full flex items-start justify-center pointer-events-none select-none z-10">
+              {nextProject ? (
+                <div className="transform rotate-x-12 scale-75 opacity-40 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <img
+                    src={nextProject.image}
+                    alt=""
+                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-75"
+                    draggable={false}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
 
