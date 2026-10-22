@@ -63,10 +63,10 @@ function App() {
         <Skills />
       </Suspense>
 
-      {/* Section: Projects (Meer Mohsin Reference: Layered Stacking & Case Studies) */}
-      <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
+      {/* Section: Projects (Temporarily disabled) */}
+      {/* <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
         <Projects />
-      </Suspense>
+      </Suspense> */}
     </div>
   )
 }

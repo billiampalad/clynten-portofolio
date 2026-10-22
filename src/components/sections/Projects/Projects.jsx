@@ -124,18 +124,16 @@ export default function Projects() {
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity] ${
-                  isVisible ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity] ${isVisible ? 'opacity-100' : 'opacity-0'
+                  }`}
               >
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center scale-110 filter blur-[44px] sm:blur-[56px] md:blur-[64px] transition-all duration-1000 ease-out ${
-                    isLight
-                      ? 'brightness-90 contrast-[1.05]'
-                      : 'brightness-[0.45] contrast-[1.15]'
-                  }`}
+                  className={`w-full h-full object-cover object-center scale-110 filter blur-[44px] sm:blur-[56px] md:blur-[64px] transition-all duration-1000 ease-out ${isLight
+                    ? 'brightness-90 contrast-[1.05]'
+                    : 'brightness-[0.45] contrast-[1.15]'
+                    }`}
                   draggable={false}
                 />
               </div>
@@ -144,64 +142,39 @@ export default function Projects() {
 
           {/* Adaptive Contrast Overlay: Dark/Light Mode */}
           <div
-            className={`absolute inset-0 transition-colors duration-700 ease-out ${
-              isLight
-                ? 'bg-[#f8fafc]/80 backdrop-brightness-95'
-                : 'bg-[#0A0907]/75 backdrop-brightness-75'
-            }`}
+            className={`absolute inset-0 transition-colors duration-700 ease-out ${isLight
+              ? 'bg-[#f8fafc]/80 backdrop-brightness-95'
+              : 'bg-[#0A0907]/75 backdrop-brightness-75'
+              }`}
           />
 
           {/* Radial Vignette: keeps center stage clear and focused */}
           <div
-            className={`absolute inset-0 transition-all duration-700 ${
-              isLight
-                ? 'bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(248,250,252,0.8)_85%)]'
-                : 'bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(10,9,7,0.75)_85%)]'
-            }`}
-          />
-
-          {/* Dynamic Ambient Glow matched to active project */}
-          <div
-            className={`absolute inset-0 pointer-events-none transition-all duration-1000 ease-out bg-gradient-to-tr ${currentProject.ambientGlow} blur-3xl ${
-              isLight ? 'opacity-25' : 'opacity-40'
-            }`}
-            aria-hidden="true"
-          />
-
-          {/* Cyberpunk Blueprint Subtitle Overlay */}
-          <div
-            className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ${
-              isLight ? 'opacity-[0.02]' : 'opacity-[0.035]'
-            }`}
-            style={{
-              backgroundImage: `linear-gradient(to right, ${isLight ? '#000000' : '#ffffff'} 1px, transparent 1px), linear-gradient(to bottom, ${isLight ? '#000000' : '#ffffff'} 1px, transparent 1px)`,
-              backgroundSize: '48px 48px',
-            }}
-            aria-hidden="true"
+            className={`absolute inset-0 transition-all duration-700 ${isLight
+              ? 'bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(248,250,252,0.8)_85%)]'
+              : 'bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(10,9,7,0.75)_85%)]'
+              }`}
           />
         </div>
 
         {/* Top Header Row */}
         <div className="relative z-10 w-full flex items-center justify-between">
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
-              isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
-            } border backdrop-blur-md transition-colors`}
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
+              } border backdrop-blur-md transition-colors`}
           >
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
             <span
-              className={`font-mono text-[10px] sm:text-xs font-bold tracking-widest ${
-                isLight ? 'text-slate-700' : 'text-slate-300'
-              } uppercase transition-colors`}
+              className={`font-mono text-[10px] sm:text-xs font-bold tracking-widest ${isLight ? 'text-slate-700' : 'text-slate-300'
+                } uppercase transition-colors`}
             >
               WORK // 0{currentIndex + 1} OF 0{PROJECTS_DATA.length}
             </span>
           </div>
 
           <div
-            className={`font-mono text-xs ${
-              isLight ? 'text-slate-600' : 'text-slate-400'
-            } tracking-wider hidden sm:block transition-colors`}
+            className={`font-mono text-xs ${isLight ? 'text-slate-600' : 'text-slate-400'
+              } tracking-wider hidden sm:block transition-colors`}
           >
             {currentProject.client}
           </div>
@@ -215,16 +188,14 @@ export default function Projects() {
               {currentProject.code}
             </span>
             <h2
-              className={`font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter ${
-                isLight ? 'text-slate-950' : 'text-white'
-              } uppercase leading-none transition-all duration-500`}
+              className={`font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter ${isLight ? 'text-slate-950' : 'text-white'
+                } uppercase leading-none transition-all duration-500`}
             >
               {currentProject.shortTitle}
             </h2>
             <p
-              className={`font-mono text-xs sm:text-sm ${
-                isLight ? 'text-slate-600' : 'text-slate-400'
-              } mt-3 max-w-xs font-medium transition-colors`}
+              className={`font-mono text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'
+                } mt-3 max-w-xs font-medium transition-colors`}
             >
               {currentProject.category}
             </p>
@@ -244,9 +215,8 @@ export default function Projects() {
                   />
                   {/* Subtle edge depth gradient maintaining clarity */}
                   <div
-                    className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent ${
-                      isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
-                    }`}
+                    className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
+                      }`}
                   />
                 </div>
               ) : null}
@@ -286,9 +256,8 @@ export default function Projects() {
                   />
                   {/* Subtle edge depth gradient maintaining clarity */}
                   <div
-                    className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent ${
-                      isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
-                    }`}
+                    className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
+                      }`}
                   />
                 </div>
               ) : null}
@@ -299,9 +268,8 @@ export default function Projects() {
           <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left md:text-right gap-6">
             <div className="flex flex-col md:items-end">
               <p
-                className={`text-xs sm:text-sm md:text-[13.5px] ${
-                  isLight ? 'text-slate-700' : 'text-slate-300'
-                } font-sans leading-relaxed tracking-normal max-w-xs transition-all duration-500`}
+                className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                  } font-sans leading-relaxed tracking-normal max-w-xs transition-all duration-500`}
               >
                 {currentProject.summary}
               </p>
@@ -343,9 +311,8 @@ export default function Projects() {
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <span
-                  className={`font-mono italic font-bold text-2xl sm:text-3xl ${
-                    isLight ? 'text-slate-950' : 'text-white'
-                  } tracking-tight transition-colors`}
+                  className={`font-mono italic font-bold text-2xl sm:text-3xl ${isLight ? 'text-slate-950' : 'text-white'
+                    } tracking-tight transition-colors`}
                 >
                   0{currentIndex + 1}
                 </span>
@@ -356,9 +323,8 @@ export default function Projects() {
 
         {/* Bottom Status Ticker Bar */}
         <div
-          className={`relative z-10 w-full flex items-center justify-between pt-3 border-t ${
-            isLight ? 'border-slate-900/10 text-slate-500' : 'border-white/10 text-slate-500'
-          } font-mono text-[10px] sm:text-xs transition-colors`}
+          className={`relative z-10 w-full flex items-center justify-between pt-3 border-t ${isLight ? 'border-slate-900/10 text-slate-500' : 'border-white/10 text-slate-500'
+            } font-mono text-[10px] sm:text-xs transition-colors`}
         >
           <span className="hidden sm:inline">SCROLL DOWN TO ADVANCE NEXT SYSTEM</span>
           <span className={`${isLight ? 'text-slate-700' : 'text-slate-400'} font-bold uppercase transition-colors`}>
@@ -370,21 +336,18 @@ export default function Projects() {
 
       {/* Case Study Off-Canvas Drawer Modal */}
       <div
-        className={`fixed inset-0 bg-black/80 backdrop-blur-md z-[100] transition-opacity duration-400 ${
-          isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 bg-black/80 backdrop-blur-md z-[100] transition-opacity duration-400 ${isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
         onClick={handleCloseDrawer}
         aria-hidden="true"
       />
 
       <aside
-        className={`fixed top-0 right-0 w-full max-w-2xl h-full ${
-          isLight
-            ? 'bg-white text-slate-900 border-l border-slate-200 shadow-2xl'
-            : 'bg-[#0d0c10] text-slate-100 border-l border-white/15'
-        } p-6 sm:p-10 z-[101] overflow-y-auto transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 w-full max-w-2xl h-full ${isLight
+          ? 'bg-white text-slate-900 border-l border-slate-200 shadow-2xl'
+          : 'bg-[#0d0c10] text-slate-100 border-l border-white/15'
+          } p-6 sm:p-10 z-[101] overflow-y-auto transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
         aria-label="Project Case Study"
         aria-modal="true"
         role="dialog"
@@ -392,9 +355,8 @@ export default function Projects() {
         {selectedProject && (
           <div className="flex flex-col gap-6 font-sans">
             <div
-              className={`flex items-center justify-between pb-4 border-b ${
-                isLight ? 'border-slate-200' : 'border-white/10'
-              }`}
+              className={`flex items-center justify-between pb-4 border-b ${isLight ? 'border-slate-200' : 'border-white/10'
+                }`}
             >
               <span className="font-mono text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-md">
                 {selectedProject.code}
@@ -402,11 +364,10 @@ export default function Projects() {
               <button
                 type="button"
                 onClick={handleCloseDrawer}
-                className={`px-3 py-1.5 rounded-lg ${
-                  isLight
-                    ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
-                    : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
-                } font-mono text-xs font-bold transition-all`}
+                className={`px-3 py-1.5 rounded-lg ${isLight
+                  ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
+                  : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
+                  } font-mono text-xs font-bold transition-all`}
               >
                 ✕ CLOSE
               </button>
@@ -414,16 +375,14 @@ export default function Projects() {
 
             <div>
               <h3
-                className={`font-mono font-black text-2xl sm:text-3xl ${
-                  isLight ? 'text-slate-900' : 'text-white'
-                } tracking-tight mb-1`}
+                className={`font-mono font-black text-2xl sm:text-3xl ${isLight ? 'text-slate-900' : 'text-white'
+                  } tracking-tight mb-1`}
               >
                 {selectedProject.title}
               </h3>
               <p
-                className={`font-mono text-xs sm:text-sm ${
-                  isLight ? 'text-slate-600' : 'text-slate-400'
-                }`}
+                className={`font-mono text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'
+                  }`}
               >
                 {selectedProject.subtitle}
               </p>
@@ -431,9 +390,8 @@ export default function Projects() {
 
             {/* Overview */}
             <div
-              className={`p-4 rounded-xl ${
-                isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
-              } border`}
+              className={`p-4 rounded-xl ${isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
+                } border`}
             >
               <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-2">
                 // SYSTEM OVERVIEW
@@ -448,21 +406,18 @@ export default function Projects() {
               {selectedProject.metrics.map((m, idx) => (
                 <div
                   key={idx}
-                  className={`p-3 rounded-lg ${
-                    isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
-                  } border text-center`}
+                  className={`p-3 rounded-lg ${isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
+                    } border text-center`}
                 >
                   <span
-                    className={`block font-mono text-lg font-black ${
-                      isLight ? 'text-slate-900' : 'text-white'
-                    }`}
+                    className={`block font-mono text-lg font-black ${isLight ? 'text-slate-900' : 'text-white'
+                      }`}
                   >
                     {m.val}
                   </span>
                   <span
-                    className={`font-mono text-[9px] ${
-                      isLight ? 'text-slate-500' : 'text-slate-400'
-                    } uppercase tracking-wider`}
+                    className={`font-mono text-[9px] ${isLight ? 'text-slate-500' : 'text-slate-400'
+                      } uppercase tracking-wider`}
                   >
                     {m.label}
                   </span>
@@ -524,11 +479,10 @@ export default function Projects() {
                 {selectedProject.tech.map((t) => (
                   <span
                     key={t}
-                    className={`px-3 py-1 rounded-md ${
-                      isLight
-                        ? 'bg-slate-100 border-slate-200 text-slate-800'
-                        : 'bg-white/[0.05] border-white/10 text-slate-300'
-                    } border font-mono text-xs font-semibold`}
+                    className={`px-3 py-1 rounded-md ${isLight
+                      ? 'bg-slate-100 border-slate-200 text-slate-800'
+                      : 'bg-white/[0.05] border-white/10 text-slate-300'
+                      } border font-mono text-xs font-semibold`}
                   >
                     {t}
                   </span>
