@@ -147,28 +147,28 @@ export default function Projects() {
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center scale-110 filter blur-[18px] ${
-                    isLightMode ? 'brightness-105 opacity-90' : 'brightness-100 opacity-100'
-                  } contrast-[1.1] transition-transform duration-1000 ease-out`}
+                  className={`w-full h-full object-cover object-center scale-105 filter blur-[6px] ${
+                    isLightMode ? 'brightness-105 opacity-95' : 'brightness-100 opacity-100'
+                  } contrast-[1.08] transition-transform duration-1000 ease-out`}
                   draggable={false}
                 />
               </div>
             )
           })}
 
-          {/* Contrast Tint Overlay: Softened so project UI details shine through more clearly */}
+          {/* Contrast Tint Overlay: Lightweight tint so project image details are crisp and clear */}
           <div
             className={`absolute inset-0 transition-all duration-700 ease-out ${
               isLightMode
-                ? 'bg-gradient-to-b from-[#f8fafc]/65 via-[#f8fafc]/40 to-[#f8fafc]/70'
-                : 'bg-gradient-to-b from-[#0A0907]/50 via-[#0A0907]/30 to-[#0A0907]/60'
+                ? 'bg-gradient-to-b from-[#f8fafc]/50 via-[#f8fafc]/25 to-[#f8fafc]/55'
+                : 'bg-gradient-to-b from-[#0A0907]/35 via-[#0A0907]/15 to-[#0A0907]/45'
             }`}
           />
 
           {/* Dynamic Ambient Neon Glow matched to active project */}
           <div
             className={`absolute inset-0 transition-all duration-1000 ease-out bg-gradient-to-tr ${currentProject.ambientGlow} blur-3xl ${
-              isLightMode ? 'opacity-25' : 'opacity-40'
+              isLightMode ? 'opacity-15' : 'opacity-20'
             }`}
           />
         </div>
