@@ -343,13 +343,16 @@ export default function Projects() {
         </div>
 
         {/* Bottom Status Ticker Bar */}
-        <div className="relative z-10 w-full flex items-center justify-between pt-4 translate-y-3 sm:translate-y-4 md:translate-y-5 text-slate-500 font-mono text-[10px] sm:text-xs transition-colors">
+        <div
+          className={`relative z-10 w-full flex items-center justify-between pt-4 translate-y-3 sm:translate-y-4 md:translate-y-5 ${isLight ? 'text-black' : 'text-white'
+            } font-mono text-[10px] sm:text-xs transition-colors`}
+        >
           <span className="hidden sm:inline">
             {currentIndex === PROJECTS_DATA.length - 1
               ? 'FINAL SYSTEM ARCHIVE // END OF SHOWCASE'
               : 'SCROLL DOWN TO ADVANCE NEXT SYSTEM'}
           </span>
-          <span className={`${isLight ? 'text-slate-700' : 'text-slate-400'} font-bold uppercase transition-colors`}>
+          <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors`}>
             {currentProject.tech.slice(0, 4).join(' • ')}
           </span>
           <span>{currentProject.period}</span>
