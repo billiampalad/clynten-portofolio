@@ -105,12 +105,17 @@ export default function Projects() {
   const nextProject = currentIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[currentIndex + 1] : null
   const strokeDashoffset = CIRCUMFERENCE - scrollProgress * CIRCUMFERENCE
 
+  const isEffectActive = currentIndex > 0 || hasScrolled || scrollProgress > 0.001
+
   return (
     <section
       id="projects"
       className={`relative w-full transition-colors duration-700 ${
-        isLightMode ? 'bg-[#f8fafc] text-slate-800' : 'bg-[#0A0907] text-slate-100'
+        isLightMode ? 'text-[#0f172a]' : 'text-[#f1f5f9]'
       }`}
+      style={{
+        background: isLightMode ? 'var(--nav-bg, #f8fafc)' : 'var(--nav-bg, #0A0907)',
+      }}
     >
       {/* Pinned 100vh Fullscreen Viewport Stage */}
       <div
@@ -119,22 +124,24 @@ export default function Projects() {
       >
         {/* =========================================================================
             DYNAMIC BLURRED PROJECT BACKGROUND LAYERS (GPU-Accelerated Crossfade)
-            - At Scroll 0 on Project 01: Clean theme background (dark or light)
-            - Once scroll starts (hasScrolled / progress > 0.001): Project 01 image smoothly fades in
+            - At Scroll 0 on Project 01: Clean theme background 100% identical to Skills.jsx
+            - Once scroll starts (isEffectActive): Project image, ambient glow, and tint smoothly fade in
             - On subsequent projects: Smooth crossfades to current project image
             ========================================================================= */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
+        <div
+          className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 transition-opacity duration-700 ease-out ${
+            isEffectActive ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-hidden="true"
+        >
           {PROJECTS_DATA.map((project, idx) => {
             const isActive = idx === currentIndex
-            // For Project 01 (idx === 0): visible only after scrolling has started
-            // For other projects: visible when index matches currentIndex
-            const isVisible = isActive && (idx > 0 || hasScrolled || scrollProgress > 0.001)
 
             return (
               <div
                 key={project.id}
                 className={`absolute inset-0 transition-opacity duration-700 ease-out will-change-[opacity] ${
-                  isVisible ? 'opacity-100' : 'opacity-0'
+                  isActive ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <img
