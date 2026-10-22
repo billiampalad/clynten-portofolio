@@ -204,12 +204,14 @@ export default function Projects() {
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
         <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 mt-3 sm:mt-4 mb-auto py-2">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
-          <div className="w-full md:w-1/4 flex flex-col items-start justify-center text-left">
+          <div className="w-full md:w-1/4 flex flex-col items-start justify-center text-left relative z-30">
             <span className="font-mono text-xs font-bold text-red-500 tracking-widest uppercase mb-2">
               {currentProject.code}
             </span>
             <h2
-              className={`font-mono font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter ${isLight ? 'text-slate-950' : 'text-white'
+              className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
+                : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
                 } uppercase leading-none transition-all duration-500`}
             >
               {currentProject.shortTitle}
