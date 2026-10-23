@@ -195,7 +195,7 @@ export default function Projects() {
       id: 'projects-trigger',
       trigger: section,
       start: 'top top',
-      end: '+=280%',
+      end: '+=300%',
       pin: pinWrapper,
       pinSpacing: true,
       scrub: true,
@@ -205,16 +205,15 @@ export default function Projects() {
         const progress = Math.max(0, Math.min(1, self.progress))
         setScrollProgress(progress)
 
-        // Calculate active project index and circle fill progress
+        // Calculate active project index and circle fill progress across all projects equally
         const total = PROJECTS_DATA.length
-        const numTransitions = total - 1
-        const scaled = progress * numTransitions
+        const scaled = progress * total
         const step = Math.min(Math.floor(scaled), total - 1)
         setCurrentIndex(step)
 
         // Circle reaches 100% reliably at 85% of each step and holds full before advancing
         const cycle = scaled - step
-        const currentCycle = step === total - 1 ? 1 : Math.min(1, Math.max(0, cycle / 0.85))
+        const currentCycle = Math.min(1, Math.max(0, cycle / 0.85))
         setCircleProgress(currentCycle)
       },
     })
