@@ -361,41 +361,48 @@ export default function Projects() {
           className={`relative z-10 w-full flex items-center justify-between pt-4 translate-y-3 sm:translate-y-4 md:translate-y-5 ${isLight ? 'text-black' : 'text-white'
             } font-mono text-[10px] sm:text-xs transition-colors`}
         >
-          <div className="flex items-center">
-            <span className="hidden sm:inline">
-              {currentIndex === PROJECTS_DATA.length - 1
-                ? 'FINAL SYSTEM ARCHIVE // END OF SHOWCASE'
-                : 'SCROLL DOWN TO ADVANCE NEXT SYSTEM'}
-            </span>
+          {/* Left Status Message */}
+          <span className="hidden sm:inline whitespace-nowrap">
+            {currentIndex === PROJECTS_DATA.length - 1
+              ? 'FINAL SYSTEM ARCHIVE // END OF SHOWCASE'
+              : 'SCROLL DOWN TO ADVANCE NEXT SYSTEM'}
+          </span>
+
+          {/* Dynamic Rotating + Divider (Desktop: between Left & Center) */}
+          <div className="hidden sm:flex flex-1 items-center justify-center px-4">
             <span
-              className="hidden sm:inline-flex items-center justify-center text-red-500 ml-3 select-none origin-center will-change-transform"
+              className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               style={{ transform: `rotate(${Math.round(circleProgress * 360)}deg)` }}
               aria-hidden="true"
             >
-              <svg viewBox="0 0 10 10" className="w-2.5 h-2.5 stroke-current stroke-2">
-                <line x1="5" y1="1" x2="5" y2="9" />
-                <line x1="1" y1="5" x2="9" y2="5" />
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+                <line x1="6" y1="1" x2="6" y2="11" />
+                <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
             </span>
           </div>
 
-          <div className="flex items-center">
-            <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors`}>
-              {currentProject.tech.slice(0, 4).join(' • ')}
-            </span>
+          {/* Center Tech Stack */}
+          <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors whitespace-nowrap`}>
+            {currentProject.tech.slice(0, 4).join(' • ')}
+          </span>
+
+          {/* Dynamic Rotating + Divider (between Center & Right) */}
+          <div className="flex flex-1 items-center justify-center px-4">
             <span
-              className="inline-flex items-center justify-center text-red-500 ml-3 select-none origin-center will-change-transform"
+              className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               style={{ transform: `rotate(${Math.round(circleProgress * 360)}deg)` }}
               aria-hidden="true"
             >
-              <svg viewBox="0 0 10 10" className="w-2.5 h-2.5 stroke-current stroke-2">
-                <line x1="5" y1="1" x2="5" y2="9" />
-                <line x1="1" y1="5" x2="9" y2="5" />
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+                <line x1="6" y1="1" x2="6" y2="11" />
+                <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
             </span>
           </div>
 
-          <span>{currentProject.period}</span>
+          {/* Right Period */}
+          <span className="whitespace-nowrap">{currentProject.period}</span>
         </div>
       </div>
 
