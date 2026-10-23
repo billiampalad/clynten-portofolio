@@ -338,7 +338,7 @@ export default function Projects() {
               </svg>
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <span
-                  className={`font-mono font-bold text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                  className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
                     } tracking-tight transition-colors text-center flex items-center justify-center`}
                 >
                   0{currentIndex + 1}
