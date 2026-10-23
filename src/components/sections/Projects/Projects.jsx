@@ -835,19 +835,19 @@ export default function Projects() {
       <AnimatePresence>
         {isDrawerOpen && selectedProject && (
           <>
-            {/* Modal Backdrop (z-[1100] to sit above navbar z-1000) */}
+            {/* Modal Backdrop - Pure dark overlay without blur to keep background projects slightly visible and sharp */}
             <motion.div
               key="case-study-backdrop"
               variants={drawerBackdropVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[1100]"
+              className="fixed inset-0 bg-black/60 z-[1100]"
               onClick={handleCloseDrawer}
               aria-hidden="true"
             />
 
-            {/* Modal Drawer Aside Panel - Positioned on LEFT, z-[1101] above navbar, isolated scroll */}
+            {/* Modal Drawer Aside Panel - Glassmorphism Transparent Blur on Left */}
             <motion.aside
               key="case-study-panel"
               variants={drawerPanelVariants}
@@ -859,8 +859,8 @@ export default function Projects() {
               onTouchMove={(e) => e.stopPropagation()}
               className={`fixed top-0 left-0 w-full max-w-lg h-full ${
                 isLight
-                  ? 'bg-white text-slate-900 border-r border-slate-200 shadow-2xl'
-                  : 'bg-[#0d0c10] text-slate-100 border-r border-white/15'
+                  ? 'bg-white/85 backdrop-blur-xl text-slate-900 border-r border-slate-200/80 shadow-2xl'
+                  : 'bg-[#0d0c10]/80 backdrop-blur-xl text-slate-100 border-r border-white/15'
               } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
