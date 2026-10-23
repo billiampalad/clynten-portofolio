@@ -50,7 +50,7 @@ export default function Projects() {
       id: 'projects-trigger',
       trigger: section,
       start: 'top top',
-      end: '+=350%',
+      end: '+=280%',
       pin: pinWrapper,
       pinSpacing: true,
       scrub: 0.8,
@@ -119,10 +119,10 @@ export default function Projects() {
       ref={sectionRef}
       className={`relative w-full scroll-mt-16 ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
     >
-      {/* Pinned Viewport Stage (Fills visible screen below navbar) */}
+      {/* Pinned Viewport Stage (Fills full viewport cleanly) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-[calc(100vh-64px)] min-h-[calc(100vh-64px)] overflow-hidden flex flex-col justify-between pt-4 pb-4 px-6 sm:pt-5 sm:pb-5 sm:px-10 md:pt-6 md:pb-6 md:px-14 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-16 pb-6 px-6 sm:pt-16 sm:pb-6 sm:px-10 md:pt-16 md:pb-8 md:px-14 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -347,7 +347,11 @@ export default function Projects() {
           className={`relative z-10 w-full flex items-center justify-between pt-3 border-t ${isLight ? 'border-slate-900/10 text-slate-500' : 'border-white/10 text-slate-500'
             } font-mono text-[10px] sm:text-xs transition-colors`}
         >
-          <span className="hidden sm:inline">SCROLL DOWN TO ADVANCE NEXT SYSTEM</span>
+          <span className="hidden sm:inline">
+            {currentIndex === PROJECTS_DATA.length - 1
+              ? 'FINAL SYSTEM ARCHIVE // END OF SHOWCASE'
+              : 'SCROLL DOWN TO ADVANCE NEXT SYSTEM'}
+          </span>
           <span className={`${isLight ? 'text-slate-700' : 'text-slate-400'} font-bold uppercase transition-colors`}>
             {currentProject.tech.slice(0, 4).join(' • ')}
           </span>
