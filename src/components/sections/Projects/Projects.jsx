@@ -857,11 +857,11 @@ export default function Projects() {
               data-lenis-prevent="true"
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
-              className={`fixed top-0 left-0 w-full max-w-2xl h-full ${
+              className={`fixed top-0 left-0 w-full max-w-lg h-full ${
                 isLight
                   ? 'bg-white text-slate-900 border-r border-slate-200 shadow-2xl'
                   : 'bg-[#0d0c10] text-slate-100 border-r border-white/15'
-              } p-6 sm:p-10 z-[1101] overflow-y-auto overscroll-contain`}
+              } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
               role="dialog"
