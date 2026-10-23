@@ -321,18 +321,10 @@ export default function Projects() {
 
             {/* Circular Step Indicator (Matching Meer Mohsin Reference) */}
             <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center mt-2">
-              <svg className="w-full h-full -rotate-90" viewBox="0 0 86 86">
-                <circle
-                  className={`${isLight ? 'stroke-slate-900/15' : 'stroke-white/15'}`}
-                  strokeWidth="2.5"
-                  fill="transparent"
-                  cx="43"
-                  cy="43"
-                  r="35"
-                />
+              <svg className="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 86 86">
                 <circle
                   className={`${isLight ? 'stroke-slate-900' : 'stroke-white'} transition-colors duration-500`}
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   fill="transparent"
                   cx="43"
@@ -344,10 +336,10 @@ export default function Projects() {
                   }}
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <span
-                  className={`font-mono italic font-bold text-2xl sm:text-3xl ${isLight ? 'text-slate-950' : 'text-white'
-                    } tracking-tight transition-colors`}
+                  className={`font-mono font-bold text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                    } tracking-tight transition-colors text-center flex items-center justify-center`}
                 >
                   0{currentIndex + 1}
                 </span>
