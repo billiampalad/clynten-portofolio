@@ -44,11 +44,15 @@ export function useLocomotiveScroll(customOptions = DEFAULT_OPTIONS) {
     })
 
     scrollRef.current = locomotiveScroll
+    window.__locomotiveScroll = locomotiveScroll
+    window.__lenis = locomotiveScroll.lenisInstance
 
     return () => {
       if (scrollRef.current) {
         scrollRef.current.destroy()
         scrollRef.current = null
+        delete window.__locomotiveScroll
+        delete window.__lenis
       }
     }
   }, [customOptions])

@@ -157,6 +157,26 @@ export default function Navbar({
     }
   }, [onHomeClick])
 
+  // Helper to scroll smoothly and accurately using Locomotive Scroll / Lenis
+  const scrollToTarget = useCallback((targetEl) => {
+    if (!targetEl) return
+
+    if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+      window.__locomotiveScroll.scrollTo(targetEl, {
+        offset: 0,
+        duration: 1.2,
+        immediate: false,
+      })
+    } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+      window.__lenis.scrollTo(targetEl, {
+        offset: 0,
+        duration: 1.2,
+      })
+    } else {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [])
+
   // Smooth scroll handler for anchor links
   const handleLinkClick = useCallback((e, item) => {
     if (item.external) return
@@ -173,14 +193,14 @@ export default function Navbar({
           window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
         }
       } else if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        scrollToTarget(targetEl)
       } else if (item.href === '#contact' || item.label === 'WORK TOGETHER') {
         window.location.href = `mailto:${email}?subject=Collaboration%20Inquiry`
       }
 
       setIsMobileMenuOpen(false)
     }
-  }, [email, onHomeClick])
+  }, [email, onHomeClick, scrollToTarget])
 
   const handleContactClick = (e) => {
     e?.currentTarget?.blur?.()
@@ -188,7 +208,7 @@ export default function Navbar({
     const contactSection = document.getElementById('contact')
     if (contactSection) {
       e.preventDefault()
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      scrollToTarget(contactSection)
     }
     // If no contact section in DOM, default mailto behavior runs
   }
