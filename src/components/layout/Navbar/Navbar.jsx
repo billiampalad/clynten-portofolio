@@ -300,9 +300,8 @@ export default function Navbar({
   return (
     <motion.header
       key="portfolio-navbar"
-      className={`portfolio-navbar navbar-visible ${
-        isScrolled ? 'scrolled navbar-scrolled' : ''
-      }`}
+      className={`portfolio-navbar navbar-visible ${isScrolled ? 'scrolled navbar-scrolled' : ''
+        }`}
       initial={{
         y: -40,
         opacity: 0,
@@ -316,123 +315,123 @@ export default function Navbar({
         },
       }}
     >
-          {/* Dark base underlay matching Hero backdrop (#000000) */}
-          <div className="navbar-dark-base" aria-hidden="true" />
-          {/* Dynamic theme background matching About */}
-          <div className="navbar-theme-bg" aria-hidden="true" />
+      {/* Dark base underlay matching Hero backdrop (#000000) */}
+      <div className="navbar-dark-base" aria-hidden="true" />
+      {/* Dynamic theme background matching About */}
+      <div className="navbar-theme-bg" aria-hidden="true" />
 
-          {/* Progressive Blur Layer (Light & Dark dual-layer cross-fade matching navbar.html) */}
-          <div className="navbar-bottom-blur" aria-hidden="true">
-            <div className="blur-layer-light" />
-            <div className="blur-layer-dark" />
-          </div>
+      {/* Progressive Blur Layer (Light & Dark dual-layer cross-fade matching navbar.html) */}
+      <div className="navbar-bottom-blur" aria-hidden="true">
+        <div className="blur-layer-light" />
+        <div className="blur-layer-dark" />
+      </div>
 
-          <div className="navbar-container">
-            {/* Left: Brand Identity */}
-            <div className="navbar-left">
-              <a
-                href="#hero"
-                onClick={handleBrandClick}
-                onMouseEnter={handleBrandHover}
-                className="navbar-brand"
-                aria-label="Home — Restart from beginning"
-              >
-                {renderBrand()}
-              </a>
-            </div>
+      <div className="navbar-container">
+        {/* Left: Brand Identity */}
+        <div className="navbar-left">
+          <a
+            href="#hero"
+            onClick={handleBrandClick}
+            onMouseEnter={handleBrandHover}
+            className="navbar-brand"
+            aria-label="Home — Restart from beginning"
+          >
+            {renderBrand()}
+          </a>
+        </div>
 
-            {/* Center: Desktop Navigation Links (Original Centered Position) */}
-            <nav className="navbar-links" aria-label="Main Navigation">
-              {navItems.map((item, index) => (
-                <NavItem
-                  key={item.label || index}
-                  item={item}
-                  onClick={handleLinkClick}
-                />
-              ))}
-            </nav>
+        {/* Center: Desktop Navigation Links (Original Centered Position) */}
+        <nav className="navbar-links" aria-label="Main Navigation">
+          {navItems.map((item, index) => (
+            <NavItem
+              key={item.label || index}
+              item={item}
+              onClick={handleLinkClick}
+            />
+          ))}
+        </nav>
 
-            {/* Right: Actions (Theme Toggle, Contact Mail, Mobile Menu) */}
-            <div className="navbar-actions">
-              <div
-                className={`nav-tooltip-wrapper ${dismissedTooltip === 'theme' ? 'tooltip-dismissed' : ''}`}
-                onMouseLeave={() => {
-                  if (dismissedTooltip === 'theme') setDismissedTooltip(null)
-                }}
-              >
-                <button
-                  type="button"
-                  className="nav-icon-btn nav-theme-btn"
-                  onClick={handleToggleTheme}
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                >
-                  {theme === 'dark' ? (
-                    <Sun size={16} strokeWidth={1.8} className="theme-icon" />
-                  ) : (
-                    <Moon size={16} strokeWidth={1.8} className="theme-icon" />
-                  )}
-                </button>
-                <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
-                  <span className="tooltip-text">
-                    {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                  </span>
-                </div>
-              </div>
-
-              <div
-                className={`nav-tooltip-wrapper nav-tooltip-end ${dismissedTooltip === 'mail' ? 'tooltip-dismissed' : ''}`}
-                onMouseLeave={() => {
-                  if (dismissedTooltip === 'mail') setDismissedTooltip(null)
-                }}
-              >
-                <a
-                  href={`mailto:${email}?subject=Project%20Inquiry`}
-                  onClick={handleContactClick}
-                  className="nav-icon-btn nav-mail-btn"
-                  aria-label="Send email"
-                >
-                  <Mail size={16} strokeWidth={1.8} />
-                </a>
-                <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
-                  <span className="tooltip-text">Send Email</span>
-                </div>
-              </div>
-
-              {/* Mobile hamburger toggle */}
-              <button
-                type="button"
-                className="nav-icon-btn nav-mobile-toggle"
-                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-                aria-expanded={isMobileMenuOpen}
-              >
-                {isMobileMenuOpen ? (
-                  <X size={18} strokeWidth={1.8} />
-                ) : (
-                  <Menu size={18} strokeWidth={1.8} />
-                )}
-              </button>
+        {/* Right: Actions (Theme Toggle, Contact Mail, Mobile Menu) */}
+        <div className="navbar-actions">
+          <div
+            className={`nav-tooltip-wrapper ${dismissedTooltip === 'theme' ? 'tooltip-dismissed' : ''}`}
+            onMouseLeave={() => {
+              if (dismissedTooltip === 'theme') setDismissedTooltip(null)
+            }}
+          >
+            <button
+              type="button"
+              className="nav-icon-btn nav-theme-btn"
+              onClick={handleToggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <Sun size={16} strokeWidth={1.8} className="theme-icon" />
+              ) : (
+                <Moon size={16} strokeWidth={1.8} className="theme-icon" />
+              )}
+            </button>
+            <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
+              <span className="tooltip-text">
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </span>
             </div>
           </div>
 
-          {/* Mobile Collapsible Drawer Menu */}
-          <div className={`navbar-mobile-drawer ${isMobileMenuOpen ? 'drawer-open' : 'drawer-closed'}`}>
-            <nav className="mobile-drawer-links" aria-label="Mobile Navigation">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.label || index}
-                  href={item.href}
-                  target={item.external ? '_blank' : undefined}
-                  rel={item.external ? 'noopener noreferrer' : undefined}
-                  onClick={(e) => handleLinkClick(e, item)}
-                  className="mobile-nav-item"
-                >
-                  <span className="nav-label">{item.label}</span>
-                  {item.badge && <span className="nav-badge">{item.badge}</span>}
-                </a>
-              ))}
-            </nav>
+          <div
+            className={`nav-tooltip-wrapper nav-tooltip-end ${dismissedTooltip === 'mail' ? 'tooltip-dismissed' : ''}`}
+            onMouseLeave={() => {
+              if (dismissedTooltip === 'mail') setDismissedTooltip(null)
+            }}
+          >
+            <a
+              href={`mailto:${email}?subject=Project%20Inquiry`}
+              onClick={handleContactClick}
+              className="nav-icon-btn nav-mail-btn"
+              aria-label="Send email"
+            >
+              <Mail size={16} strokeWidth={1.8} />
+            </a>
+            <div className="nav-custom-tooltip" role="tooltip" aria-hidden="true">
+              <span className="tooltip-text">Send Email</span>
+            </div>
           </div>
-        </motion.header>
+
+          {/* Mobile hamburger toggle */}
+          <button
+            type="button"
+            className="nav-icon-btn nav-mobile-toggle"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? (
+              <X size={18} strokeWidth={1.8} />
+            ) : (
+              <Menu size={18} strokeWidth={1.8} />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Collapsible Drawer Menu */}
+      <div className={`navbar-mobile-drawer ${isMobileMenuOpen ? 'drawer-open' : 'drawer-closed'}`}>
+        <nav className="mobile-drawer-links" aria-label="Mobile Navigation">
+          {navItems.map((item, index) => (
+            <a
+              key={item.label || index}
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              onClick={(e) => handleLinkClick(e, item)}
+              className="mobile-nav-item"
+            >
+              <span className="nav-label">{item.label}</span>
+              {item.badge && <span className="nav-badge">{item.badge}</span>}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </motion.header>
   )
 }

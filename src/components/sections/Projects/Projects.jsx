@@ -122,7 +122,7 @@ export default function Projects() {
       {/* Pinned 100vh Fullscreen Viewport Stage */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between p-6 sm:p-10 md:p-14 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-20 pb-6 px-6 sm:pt-24 sm:pb-8 sm:px-10 md:pt-24 md:pb-10 md:px-14 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
