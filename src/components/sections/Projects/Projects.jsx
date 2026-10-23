@@ -122,7 +122,7 @@ export default function Projects() {
       {/* Pinned 100vh Fullscreen Viewport Stage */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-20 pb-6 px-6 sm:pt-24 sm:pb-8 sm:px-10 md:pt-24 md:pb-10 md:px-14 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-16 pb-6 px-6 sm:pt-16 sm:pb-8 sm:px-10 md:pt-16 md:pb-10 md:px-14 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -202,7 +202,7 @@ export default function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 my-auto py-2">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 mt-3 sm:mt-4 mb-auto py-2">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
           <div className="w-full md:w-1/4 flex flex-col items-start justify-center text-left">
             <span className="font-mono text-xs font-bold text-red-500 tracking-widest uppercase mb-2">
@@ -225,7 +225,7 @@ export default function Projects() {
           {/* Center Column: 3D Vertical Cover Flow Stage (Top Prev, Center Active, Bottom Next) */}
           <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1200px]">
             {/* 1. TOP PREVIOUS PROJECT IMAGE (Only rendered when currentIndex > 0) */}
-            <div className="h-12 sm:h-16 w-full flex items-end justify-center pointer-events-none select-none z-10">
+            <div className="h-6 sm:h-8 w-full flex items-end justify-center pointer-events-none select-none z-10">
               {prevProject ? (
                 <div className="relative transform -rotate-x-12 scale-75 opacity-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
                   <img
