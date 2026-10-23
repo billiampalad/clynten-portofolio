@@ -127,25 +127,37 @@ export default function Projects() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
           {PROJECTS_DATA.map((project, idx) => {
             const isActive = idx === currentIndex
-            // Pada Project 01 (idx === 0): saat scroll 0 (scrollProgress <= 0.015), background polos/gelap/terang.
-            // Saat mulai scroll (scrollProgress > 0.015), gambar Project 01 bertransisi fade-in secara halus!
+            // Pada Project 01 (idx === 0): saat scroll 0 (scrollProgress <= 0.02), background polos/gelap/terang.
+            // Saat mulai scroll (scrollProgress > 0.02), gambar Project 01 bertransisi fade-in secara halus!
             // Untuk Project berikutnya (idx > 0): opacity penuh saat aktif.
-            const isVisible = isActive && (idx > 0 || scrollProgress > 0.015)
+            const isVisible = isActive && (idx > 0 || scrollProgress > 0.02)
 
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity] ${isVisible ? 'opacity-100' : 'opacity-0'
-                  }`}
+                className={`absolute inset-0 transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform] ${
+                  isVisible ? 'opacity-100 scale-105' : 'opacity-0 scale-115'
+                }`}
               >
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center scale-110 filter blur-[44px] sm:blur-[56px] md:blur-[64px] transition-all duration-1000 ease-out ${isLight
-                    ? 'brightness-90 contrast-[1.05]'
-                    : 'brightness-[0.45] contrast-[1.15]'
-                    }`}
+                  className={`w-full h-full object-cover object-center filter blur-[28px] sm:blur-[34px] md:blur-[40px] transition-all duration-800 ${
+                    isLight
+                      ? 'brightness-[0.98] contrast-[1.02] saturate-[1.1]'
+                      : 'brightness-[0.70] contrast-[1.12] saturate-[1.25]'
+                  }`}
                   draggable={false}
+                />
+
+                {/* Ambient Project Accent Color Glow */}
+                <div
+                  className={`absolute inset-0 transition-opacity duration-1000 ${
+                    isLight ? 'opacity-25' : 'opacity-40'
+                  }`}
+                  style={{
+                    background: `radial-gradient(circle at 50% 50%, ${project.themeColor || 'rgba(244,63,94,0.3)'}, transparent 70%)`,
+                  }}
                 />
               </div>
             )
@@ -153,18 +165,20 @@ export default function Projects() {
 
           {/* Adaptive Contrast Overlay: Dark/Light Mode */}
           <div
-            className={`absolute inset-0 transition-colors duration-700 ease-out ${isLight
-              ? 'bg-[#f8fafc]/80 backdrop-brightness-95'
-              : 'bg-[#0A0907]/75 backdrop-brightness-75'
-              }`}
+            className={`absolute inset-0 transition-colors duration-700 ease-out ${
+              isLight
+                ? 'bg-[#f8fafc]/70 backdrop-brightness-95'
+                : 'bg-[#0A0907]/60 backdrop-brightness-90'
+            }`}
           />
 
           {/* Radial Vignette: keeps center stage clear and focused */}
           <div
-            className={`absolute inset-0 transition-all duration-700 ${isLight
-              ? 'bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(248,250,252,0.8)_85%)]'
-              : 'bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(10,9,7,0.75)_85%)]'
-              }`}
+            className={`absolute inset-0 transition-all duration-700 ${
+              isLight
+                ? 'bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(248,250,252,0.85)_88%)]'
+                : 'bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,9,7,0.70)_88%)]'
+            }`}
           />
         </div>
 
