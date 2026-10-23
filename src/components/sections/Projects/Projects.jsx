@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 import { PROJECTS_DATA } from '@/content/projects'
 
@@ -203,11 +204,20 @@ export default function Projects() {
             </span>
           </div>
 
-          <div
-            className={`font-mono text-xs ${isLight ? 'text-slate-600' : 'text-slate-400'
-              } tracking-wider hidden sm:block transition-colors`}
-          >
-            {currentProject.client}
+          <div className="hidden sm:block">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.div
+                key={currentProject.id}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className={`font-mono text-xs ${isLight ? 'text-slate-600' : 'text-slate-400'
+                  } tracking-wider transition-colors`}
+              >
+                {currentProject.client}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
@@ -215,53 +225,72 @@ export default function Projects() {
         <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 mt-3 sm:mt-4 mb-auto py-2">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
           <div className="w-full md:w-1/4 flex flex-col items-start justify-center text-left relative z-30">
-            <span className="font-mono text-xs font-bold text-red-500 tracking-widest uppercase mb-2">
-              {currentProject.code}
-            </span>
-            <h2
-              className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
-                ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
-                : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
-                } uppercase leading-none transition-all duration-500`}
-            >
-              {currentProject.shortTitle}
-            </h2>
-            <p
-              className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
-                ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
-                : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
-                } mt-3 font-medium transition-colors`}
-            >
-              {currentProject.category}
-            </p>
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.div
+                key={currentProject.id}
+                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -16, filter: 'blur(4px)' }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-start"
+              >
+                <span className="font-mono text-xs font-bold text-red-500 tracking-widest uppercase mb-2">
+                  {currentProject.code}
+                </span>
+                <h2
+                  className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                    ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
+                    : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
+                    } uppercase leading-none`}
+                >
+                  {currentProject.shortTitle}
+                </h2>
+                <p
+                  className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                    ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
+                    : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
+                    } mt-3 font-medium`}
+                >
+                  {currentProject.category}
+                </p>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Top Prev, Center Active, Bottom Next) */}
           <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1200px]">
             {/* 1. TOP PREVIOUS PROJECT IMAGE (Only rendered when currentIndex > 0) */}
             <div className="h-6 sm:h-8 w-full flex items-end justify-center pointer-events-none select-none z-10">
-              {prevProject ? (
-                <div className="relative transform -rotate-x-12 scale-75 opacity-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                  <img
-                    src={prevProject.image}
-                    alt=""
-                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
-                    draggable={false}
-                  />
-                  {/* Subtle edge depth gradient maintaining clarity */}
-                  <div
-                    className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
-                      }`}
-                  />
-                </div>
-              ) : null}
+              <AnimatePresence mode="popLayout" initial={false}>
+                {prevProject && (
+                  <motion.div
+                    key={prevProject.id}
+                    initial={{ opacity: 0, y: -12, scale: 0.68 }}
+                    animate={{ opacity: 0.9, y: 0, scale: 0.75 }}
+                    exit={{ opacity: 0, y: 12, scale: 0.68 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative transform -rotate-x-12"
+                  >
+                    <img
+                      src={prevProject.image}
+                      alt=""
+                      className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
+                      draggable={false}
+                    />
+                    {/* Subtle edge depth gradient maintaining clarity */}
+                    <div
+                      className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
+                        }`}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* 2. CENTER ACTIVE PROJECT IMAGE (Hero focus, full size, clickable to open case study drawer) */}
             <div
-              key={currentProject.id}
               onClick={() => handleOpenDrawer(currentProject)}
-              className="relative z-20 w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/80 cursor-pointer group transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] transform hover:scale-[1.02] border border-white/10"
+              className="relative z-20 w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/80 cursor-pointer group transform hover:scale-[1.02] transition-transform duration-300 border border-white/10"
               title={`Click to inspect ${currentProject.title}`}
               role="button"
               tabIndex={0}
@@ -271,43 +300,70 @@ export default function Projects() {
                 }
               }}
             >
-              <img
-                src={currentProject.image}
-                alt={currentProject.title}
-                className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:brightness-105"
-                draggable={false}
-              />
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={currentProject.id}
+                  initial={{ opacity: 0, scale: 1.08 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <img
+                    src={currentProject.image}
+                    alt={currentProject.title}
+                    className="w-full h-full object-cover object-center group-hover:brightness-105 transition-[filter] duration-300"
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* 3. BOTTOM NEXT PROJECT IMAGE (Upcoming teaser, non-clickable, no frame, no text) */}
             <div className="h-12 sm:h-16 w-full flex items-start justify-center pointer-events-none select-none z-10">
-              {nextProject ? (
-                <div className="relative transform rotate-x-12 scale-75 opacity-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                  <img
-                    src={nextProject.image}
-                    alt=""
-                    className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
-                    draggable={false}
-                  />
-                  {/* Subtle edge depth gradient maintaining clarity */}
-                  <div
-                    className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
-                      }`}
-                  />
-                </div>
-              ) : null}
+              <AnimatePresence mode="popLayout" initial={false}>
+                {nextProject && (
+                  <motion.div
+                    key={nextProject.id}
+                    initial={{ opacity: 0, y: 12, scale: 0.68 }}
+                    animate={{ opacity: 0.9, y: 0, scale: 0.75 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.68 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative transform rotate-x-12"
+                  >
+                    <img
+                      src={nextProject.image}
+                      alt=""
+                      className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
+                      draggable={false}
+                    />
+                    {/* Subtle edge depth gradient maintaining clarity */}
+                    <div
+                      className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
+                        }`}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
           <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left gap-6">
-            <div className="flex flex-col items-start text-left w-full max-w-xs">
-              <p
-                className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
-                  } font-sans leading-relaxed tracking-normal text-left transition-all duration-500`}
-              >
-                {currentProject.summary}
-              </p>
+            <div className="flex flex-col items-start text-left w-full max-w-xs min-h-[90px]">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.p
+                  key={currentProject.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                    } font-sans leading-relaxed tracking-normal text-left`}
+                >
+                  {currentProject.summary}
+                </motion.p>
+              </AnimatePresence>
 
               <button
                 type="button"
@@ -337,12 +393,19 @@ export default function Projects() {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                <span
-                  className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
-                    } tracking-tight transition-colors text-center flex items-center justify-center`}
-                >
-                  0{currentIndex + 1}
-                </span>
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={currentIndex}
+                    initial={{ opacity: 0, y: 6, scale: 0.85 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.85 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                      } tracking-tight transition-colors text-center flex items-center justify-center`}
+                  >
+                    0{currentIndex + 1}
+                  </motion.span>
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -375,9 +438,20 @@ export default function Projects() {
           </div>
 
           {/* Center Tech Stack */}
-          <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors whitespace-nowrap`}>
-            {currentProject.tech.slice(0, 4).join(' • ')}
-          </span>
+          <div className="overflow-hidden">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={currentProject.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors whitespace-nowrap inline-block`}
+              >
+                {currentProject.tech.slice(0, 4).join(' • ')}
+              </motion.span>
+            </AnimatePresence>
+          </div>
 
           {/* Dynamic Rotating + Divider (between Center & Right) */}
           <div className="flex flex-1 items-center justify-center px-4">
@@ -394,7 +468,20 @@ export default function Projects() {
           </div>
 
           {/* Right Period */}
-          <span className="whitespace-nowrap">{currentProject.period}</span>
+          <div className="overflow-hidden">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={currentProject.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="whitespace-nowrap inline-block"
+              >
+                {currentProject.period}
+              </motion.span>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
