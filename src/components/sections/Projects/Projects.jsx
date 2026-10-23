@@ -842,7 +842,7 @@ export default function Projects() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed inset-0 bg-black/60 z-[1100]"
+              className="fixed inset-0 bg-black/45 z-[1100]"
               onClick={handleCloseDrawer}
               aria-hidden="true"
             />
@@ -857,10 +857,14 @@ export default function Projects() {
               data-lenis-prevent="true"
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
+              style={{
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
+              }}
               className={`fixed top-0 left-0 w-full max-w-lg h-full ${
                 isLight
-                  ? 'bg-white/85 backdrop-blur-xl text-slate-900 border-r border-slate-200/80 shadow-2xl'
-                  : 'bg-[#0d0c10]/80 backdrop-blur-xl text-slate-100 border-r border-white/15'
+                  ? 'bg-white/55 text-slate-900 border-r border-slate-200/80 shadow-2xl'
+                  : 'bg-[#0a090d]/50 text-slate-100 border-r border-white/15 shadow-2xl'
               } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
