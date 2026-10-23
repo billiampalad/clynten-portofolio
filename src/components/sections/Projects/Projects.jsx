@@ -418,94 +418,148 @@ export default function Projects() {
             </AnimatePresence>
           </div>
 
-          {/* Center Column: 3D Vertical Cover Flow Stage (Top Prev, Center Active, Bottom Next) */}
-          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1200px]">
-            {/* 1. TOP PREVIOUS PROJECT IMAGE (Only rendered when currentIndex > 0) */}
-            <div className="h-6 sm:h-8 w-full flex items-end justify-center pointer-events-none select-none z-10">
-              <AnimatePresence mode="popLayout" initial={false}>
-                {prevProject && (
-                  <motion.div
-                    key={prevProject.id}
-                    initial={{ opacity: 0, y: -12, scale: 0.68 }}
-                    animate={{ opacity: 0.9, y: 0, scale: 0.75 }}
-                    exit={{ opacity: 0, y: 12, scale: 0.68 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative transform -rotate-x-12"
-                  >
-                    <img
-                      src={prevProject.image}
-                      alt=""
-                      className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
-                      draggable={false}
-                    />
-                    {/* Subtle edge depth gradient maintaining clarity */}
-                    <div
-                      className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
-                        }`}
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+          {/* Center Column: 3D Vertical Cover Flow Stage (Apple / Codenarts Luxury Perspective) */}
+          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1400px] [transform-style:preserve-3d] py-4 sm:py-6">
+            <div className="relative w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+              {PROJECTS_DATA.map((project, idx) => {
+                const offset = idx - currentIndex
+                const isCenter = offset === 0
+                const isTop = offset === -1
+                const isBottom = offset === 1
+                const isFarTop = offset < -1
+                const isFarBottom = offset > 1
 
-            {/* 2. CENTER ACTIVE PROJECT IMAGE (Hero focus, full size, clickable to open case study drawer) */}
-            <div
-              onClick={() => handleOpenDrawer(currentProject)}
-              className="relative z-20 w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/80 cursor-pointer group transform hover:scale-[1.02] transition-transform duration-300 border border-white/10"
-              title={`Click to inspect ${currentProject.title}`}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handleOpenDrawer(currentProject)
+                // Target physical properties on the 3D depth track
+                let targetY = '0%'
+                let targetZ = 0
+                let targetScale = 1
+                let targetRotateX = 0
+                let targetOpacity = 1
+                let zIndex = 30
+                let filter = 'brightness(1) contrast(1)'
+                let pointerEvents = 'auto'
+
+                if (isCenter) {
+                  targetY = '0%'
+                  targetZ = 0
+                  targetScale = 1
+                  targetRotateX = 0
+                  targetOpacity = 1
+                  zIndex = 30
+                  filter = isLight ? 'brightness(1) contrast(1.02)' : 'brightness(1) contrast(1.05)'
+                  pointerEvents = 'auto'
+                } else if (isTop) {
+                  targetY = '-56%'
+                  targetZ = -140
+                  targetScale = 0.8
+                  targetRotateX = -16
+                  targetOpacity = 0.55
+                  zIndex = 10
+                  filter = 'brightness(0.65) blur(0.5px)'
+                  pointerEvents = 'none'
+                } else if (isBottom) {
+                  targetY = '56%'
+                  targetZ = -140
+                  targetScale = 0.8
+                  targetRotateX = 16
+                  targetOpacity = 0.55
+                  zIndex = 10
+                  filter = 'brightness(0.65) blur(0.5px)'
+                  pointerEvents = 'none'
+                } else if (isFarTop) {
+                  targetY = '-110%'
+                  targetZ = -280
+                  targetScale = 0.65
+                  targetRotateX = -25
+                  targetOpacity = 0
+                  zIndex = 0
+                  filter = 'brightness(0.4) blur(2px)'
+                  pointerEvents = 'none'
+                } else if (isFarBottom) {
+                  targetY = '110%'
+                  targetZ = -280
+                  targetScale = 0.65
+                  targetRotateX = 25
+                  targetOpacity = 0
+                  zIndex = 0
+                  filter = 'brightness(0.4) blur(2px)'
+                  pointerEvents = 'none'
                 }
-              }}
-            >
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={currentProject.id}
-                  initial={{ opacity: 0, scale: 1.08 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.94 }}
-                  transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <img
-                    src={currentProject.image}
-                    alt={currentProject.title}
-                    className="w-full h-full object-cover object-center group-hover:brightness-105 transition-[filter] duration-300"
-                    draggable={false}
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
 
-            {/* 3. BOTTOM NEXT PROJECT IMAGE (Upcoming teaser, non-clickable, no frame, no text) */}
-            <div className="h-12 sm:h-16 w-full flex items-start justify-center pointer-events-none select-none z-10">
-              <AnimatePresence mode="popLayout" initial={false}>
-                {nextProject && (
+                return (
                   <motion.div
-                    key={nextProject.id}
-                    initial={{ opacity: 0, y: 12, scale: 0.68 }}
-                    animate={{ opacity: 0.9, y: 0, scale: 0.75 }}
-                    exit={{ opacity: 0, y: -12, scale: 0.68 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative transform rotate-x-12"
+                    key={project.id}
+                    animate={{
+                      y: targetY,
+                      z: targetZ,
+                      scale: targetScale,
+                      rotateX: targetRotateX,
+                      opacity: targetOpacity,
+                      filter,
+                    }}
+                    transition={{
+                      duration: 0.55,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    style={{
+                      zIndex,
+                      pointerEvents,
+                    }}
+                    onClick={() => isCenter && handleOpenDrawer(project)}
+                    className={`absolute inset-0 w-full h-full rounded-xl overflow-hidden will-change-[transform,opacity] select-none ${
+                      isCenter
+                        ? `cursor-pointer border ${isLight ? 'border-slate-900/15 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.35)]' : 'border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)]'}`
+                        : `border ${isLight ? 'border-slate-900/10 shadow-xl' : 'border-white/10 shadow-2xl shadow-black/90'}`
+                    }`}
+                    title={isCenter ? `Click to inspect ${project.title}` : undefined}
+                    role={isCenter ? 'button' : undefined}
+                    tabIndex={isCenter ? 0 : -1}
+                    onKeyDown={(e) => {
+                      if (isCenter && (e.key === 'Enter' || e.key === ' ')) {
+                        handleOpenDrawer(project)
+                      }
+                    }}
                   >
                     <img
-                      src={nextProject.image}
-                      alt=""
-                      className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-center"
                       draggable={false}
                     />
-                    {/* Subtle edge depth gradient maintaining clarity */}
-                    <div
-                      className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
+
+                    {/* Depth atmospheric gradients for teaser cards */}
+                    {isTop && (
+                      <div
+                        className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-transparent via-transparent ${
+                          isLight ? 'to-[#f8fafc]/40' : 'to-[#0A0907]/40'
                         }`}
-                    />
+                      />
+                    )}
+                    {isBottom && (
+                      <div
+                        className={`pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent ${
+                          isLight ? 'to-[#f8fafc]/40' : 'to-[#0A0907]/40'
+                        }`}
+                      />
+                    )}
+
+                    {/* Center Card Interactive Cyber Overlay */}
+                    {isCenter && (
+                      <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-3 sm:p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-mono font-bold tracking-wider text-white">
+                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                            <span>{project.code}</span>
+                          </div>
+                          <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-red-600/80 backdrop-blur-md text-[10px] font-mono font-bold text-white shadow-lg">
+                            <span>INSPECT CASE STUDY ↗</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
-                )}
-              </AnimatePresence>
+                )
+              })}
             </div>
           </div>
 
