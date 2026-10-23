@@ -135,7 +135,7 @@ function SplitWordsReveal({ text, className = '' }) {
       className={`inline-flex flex-wrap [perspective:600px] ${className}`}
     >
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden py-0.5 mr-[0.28em]">
+        <span key={i} className="inline-block overflow-hidden mr-[0.25em]">
           <motion.span
             variants={wordVariants}
             className="inline-block will-change-[transform,opacity]"
@@ -517,7 +517,7 @@ export default function Projects() {
                 <div
                   key={currentProject.id}
                   className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
-                    } font-sans leading-relaxed tracking-normal text-left`}
+                    } font-sans leading-normal tracking-normal text-left`}
                 >
                   <SplitWordsReveal text={currentProject.summary} />
                 </div>
