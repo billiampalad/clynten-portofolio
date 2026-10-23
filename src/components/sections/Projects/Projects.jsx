@@ -47,6 +47,7 @@ export default function Projects() {
     if (!section || !pinWrapper) return
 
     const trigger = ScrollTrigger.create({
+      id: 'projects-trigger',
       trigger: section,
       start: 'top top',
       end: '+=350%',

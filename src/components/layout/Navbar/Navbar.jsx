@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
-import { gsap } from '@/lib/animations/gsap'
+import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
 
@@ -157,25 +157,89 @@ export default function Navbar({
     }
   }, [onHomeClick])
 
-  // Helper to scroll smoothly and accurately using Locomotive Scroll / Lenis
-  const scrollToTarget = useCallback((targetEl) => {
-    if (!targetEl) return
-
-    if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-      window.__locomotiveScroll.scrollTo(targetEl, {
-        offset: 0,
-        duration: 1.2,
-        immediate: false,
-      })
-    } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-      window.__lenis.scrollTo(targetEl, {
-        offset: 0,
-        duration: 1.2,
-      })
-    } else {
-      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  // Smart landing navigation that navigates accurately to Hero, About, Skills, and Projects
+  const scrollToSection = useCallback((targetId) => {
+    // 1. Target: HERO / HOME (Scroll 0)
+    if (targetId === 'hero' || targetId === 'home') {
+      if (onHomeClick) {
+        onHomeClick()
+      } else if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(0, { duration: 1.2, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(0, { duration: 1.2 })
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+      return
     }
-  }, [])
+
+    // 2. Target: ABOUT
+    // About is the backdrop reveal layer at the landing end of Hero (timeline progress ~0.98)
+    if (targetId === 'about') {
+      const heroTrigger = ScrollTrigger.getById('hero-trigger')
+      const targetY = heroTrigger
+        ? Math.round(heroTrigger.start + (heroTrigger.end - heroTrigger.start) * 0.98)
+        : 0
+
+      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(targetY, { duration: 1.2, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(targetY, { duration: 1.2 })
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
+      }
+      return
+    }
+
+    // 3. Target: PROJECTS
+    // Projects is a pinned showcase. Its exact scroll 0 is projectsTrigger.start
+    if (targetId === 'projects') {
+      const projectsTrigger = ScrollTrigger.getById('projects-trigger')
+      const targetY = projectsTrigger
+        ? Math.round(projectsTrigger.start)
+        : document.getElementById('projects')
+
+      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(targetY, { duration: 1.2, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(targetY, { duration: 1.2 })
+      } else if (typeof targetY === 'number') {
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
+      } else if (targetY) {
+        targetY.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+      return
+    }
+
+    // 4. Target: SKILLS
+    // Skills has a fixed navbar above it, offset: -60 ensures top padding & badge are clearly visible
+    if (targetId === 'skills') {
+      const skillsEl = document.getElementById('skills')
+      if (!skillsEl) return
+
+      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(skillsEl, { offset: -60, duration: 1.2, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(skillsEl, { offset: -60, duration: 1.2 })
+      } else {
+        const top = skillsEl.getBoundingClientRect().top + window.scrollY - 60
+        window.scrollTo({ top, behavior: 'smooth' })
+      }
+      return
+    }
+
+    // 5. Fallback for other sections (Contact, Experience, etc.)
+    const targetEl = document.getElementById(targetId)
+    if (targetEl) {
+      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(targetEl, { offset: -60, duration: 1.2, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(targetEl, { offset: -60, duration: 1.2 })
+      } else {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }, [onHomeClick])
 
   // Smooth scroll handler for anchor links
   const handleLinkClick = useCallback((e, item) => {
@@ -184,23 +248,21 @@ export default function Navbar({
     if (item.href && item.href.startsWith('#')) {
       e.preventDefault()
       const targetId = item.href.slice(1)
-      const targetEl = document.getElementById(targetId)
 
-      if (item.href === '#hero' || item.label?.toLowerCase() === 'home') {
-        if (onHomeClick) {
-          onHomeClick()
+      if (item.href === '#contact' || item.label === 'WORK TOGETHER') {
+        const contactSection = document.getElementById('contact')
+        if (contactSection) {
+          scrollToSection('contact')
         } else {
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+          window.location.href = `mailto:${email}?subject=Collaboration%20Inquiry`
         }
-      } else if (targetEl) {
-        scrollToTarget(targetEl)
-      } else if (item.href === '#contact' || item.label === 'WORK TOGETHER') {
-        window.location.href = `mailto:${email}?subject=Collaboration%20Inquiry`
+      } else {
+        scrollToSection(targetId)
       }
 
       setIsMobileMenuOpen(false)
     }
-  }, [email, onHomeClick, scrollToTarget])
+  }, [email, scrollToSection])
 
   const handleContactClick = (e) => {
     e?.currentTarget?.blur?.()
@@ -208,7 +270,7 @@ export default function Navbar({
     const contactSection = document.getElementById('contact')
     if (contactSection) {
       e.preventDefault()
-      scrollToTarget(contactSection)
+      scrollToSection('contact')
     }
     // If no contact section in DOM, default mailto behavior runs
   }

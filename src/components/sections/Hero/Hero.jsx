@@ -185,6 +185,7 @@ export default function Hero({ onProgressChange }) {
     let lastProgressUpdate = 0
 
     const trigger = ScrollTrigger.create({
+      id: 'hero-trigger',
       trigger: heroSectionRef.current,
       start: HERO_SCROLL_TRIGGER_CONFIG.start,
       end: HERO_SCROLL_TRIGGER_CONFIG.end,
