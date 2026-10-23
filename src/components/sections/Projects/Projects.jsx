@@ -54,7 +54,7 @@ export default function Projects() {
       end: '+=280%',
       pin: pinWrapper,
       pinSpacing: true,
-      scrub: 0.8,
+      scrub: true,
       anticipatePin: 0,
       refreshPriority: -1,
       onUpdate: (self) => {
@@ -68,8 +68,9 @@ export default function Projects() {
         const step = Math.min(Math.floor(scaled), total - 1)
         setCurrentIndex(step)
 
-        // Circle fills from 0 to 1 for each project, and switches project once full
-        const currentCycle = step === total - 1 ? 1 : Math.max(0, Math.min(1, scaled - step))
+        // Circle reaches 100% reliably at 85% of each step and holds full before advancing
+        const cycle = scaled - step
+        const currentCycle = step === total - 1 ? 1 : Math.min(1, Math.max(0, cycle / 0.85))
         setCircleProgress(currentCycle)
       },
     })
@@ -330,7 +331,7 @@ export default function Projects() {
                   r="35"
                 />
                 <circle
-                  className={`${isLight ? 'stroke-slate-900' : 'stroke-white'} transition-all duration-300 ease-out`}
+                  className={`${isLight ? 'stroke-slate-900' : 'stroke-white'} transition-colors duration-500`}
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   fill="transparent"
