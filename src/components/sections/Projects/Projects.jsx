@@ -117,12 +117,12 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className={`relative w-full scroll-mt-16 ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
+      className={`relative w-full ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
     >
       {/* Pinned Viewport Stage (Fills full viewport cleanly) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-16 pb-6 px-6 sm:pt-16 sm:pb-6 sm:px-10 md:pt-16 md:pb-8 md:px-14 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-6 pb-6 px-6 sm:pt-8 sm:pb-6 sm:px-10 md:pt-8 md:pb-8 md:px-14 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -179,7 +179,7 @@ export default function Projects() {
         </div>
 
         {/* Top Header Row */}
-        <div className="relative z-10 w-full flex items-center justify-between">
+        <div className="relative z-10 w-full flex items-center justify-between mt-8 sm:mt-10">
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
               } border backdrop-blur-md transition-colors`}
@@ -343,10 +343,7 @@ export default function Projects() {
         </div>
 
         {/* Bottom Status Ticker Bar */}
-        <div
-          className={`relative z-10 w-full flex items-center justify-between pt-3 border-t ${isLight ? 'border-slate-900/10 text-slate-500' : 'border-white/10 text-slate-500'
-            } font-mono text-[10px] sm:text-xs transition-colors`}
-        >
+        <div className="relative z-10 w-full flex items-center justify-between pt-4 translate-y-3 sm:translate-y-4 md:translate-y-5 text-slate-500 font-mono text-[10px] sm:text-xs transition-colors">
           <span className="hidden sm:inline">
             {currentIndex === PROJECTS_DATA.length - 1
               ? 'FINAL SYSTEM ARCHIVE // END OF SHOWCASE'

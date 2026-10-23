@@ -192,17 +192,17 @@ export default function Navbar({
     }
 
     // 3. Target: PROJECTS
-    // Projects has a fixed navbar above it, offset: -60 ensures top boundary is accurately visible
+    // Directly stops at the top of Projects (offset: 0) at the padding top and WORK badge
     if (targetId === 'projects') {
       const projectsEl = document.getElementById('projects')
       if (!projectsEl) return
 
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(projectsEl, { offset: -60, duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(projectsEl, { offset: 0, duration: 1.2, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(projectsEl, { offset: -60, duration: 1.2 })
+        window.__lenis.scrollTo(projectsEl, { offset: 0, duration: 1.2 })
       } else {
-        const top = projectsEl.getBoundingClientRect().top + window.scrollY - 60
+        const top = projectsEl.getBoundingClientRect().top + window.scrollY
         window.scrollTo({ top, behavior: 'smooth' })
       }
       return
