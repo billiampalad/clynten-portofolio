@@ -135,28 +135,25 @@ export default function Projects() {
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform] ${
-                  isVisible ? 'opacity-100 scale-105' : 'opacity-0 scale-115'
-                }`}
+                className={`absolute inset-0 transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform] ${isVisible ? 'opacity-100 scale-105' : 'opacity-0 scale-115'
+                  }`}
               >
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center filter blur-[28px] sm:blur-[34px] md:blur-[40px] transition-all duration-800 ${
-                    isLight
-                      ? 'brightness-[0.98] contrast-[1.02] saturate-[1.1]'
-                      : 'brightness-[0.70] contrast-[1.12] saturate-[1.25]'
-                  }`}
+                  className={`w-full h-full object-cover object-center filter blur-[2px] sm:blur-[3px] md:blur-[4px] transition-all duration-800 ${isLight
+                    ? 'brightness-[1.0] contrast-[1.04] saturate-[1.1]'
+                    : 'brightness-[0.88] contrast-[1.08] saturate-[1.2]'
+                    }`}
                   draggable={false}
                 />
 
                 {/* Ambient Project Accent Color Glow */}
                 <div
-                  className={`absolute inset-0 transition-opacity duration-1000 ${
-                    isLight ? 'opacity-25' : 'opacity-40'
-                  }`}
+                  className={`absolute inset-0 transition-opacity duration-1000 ${isLight ? 'opacity-20' : 'opacity-30'
+                    }`}
                   style={{
-                    background: `radial-gradient(circle at 50% 50%, ${project.themeColor || 'rgba(244,63,94,0.3)'}, transparent 70%)`,
+                    background: `radial-gradient(circle at 50% 50%, ${project.themeColor || 'rgba(244,63,94,0.3)'}, transparent 75%)`,
                   }}
                 />
               </div>
@@ -165,20 +162,18 @@ export default function Projects() {
 
           {/* Adaptive Contrast Overlay: Dark/Light Mode */}
           <div
-            className={`absolute inset-0 transition-colors duration-700 ease-out ${
-              isLight
-                ? 'bg-[#f8fafc]/70 backdrop-brightness-95'
-                : 'bg-[#0A0907]/60 backdrop-brightness-90'
-            }`}
+            className={`absolute inset-0 transition-colors duration-700 ease-out ${isLight
+              ? 'bg-[#f8fafc]/45 backdrop-brightness-95'
+              : 'bg-[#0A0907]/35 backdrop-brightness-95'
+              }`}
           />
 
           {/* Radial Vignette: keeps center stage clear and focused */}
           <div
-            className={`absolute inset-0 transition-all duration-700 ${
-              isLight
-                ? 'bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(248,250,252,0.85)_88%)]'
-                : 'bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,9,7,0.70)_88%)]'
-            }`}
+            className={`absolute inset-0 transition-all duration-700 ${isLight
+              ? 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(248,250,252,0.65)_92%)]'
+              : 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(10,9,7,0.50)_92%)]'
+              }`}
           />
         </div>
 
