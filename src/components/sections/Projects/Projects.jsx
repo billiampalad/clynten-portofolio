@@ -256,19 +256,19 @@ const drawerBackdropVariants = {
 
 const drawerPanelVariants = {
   hidden: {
-    x: '100%',
+    x: '-100%',
     boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
   },
   visible: {
     x: '0%',
-    boxShadow: '-20px 0 50px rgba(0, 0, 0, 0.45)',
+    boxShadow: '20px 0 50px rgba(0, 0, 0, 0.45)',
     transition: {
       duration: 0.45,
       ease: [0.16, 1, 0.3, 1],
     },
   },
   exit: {
-    x: '100%',
+    x: '-100%',
     boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
     transition: {
       duration: 0.35,
@@ -392,7 +392,7 @@ export default function Projects() {
     }
   }, [])
 
-  // Close drawer on ESC key
+  // Close drawer on ESC key and freeze main page scroll while drawer is open
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -403,13 +403,33 @@ export default function Projects() {
     if (isDrawerOpen) {
       window.addEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+      // Stop LocomotiveScroll / Lenis so background does not scroll
+      if (window.__lenis && typeof window.__lenis.stop === 'function') {
+        window.__lenis.stop()
+      } else if (window.__locomotiveScroll && typeof window.__locomotiveScroll.stop === 'function') {
+        window.__locomotiveScroll.stop()
+      }
     } else {
       document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      // Resume LocomotiveScroll / Lenis
+      if (window.__lenis && typeof window.__lenis.start === 'function') {
+        window.__lenis.start()
+      } else if (window.__locomotiveScroll && typeof window.__locomotiveScroll.start === 'function') {
+        window.__locomotiveScroll.start()
+      }
     }
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      if (window.__lenis && typeof window.__lenis.start === 'function') {
+        window.__lenis.start()
+      } else if (window.__locomotiveScroll && typeof window.__locomotiveScroll.start === 'function') {
+        window.__locomotiveScroll.start()
+      }
     }
   }, [isDrawerOpen])
 
@@ -815,30 +835,33 @@ export default function Projects() {
       <AnimatePresence>
         {isDrawerOpen && selectedProject && (
           <>
-            {/* Modal Backdrop */}
+            {/* Modal Backdrop (z-[1100] to sit above navbar z-1000) */}
             <motion.div
               key="case-study-backdrop"
               variants={drawerBackdropVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100]"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[1100]"
               onClick={handleCloseDrawer}
               aria-hidden="true"
             />
 
-            {/* Modal Drawer Aside Panel */}
+            {/* Modal Drawer Aside Panel - Positioned on LEFT, z-[1101] above navbar, isolated scroll */}
             <motion.aside
               key="case-study-panel"
               variants={drawerPanelVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className={`fixed top-0 right-0 w-full max-w-2xl h-full ${
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              className={`fixed top-0 left-0 w-full max-w-2xl h-full ${
                 isLight
-                  ? 'bg-white text-slate-900 border-l border-slate-200 shadow-2xl'
-                  : 'bg-[#0d0c10] text-slate-100 border-l border-white/15'
-              } p-6 sm:p-10 z-[101] overflow-y-auto`}
+                  ? 'bg-white text-slate-900 border-r border-slate-200 shadow-2xl'
+                  : 'bg-[#0d0c10] text-slate-100 border-r border-white/15'
+              } p-6 sm:p-10 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
               role="dialog"
