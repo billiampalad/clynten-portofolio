@@ -75,6 +75,79 @@ function SplitTextReveal({ text, className = '' }) {
   )
 }
 
+// Kinetic Staggered Word Reveal for Paragraphs & Descriptions
+function SplitWordsReveal({ text, className = '' }) {
+  const words = text.split(' ')
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.016,
+        delayChildren: 0.02,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.008,
+        staggerDirection: -1,
+      },
+    },
+  }
+
+  const wordVariants = {
+    hidden: {
+      y: '105%',
+      opacity: 0,
+      rotateX: -30,
+      filter: 'blur(3px)',
+    },
+    visible: {
+      y: '0%',
+      opacity: 1,
+      rotateX: 0,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    exit: {
+      y: '-105%',
+      opacity: 0,
+      rotateX: 30,
+      filter: 'blur(3px)',
+      transition: {
+        duration: 0.25,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  }
+
+  return (
+    <motion.span
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className={`inline-flex flex-wrap [perspective:600px] ${className}`}
+    >
+      {words.map((word, i) => (
+        <span key={i} className="inline-block overflow-hidden py-0.5 mr-[0.28em]">
+          <motion.span
+            variants={wordVariants}
+            className="inline-block will-change-[transform,opacity]"
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
+  )
+}
+
 export default function Projects() {
   const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
@@ -319,30 +392,32 @@ export default function Projects() {
                   </motion.div>
                 </div>
 
-                {/* 2. Main Title with Kinetic Character Stagger Reveal */}
-                <h2
-                  className={`font-mono font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
-                    ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
-                    : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
-                    } uppercase leading-none`}
-                >
-                  <SplitTextReveal text={currentProject.shortTitle} />
-                </h2>
-
-                {/* 3. Category Subtitle with Masked Line Reveal */}
-                <div className="overflow-hidden py-0.5 mt-3">
-                  <motion.p
+                {/* 2. Main Title - Simple Smooth Slide Reveal */}
+                <div className="overflow-hidden py-1">
+                  <motion.h2
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
-                    transition={{ duration: 0.4, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className={`font-mono font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                      ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
+                      : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
+                      } uppercase leading-none`}
+                  >
+                    {currentProject.shortTitle}
+                  </motion.h2>
+                </div>
+
+                {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
+                <div className="overflow-hidden py-0.5 mt-3">
+                  <p
                     className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
                       ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
                       : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
                       } font-medium`}
                   >
-                    {currentProject.category}
-                  </motion.p>
+                    <SplitTextReveal text={currentProject.category} />
+                  </p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -443,20 +518,13 @@ export default function Projects() {
           <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left gap-6">
             <div className="flex flex-col items-start text-left w-full max-w-xs min-h-[90px]">
               <AnimatePresence mode="popLayout" initial={false}>
-                <motion.div
+                <div
                   key={currentProject.id}
-                  initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, y: -14, filter: 'blur(6px)' }}
-                  transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                    } font-sans leading-relaxed tracking-normal text-left`}
                 >
-                  <p
-                    className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
-                      } font-sans leading-relaxed tracking-normal text-left`}
-                  >
-                    {currentProject.summary}
-                  </p>
-                </motion.div>
+                  <SplitWordsReveal text={currentProject.summary} />
+                </div>
               </AnimatePresence>
 
               <button
