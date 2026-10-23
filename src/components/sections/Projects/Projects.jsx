@@ -5,6 +5,76 @@ import { PROJECTS_DATA } from '@/content/projects'
 
 const CIRCUMFERENCE = 219.91 // 2 * PI * 35
 
+// Kinetic Staggered Character Reveal for Project Title
+function SplitTextReveal({ text, className = '' }) {
+  const letters = text.split('')
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.02,
+        delayChildren: 0.03,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.012,
+        staggerDirection: -1,
+      },
+    },
+  }
+
+  const charVariants = {
+    hidden: {
+      y: '105%',
+      opacity: 0,
+      rotateX: -40,
+    },
+    visible: {
+      y: '0%',
+      opacity: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.42,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    exit: {
+      y: '-105%',
+      opacity: 0,
+      rotateX: 40,
+      transition: {
+        duration: 0.28,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  }
+
+  return (
+    <motion.span
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className={`inline-flex flex-wrap overflow-hidden [perspective:600px] ${className}`}
+    >
+      {letters.map((char, i) => (
+        <span key={i} className="inline-block overflow-hidden py-0.5">
+          <motion.span
+            variants={charVariants}
+            className="inline-block will-change-[transform,opacity]"
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
+  )
+}
+
 export default function Projects() {
   const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
@@ -204,13 +274,13 @@ export default function Projects() {
             </span>
           </div>
 
-          <div className="hidden sm:block">
+          <div className="hidden sm:block h-5 overflow-hidden flex items-center">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
+                initial={{ y: '100%', opacity: 0 }}
+                animate={{ y: '0%', opacity: 1 }}
+                exit={{ y: '-100%', opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className={`font-mono text-xs ${isLight ? 'text-slate-600' : 'text-slate-400'
                   } tracking-wider transition-colors`}
@@ -228,31 +298,52 @@ export default function Projects() {
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -16, filter: 'blur(4px)' }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
                 className="flex flex-col items-start"
               >
-                <span className="font-mono text-xs font-bold text-red-500 tracking-widest uppercase mb-2">
-                  {currentProject.code}
-                </span>
+                {/* 1. Technical Code Badge with Reveal */}
+                <div className="overflow-hidden py-0.5 mb-2">
+                  <motion.div
+                    initial={{ y: '100%', opacity: 0 }}
+                    animate={{ y: '0%', opacity: 1 }}
+                    exit={{ y: '-100%', opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-flex items-center gap-1.5"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="font-mono text-xs font-bold text-red-500 tracking-[0.2em] uppercase">
+                      {currentProject.code}
+                    </span>
+                  </motion.div>
+                </div>
+
+                {/* 2. Main Title with Kinetic Character Stagger Reveal */}
                 <h2
-                  className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                  className={`font-mono font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
                     ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
                     : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
                     } uppercase leading-none`}
                 >
-                  {currentProject.shortTitle}
+                  <SplitTextReveal text={currentProject.shortTitle} />
                 </h2>
-                <p
-                  className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
-                    ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
-                    : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
-                    } mt-3 font-medium`}
-                >
-                  {currentProject.category}
-                </p>
+
+                {/* 3. Category Subtitle with Masked Line Reveal */}
+                <div className="overflow-hidden py-0.5 mt-3">
+                  <motion.p
+                    initial={{ y: '100%', opacity: 0 }}
+                    animate={{ y: '0%', opacity: 1 }}
+                    exit={{ y: '-100%', opacity: 0 }}
+                    transition={{ duration: 0.4, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
+                      ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
+                      : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
+                      } font-medium`}
+                  >
+                    {currentProject.category}
+                  </motion.p>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -352,26 +443,29 @@ export default function Projects() {
           <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left gap-6">
             <div className="flex flex-col items-start text-left w-full max-w-xs min-h-[90px]">
               <AnimatePresence mode="popLayout" initial={false}>
-                <motion.p
+                <motion.div
                   key={currentProject.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
-                    } font-sans leading-relaxed tracking-normal text-left`}
+                  initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -14, filter: 'blur(6px)' }}
+                  transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {currentProject.summary}
-                </motion.p>
+                  <p
+                    className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                      } font-sans leading-relaxed tracking-normal text-left`}
+                  >
+                    {currentProject.summary}
+                  </p>
+                </motion.div>
               </AnimatePresence>
 
               <button
                 type="button"
                 onClick={() => handleOpenDrawer(currentProject)}
-                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/40 hover:border-red-500 text-red-500 hover:text-white font-mono text-xs font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-red-500/10"
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/40 hover:border-red-500 text-red-500 hover:text-white font-mono text-xs font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-red-500/10 group/btn"
               >
                 <span>EXPLORE CASE STUDY</span>
-                <span aria-hidden="true">→</span>
+                <span className="transform transition-transform duration-300 group-hover/btn:translate-x-1" aria-hidden="true">→</span>
               </button>
             </div>
 
@@ -392,20 +486,23 @@ export default function Projects() {
                   }}
                 />
               </svg>
+              {/* Odometer Rolling Counter Display */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                <AnimatePresence mode="popLayout" initial={false}>
-                  <motion.span
-                    key={currentIndex}
-                    initial={{ opacity: 0, y: 6, scale: 0.85 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -6, scale: 0.85 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
-                      } tracking-tight transition-colors text-center flex items-center justify-center`}
-                  >
-                    0{currentIndex + 1}
-                  </motion.span>
-                </AnimatePresence>
+                <div className="h-8 sm:h-10 overflow-hidden flex items-center justify-center">
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    <motion.span
+                      key={currentIndex}
+                      initial={{ y: '100%', opacity: 0, filter: 'blur(3px)' }}
+                      animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                      exit={{ y: '-100%', opacity: 0, filter: 'blur(3px)' }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                        } tracking-tight transition-colors text-center inline-block`}
+                    >
+                      0{currentIndex + 1}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
           </div>
@@ -438,14 +535,14 @@ export default function Projects() {
           </div>
 
           {/* Center Tech Stack */}
-          <div className="overflow-hidden">
+          <div className="h-5 overflow-hidden flex items-center">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.span
                 key={currentProject.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ y: '100%', opacity: 0 }}
+                animate={{ y: '0%', opacity: 1 }}
+                exit={{ y: '-100%', opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors whitespace-nowrap inline-block`}
               >
                 {currentProject.tech.slice(0, 4).join(' • ')}
@@ -468,14 +565,14 @@ export default function Projects() {
           </div>
 
           {/* Right Period */}
-          <div className="overflow-hidden">
+          <div className="h-5 overflow-hidden flex items-center justify-end">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.span
                 key={currentProject.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ y: '100%', opacity: 0 }}
+                animate={{ y: '0%', opacity: 1 }}
+                exit={{ y: '-100%', opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="whitespace-nowrap inline-block"
               >
                 {currentProject.period}
