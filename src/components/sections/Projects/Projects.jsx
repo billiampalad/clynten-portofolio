@@ -241,6 +241,66 @@ const bottomNextVariants = {
   }),
 }
 
+// Modal Drawer Motion Variants
+const drawerBackdropVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.3, ease: 'easeOut' },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.25, ease: 'easeIn' },
+  },
+}
+
+const drawerPanelVariants = {
+  hidden: {
+    x: '100%',
+    boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+  },
+  visible: {
+    x: '0%',
+    boxShadow: '-20px 0 50px rgba(0, 0, 0, 0.45)',
+    transition: {
+      duration: 0.45,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+  exit: {
+    x: '100%',
+    boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+    transition: {
+      duration: 0.35,
+      ease: [0.7, 0, 0.84, 0],
+    },
+  },
+}
+
+const drawerContentVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.12,
+    },
+  },
+}
+
+const drawerItemVariants = {
+  hidden: { opacity: 0, y: 18, filter: 'blur(3px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.35,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
+
 export default function Projects() {
   const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
@@ -752,163 +812,215 @@ export default function Projects() {
       </div>
 
       {/* Case Study Off-Canvas Drawer Modal */}
-      <div
-        className={`fixed inset-0 bg-black/80 backdrop-blur-md z-[100] transition-opacity duration-400 ${isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-          }`}
-        onClick={handleCloseDrawer}
-        aria-hidden="true"
-      />
+      <AnimatePresence>
+        {isDrawerOpen && selectedProject && (
+          <>
+            {/* Modal Backdrop */}
+            <motion.div
+              key="case-study-backdrop"
+              variants={drawerBackdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100]"
+              onClick={handleCloseDrawer}
+              aria-hidden="true"
+            />
 
-      <aside
-        className={`fixed top-0 right-0 w-full max-w-2xl h-full ${isLight
-          ? 'bg-white text-slate-900 border-l border-slate-200 shadow-2xl'
-          : 'bg-[#0d0c10] text-slate-100 border-l border-white/15'
-          } p-6 sm:p-10 z-[101] overflow-y-auto transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        aria-label="Project Case Study"
-        aria-modal="true"
-        role="dialog"
-      >
-        {selectedProject && (
-          <div className="flex flex-col gap-6 font-sans">
-            <div
-              className={`flex items-center justify-between pb-4 border-b ${isLight ? 'border-slate-200' : 'border-white/10'
-                }`}
+            {/* Modal Drawer Aside Panel */}
+            <motion.aside
+              key="case-study-panel"
+              variants={drawerPanelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className={`fixed top-0 right-0 w-full max-w-2xl h-full ${
+                isLight
+                  ? 'bg-white text-slate-900 border-l border-slate-200 shadow-2xl'
+                  : 'bg-[#0d0c10] text-slate-100 border-l border-white/15'
+              } p-6 sm:p-10 z-[101] overflow-y-auto`}
+              aria-label="Project Case Study"
+              aria-modal="true"
+              role="dialog"
             >
-              <span className="font-mono text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-md">
-                {selectedProject.code}
-              </span>
-              <button
-                type="button"
-                onClick={handleCloseDrawer}
-                className={`px-3 py-1.5 rounded-lg ${isLight
-                  ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
-                  : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
-                  } font-mono text-xs font-bold transition-all`}
+              <motion.div
+                variants={drawerContentVariants}
+                initial="hidden"
+                animate="visible"
+                className="flex flex-col gap-6 font-sans"
               >
-                ✕ CLOSE
-              </button>
-            </div>
-
-            <div>
-              <h3
-                className={`font-mono font-black text-2xl sm:text-3xl ${isLight ? 'text-slate-900' : 'text-white'
-                  } tracking-tight mb-1`}
-              >
-                {selectedProject.title}
-              </h3>
-              <p
-                className={`font-mono text-xs sm:text-sm ${isLight ? 'text-slate-600' : 'text-slate-400'
+                {/* 1. Top Bar: Code Badge & Close Button */}
+                <motion.div
+                  variants={drawerItemVariants}
+                  className={`flex items-center justify-between pb-4 border-b ${
+                    isLight ? 'border-slate-200' : 'border-white/10'
                   }`}
-              >
-                {selectedProject.subtitle}
-              </p>
-            </div>
-
-            {/* Overview */}
-            <div
-              className={`p-4 rounded-xl ${isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
-                } border`}
-            >
-              <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-2">
-                // SYSTEM OVERVIEW
-              </span>
-              <p className={`text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'} leading-relaxed`}>
-                {selectedProject.caseStudy.overview}
-              </p>
-            </div>
-
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-3 gap-3">
-              {selectedProject.metrics.map((m, idx) => (
-                <div
-                  key={idx}
-                  className={`p-3 rounded-lg ${isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
-                    } border text-center`}
                 >
-                  <span
-                    className={`block font-mono text-lg font-black ${isLight ? 'text-slate-900' : 'text-white'
-                      }`}
-                  >
-                    {m.val}
+                  <span className="font-mono text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-md">
+                    {selectedProject.code}
                   </span>
-                  <span
-                    className={`font-mono text-[9px] ${isLight ? 'text-slate-500' : 'text-slate-400'
-                      } uppercase tracking-wider`}
+                  <button
+                    type="button"
+                    onClick={handleCloseDrawer}
+                    className={`px-3 py-1.5 rounded-lg ${
+                      isLight
+                        ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
+                        : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
+                    } font-mono text-xs font-bold transition-all cursor-pointer`}
                   >
-                    {m.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+                    ✕ CLOSE
+                  </button>
+                </motion.div>
 
-            {/* Challenges */}
-            <div>
-              <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                // ARCHITECTURAL CHALLENGES
-              </span>
-              <ul className="flex flex-col gap-2">
-                {selectedProject.caseStudy.challenges.map((ch, idx) => (
-                  <li key={idx} className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
-                    <span className="text-red-500 font-bold font-mono">▸</span>
-                    <span>{ch}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Solutions */}
-            <div>
-              <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                // ENGINEERED SOLUTIONS
-              </span>
-              <ul className="flex flex-col gap-2">
-                {selectedProject.caseStudy.solutions.map((sol, idx) => (
-                  <li key={idx} className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
-                    <span className="text-emerald-500 font-bold font-mono">✓</span>
-                    <span>{sol}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Deliverables */}
-            <div>
-              <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                // SYSTEM DELIVERABLES
-              </span>
-              <ul className="flex flex-col gap-2">
-                {selectedProject.caseStudy.deliverables.map((del, idx) => (
-                  <li key={idx} className={`flex items-start gap-2.5 text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
-                    <span className="text-red-500 font-bold font-mono">■</span>
-                    <span>{del}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Tech Stack */}
-            <div>
-              <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
-                // TECHNOLOGY STACK
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {selectedProject.tech.map((t) => (
-                  <span
-                    key={t}
-                    className={`px-3 py-1 rounded-md ${isLight
-                      ? 'bg-slate-100 border-slate-200 text-slate-800'
-                      : 'bg-white/[0.05] border-white/10 text-slate-300'
-                      } border font-mono text-xs font-semibold`}
+                {/* 2. Title & Subtitle */}
+                <motion.div variants={drawerItemVariants}>
+                  <h3
+                    className={`font-mono font-black text-2xl sm:text-3xl ${
+                      isLight ? 'text-slate-900' : 'text-white'
+                    } tracking-tight mb-1`}
                   >
-                    {t}
+                    {selectedProject.title}
+                  </h3>
+                  <p
+                    className={`font-mono text-xs sm:text-sm ${
+                      isLight ? 'text-slate-600' : 'text-slate-400'
+                    }`}
+                  >
+                    {selectedProject.subtitle}
+                  </p>
+                </motion.div>
+
+                {/* 3. System Overview */}
+                <motion.div
+                  variants={drawerItemVariants}
+                  className={`p-4 rounded-xl ${
+                    isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
+                  } border`}
+                >
+                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-2">
+                    // SYSTEM OVERVIEW
                   </span>
-                ))}
-              </div>
-            </div>
-          </div>
+                  <p className={`text-sm ${isLight ? 'text-slate-700' : 'text-slate-300'} leading-relaxed`}>
+                    {selectedProject.caseStudy.overview}
+                  </p>
+                </motion.div>
+
+                {/* 4. Metrics Grid */}
+                <motion.div variants={drawerItemVariants} className="grid grid-cols-3 gap-3">
+                  {selectedProject.metrics.map((m, idx) => (
+                    <motion.div
+                      key={idx}
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.2 }}
+                      className={`p-3 rounded-lg ${
+                        isLight ? 'bg-slate-100/70 border-slate-200/80' : 'bg-white/[0.03] border-white/5'
+                      } border text-center`}
+                    >
+                      <span
+                        className={`block font-mono text-lg font-black ${
+                          isLight ? 'text-slate-900' : 'text-white'
+                        }`}
+                      >
+                        {m.val}
+                      </span>
+                      <span
+                        className={`font-mono text-[9px] ${
+                          isLight ? 'text-slate-500' : 'text-slate-400'
+                        } uppercase tracking-wider`}
+                      >
+                        {m.label}
+                      </span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+
+                {/* 5. Architectural Challenges */}
+                <motion.div variants={drawerItemVariants}>
+                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
+                    // ARCHITECTURAL CHALLENGES
+                  </span>
+                  <ul className="flex flex-col gap-2">
+                    {selectedProject.caseStudy.challenges.map((ch, idx) => (
+                      <li
+                        key={idx}
+                        className={`flex items-start gap-2.5 text-sm ${
+                          isLight ? 'text-slate-700' : 'text-slate-300'
+                        }`}
+                      >
+                        <span className="text-red-500 font-bold font-mono">▸</span>
+                        <span>{ch}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                {/* 6. Engineered Solutions */}
+                <motion.div variants={drawerItemVariants}>
+                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
+                    // ENGINEERED SOLUTIONS
+                  </span>
+                  <ul className="flex flex-col gap-2">
+                    {selectedProject.caseStudy.solutions.map((sol, idx) => (
+                      <li
+                        key={idx}
+                        className={`flex items-start gap-2.5 text-sm ${
+                          isLight ? 'text-slate-700' : 'text-slate-300'
+                        }`}
+                      >
+                        <span className="text-emerald-500 font-bold font-mono">✓</span>
+                        <span>{sol}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                {/* 7. System Deliverables */}
+                <motion.div variants={drawerItemVariants}>
+                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
+                    // SYSTEM DELIVERABLES
+                  </span>
+                  <ul className="flex flex-col gap-2">
+                    {selectedProject.caseStudy.deliverables.map((del, idx) => (
+                      <li
+                        key={idx}
+                        className={`flex items-start gap-2.5 text-sm ${
+                          isLight ? 'text-slate-700' : 'text-slate-300'
+                        }`}
+                      >
+                        <span className="text-red-500 font-bold font-mono">■</span>
+                        <span>{del}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                {/* 8. Technology Stack */}
+                <motion.div variants={drawerItemVariants}>
+                  <span className="block font-mono text-xs font-bold text-red-500 tracking-wider uppercase mb-3">
+                    // TECHNOLOGY STACK
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.tech.map((t) => (
+                      <motion.span
+                        key={t}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.15 }}
+                        className={`px-3 py-1 rounded-md ${
+                          isLight
+                            ? 'bg-slate-100 border-slate-200 text-slate-800'
+                            : 'bg-white/[0.05] border-white/10 text-slate-300'
+                        } border font-mono text-xs font-semibold`}
+                      >
+                        {t}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+            </motion.aside>
+          </>
         )}
-      </aside>
+      </AnimatePresence>
     </section>
   )
 }
