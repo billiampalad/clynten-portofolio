@@ -399,9 +399,7 @@ export default function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight
-                      ? 'text-slate-950 drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]'
-                      : 'text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]'
+                    className={`font-mono font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -411,9 +409,7 @@ export default function Projects() {
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
                 <div className="overflow-hidden py-0.5 mt-3">
                   <p
-                    className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight
-                      ? 'text-slate-600 drop-shadow-[0_1px_6px_rgba(255,255,255,0.7)]'
-                      : 'text-slate-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]'
+                    className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
                   >
                     <SplitTextReveal text={currentProject.category} />
