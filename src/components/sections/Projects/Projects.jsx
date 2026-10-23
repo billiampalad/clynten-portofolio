@@ -119,10 +119,10 @@ export default function Projects() {
       ref={sectionRef}
       className={`relative w-full scroll-mt-16 ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
     >
-      {/* Pinned 100vh Fullscreen Viewport Stage */}
+      {/* Pinned Viewport Stage (Fills visible screen below navbar) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-16 pb-6 px-6 sm:pt-16 sm:pb-8 sm:px-10 md:pt-16 md:pb-10 md:px-14 select-none box-border"
+        className="relative w-full h-[calc(100vh-64px)] min-h-[calc(100vh-64px)] overflow-hidden flex flex-col justify-between pt-4 pb-4 px-6 sm:pt-5 sm:pb-5 sm:px-10 md:pt-6 md:pb-6 md:px-14 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
