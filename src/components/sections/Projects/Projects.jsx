@@ -161,19 +161,21 @@ export default function Projects() {
             )
           })}
 
-          {/* Adaptive Contrast Overlay: Dark/Light Mode */}
+          {/* Adaptive Contrast Overlay: Dark/Light Mode (Fade in only on scroll > 0.02) */}
           <div
-            className={`absolute inset-0 transition-colors duration-700 ease-out ${isLight
-              ? 'bg-[#f8fafc]/45 backdrop-brightness-95'
-              : 'bg-[#0A0907]/35 backdrop-brightness-95'
+            className={`absolute inset-0 transition-opacity duration-700 ease-out ${scrollProgress > 0.02 ? 'opacity-100' : 'opacity-0'
+              } ${isLight
+                ? 'bg-[#f8fafc]/45 backdrop-brightness-95'
+                : 'bg-[#0A0907]/35 backdrop-brightness-95'
               }`}
           />
 
-          {/* Radial Vignette: keeps center stage clear and focused */}
+          {/* Radial Vignette: keeps center stage clear and focused (Fade in only on scroll > 0.02) */}
           <div
-            className={`absolute inset-0 transition-all duration-700 ${isLight
-              ? 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(248,250,252,0.65)_92%)]'
-              : 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(10,9,7,0.50)_92%)]'
+            className={`absolute inset-0 transition-opacity duration-700 ${scrollProgress > 0.02 ? 'opacity-100' : 'opacity-0'
+              } ${isLight
+                ? 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(248,250,252,0.65)_92%)]'
+                : 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(10,9,7,0.50)_92%)]'
               }`}
           />
         </div>
