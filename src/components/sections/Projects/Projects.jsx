@@ -9,6 +9,7 @@ export default function Projects() {
   const pinWrapperRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [circleProgress, setCircleProgress] = useState(0)
   const [selectedProject, setSelectedProject] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isLight, setIsLight] = useState(() => {
@@ -60,10 +61,16 @@ export default function Projects() {
         const progress = Math.max(0, Math.min(1, self.progress))
         setScrollProgress(progress)
 
-        // Calculate active project index based on scroll range
+        // Calculate active project index and circle fill progress
         const total = PROJECTS_DATA.length
-        const step = Math.min(Math.floor(progress * total), total - 1)
+        const numTransitions = total - 1
+        const scaled = progress * numTransitions
+        const step = Math.min(Math.floor(scaled), total - 1)
         setCurrentIndex(step)
+
+        // Circle fills from 0 to 1 for each project, and switches project once full
+        const currentCycle = step === total - 1 ? 1 : Math.max(0, Math.min(1, scaled - step))
+        setCircleProgress(currentCycle)
       },
     })
 
@@ -111,7 +118,7 @@ export default function Projects() {
   const currentProject = PROJECTS_DATA[currentIndex] || PROJECTS_DATA[0]
   const prevProject = currentIndex > 0 ? PROJECTS_DATA[currentIndex - 1] : null
   const nextProject = currentIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[currentIndex + 1] : null
-  const strokeDashoffset = CIRCUMFERENCE - scrollProgress * CIRCUMFERENCE
+  const strokeDashoffset = CIRCUMFERENCE - circleProgress * CIRCUMFERENCE
 
   return (
     <section
