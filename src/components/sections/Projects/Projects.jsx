@@ -117,7 +117,7 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className={`relative w-full ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
+      className={`relative w-full scroll-mt-16 ${isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#0A0907] text-slate-100'} transition-colors duration-500`}
     >
       {/* Pinned 100vh Fullscreen Viewport Stage */}
       <div

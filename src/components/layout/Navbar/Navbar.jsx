@@ -192,21 +192,18 @@ export default function Navbar({
     }
 
     // 3. Target: PROJECTS
-    // Projects is a pinned showcase. Its exact scroll 0 is projectsTrigger.start
+    // Projects has a fixed navbar above it, offset: -60 ensures top boundary is accurately visible
     if (targetId === 'projects') {
-      const projectsTrigger = ScrollTrigger.getById('projects-trigger')
-      const targetY = projectsTrigger
-        ? Math.round(projectsTrigger.start)
-        : document.getElementById('projects')
+      const projectsEl = document.getElementById('projects')
+      if (!projectsEl) return
 
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetY, { duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(projectsEl, { offset: -60, duration: 1.2, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetY, { duration: 1.2 })
-      } else if (typeof targetY === 'number') {
-        window.scrollTo({ top: targetY, behavior: 'smooth' })
-      } else if (targetY) {
-        targetY.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        window.__lenis.scrollTo(projectsEl, { offset: -60, duration: 1.2 })
+      } else {
+        const top = projectsEl.getBoundingClientRect().top + window.scrollY - 60
+        window.scrollTo({ top, behavior: 'smooth' })
       }
       return
     }
