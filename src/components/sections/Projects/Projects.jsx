@@ -148,97 +148,11 @@ function SplitWordsReveal({ text, className = '' }) {
   )
 }
 
-// 3D Vertical Cover Flow Variants for Center Active Card
-const centerCoverFlowVariants = {
-  enter: (direction) => ({
-    y: direction > 0 ? '55%' : '-55%',
-    rotateX: direction > 0 ? 14 : -14,
-    scale: 0.88,
-    opacity: 0,
-    filter: 'blur(3px)',
-  }),
-  center: {
-    y: '0%',
-    rotateX: 0,
-    scale: 1,
-    opacity: 1,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.52,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: (direction) => ({
-    y: direction > 0 ? '-55%' : '55%',
-    rotateX: direction > 0 ? -14 : 14,
-    scale: 0.88,
-    opacity: 0,
-    filter: 'blur(3px)',
-    transition: {
-      duration: 0.45,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
-}
-
-// 3D Vertical Cover Flow Variants for Top Previous Card
-const topPrevVariants = {
-  enter: (direction) => ({
-    y: direction > 0 ? 25 : -25,
-    rotateX: -12,
-    scale: 0.72,
-    opacity: 0,
-  }),
-  center: {
-    y: 0,
-    rotateX: -12,
-    scale: 0.75,
-    opacity: 0.9,
-    transition: {
-      duration: 0.48,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: (direction) => ({
-    y: direction > 0 ? -25 : 25,
-    rotateX: -16,
-    scale: 0.7,
-    opacity: 0,
-    transition: {
-      duration: 0.38,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
-}
-
-// 3D Vertical Cover Flow Variants for Bottom Next Card
-const bottomNextVariants = {
-  enter: (direction) => ({
-    y: direction > 0 ? 25 : -25,
-    rotateX: 12,
-    scale: 0.72,
-    opacity: 0,
-  }),
-  center: {
-    y: 0,
-    rotateX: 12,
-    scale: 0.75,
-    opacity: 0.9,
-    transition: {
-      duration: 0.48,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: (direction) => ({
-    y: direction > 0 ? -25 : 25,
-    rotateX: 16,
-    scale: 0.7,
-    opacity: 0,
-    transition: {
-      duration: 0.38,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
+// Framer Motion 3D Physics Spring for Tilted Coverflow (matching reference)
+const COVERFLOW_SPRING = {
+  type: 'spring',
+  stiffness: 240,
+  damping: 30,
 }
 
 // Modal Drawer Motion Variants
@@ -601,97 +515,113 @@ export default function Projects() {
             </AnimatePresence>
           </div>
 
-          {/* Center Column: 3D Vertical Cover Flow Stage (Top Prev, Center Active, Bottom Next) */}
-          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1200px]">
-            {/* 1. TOP PREVIOUS PROJECT IMAGE (Only rendered when currentIndex > 0) */}
-            <div className="h-6 sm:h-8 w-full flex items-end justify-center pointer-events-none select-none z-10">
-              <AnimatePresence custom={scrollDirection} mode="popLayout" initial={false}>
-                {prevProject && (
-                  <motion.div
-                    key={prevProject.id}
-                    custom={scrollDirection}
-                    variants={topPrevVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="relative transform"
-                  >
-                    <img
-                      src={prevProject.image}
-                      alt=""
-                      className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
-                      draggable={false}
-                    />
-                    {/* Subtle edge depth gradient maintaining clarity */}
-                    <div
-                      className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-t from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
-                        }`}
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+          {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
+          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-6 sm:py-8">
+            <div className="relative w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+              {PROJECTS_DATA.map((project, index) => {
+                const offset = index - currentIndex
+                const isFocus = offset === 0
+                const isTop = offset === -1
+                const isBottom = offset === 1
 
-            {/* 2. CENTER ACTIVE PROJECT IMAGE (Hero focus, full size, clickable to open case study drawer) */}
-            <div
-              onClick={() => handleOpenDrawer(currentProject)}
-              className="relative z-20 w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] overflow-hidden rounded-xl shadow-2xl shadow-black/80 cursor-pointer group transform hover:scale-[1.02] transition-transform duration-300 border border-white/10"
-              title={`Click to inspect ${currentProject.title}`}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handleOpenDrawer(currentProject)
+                // Posisi dan rotasi 3D dinamis berdasarkan offset
+                let translateY = '0%'
+                let rotateX = 0
+                let scale = 1
+                let zIndex = 20
+                let opacity = 1
+                let brightness = 1
+
+                if (isFocus) {
+                  translateY = '0%'
+                  rotateX = 0
+                  scale = 1
+                  zIndex = 30
+                  opacity = 1
+                  brightness = 1
+                } else if (isTop) {
+                  translateY = '-46%'
+                  rotateX = -14
+                  scale = 0.52
+                  zIndex = 10
+                  opacity = 0.88
+                  brightness = 0.85
+                } else if (isBottom) {
+                  translateY = '48%'
+                  rotateX = 14
+                  scale = 0.52
+                  zIndex = 10
+                  opacity = 0.88
+                  brightness = 0.85
+                } else {
+                  translateY = offset > 0 ? '90%' : '-90%'
+                  rotateX = offset > 0 ? 18 : -18
+                  scale = 0.38
+                  zIndex = 0
+                  opacity = 0
+                  brightness = 0.7
                 }
-              }}
-            >
-              <AnimatePresence custom={scrollDirection} initial={false}>
-                <motion.div
-                  key={currentProject.id}
-                  custom={scrollDirection}
-                  variants={centerCoverFlowVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  className="absolute inset-0 w-full h-full [transform-style:preserve-3d]"
-                >
-                  <img
-                    src={currentProject.image}
-                    alt={currentProject.title}
-                    className="w-full h-full object-cover object-center group-hover:brightness-105 transition-[filter] duration-300"
-                    draggable={false}
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
 
-            {/* 3. BOTTOM NEXT PROJECT IMAGE (Upcoming teaser, non-clickable, no frame, no text) */}
-            <div className="h-12 sm:h-16 w-full flex items-start justify-center pointer-events-none select-none z-10">
-              <AnimatePresence custom={scrollDirection} mode="popLayout" initial={false}>
-                {nextProject && (
+                return (
                   <motion.div
-                    key={nextProject.id}
-                    custom={scrollDirection}
-                    variants={bottomNextVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="relative transform"
+                    key={project.id}
+                    onClick={() => {
+                      if (isFocus) {
+                        handleOpenDrawer(project)
+                      }
+                    }}
+                    className={`absolute inset-0 w-full h-full rounded-xl overflow-hidden shadow-2xl transition-[filter] duration-300 ${
+                      isFocus
+                        ? 'cursor-pointer border border-white/10 shadow-black/80 hover:scale-[1.015]'
+                        : 'pointer-events-none border border-white/5 shadow-black/60'
+                    }`}
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      transformOrigin: 'center center',
+                      zIndex,
+                    }}
+                    animate={{
+                      y: translateY,
+                      rotateX,
+                      scale,
+                      opacity,
+                      filter: `brightness(${brightness})`,
+                    }}
+                    transition={COVERFLOW_SPRING}
+                    title={isFocus ? `Click to inspect ${project.title}` : undefined}
+                    role={isFocus ? 'button' : undefined}
+                    tabIndex={isFocus ? 0 : -1}
+                    onKeyDown={(e) => {
+                      if (isFocus && (e.key === 'Enter' || e.key === ' ')) {
+                        handleOpenDrawer(project)
+                      }
+                    }}
                   >
                     <img
-                      src={nextProject.image}
-                      alt=""
-                      className="w-32 sm:w-44 md:w-52 h-auto object-contain rounded-md shadow-2xl filter brightness-90"
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-center"
                       draggable={false}
                     />
-                    {/* Subtle edge depth gradient maintaining clarity */}
-                    <div
-                      className={`pointer-events-none absolute inset-0 rounded-md bg-gradient-to-b from-transparent via-transparent ${isLight ? 'to-[#f8fafc]/30' : 'to-[#0A0907]/20'
+                    {/* Subtle edge depth gradient for top preview card */}
+                    {isTop && (
+                      <div
+                        className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-transparent via-transparent ${
+                          isLight ? 'to-[#f8fafc]/35' : 'to-[#0A0907]/30'
                         }`}
-                    />
+                      />
+                    )}
+                    {/* Subtle edge depth gradient for bottom preview card */}
+                    {isBottom && (
+                      <div
+                        className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-b from-transparent via-transparent ${
+                          isLight ? 'to-[#f8fafc]/35' : 'to-[#0A0907]/30'
+                        }`}
+                      />
+                    )}
                   </motion.div>
-                )}
-              </AnimatePresence>
+                )
+              })}
             </div>
           </div>
 
