@@ -516,7 +516,7 @@ export default function Projects() {
           </div>
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
-          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-6 sm:py-8">
+          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-6 sm:py-10">
             <div className="relative w-full max-w-[540px] lg:max-w-[620px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
@@ -524,42 +524,51 @@ export default function Projects() {
                 const isTop = offset === -1
                 const isBottom = offset === 1
 
-                // Posisi dan rotasi 3D dinamis berdasarkan offset
+                // Posisi, skala, dan rotasi 3D sesuai screenshot (kartu atas & bawah tampil utuh mengambang)
                 let translateY = '0%'
                 let rotateX = 0
                 let scale = 1
                 let zIndex = 20
                 let opacity = 1
                 let brightness = 1
+                let borderRadius = 16
 
                 if (isFocus) {
+                  // Kartu Tengah (Hero Utama)
                   translateY = '0%'
                   rotateX = 0
                   scale = 1
                   zIndex = 30
                   opacity = 1
                   brightness = 1
+                  borderRadius = 16
                 } else if (isTop) {
-                  translateY = '-46%'
-                  rotateX = -14
-                  scale = 0.52
-                  zIndex = 10
-                  opacity = 0.88
-                  brightness = 0.85
-                } else if (isBottom) {
-                  translateY = '48%'
-                  rotateX = 14
-                  scale = 0.52
-                  zIndex = 10
-                  opacity = 0.88
-                  brightness = 0.85
-                } else {
-                  translateY = offset > 0 ? '90%' : '-90%'
-                  rotateX = offset > 0 ? 18 : -18
+                  // Thumbnail Atas (Tampil utuh mengambang di atas kartu utama dengan gap)
+                  translateY = '-74%'
+                  rotateX = -8
                   scale = 0.38
+                  zIndex = 20
+                  opacity = 0.95
+                  brightness = 0.92
+                  borderRadius = 8
+                } else if (isBottom) {
+                  // Thumbnail Bawah (Tampil utuh mengambang di bawah kartu utama dengan gap)
+                  translateY = '74%'
+                  rotateX = 8
+                  scale = 0.38
+                  zIndex = 20
+                  opacity = 0.95
+                  brightness = 0.92
+                  borderRadius = 8
+                } else {
+                  // Kartu di luar layar
+                  translateY = offset > 0 ? '135%' : '-135%'
+                  rotateX = offset > 0 ? 15 : -15
+                  scale = 0.2
                   zIndex = 0
                   opacity = 0
                   brightness = 0.7
+                  borderRadius = 8
                 }
 
                 return (
@@ -568,12 +577,16 @@ export default function Projects() {
                     onClick={() => {
                       if (isFocus) {
                         handleOpenDrawer(project)
+                      } else if (isTop || isBottom) {
+                        setCurrentIndex(index)
                       }
                     }}
-                    className={`absolute inset-0 w-full h-full rounded-xl overflow-hidden shadow-2xl transition-[filter] duration-300 ${
+                    className={`absolute inset-0 w-full h-full overflow-hidden shadow-2xl transition-[filter] duration-300 ${
                       isFocus
-                        ? 'cursor-pointer border border-white/10 shadow-black/80 hover:scale-[1.015]'
-                        : 'pointer-events-none border border-white/5 shadow-black/60'
+                        ? 'cursor-pointer border border-white/15 shadow-black/90 hover:scale-[1.015]'
+                        : isTop || isBottom
+                        ? 'cursor-pointer border border-white/10 shadow-black/60 hover:brightness-100 hover:scale-[0.39]'
+                        : 'pointer-events-none border border-white/5 shadow-black/40'
                     }`}
                     style={{
                       transformStyle: 'preserve-3d',
@@ -585,15 +598,20 @@ export default function Projects() {
                       rotateX,
                       scale,
                       opacity,
+                      borderRadius,
                       filter: `brightness(${brightness})`,
                     }}
                     transition={COVERFLOW_SPRING}
-                    title={isFocus ? `Click to inspect ${project.title}` : undefined}
-                    role={isFocus ? 'button' : undefined}
-                    tabIndex={isFocus ? 0 : -1}
+                    title={isFocus ? `Click to inspect ${project.title}` : `Jump to ${project.title}`}
+                    role="button"
+                    tabIndex={isFocus || isTop || isBottom ? 0 : -1}
                     onKeyDown={(e) => {
-                      if (isFocus && (e.key === 'Enter' || e.key === ' ')) {
-                        handleOpenDrawer(project)
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        if (isFocus) {
+                          handleOpenDrawer(project)
+                        } else if (isTop || isBottom) {
+                          setCurrentIndex(index)
+                        }
                       }
                     }}
                   >
@@ -603,22 +621,6 @@ export default function Projects() {
                       className="w-full h-full object-cover object-center"
                       draggable={false}
                     />
-                    {/* Subtle edge depth gradient for top preview card */}
-                    {isTop && (
-                      <div
-                        className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-transparent via-transparent ${
-                          isLight ? 'to-[#f8fafc]/35' : 'to-[#0A0907]/30'
-                        }`}
-                      />
-                    )}
-                    {/* Subtle edge depth gradient for bottom preview card */}
-                    {isBottom && (
-                      <div
-                        className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-b from-transparent via-transparent ${
-                          isLight ? 'to-[#f8fafc]/35' : 'to-[#0A0907]/30'
-                        }`}
-                      />
-                    )}
                   </motion.div>
                 )
               })}
