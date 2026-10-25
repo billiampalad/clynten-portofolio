@@ -175,7 +175,7 @@ export const PROJECTS_DATA = [
     code: 'SYS // PRJ-04',
     shortTitle: 'WEBGIS',
     title: 'Interactive WebGIS & Regional Layouting: Kalimantan',
-    subtitle: 'Multi-layer Provincial Mapping, Demographic Dispersion & Web Cartography',
+    subtitle: 'WebGIS Kalimantan is an interactive geospatial web cartography and spatial layouting platform designed to visualize regional administrative boundaries and urban population distribution across Kalimantan (Borneo). Built with QGIS, the qgis2web engine, and Leaflet.js, it features multi-layer vector ingestion (provincial boundaries & populated places), Natural Earth topographic shaded relief, real-time geocoding via Photon API, on-canvas distance and area measurement tools, dynamic collision-free label rendering, and seamless cloud deployment via GitHub Pages.',
     category: 'Web Mapping Kalimantan',
     period: '15 MARET 2025',
     client: 'Academic Project // GIS Course',
