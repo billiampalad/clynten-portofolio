@@ -184,11 +184,11 @@ export const PROJECTS_DATA = [
     accentColor: '#10b981',
     ambientGlow: 'from-emerald-600/20 via-teal-950/40 to-transparent',
     themeColor: 'rgba(16, 185, 129, 0.4)',
-    image: '/assets/projects/spatial-gis.jpg',
+    image: '/assets/projects/gambar 4/4.png',
     gallery: [
-      '/assets/projects/spatial-gis.jpg',
-      '/assets/projects/ai-cctv.jpg',
-      '/assets/projects/campus-vlan.jpg',
+      '/assets/projects/gambar 4/4.1.png',
+      '/assets/projects/gambar 4/4.2.png',
+      '/assets/projects/gambar 4/4.3.png',
     ],
     screenMockup: {
       headline: 'VECTOR SPATIAL INTELLIGENCE',
