@@ -128,6 +128,7 @@ export const PROJECTS_DATA = [
       'OSPF Multi-Area',
       'VLSM Subnetting',
       'Switching',
+      'Routing',
       'Enterprise Servers',
       'Cisco Packet Tracer',
       'Wireshark',
