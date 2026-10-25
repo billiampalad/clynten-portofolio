@@ -508,7 +508,7 @@ export default function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 -translate-y-3 sm:-translate-y-5 md:-translate-y-6 mb-auto py-1">
+        <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 -translate-y-1 sm:-translate-y-2 md:-translate-y-3 mb-auto py-1">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
           <div className="w-full md:w-[260px] lg:w-[280px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
@@ -564,7 +564,7 @@ export default function Projects() {
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
           <div className="w-full md:w-auto flex flex-col items-center justify-center relative [perspective:1400px] select-none py-4 sm:py-6 shrink-0">
-            <div className="relative w-[300px] sm:w-[360px] md:w-[400px] lg:w-[440px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+            <div className="relative w-[320px] sm:w-[380px] md:w-[440px] lg:w-[480px] xl:w-[500px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
@@ -818,8 +818,8 @@ export default function Projects() {
                 WebkitBackdropFilter: 'blur(18px)',
               }}
               className={`fixed top-0 left-0 w-full max-w-lg h-full ${isLight
-                  ? 'bg-white/30 text-slate-900 border-r border-slate-200/60 shadow-2xl'
-                  : 'bg-[#0a090d]/25 text-slate-100 border-r border-white/10 shadow-2xl'
+                ? 'bg-white/30 text-slate-900 border-r border-slate-200/60 shadow-2xl'
+                : 'bg-[#0a090d]/25 text-slate-100 border-r border-white/10 shadow-2xl'
                 } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
@@ -847,8 +847,8 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all ${isLight
-                          ? 'bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 hover:text-black shadow-sm'
-                          : 'bg-white/5 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white'
+                        ? 'bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 hover:text-black shadow-sm'
+                        : 'bg-white/5 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white'
                         }`}
                       title="View GitHub Repository"
                     >
@@ -868,8 +868,8 @@ export default function Projects() {
                     type="button"
                     onClick={handleCloseDrawer}
                     className={`px-3 py-1.5 rounded-lg ${isLight
-                        ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
-                        : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
+                      ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
+                      : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
                       } font-mono text-xs font-bold transition-all cursor-pointer`}
                   >
                     ✕ CLOSE
@@ -921,8 +921,8 @@ export default function Projects() {
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.15 }}
                         className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${isLight
-                            ? 'bg-slate-100/90 border-slate-200 text-slate-700 hover:bg-slate-200/70'
-                            : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
+                          ? 'bg-slate-100/90 border-slate-200 text-slate-700 hover:bg-slate-200/70'
+                          : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
                           } border font-mono text-[11px] font-medium transition-colors`}
                       >
                         <TechIcon
@@ -955,8 +955,8 @@ export default function Projects() {
                         <div
                           key={gIdx}
                           className={`group relative w-full overflow-hidden rounded-xl border ${isLight
-                              ? 'border-slate-200/80 bg-slate-100/50 shadow-sm'
-                              : 'border-white/10 bg-white/[0.02] shadow-md'
+                            ? 'border-slate-200/80 bg-slate-100/50 shadow-sm'
+                            : 'border-white/10 bg-white/[0.02] shadow-md'
                             } transition-all duration-300`}
                         >
                           <div className="w-full aspect-[16/10] overflow-hidden">
