@@ -294,6 +294,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'bgp':
+    case 'bgpebgpibgp':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
@@ -308,6 +309,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'ospf':
+    case 'ospfmultiarea':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
@@ -501,6 +503,8 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'subnetting':
+    case 'vlsmsubnetting':
+    case 'vlsm':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none">
