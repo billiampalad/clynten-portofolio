@@ -80,11 +80,11 @@ export const PROJECTS_DATA = [
     accentColor: '#8b5cf6',
     ambientGlow: 'from-purple-600/20 via-indigo-950/40 to-transparent',
     themeColor: 'rgba(139, 92, 246, 0.4)',
-    image: '/assets/projects/ai-cctv.jpg',
+    image: '/assets/projects/gambar 2/2.png',
     gallery: [
+      '/assets/projects/gambar 2/2.1.png',
       '/assets/projects/ai-cctv.jpg',
       '/assets/projects/spatial-gis.jpg',
-      '/assets/projects/campus-vlan.jpg',
     ],
     screenMockup: {
       headline: 'NEURAL SURVEILLANCE MATRIX',
