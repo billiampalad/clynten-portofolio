@@ -71,7 +71,7 @@ export const PROJECTS_DATA = [
       'Real-time AI home surveillance system utilizing YOLOv8 and Streamlit, featuring dual-source camera ingestion (HDMI Capture & RTSP), dynamic activity tracking, and automated audio siren triggers.',
     fullSummary:
       'Sistem pemantauan keamanan rumah cerdas berbasis Computer Vision menggunakan model YOLOv8 dan antarmuka web Streamlit. Mendukung integrasi kamera CCTV (HDMI Capture Card) dan IP Camera RTSP dengan fitur deteksi manusia real-time, sistem alarm audio otomatis, serta grafik telemetri aktivitas interaktif.',
-    tech: ['Python', 'Streamlit', 'YOLOv8', 'OpenCV', 'PyTorch', 'Pygame', 'RTSP Streams', 'HDMI Capture'],
+    tech: ['Python', 'Streamlit', 'YOLOv8', 'OpenCV', 'PyTorch', 'Pygame'],
     metrics: [
       { label: 'STREAM THROUGHPUT', val: '30 FPS' },
       { label: 'DETECTION MODEL', val: 'YOLOv8 Nano' },

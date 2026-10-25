@@ -15,7 +15,7 @@ const DOMAIN_DETAILS = {
   webdev: {
     title: 'Web & Distributed Systems',
     desc: 'Crafting responsive, high-performance web applications with modular frontend architectures and robust backend services.',
-    techs: ['React', 'Next.js', 'Laravel', 'Alpine.js', 'Streamlit', 'PyTorch', 'Node.js', 'MySQL', 'Vite', 'Tailwind CSS'],
+    techs: ['React', 'Next.js', 'Laravel', 'Alpine.js', 'Python', 'Streamlit', 'PyTorch', 'Node.js', 'MySQL', 'Vite', 'Tailwind CSS'],
   },
   android: {
     title: 'Android & Native Solutions',
