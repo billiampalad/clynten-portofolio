@@ -106,7 +106,7 @@ export const PROJECTS_DATA = [
       'FastAPI WebSocket Telemetry Stream',
       'Adaptive Frame Skipping Engine',
     ],
-    github: 'https://github.com/billiampalad',
+    github: 'https://github.com/billiampalad/sistem_keamanan_rumah.git',
   },
   {
     id: 'network-infra',
