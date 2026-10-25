@@ -127,7 +127,7 @@ export const PROJECTS_DATA = [
       'BGP (eBGP & iBGP)',
       'OSPF Multi-Area',
       'VLSM Subnetting',
-      'L2/L3 Switching',
+      'Switching',
       'Enterprise Servers',
       'Cisco Packet Tracer',
       'Wireshark',

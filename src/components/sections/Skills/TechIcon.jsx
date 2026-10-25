@@ -283,6 +283,40 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'enterpriseservers':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect
+              x="3"
+              y="4"
+              width="18"
+              height="6.5"
+              rx="1.5"
+              stroke="#3B82F6"
+              strokeWidth="1.5"
+              fill="rgba(59, 130, 246, 0.15)"
+            />
+            <circle cx="6.5" cy="7.25" r="1" fill="#10B981" />
+            <circle cx="9.5" cy="7.25" r="0.8" fill="#3B82F6" />
+            <line x1="14" y1="7.25" x2="18" y2="7.25" stroke="#3B82F6" strokeWidth="1.4" strokeLinecap="round" />
+            <rect
+              x="3"
+              y="13.5"
+              width="18"
+              height="6.5"
+              rx="1.5"
+              stroke="#3B82F6"
+              strokeWidth="1.5"
+              fill="rgba(59, 130, 246, 0.15)"
+            />
+            <circle cx="6.5" cy="16.75" r="1" fill="#10B981" />
+            <circle cx="9.5" cy="16.75" r="0.8" fill="#3B82F6" />
+            <line x1="14" y1="16.75" x2="18" y2="16.75" stroke="#3B82F6" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </span>
+      )
+
     case 'ciscopackettracer':
     case 'cisco':
       return (
