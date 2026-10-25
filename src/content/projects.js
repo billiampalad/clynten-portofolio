@@ -114,7 +114,7 @@ export const PROJECTS_DATA = [
     code: 'SYS // PRJ-03',
     shortTitle: 'OSPF & BGP ROUTING',
     title: 'Enterprise Multi-Protocol',
-    subtitle: 'Enterprise Multi-Protocol Routing & Core Infrastructure',
+    subtitle: 'Enterprise Routing & Network Infrastructure is an advanced multi-protocol enterprise architecture designed to eliminate flat-network bottlenecks, prevent routing loops, and provide resilient cross-autonomous-system connectivity. Built with Cisco Packet Tracer, and multi-tier network appliances (Routers, Multi-layer Switches, and Enterprise Servers), it features hierarchical VLSM subnet allocation, seamless intra-domain multi-area OSPF convergence, robust external BGP peering across Autonomous Systems, mutual route redistribution with policy filtering, L2/L3 switch segmentation, and centralized server farm services (DNS, DHCP, Web) for verified end-to-end communication.',
     category: 'Network Engineering & Infrastructure',
     period: '18 AGUSTUS 2024',
     client: 'Enterprise Network Simulation & Laboratory Environment',
