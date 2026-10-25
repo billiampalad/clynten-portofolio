@@ -124,7 +124,6 @@ export const PROJECTS_DATA = [
     fullSummary:
       'Architected and deployed a multi-tier enterprise network topology integrating intra-domain and inter-domain routing protocols. Implemented VLSM for optimal IP allocation, multi-layer switches for VLAN aggregation, and robust Cisco router configurations running OSPF for internal core convergence and BGP for Autonomous System interconnectivity, alongside dedicated enterprise server services (DHCP/DNS/Web).',
     tech: [
-      'Cisco IOS',
       'BGP (eBGP & iBGP)',
       'OSPF Multi-Area',
       'VLSM Subnetting',

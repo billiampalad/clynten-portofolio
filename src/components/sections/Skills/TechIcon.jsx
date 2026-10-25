@@ -283,8 +283,8 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'ciscopackettracer':
     case 'cisco':
-    case 'ciscoios':
       return (
         <span className={className} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#049FD9" strokeWidth="1.8" strokeLinecap="round">
