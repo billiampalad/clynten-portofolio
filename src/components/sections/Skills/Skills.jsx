@@ -5,10 +5,10 @@ import TechIcon from './TechIcon'
 import './Skills.css'
 
 const STATS = [
-  { num: '05+', title: 'Engineered Systems', desc: 'Web apps, AI CCTV & Spatial pipelines' },
-  { num: '03+', title: 'Years Technical Focus', desc: 'Continuous architecture & codecraft' },
-  { num: '12+', title: 'Core Tech Modules', desc: 'React, Next, Kotlin, Python, Linux' },
-  { num: '88.8%', title: 'Target Reliability', desc: 'High concurrency & zero downtime' },
+  { num: '04+', title: 'Engineered Systems', desc: 'Enterprise Web, AI Vision, BGP Routing & WebGIS' },
+  { num: '03+', title: 'Years Technical Focus', desc: 'Continuous architecture & system deployment' },
+  { num: '25+', title: 'Core Tech Modules', desc: 'Laravel, Python, YOLOv8, PyTorch, Cisco, Leaflet' },
+  { num: '94.5%', title: 'Target Reliability', desc: '95% ACID integrity & sub-35ms inference' },
 ]
 
 const DOMAIN_DETAILS = {
