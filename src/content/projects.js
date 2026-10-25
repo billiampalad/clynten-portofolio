@@ -13,7 +13,7 @@ export const PROJECTS_DATA = [
     subtitle: 'SIM POLIMDO is a web-based collaboration management system designed to eliminate manual archiving and streamline the full agreement lifecycle (MoU, MoA, and IA) across polytechnic industry partners. Built with Laravel (MVC architecture) and MySQL, it features multi-tiered RBAC, interactive executive monitoring dashboards, a structured digital validation and evaluation workflow, and automated reporting in PDF/Excel.',
     category: 'Full Stack & Enterprise System',
     period: '20 AGUSTUS 2026',
-    client: 'Politeknik Negeri Manado (DUDI)',
+    client: 'POLIMDO (DUDI)',
     status: 'DEPLOYED // ACTIVE',
     summary:
       'A robust enterprise web platform transforming institutional partnership tracking between vocational polytechnic and hundreds of industrial enterprise partners.',
@@ -65,7 +65,7 @@ export const PROJECTS_DATA = [
     subtitle: 'Smart Security System is an AI-powered surveillance and threat detection platform designed to overcome passive CCTV limitations and automate real-time intrusion monitoring. Built with Python, Ultralytics YOLOv8, and Streamlit, it features dual-source video ingestion (HDMI Capture Card & RTSP IP Cameras), low-latency human detection, an automated audio siren trigger with cooldown logic, interactive telemetry charts, and secure remote deployment via Ngrok.',
     category: 'Computer Vision & AI',
     period: '11 JUNI 2025',
-    client: 'Politeknik Negeri Manado (Applied ML)',
+    client: 'POLIMDO (Applied ML)',
     status: 'OPTIMIZED // PRODUCTION',
     summary:
       'Real-time AI home surveillance system utilizing YOLOv8 and Streamlit, featuring dual-source camera ingestion (HDMI Capture & RTSP), dynamic activity tracking, and automated audio siren triggers.',
@@ -117,7 +117,7 @@ export const PROJECTS_DATA = [
     subtitle: 'Enterprise Routing & Network Infrastructure is an advanced multi-protocol enterprise architecture designed to eliminate flat-network bottlenecks, prevent routing loops, and provide resilient cross-autonomous-system connectivity. Built with Cisco Packet Tracer, and multi-tier network appliances (Routers, Multi-layer Switches, and Enterprise Servers), it features hierarchical VLSM subnet allocation, seamless intra-domain multi-area OSPF convergence, robust external BGP peering across Autonomous Systems, mutual route redistribution with policy filtering, L2/L3 switch segmentation, and centralized server farm services (DNS, DHCP, Web) for verified end-to-end communication.',
     category: 'Network Engineering & Infrastructure',
     period: '18 AGUSTUS 2024',
-    client: 'Enterprise Network Simulation & Laboratory Environment',
+    client: 'Network Simulation Environment',
     status: 'VERIFIED // STABLE',
     summary:
       'High-performance enterprise network infrastructure featuring hierarchical VLSM subnetting, redundant multi-layer switching, OSPF core routing, and external multi-AS BGP peering with integrated enterprise servers.',

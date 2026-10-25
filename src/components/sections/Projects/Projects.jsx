@@ -220,8 +220,10 @@ export default function Projects() {
   const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
   const circleRef = useRef(null)
+  const rotatingIconRef0 = useRef(null)
   const rotatingIconRef1 = useRef(null)
   const rotatingIconRef2 = useRef(null)
+  const rotatingIconRef3 = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollDirection, setScrollDirection] = useState(1)
   const prevIndexRef = useRef(0)
@@ -307,11 +309,17 @@ export default function Projects() {
           circleRef.current.style.strokeDashoffset = `${dashoffset}`
         }
         const rotDeg = `rotate(${Math.round(currentCycle * 360)}deg)`
+        if (rotatingIconRef0.current) {
+          rotatingIconRef0.current.style.transform = rotDeg
+        }
         if (rotatingIconRef1.current) {
           rotatingIconRef1.current.style.transform = rotDeg
         }
         if (rotatingIconRef2.current) {
           rotatingIconRef2.current.style.transform = rotDeg
+        }
+        if (rotatingIconRef3.current) {
+          rotatingIconRef3.current.style.transform = rotDeg
         }
 
         // 5. Revert background to default when final project reaches 100% and user scrolls further
@@ -700,15 +708,29 @@ export default function Projects() {
           className={`relative z-10 w-full flex items-center justify-between pt-2 translate-y-0 sm:-translate-y-1 md:-translate-y-2 ${isLight ? 'text-black' : 'text-white'
             } font-mono text-[10px] sm:text-xs transition-colors`}
         >
-          {/* Left Status Message */}
-          <span className="hidden sm:inline whitespace-nowrap">
-            {currentIndex === PROJECTS_DATA.length - 1
-              ? 'FINAL SYSTEM ARCHIVE // END OF SHOWCASE'
-              : 'SCROLL DOWN TO ADVANCE NEXT SYSTEM'}
-          </span>
+          {/* Leftmost + Accent (Desktop) */}
+          <div className="hidden sm:flex h-6 items-center shrink-0">
+            <span
+              ref={rotatingIconRef0}
+              className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+                <line x1="6" y1="1" x2="6" y2="11" />
+                <line x1="1" y1="6" x2="11" y2="6" />
+              </svg>
+            </span>
+          </div>
 
-          {/* Dynamic Rotating + Divider (Desktop: between Left & Center) */}
-          <div className="hidden sm:flex flex-1 items-center justify-center px-4">
+          {/* Segment 1: tension (Centered between Leftmost + and Divider 1 +) */}
+          <div className="hidden sm:flex flex-1 h-6 items-center justify-center px-2">
+            <span className="whitespace-nowrap leading-none flex items-center uppercase tracking-widest font-bold">
+              tension
+            </span>
+          </div>
+
+          {/* Dynamic Rotating + Divider 1 (Desktop: between Left & Center) */}
+          <div className="hidden sm:flex h-6 items-center justify-center shrink-0">
             <span
               ref={rotatingIconRef1}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
@@ -721,24 +743,15 @@ export default function Projects() {
             </span>
           </div>
 
-          {/* Center Tech Stack */}
-          <div className="h-5 overflow-hidden flex items-center">
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.span
-                key={currentProject.id}
-                initial={{ y: '100%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                exit={{ y: '-100%', opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase transition-colors whitespace-nowrap inline-block`}
-              >
-                {currentProject.tech.slice(0, 4).join(' • ')}
-              </motion.span>
-            </AnimatePresence>
+          {/* Segment 2: immersion (Centered between Divider 1 + and Divider 2 +) */}
+          <div className="flex-1 h-6 overflow-hidden flex items-center justify-center px-2">
+            <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase tracking-widest transition-colors whitespace-nowrap inline-flex items-center leading-none`}>
+              immersion
+            </span>
           </div>
 
-          {/* Dynamic Rotating + Divider (between Center & Right) */}
-          <div className="flex flex-1 items-center justify-center px-4">
+          {/* Dynamic Rotating + Divider 2 (between Center & Right) */}
+          <div className="flex h-6 items-center justify-center shrink-0">
             <span
               ref={rotatingIconRef2}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
@@ -751,20 +764,25 @@ export default function Projects() {
             </span>
           </div>
 
-          {/* Right Period */}
-          <div className="h-5 overflow-hidden flex items-center justify-end">
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.span
-                key={currentProject.id}
-                initial={{ y: '100%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                exit={{ y: '-100%', opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="whitespace-nowrap inline-block"
-              >
-                {currentProject.period}
-              </motion.span>
-            </AnimatePresence>
+          {/* Segment 3: impact (Centered between Divider 2 + and Rightmost +) */}
+          <div className="flex-1 h-6 overflow-hidden flex items-center justify-center px-2">
+            <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase tracking-widest transition-colors whitespace-nowrap inline-flex items-center leading-none`}>
+              impact
+            </span>
+          </div>
+
+          {/* Rightmost + Accent */}
+          <div className="flex h-6 items-center shrink-0">
+            <span
+              ref={rotatingIconRef3}
+              className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+                <line x1="6" y1="1" x2="6" y2="11" />
+                <line x1="1" y1="6" x2="11" y2="6" />
+              </svg>
+            </span>
           </div>
         </div>
       </div>
