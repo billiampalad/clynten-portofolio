@@ -10,7 +10,7 @@ export const SKILLS_CONFIG = [
       header: 'WEB DEVELOPMENT',
       stackId: 'FULL_STACK_ARCH',
       confidence: '85%',
-      frameworks: 'REACT / LARAVEL / STREAMLIT / NEXT',
+      frameworks: 'REACT / LARAVEL / STREAMLIT / PYTORCH',
       latency: 'OPTIMIZED — 0.02ms',
     },
     unresolved: {
