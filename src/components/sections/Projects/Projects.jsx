@@ -705,7 +705,7 @@ export default function Projects() {
 
         {/* Bottom Status Ticker Bar */}
         <div
-          className={`relative z-10 w-full flex items-center justify-between pt-2 translate-y-0 sm:-translate-y-1 md:-translate-y-2 ${isLight ? 'text-black' : 'text-white'
+          className={`relative z-10 w-full flex items-center justify-between pt-2 translate-y-1 sm:translate-y-2 ${isLight ? 'text-black' : 'text-white'
             } font-mono text-[10px] sm:text-xs transition-colors`}
         >
           {/* Leftmost + Accent (Desktop) */}
