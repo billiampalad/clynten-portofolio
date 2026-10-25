@@ -192,7 +192,7 @@ export default function Navbar({
     }
 
     // 3. Target: PROJECTS
-    // Directly stops at the top of Projects (offset: 0) at the padding top and WORK badge
+    // Mendarat tepat di section Projects (100vh) secara presisi
     if (targetId === 'projects') {
       const projectsEl = document.getElementById('projects')
       if (!projectsEl) return

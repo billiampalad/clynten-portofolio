@@ -225,8 +225,8 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollDirection, setScrollDirection] = useState(1)
   const prevIndexRef = useRef(0)
-  const hasScrolledPastStartRef = useRef(false)
-  const [hasScrolledPastStart, setHasScrolledPastStart] = useState(false)
+  const hasScrolledPastStartRef = useRef(true)
+  const [hasScrolledPastStart, setHasScrolledPastStart] = useState(true)
   const hasReachedEndRef = useRef(false)
   const [hasReachedEnd, setHasReachedEnd] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
@@ -407,7 +407,7 @@ export default function Projects() {
       {/* Pinned Viewport Stage (Fills full viewport cleanly) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-4 pb-4 px-4 sm:pt-6 sm:pb-6 sm:px-6 md:pt-6 md:pb-6 md:px-8 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-[60px] pb-4 px-4 sm:pt-[64px] sm:pb-5 sm:px-6 md:pt-[68px] md:pb-6 md:px-8 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -467,8 +467,8 @@ export default function Projects() {
           />
         </div>
 
-        {/* Top Header Row */}
-        <div className="relative z-10 w-full flex items-center justify-between mt-2 sm:mt-4">
+        {/* Top Header Row (Pass under 50px navbar, cleanly visible) */}
+        <div className="relative z-10 w-full flex items-center justify-between mt-0">
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
               } border backdrop-blur-md transition-colors`}
@@ -500,7 +500,7 @@ export default function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 mt-2 sm:mt-3 mb-auto py-2">
+        <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 -translate-y-3 sm:-translate-y-5 md:-translate-y-6 mb-auto py-1">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
           <div className="w-full md:w-[260px] lg:w-[280px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
@@ -697,7 +697,7 @@ export default function Projects() {
 
         {/* Bottom Status Ticker Bar */}
         <div
-          className={`relative z-10 w-full flex items-center justify-between pt-4 translate-y-3 sm:translate-y-4 md:translate-y-5 ${isLight ? 'text-black' : 'text-white'
+          className={`relative z-10 w-full flex items-center justify-between pt-2 translate-y-0 sm:-translate-y-1 md:-translate-y-2 ${isLight ? 'text-black' : 'text-white'
             } font-mono text-[10px] sm:text-xs transition-colors`}
         >
           {/* Left Status Message */}
