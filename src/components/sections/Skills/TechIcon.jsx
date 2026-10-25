@@ -14,6 +14,19 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'javascript':
+    case 'leafletjs':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="3" fill="#F7DF1E" />
+            <g transform="translate(1.5, 0.8) scale(0.87)" fill="#000000">
+              <path d="M22.034 18.276c-.175-1.095-.88-2.015-3.003-2.874-1.736-.71-2.546-1.227-2.546-2.13 0-.755.67-1.318 1.836-1.318 1.147 0 1.758.517 1.828 1.458h3.317c-.116-2.112-1.84-3.565-5.145-3.565-2.874 0-5.127 1.516-5.127 4.07 0 2.253 1.63 3.328 4.296 4.385 1.616.634 2.153 1.093 2.153 1.837 0 .918-.9 1.503-2.176 1.503-1.407 0-2.289-.607-2.433-1.844h-3.35c.182 2.766 2.457 4.248 5.86 4.248 3.167 0 5.467-1.464 5.467-4.148.012-.875-.316-1.558-1.042-2.034zM7.785 19.12c-.524.966-1.233 1.406-2.316 1.406-1.258 0-1.996-.607-1.996-1.748V10.15H.375v8.783c0 2.607 1.642 4.098 4.417 4.098 2.058 0 3.518-1.011 4.212-2.617l-1.219-.714z" />
+            </g>
+          </svg>
+        </span>
+      )
+
     case 'nextjs':
     case 'next':
       return (
@@ -425,6 +438,7 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
 
     case 'qgis':
+    case 'qgis2web':
     case 'gis':
       return (
         <span className={className} aria-hidden="true">
