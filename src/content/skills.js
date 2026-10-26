@@ -10,7 +10,7 @@ export const SKILLS_CONFIG = [
       header: 'WEB DEVELOPMENT',
       stackId: 'FULL_STACK_ARCH',
       confidence: '85%',
-      frameworks: 'REACT / LARAVEL / ALPINE / NEXT',
+      frameworks: 'REACT / LARAVEL / STREAMLIT / NEXT',
       latency: 'OPTIMIZED — 0.02ms',
     },
     unresolved: {
