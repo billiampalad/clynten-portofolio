@@ -25,6 +25,27 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'alpinejs':
+    case 'alpine':
+    case 'alphinejs':
+    case 'alphine':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5.72 6.254 0 12l5.72 5.746h11.44L5.72 6.254Z"
+              fill="#2D3748"
+              stroke="rgba(255,255,255,0.18)"
+              strokeWidth="0.6"
+            />
+            <path
+              d="m24 12-5.72 5.746-5.724-5.741 5.724-5.75L24 12Z"
+              fill="#77C1D2"
+            />
+          </svg>
+        </span>
+      )
+
     case 'laravel':
       return (
         <span className={className} aria-hidden="true">
