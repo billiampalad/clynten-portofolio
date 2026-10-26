@@ -388,7 +388,7 @@ export default function Projects() {
       {/* Pinned Viewport Stage (Fills full viewport cleanly) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-6 pb-6 px-6 sm:pt-8 sm:pb-6 sm:px-10 md:pt-8 md:pb-8 md:px-14 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-4 pb-4 px-4 sm:pt-6 sm:pb-6 sm:px-6 md:pt-6 md:pb-6 md:px-8 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -447,7 +447,7 @@ export default function Projects() {
         </div>
 
         {/* Top Header Row */}
-        <div className="relative z-10 w-full flex items-center justify-between mt-8 sm:mt-10">
+        <div className="relative z-10 w-full flex items-center justify-between mt-2 sm:mt-4">
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
               } border backdrop-blur-md transition-colors`}
@@ -479,9 +479,9 @@ export default function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 mt-3 sm:mt-4 mb-auto py-2">
+        <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 mt-2 sm:mt-3 mb-auto py-2">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
-          <div className="w-full md:w-1/4 flex flex-col items-start justify-center text-left relative z-30">
+          <div className="w-full md:w-[260px] lg:w-[280px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -513,7 +513,7 @@ export default function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -521,7 +521,7 @@ export default function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-3">
+                <div className="overflow-hidden py-0.5 mt-2.5">
                   <p
                     className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
@@ -534,8 +534,8 @@ export default function Projects() {
           </div>
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
-          <div className="w-full md:w-2/4 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-6 sm:py-10">
-            <div className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[450px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+          <div className="w-full md:w-auto flex flex-col items-center justify-center relative [perspective:1400px] select-none py-4 sm:py-6 shrink-0">
+            <div className="relative w-[300px] sm:w-[360px] md:w-[400px] lg:w-[440px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
@@ -621,7 +621,7 @@ export default function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-1/4 flex flex-col md:items-end justify-between text-left gap-6">
+          <div className="w-full md:w-[260px] lg:w-[280px] flex flex-col md:items-end justify-between text-left gap-4 shrink-0">
             <div className="flex flex-col items-start text-left w-full max-w-xs min-h-[90px]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
