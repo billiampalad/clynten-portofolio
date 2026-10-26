@@ -132,7 +132,7 @@ export const PROJECTS_DATA = [
     accentColor: '#06b6d4',
     ambientGlow: 'from-cyan-600/20 via-blue-950/40 to-transparent',
     themeColor: 'rgba(6, 182, 212, 0.4)',
-    image: '/assets/projects/gambar 3/3.jpg',
+    image: '/assets/projects/gambar 3/3.png',
     gallery: [
       '/assets/projects/gambar 3/3.1.png',
       '/assets/projects/gambar 3/3.2.png',
