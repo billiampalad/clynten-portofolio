@@ -60,10 +60,10 @@ function SplitTextReveal({ text, className = '' }) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={`inline-flex flex-wrap overflow-hidden [perspective:600px] ${className}`}
+      className={`inline-flex flex-nowrap whitespace-nowrap overflow-hidden [perspective:600px] ${className}`}
     >
       {letters.map((char, i) => (
-        <span key={i} className="inline-block overflow-hidden py-0.5">
+        <span key={i} className="inline-block overflow-hidden py-0.5 shrink-0 whitespace-nowrap">
           <motion.span
             variants={charVariants}
             className="inline-block will-change-[transform,opacity]"
@@ -488,7 +488,7 @@ export default function Projects() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="flex flex-col items-start"
+                className="flex flex-col items-start w-max max-w-none"
               >
                 {/* 1. Technical Code Badge with Reveal */}
                 <div className="overflow-hidden py-0.5 mb-2">
@@ -507,13 +507,13 @@ export default function Projects() {
                 </div>
 
                 {/* 2. Main Title - Simple Smooth Slide Reveal */}
-                <div className="overflow-hidden py-1">
+                <div className="overflow-hidden py-1 w-max max-w-none">
                   <motion.h2
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -521,12 +521,12 @@ export default function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-2.5">
+                <div className="overflow-hidden py-0.5 mt-2.5 w-max max-w-none">
                   <p
-                    className={`font-mono text-xs sm:text-sm whitespace-nowrap relative z-30 pointer-events-none ${isLight ? 'text-slate-600' : 'text-slate-300'
+                    className={`font-mono text-xs sm:text-sm whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
                   >
-                    <SplitTextReveal text={currentProject.category} />
+                    <SplitTextReveal text={currentProject.category} className="whitespace-nowrap flex-nowrap" />
                   </p>
                 </div>
               </motion.div>
