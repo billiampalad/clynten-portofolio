@@ -83,8 +83,8 @@ export const PROJECTS_DATA = [
     image: '/assets/projects/gambar 2/2.webp',
     gallery: [
       '/assets/projects/gambar 2/2.1.webp',
-      '/assets/projects/gambar 2/2.2.jpg',
-      '/assets/projects/gambar 2/2.3.jpg',
+      '/assets/projects/gambar 2/2.2.webp',
+      '/assets/projects/gambar 2/2.3.webp',
     ],
     screenMockup: {
       headline: 'NEURAL SURVEILLANCE MATRIX',
