@@ -52,6 +52,33 @@ const heatmapVariants = {
 }
 
 /**
+ * Scattered / Randomized pop-in animation for individual contribution cells
+ * (Each cell pops in independently at its own pseudo-random time)
+ */
+const cellVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.15,
+  },
+  visible: ({ wIdx, dIdx }) => {
+    // Deterministic pseudo-random delay between 0.04s and 0.76s
+    const seed = (wIdx * 41 + dIdx * 89 + 17) % 1000
+    const pseudoRandom = Math.abs((Math.sin(seed) * 10000) % 1)
+    const delay = 0.04 + pseudoRandom * 0.72
+
+    return {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay,
+        duration: 0.38,
+        ease: [0.34, 1.45, 0.64, 1], // bouncy pop
+      },
+    }
+  },
+}
+
+/**
  * 3 latest years from now downwards
  */
 const AVAILABLE_YEARS = [2026, 2025, 2024]
@@ -623,8 +650,8 @@ export default function Expe({
                     ))}
                   </div>
 
-                  {/* 7-Row Grid of Rounded Contribution Squares */}
-                  <div className="flex gap-[3px] select-none">
+                  {/* 7-Row Grid of Rounded Contribution Squares with Staggered Wave animation */}
+                  <div key={selectedYear} className="flex gap-[3px] select-none">
                     {gridData.map((week, wIdx) => (
                       <div key={wIdx} className="w-[13px] flex flex-col gap-[3px] shrink-0">
                         {week.map((day, dIdx) => {
@@ -638,9 +665,23 @@ export default function Expe({
                             )
                           }
 
+                          const isHighActive = day.level >= 3
+                          const isMediumActive = day.level === 2
+
+                          // Unique pseudo-random timing per cell so each cell pulses independently
+                          const seed1 = (wIdx * 37 + dIdx * 73 + 19) % 100
+                          const seed2 = (wIdx * 19 + dIdx * 53 + 47) % 100
+                          const pulseDelay = ((seed1 / 100) * 3.5).toFixed(2)
+                          const pulseDuration = (2.4 + (seed2 / 100) * 2.0).toFixed(2)
+
                           return (
-                            <div
-                              key={dIdx}
+                            <motion.div
+                              key={`${wIdx}-${dIdx}`}
+                              custom={{ wIdx, dIdx }}
+                              variants={cellVariants}
+                              initial="hidden"
+                              animate="visible"
+                              whileHover={{ scale: 1.35, zIndex: 30 }}
                               onMouseEnter={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect()
                                 const parentRect = e.currentTarget
@@ -654,9 +695,19 @@ export default function Expe({
                                 }
                               }}
                               onMouseLeave={() => setHoveredCell(null)}
-                              className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-150 cursor-pointer hover:scale-125 hover:z-20 ${getCellClasses(
+                              style={{
+                                '--pulse-delay': `${pulseDelay}s`,
+                                '--pulse-duration': `${pulseDuration}s`,
+                              }}
+                              className={`w-[13px] h-[13px] rounded-[3px] border transition-colors duration-150 cursor-pointer ${getCellClasses(
                                 day.level
-                              )}`}
+                              )} ${
+                                isHighActive
+                                  ? 'cell-scatter-pulse-high'
+                                  : isMediumActive
+                                  ? 'cell-scatter-pulse-med'
+                                  : ''
+                              }`}
                             />
                           )
                         })}
@@ -735,8 +786,45 @@ export default function Expe({
         </motion.div>
       </motion.div>
 
-      {/* Scoped Scrollbar Styling matching reference image */}
+      {/* Scoped Scrollbar & Organic Pulse Styling */}
       <style>{`
+        /* Individual & Organic Pulse on Active Cells */
+        @keyframes cell-scatter-high {
+          0%, 100% {
+            transform: scale(1);
+            filter: brightness(1);
+            box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+          }
+          50% {
+            transform: scale(1.14);
+            filter: brightness(1.35);
+            box-shadow: 0 0 9px rgba(239, 68, 68, 0.65);
+          }
+        }
+
+        @keyframes cell-scatter-med {
+          0%, 100% {
+            transform: scale(1);
+            filter: brightness(1);
+          }
+          50% {
+            transform: scale(1.08);
+            filter: brightness(1.22);
+          }
+        }
+
+        .cell-scatter-pulse-high {
+          animation: cell-scatter-high var(--pulse-duration, 3.2s) ease-in-out infinite;
+          animation-delay: var(--pulse-delay, 0s);
+          will-change: transform, filter;
+        }
+
+        .cell-scatter-pulse-med {
+          animation: cell-scatter-med var(--pulse-duration, 3.6s) ease-in-out infinite;
+          animation-delay: var(--pulse-delay, 0s);
+          will-change: transform, filter;
+        }
+
         .heatmap-scrollbar-dark::-webkit-scrollbar {
           height: 7px;
         }
