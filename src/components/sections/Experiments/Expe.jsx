@@ -668,11 +668,11 @@ export default function Expe({
                           const isHighActive = day.level >= 3
                           const isMediumActive = day.level === 2
 
-                          // Unique pseudo-random timing per cell so each cell pulses independently
+                          // Unique pseudo-random timing per cell so each cell blinks independently
                           const seed1 = (wIdx * 37 + dIdx * 73 + 19) % 100
                           const seed2 = (wIdx * 19 + dIdx * 53 + 47) % 100
-                          const pulseDelay = ((seed1 / 100) * 3.5).toFixed(2)
-                          const pulseDuration = (2.4 + (seed2 / 100) * 2.0).toFixed(2)
+                          const blinkDelay = ((seed1 / 100) * 3.0).toFixed(2)
+                          const blinkDuration = (1.4 + (seed2 / 100) * 1.6).toFixed(2)
 
                           return (
                             <motion.div
@@ -696,16 +696,16 @@ export default function Expe({
                               }}
                               onMouseLeave={() => setHoveredCell(null)}
                               style={{
-                                '--pulse-delay': `${pulseDelay}s`,
-                                '--pulse-duration': `${pulseDuration}s`,
+                                '--blink-delay': `${blinkDelay}s`,
+                                '--blink-duration': `${blinkDuration}s`,
                               }}
                               className={`w-[13px] h-[13px] rounded-[3px] border transition-colors duration-150 cursor-pointer ${getCellClasses(
                                 day.level
                               )} ${
                                 isHighActive
-                                  ? 'cell-scatter-pulse-high'
+                                  ? 'cell-blink-high'
                                   : isMediumActive
-                                  ? 'cell-scatter-pulse-med'
+                                  ? 'cell-blink-med'
                                   : ''
                               }`}
                             />
@@ -786,43 +786,37 @@ export default function Expe({
         </motion.div>
       </motion.div>
 
-      {/* Scoped Scrollbar & Organic Pulse Styling */}
+      {/* Scoped Scrollbar & Blink Styling */}
       <style>{`
-        /* Individual & Organic Pulse on Active Cells */
-        @keyframes cell-scatter-high {
+        /* Individual & Pure Blinking on Active Cells (No glow, no blur) */
+        @keyframes cell-blink-high {
           0%, 100% {
-            transform: scale(1);
-            filter: brightness(1);
-            box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+            opacity: 1;
           }
           50% {
-            transform: scale(1.14);
-            filter: brightness(1.35);
-            box-shadow: 0 0 9px rgba(239, 68, 68, 0.65);
+            opacity: 0.18;
           }
         }
 
-        @keyframes cell-scatter-med {
+        @keyframes cell-blink-med {
           0%, 100% {
-            transform: scale(1);
-            filter: brightness(1);
+            opacity: 1;
           }
           50% {
-            transform: scale(1.08);
-            filter: brightness(1.22);
+            opacity: 0.35;
           }
         }
 
-        .cell-scatter-pulse-high {
-          animation: cell-scatter-high var(--pulse-duration, 3.2s) ease-in-out infinite;
-          animation-delay: var(--pulse-delay, 0s);
-          will-change: transform, filter;
+        .cell-blink-high {
+          animation: cell-blink-high var(--blink-duration, 2s) ease-in-out infinite;
+          animation-delay: var(--blink-delay, 0s);
+          will-change: opacity;
         }
 
-        .cell-scatter-pulse-med {
-          animation: cell-scatter-med var(--pulse-duration, 3.6s) ease-in-out infinite;
-          animation-delay: var(--pulse-delay, 0s);
-          will-change: transform, filter;
+        .cell-blink-med {
+          animation: cell-blink-med var(--blink-duration, 2.4s) ease-in-out infinite;
+          animation-delay: var(--blink-delay, 0s);
+          will-change: opacity;
         }
 
         .heatmap-scrollbar-dark::-webkit-scrollbar {
