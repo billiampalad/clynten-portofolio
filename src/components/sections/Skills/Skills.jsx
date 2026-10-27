@@ -1,8 +1,98 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import { profile } from '@/content/profile'
 import { SKILLS_CONFIG } from '@/content/skills'
 import TechIcon from './TechIcon'
 import './Skills.css'
+
+/**
+ * Animation variants for smooth bottom-to-top entrance (staggered)
+ */
+const headlineContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+}
+
+const itemFadeUpVariants = {
+  hidden: {
+    opacity: 0,
+    y: 35,
+    filter: 'blur(6px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
+
+const statsGridVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const statCardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    filter: 'blur(4px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
+
+const pillarsGridVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const pillarCardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 45,
+    scale: 0.98,
+    filter: 'blur(6px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.85,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
 
 const STATS = [
   { num: '04+', title: 'Engineered Systems', desc: 'Enterprise Web, AI Vision, BGP Routing & WebGIS' },
@@ -105,7 +195,12 @@ function SkillDomainCard({ domain }) {
   }, [isInView, domain.confidenceVal])
 
   return (
-    <div ref={cardRef} className="pillar-card">
+    <motion.div
+      ref={cardRef}
+      className="pillar-card"
+      variants={pillarCardVariants}
+      whileHover={{ y: -4, transition: { duration: 0.25 } }}
+    >
       {/* Card Header: Index, Stack Tag, and Dynamic Metric Badge */}
       <div className="pillar-header">
         <div className="pillar-header-left">
@@ -150,17 +245,29 @@ function SkillDomainCard({ domain }) {
           </span>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 export default function Skills({ style = {} }) {
   return (
-    <section id="skills" className="skills-section" style={style}>
+    <section id="skills" className="skills-section relative" style={style}>
+      {/* Background Ambient Glow */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[140px] pointer-events-none select-none"
+        aria-hidden="true"
+      />
+
       {/* Big Headline */}
-      <div className="skills-headline-block">
+      <motion.div
+        className="skills-headline-block relative z-10"
+        variants={headlineContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {/* Header Metadata */}
-        <div className="skills-header-meta">
+        <motion.div variants={itemFadeUpVariants} className="skills-header-meta">
           <div className="skills-header-left">
             <div className="skills-badge">
               <span className="dot" />
@@ -169,32 +276,49 @@ export default function Skills({ style = {} }) {
             <span className="skills-tagline">Technical Stack & Competencies</span>
           </div>
           <span className="skills-sys-id">SPEC_ID: {profile.systemId}</span>
-        </div>
-        <h2 className="skills-title">
+        </motion.div>
+        <motion.h2 variants={itemFadeUpVariants} className="skills-title">
           Production-grade systems <span className="highlight">engineered for scale</span> and high resilience.
-        </h2>
-        <p className="skills-description">
+        </motion.h2>
+        <motion.p variants={itemFadeUpVariants} className="skills-description">
           Explore the core technical pillars, verifiable engineering metrics, and specialized stack modules powering modern web architectures, mobile applications, network infrastructure, and cybersecurity.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       {/* Stats Grid */}
-      <div className="skills-stats-grid">
+      <motion.div
+        className="skills-stats-grid relative z-10"
+        variants={statsGridVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
         {STATS.map((stat, i) => (
-          <div key={i} className="stat-card">
+          <motion.div
+            key={i}
+            className="stat-card"
+            variants={statCardVariants}
+            whileHover={{ y: -3, transition: { duration: 0.2 } }}
+          >
             <div className="stat-num">{stat.num}</div>
             <div className="stat-title">{stat.title}</div>
             <div className="stat-desc">{stat.desc}</div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Domain Pillars (Synchronized with skills.js) */}
-      <div className="skills-pillars-grid">
+      <motion.div
+        className="skills-pillars-grid relative z-10"
+        variants={pillarsGridVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.08 }}
+      >
         {DOMAINS.map((domain, i) => (
           <SkillDomainCard key={domain.id || i} domain={domain} />
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }
