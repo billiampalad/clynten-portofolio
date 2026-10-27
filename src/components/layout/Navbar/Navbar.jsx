@@ -209,18 +209,20 @@ export default function Navbar({
     }
 
     // 4. Target: SKILLS
-    // Skills has a fixed navbar above it, offset: -60 ensures top padding & badge are clearly visible
+    // Berhenti tepat dan presisi di batas atas Skills (titik di mana Hero pin selesai 100%)
     if (targetId === 'skills') {
+      const heroTrigger = ScrollTrigger.getById('hero-trigger')
       const skillsEl = document.getElementById('skills')
-      if (!skillsEl) return
+      const targetY = heroTrigger
+        ? Math.round(heroTrigger.end)
+        : (skillsEl ? skillsEl.getBoundingClientRect().top + window.scrollY : 0)
 
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(skillsEl, { offset: -60, duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(targetY, { duration: 1.2, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(skillsEl, { offset: -60, duration: 1.2 })
+        window.__lenis.scrollTo(targetY, { duration: 1.2 })
       } else {
-        const top = skillsEl.getBoundingClientRect().top + window.scrollY - 60
-        window.scrollTo({ top, behavior: 'smooth' })
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
       }
       return
     }
@@ -229,9 +231,9 @@ export default function Navbar({
     const targetEl = document.getElementById(targetId)
     if (targetEl) {
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetEl, { offset: -60, duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(targetEl, { offset: 0, duration: 1.2, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetEl, { offset: -60, duration: 1.2 })
+        window.__lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 })
       } else {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
