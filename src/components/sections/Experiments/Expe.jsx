@@ -668,11 +668,11 @@ export default function Expe({
                           const isHighActive = day.level >= 3
                           const isMediumActive = day.level === 2
 
-                          // Unique pseudo-random timing per cell so each cell blinks independently
+                          // Unique pseudo-random timing per cell for smooth, relaxed blinking
                           const seed1 = (wIdx * 37 + dIdx * 73 + 19) % 100
                           const seed2 = (wIdx * 19 + dIdx * 53 + 47) % 100
-                          const blinkDelay = ((seed1 / 100) * 3.0).toFixed(2)
-                          const blinkDuration = (1.4 + (seed2 / 100) * 1.6).toFixed(2)
+                          const blinkDelay = ((seed1 / 100) * 5.0).toFixed(2)
+                          const blinkDuration = (3.6 + (seed2 / 100) * 2.2).toFixed(2)
 
                           return (
                             <motion.div
@@ -786,20 +786,11 @@ export default function Expe({
         </motion.div>
       </motion.div>
 
-      {/* Scoped Scrollbar & Blink Styling */}
+      {/* Scoped Scrollbar & Smooth Blink Styling */}
       <style>{`
-        /* Individual & Pure Blinking on Active Cells (No glow, no blur) */
+        /* Smooth, Gentle Blinking on Active Cells */
         @keyframes cell-blink-high {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.18;
-          }
-        }
-
-        @keyframes cell-blink-med {
-          0%, 100% {
+          0%, 25%, 75%, 100% {
             opacity: 1;
           }
           50% {
@@ -807,14 +798,23 @@ export default function Expe({
           }
         }
 
+        @keyframes cell-blink-med {
+          0%, 25%, 75%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.52;
+          }
+        }
+
         .cell-blink-high {
-          animation: cell-blink-high var(--blink-duration, 2s) ease-in-out infinite;
+          animation: cell-blink-high var(--blink-duration, 4.5s) cubic-bezier(0.4, 0, 0.2, 1) infinite;
           animation-delay: var(--blink-delay, 0s);
           will-change: opacity;
         }
 
         .cell-blink-med {
-          animation: cell-blink-med var(--blink-duration, 2.4s) ease-in-out infinite;
+          animation: cell-blink-med var(--blink-duration, 5s) cubic-bezier(0.4, 0, 0.2, 1) infinite;
           animation-delay: var(--blink-delay, 0s);
           will-change: opacity;
         }
