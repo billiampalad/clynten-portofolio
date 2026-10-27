@@ -10,6 +10,14 @@ const itemVariants = {
   },
 }
 
+function escapeHtml(str) {
+  if (!str) return ''
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+}
+
 export default function ContactForm({ isLight }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -20,21 +28,68 @@ export default function ContactForm({ isLight }) {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null) // 'success' | 'error' | null
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!formData.name || !formData.email || !formData.message) return
 
-    setIsSubmitting(true)
+    const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
+    const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID
 
-    // Simulate sending message (or hook to Formspree / Webhook / Mailto)
-    setTimeout(() => {
-      setIsSubmitting(false)
+    if (!botToken || !chatId) {
+      setSubmitStatus('error')
+      setErrorMessage('Telegram Bot Token or Chat ID not configured in .env.local')
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+    setErrorMessage('')
+
+    const timestamp = new Date().toLocaleString('id-ID', {
+      timeZone: 'Asia/Makassar',
+      dateStyle: 'full',
+      timeStyle: 'medium',
+    })
+
+    const text = [
+      `⚡ <b>NEW TRANSMISSION // PORTFOLIO CONTACT</b>`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `👤 <b>Name:</b> ${escapeHtml(formData.name)}`,
+      `🏢 <b>Company:</b> ${escapeHtml(formData.company || '-')}`,
+      `📧 <b>Email:</b> ${escapeHtml(formData.email)}`,
+      `📱 <b>Phone:</b> ${escapeHtml(formData.phone || '-')}`,
+      `📅 <b>Date:</b> ${escapeHtml(timestamp)} WITA`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `💬 <b>Message:</b>`,
+      `${escapeHtml(formData.message)}`,
+    ].join('\n')
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text,
+          parse_mode: 'HTML',
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.description || 'Failed to send message to Telegram.')
+      }
+
       setSubmitStatus('success')
       setFormData({
         name: '',
@@ -46,8 +101,16 @@ export default function ContactForm({ isLight }) {
 
       setTimeout(() => {
         setSubmitStatus(null)
-      }, 5000)
-    }, 1000)
+      }, 6000)
+    } catch (err) {
+      console.error('Telegram Transmission Error:', err)
+      setSubmitStatus('error')
+      setErrorMessage(
+        err.message || 'Transmission failed. Please check your network or reach out via direct email.'
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   // Common input styling class generator
@@ -135,9 +198,16 @@ export default function ContactForm({ isLight }) {
 
         {/* Status Notification Toast */}
         {submitStatus === 'success' && (
-          <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs sm:text-sm font-medium flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span>Thank you! Your transmission has been dispatched successfully.</span>
+          <div className="p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
+            <span>Thank you! Your transmission has been dispatched to Telegram successfully.</span>
+          </div>
+        )}
+
+        {submitStatus === 'error' && (
+          <div className="p-3.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+            <span>{errorMessage || 'Failed to transmit message. Please try again.'}</span>
           </div>
         )}
 
