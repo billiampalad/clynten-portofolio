@@ -1,4 +1,55 @@
 import { useState, useEffect, useMemo } from 'react'
+import { motion } from 'framer-motion'
+
+/**
+ * Animation variants for smooth bottom-to-top entrance (staggered)
+ */
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 35,
+    filter: 'blur(6px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
+
+const heatmapVariants = {
+  hidden: {
+    opacity: 0,
+    y: 55,
+    scale: 0.98,
+    filter: 'blur(8px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.95,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
 
 /**
  * Month labels matching the timeline in the reference screenshot
@@ -178,34 +229,51 @@ export default function Expe({
       <div id="experience" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
       <div id="experiments" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
 
-      <div className="max-w-6xl mx-auto flex flex-col">
+      {/* Background Ambient Glow */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[320px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[130px] pointer-events-none select-none"
+        aria-hidden="true"
+      />
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        className="max-w-6xl mx-auto flex flex-col relative z-10"
+      >
         {/* 1. Category Tag */}
-        <div className="mb-2">
+        <motion.div variants={itemVariants} className="mb-2">
           <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-red-500">
             CODE
           </span>
-        </div>
+        </motion.div>
 
         {/* 2. Main Title */}
-        <h2
+        <motion.h2
+          variants={itemVariants}
           className={`font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 ${
             isLight ? 'text-slate-950' : 'text-white'
           }`}
         >
           Experiments
-        </h2>
+        </motion.h2>
 
         {/* 3. Subtitle / Narrative */}
-        <p
+        <motion.p
+          variants={itemVariants}
           className={`text-sm sm:text-base md:text-[15px] font-normal max-w-2xl leading-relaxed mb-8 ${
             isLight ? 'text-slate-600' : 'text-zinc-400'
           }`}
         >
           Side projects I build to test how AI changes product design, prototyping, and delivery.
-        </p>
+        </motion.p>
 
         {/* 4. Stats & Handle Bar */}
-        <div className="flex items-center justify-between gap-4 mb-4 select-none">
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center justify-between gap-4 mb-4 select-none"
+        >
           {/* Total Contributions Counter */}
           <div className="font-sans text-xs sm:text-sm md:text-base">
             <span
@@ -237,10 +305,10 @@ export default function Expe({
               ↗
             </span>
           </a>
-        </div>
+        </motion.div>
 
         {/* 5. Contributions Heatmap Stage */}
-        <div className="relative w-full">
+        <motion.div variants={heatmapVariants} className="relative w-full">
           {/* Tooltip Popup on Hover */}
           {hoveredCell && (
             <div
@@ -312,10 +380,13 @@ export default function Expe({
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 6. Activity Level Legend */}
-        <div className="mt-3 flex items-center justify-end gap-2 text-xs font-mono text-zinc-400 select-none">
+        <motion.div
+          variants={itemVariants}
+          className="mt-3 flex items-center justify-end gap-2 text-xs font-mono text-zinc-400 select-none"
+        >
           <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>Less</span>
           <div className="flex items-center gap-1">
             <span
@@ -340,8 +411,8 @@ export default function Expe({
             />
           </div>
           <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>More</span>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Scoped Scrollbar Styling matching reference image */}
       <style>{`
