@@ -7,7 +7,7 @@ import './App.css'
 const Skills = lazy(() => import('@/components/sections/Skills/Skills'))
 const Projects = lazy(() => import('@/components/sections/Projects/Projects'))
 const Expe = lazy(() => import('@/components/sections/Experiments/Expe'))
-const Contact = lazy(() => import('@/components/sections/Contact/contact'))
+const Contact = lazy(() => import('@/components/sections/Contact/Contact'))
 
 function App() {
   // Initialize Locomotive Scroll v5 (Lenis powered) with GSAP ScrollTrigger synchronization
