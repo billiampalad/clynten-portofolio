@@ -516,12 +516,6 @@ export default function Expe({
       <div id="experience" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
       <div id="experiments" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
 
-      {/* Background Ambient Glow (Matching Skills section) */}
-      <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[140px] pointer-events-none select-none"
-        aria-hidden="true"
-      />
-
       <motion.div
         variants={containerVariants}
         initial="hidden"

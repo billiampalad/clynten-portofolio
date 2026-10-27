@@ -252,12 +252,6 @@ function SkillDomainCard({ domain }) {
 export default function Skills({ style = {} }) {
   return (
     <section id="skills" className="skills-section relative" style={style}>
-      {/* Background Ambient Glow */}
-      <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[140px] pointer-events-none select-none"
-        aria-hidden="true"
-      />
-
       {/* Big Headline */}
       <motion.div
         className="skills-headline-block relative z-10"
