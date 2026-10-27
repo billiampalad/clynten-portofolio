@@ -681,7 +681,6 @@ export default function Expe({
                               variants={cellVariants}
                               initial="hidden"
                               animate="visible"
-                              whileHover={{ scale: 1.35, zIndex: 30 }}
                               onMouseEnter={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect()
                                 const parentRect = e.currentTarget
@@ -699,7 +698,7 @@ export default function Expe({
                                 '--blink-delay': `${blinkDelay}s`,
                                 '--blink-duration': `${blinkDuration}s`,
                               }}
-                              className={`w-[13px] h-[13px] rounded-[3px] border transition-colors duration-150 cursor-pointer ${getCellClasses(
+                              className={`w-[13px] h-[13px] rounded-[3px] border cursor-pointer hover:scale-125 hover:z-30 transition-all duration-75 ${getCellClasses(
                                 day.level
                               )} ${
                                 isHighActive
@@ -817,6 +816,13 @@ export default function Expe({
           animation: cell-blink-med var(--blink-duration, 5s) cubic-bezier(0.4, 0, 0.2, 1) infinite;
           animation-delay: var(--blink-delay, 0s);
           will-change: opacity;
+        }
+
+        /* Fast, instant, solid hover response without slow spring */
+        .cell-blink-high:hover,
+        .cell-blink-med:hover {
+          animation: none !important;
+          opacity: 1 !important;
         }
 
         .heatmap-scrollbar-dark::-webkit-scrollbar {
