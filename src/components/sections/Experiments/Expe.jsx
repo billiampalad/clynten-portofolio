@@ -506,16 +506,19 @@ export default function Expe({
     <section
       id={id}
       className={`relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${
-        isLight ? 'bg-white text-slate-900' : 'bg-[#0A0907] text-slate-100'
+        isLight ? 'bg-[#f8fafc] text-[#0f172a]' : 'bg-[#0A0907] text-[#f1f5f9]'
       }`}
+      style={{
+        background: isLight ? 'var(--nav-bg, #f8fafc)' : 'var(--nav-bg, #0A0907)',
+      }}
     >
       {/* Fallback Anchors for #experience and #experiments */}
       <div id="experience" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
       <div id="experiments" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
 
-      {/* Background Ambient Glow */}
+      {/* Background Ambient Glow (Matching Skills section) */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[320px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[130px] pointer-events-none select-none"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[140px] pointer-events-none select-none"
         aria-hidden="true"
       />
 
