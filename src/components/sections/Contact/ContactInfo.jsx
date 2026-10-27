@@ -72,6 +72,20 @@ function ContactChannelIcon({ type }) {
 }
 
 function ContactInfo({ isLight }) {
+  const handleItemClick = (e, item) => {
+    if (item.id === 'email') {
+      const isMobile =
+        typeof navigator !== 'undefined' &&
+        /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+      if (isMobile) {
+        window.location.href = `mailto:${item.value}?subject=${encodeURIComponent(
+          'Project Inquiry / Collaboration'
+        )}`
+        e.preventDefault()
+      }
+    }
+  }
+
   return (
     <motion.div
       variants={itemVariants}
@@ -85,8 +99,10 @@ function ContactInfo({ isLight }) {
           <a
             key={item.id}
             href={item.href}
-            target={item.id === 'location' ? '_blank' : undefined}
-            rel={item.id === 'location' ? 'noopener noreferrer' : undefined}
+            onClick={(e) => handleItemClick(e, item)}
+            target={item.id === 'location' || item.id === 'email' ? '_blank' : undefined}
+            rel={item.id === 'location' || item.id === 'email' ? 'noopener noreferrer' : undefined}
+            title={item.id === 'email' ? `Send email to ${item.value}` : undefined}
             className="flex items-center gap-4 sm:gap-5 group cursor-pointer select-none"
           >
             {/* Circular Badge Icon (Matching Reference Image) */}
