@@ -22,18 +22,16 @@ function ContactHeader({ isLight }) {
 
       {/* Main Title */}
       <h2
-        className={`font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 ${
-          isLight ? 'text-slate-950' : 'text-white'
-        }`}
+        className={`font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 ${isLight ? 'text-slate-950' : 'text-white'
+          }`}
       >
         {CONTACT_METADATA.title}
       </h2>
 
       {/* Narrative Description (matching reference image concept) */}
       <p
-        className={`text-sm sm:text-base md:text-[15px] font-normal leading-relaxed max-w-2xl mx-auto ${
-          isLight ? 'text-slate-600' : 'text-zinc-400'
-        }`}
+        className={`text-sm sm:text-base md:text-[15px] font-normal leading-relaxed max-w-2xl mx-auto ${isLight ? 'text-slate-600' : 'text-zinc-400'
+          }`}
       >
         {CONTACT_METADATA.description}
       </p>
