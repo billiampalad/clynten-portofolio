@@ -52,10 +52,16 @@ const heatmapVariants = {
 }
 
 /**
+ * 3 latest years from now downwards
+ */
+const AVAILABLE_YEARS = [2026, 2025, 2024]
+
+/**
  * Month labels matching the timeline in the reference screenshot
  * (Spans from April 2025 to October 2026 ~ 18 months / 78 weeks)
+ * USED AS THE DEFAULT VIEW (2026)
  */
-const MONTH_LABELS = [
+const DEFAULT_MONTH_LABELS = [
   { name: 'Apr', colIndex: 0 },
   { name: 'May', colIndex: 4 },
   { name: 'Jun', colIndex: 8 },
@@ -77,7 +83,25 @@ const MONTH_LABELS = [
   { name: 'Oct', colIndex: 75 },
 ]
 
-const TOTAL_WEEKS = 78
+/**
+ * Standard 12-month labels for full calendar years (52 weeks)
+ */
+const STANDARD_MONTH_LABELS = [
+  { name: 'Jan', colIndex: 0 },
+  { name: 'Feb', colIndex: 4 },
+  { name: 'Mar', colIndex: 8 },
+  { name: 'Apr', colIndex: 13 },
+  { name: 'May', colIndex: 17 },
+  { name: 'Jun', colIndex: 21 },
+  { name: 'Jul', colIndex: 26 },
+  { name: 'Aug', colIndex: 30 },
+  { name: 'Sep', colIndex: 35 },
+  { name: 'Oct', colIndex: 39 },
+  { name: 'Nov', colIndex: 43 },
+  { name: 'Dec', colIndex: 48 },
+]
+
+const TOTAL_WEEKS_DEFAULT = 78
 const DAYS_PER_WEEK = 7
 
 /**
@@ -94,11 +118,11 @@ function seededRandom(seed) {
  * - Sep 2025-Apr 2026: Calm period with sporadic commits
  * - May-Oct 2026: Heavy intense activity (dense level 3 & 4 red clusters)
  */
-function generateContributionGrid() {
+function generateDefaultContributionGrid() {
   const grid = []
   const startDate = new Date(2025, 3, 6) // Sunday, April 6, 2025
 
-  for (let w = 0; w < TOTAL_WEEKS; w++) {
+  for (let w = 0; w < TOTAL_WEEKS_DEFAULT; w++) {
     const week = []
     for (let d = 0; d < DAYS_PER_WEEK; d++) {
       const cellDate = new Date(startDate)
@@ -153,13 +177,97 @@ function generateContributionGrid() {
   return grid
 }
 
+/**
+ * Generates realistic contribution distribution for a specific 52-week calendar year
+ */
+function generateYearGrid(year, seedOffset) {
+  const grid = []
+  const jan1 = new Date(year, 0, 1)
+  const dayOfWeek = jan1.getDay()
+  const startDate = new Date(year, 0, 1 - dayOfWeek)
+
+  for (let w = 0; w < 52; w++) {
+    const week = []
+    for (let d = 0; d < DAYS_PER_WEEK; d++) {
+      const cellDate = new Date(startDate)
+      cellDate.setDate(startDate.getDate() + w * 7 + d)
+
+      const rand = seededRandom(w * 23 + d * 41 + seedOffset)
+      let level = 0
+      let count = 0
+
+      if (rand > 0.44) {
+        if (rand > 0.88) {
+          level = 4
+          count = Math.floor(rand * 12) + 8
+        } else if (rand > 0.70) {
+          level = 3
+          count = Math.floor(rand * 7) + 4
+        } else if (rand > 0.54) {
+          level = 2
+          count = Math.floor(rand * 4) + 2
+        } else {
+          level = 1
+          count = Math.floor(rand * 2) + 1
+        }
+      }
+
+      week.push({
+        date: cellDate,
+        dateString: cellDate.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        }),
+        level,
+        count,
+      })
+    }
+    grid.push(week)
+  }
+  return grid
+}
+
+/**
+ * Helper to fetch complete year data: labels, stats & contributions grid
+ */
+function getYearContributionData(year) {
+  if (year === 2026) {
+    return {
+      monthLabels: DEFAULT_MONTH_LABELS,
+      totalContributions: '3,455',
+      startDateText: 'since January 2025',
+      grid: generateDefaultContributionGrid(),
+    }
+  }
+
+  if (year === 2025) {
+    return {
+      monthLabels: STANDARD_MONTH_LABELS,
+      totalContributions: '2,184',
+      startDateText: 'in 2025',
+      grid: generateYearGrid(2025, 773),
+    }
+  }
+
+  // 2024
+  return {
+    monthLabels: STANDARD_MONTH_LABELS,
+    totalContributions: '1,420',
+    startDateText: 'in 2024',
+    grid: generateYearGrid(2024, 389),
+  }
+}
+
 export default function Expe({
   id = 'experience',
   githubUrl = 'https://github.com/billiampalad',
   handle = '@product-llc',
-  totalContributions = '3,455',
-  startDateText = 'since January 2025',
+  totalContributions: propTotalContributions,
+  startDateText: propStartDateText,
+  defaultYear = 2026,
 }) {
+  const [selectedYear, setSelectedYear] = useState(defaultYear)
   const [hoveredCell, setHoveredCell] = useState(null)
   const [isLight, setIsLight] = useState(() => {
     if (typeof document !== 'undefined') {
@@ -189,7 +297,20 @@ export default function Expe({
     return () => observer.disconnect()
   }, [])
 
-  const gridData = useMemo(() => generateContributionGrid(), [])
+  const activeData = useMemo(() => {
+    return getYearContributionData(selectedYear)
+  }, [selectedYear])
+
+  const totalContributions =
+    selectedYear === 2026 && propTotalContributions
+      ? propTotalContributions
+      : activeData.totalContributions
+  const startDateText =
+    selectedYear === 2026 && propStartDateText
+      ? propStartDateText
+      : activeData.startDateText
+  const gridData = activeData.grid
+  const monthLabels = activeData.monthLabels
 
   // Red theme level styling mapping for both Dark & Light modes
   const getCellClasses = (level) => {
@@ -307,110 +428,149 @@ export default function Expe({
           </a>
         </motion.div>
 
-        {/* 5. Contributions Heatmap Stage */}
+        {/* 5. Contributions Heatmap Stage + Year Selector Column */}
         <motion.div variants={heatmapVariants} className="relative w-full">
-          {/* Tooltip Popup on Hover */}
-          {hoveredCell && (
-            <div
-              className={`absolute -top-10 z-30 px-3 py-1 rounded-md text-xs font-mono font-medium shadow-lg pointer-events-none transition-all duration-150 transform -translate-x-1/2 whitespace-nowrap ${
-                isLight
-                  ? 'bg-slate-900 text-white shadow-slate-900/20'
-                  : 'bg-zinc-800 text-zinc-100 border border-white/10 shadow-black/40'
-              }`}
-              style={{
-                left: `${hoveredCell.x}px`,
-              }}
-            >
-              <span className="font-bold text-red-400 mr-1.5">
-                {hoveredCell.count > 0 ? `${hoveredCell.count} commits` : 'No commits'}
-              </span>
-              <span>on {hoveredCell.dateString}</span>
-            </div>
-          )}
-
-          {/* Scrollable Heatmap Canvas */}
-          <div
-            className={`overflow-x-auto pb-4 pt-1 [-webkit-overflow-scrolling:touch] ${
-              isLight ? 'heatmap-scrollbar-light' : 'heatmap-scrollbar-dark'
-            }`}
-          >
-            <div className="min-w-max flex flex-col gap-2">
-              {/* Month Labels Header Row */}
-              <div className="relative h-5 flex text-[11px] font-mono text-zinc-400 dark:text-zinc-500 select-none">
-                {MONTH_LABELS.map((m, idx) => (
-                  <span
-                    key={idx}
-                    className="absolute"
-                    style={{
-                      left: `${m.colIndex * 16}px`,
-                    }}
-                  >
-                    {m.name}
+          <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
+            {/* Left/Main Column: Heatmap Canvas + Activity Level Legend */}
+            <div className="flex-1 w-full min-w-0">
+              {/* Tooltip Popup on Hover */}
+              {hoveredCell && (
+                <div
+                  className={`absolute -top-10 z-30 px-3 py-1 rounded-md text-xs font-mono font-medium shadow-lg pointer-events-none transition-all duration-150 transform -translate-x-1/2 whitespace-nowrap ${
+                    isLight
+                      ? 'bg-slate-900 text-white shadow-slate-900/20'
+                      : 'bg-zinc-800 text-zinc-100 border border-white/10 shadow-black/40'
+                  }`}
+                  style={{
+                    left: `${hoveredCell.x}px`,
+                  }}
+                >
+                  <span className="font-bold text-red-400 mr-1.5">
+                    {hoveredCell.count > 0 ? `${hoveredCell.count} commits` : 'No commits'}
                   </span>
-                ))}
-              </div>
+                  <span>on {hoveredCell.dateString}</span>
+                </div>
+              )}
 
-              {/* 7-Row Grid of Rounded Contribution Squares */}
-              <div className="flex gap-[3px] select-none">
-                {gridData.map((week, wIdx) => (
-                  <div key={wIdx} className="w-[13px] flex flex-col gap-[3px] shrink-0">
-                    {week.map((day, dIdx) => (
-                      <div
-                        key={dIdx}
-                        onMouseEnter={(e) => {
-                          const rect = e.currentTarget.getBoundingClientRect()
-                          const parentRect = e.currentTarget
-                            .closest('.relative')
-                            ?.getBoundingClientRect()
-                          if (parentRect) {
-                            setHoveredCell({
-                              ...day,
-                              x: rect.left - parentRect.left + rect.width / 2,
-                            })
-                          }
+              {/* Scrollable Heatmap Canvas */}
+              <div
+                className={`overflow-x-auto pb-4 pt-1 [-webkit-overflow-scrolling:touch] ${
+                  isLight ? 'heatmap-scrollbar-light' : 'heatmap-scrollbar-dark'
+                }`}
+              >
+                <div className="min-w-max flex flex-col gap-2">
+                  {/* Month Labels Header Row */}
+                  <div className="relative h-5 flex text-[11px] font-mono text-zinc-400 dark:text-zinc-500 select-none">
+                    {monthLabels.map((m, idx) => (
+                      <span
+                        key={idx}
+                        className="absolute"
+                        style={{
+                          left: `${m.colIndex * 16}px`,
                         }}
-                        onMouseLeave={() => setHoveredCell(null)}
-                        className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-150 cursor-pointer hover:scale-125 hover:z-20 ${getCellClasses(
-                          day.level
-                        )}`}
-                      />
+                      >
+                        {m.name}
+                      </span>
                     ))}
                   </div>
-                ))}
+
+                  {/* 7-Row Grid of Rounded Contribution Squares */}
+                  <div className="flex gap-[3px] select-none">
+                    {gridData.map((week, wIdx) => (
+                      <div key={wIdx} className="w-[13px] flex flex-col gap-[3px] shrink-0">
+                        {week.map((day, dIdx) => (
+                          <div
+                            key={dIdx}
+                            onMouseEnter={(e) => {
+                              const rect = e.currentTarget.getBoundingClientRect()
+                              const parentRect = e.currentTarget
+                                .closest('.relative')
+                                ?.getBoundingClientRect()
+                              if (parentRect) {
+                                setHoveredCell({
+                                  ...day,
+                                  x: rect.left - parentRect.left + rect.width / 2,
+                                })
+                              }
+                            }}
+                            onMouseLeave={() => setHoveredCell(null)}
+                            className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-150 cursor-pointer hover:scale-125 hover:z-20 ${getCellClasses(
+                              day.level
+                            )}`}
+                          />
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 6. Activity Level Legend */}
+              <div className="mt-3 flex items-center justify-end gap-2 text-xs font-mono text-zinc-400 select-none">
+                <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>Less</span>
+                <div className="flex items-center gap-1">
+                  <span
+                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(0)}`}
+                    title="0 contributions"
+                  />
+                  <span
+                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(1)}`}
+                    title="Low"
+                  />
+                  <span
+                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(2)}`}
+                    title="Medium"
+                  />
+                  <span
+                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(3)}`}
+                    title="High"
+                  />
+                  <span
+                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(4)}`}
+                    title="Very High"
+                  />
+                </div>
+                <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>More</span>
+              </div>
+            </div>
+
+            {/* Right Column: 3 Latest Years Selection (2026, 2025, 2024 Stacked Vertically) */}
+            <div className="w-full lg:w-32 shrink-0 flex flex-col gap-1.5 select-none pt-0.5">
+              <span className="font-mono text-[10px] tracking-wider uppercase text-zinc-400 dark:text-zinc-500 hidden lg:block mb-1">
+                YEARS
+              </span>
+              <div className="flex lg:flex-col gap-1.5 w-full overflow-x-auto pb-1 lg:pb-0">
+                {AVAILABLE_YEARS.map((year) => {
+                  const isActive = selectedYear === year
+                  return (
+                    <button
+                      key={year}
+                      type="button"
+                      onClick={() => {
+                        setSelectedYear(year)
+                        setHoveredCell(null)
+                      }}
+                      className={`px-3.5 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all duration-200 text-left flex items-center justify-between gap-3 cursor-pointer shrink-0 ${
+                        isActive
+                          ? 'bg-red-600 text-white shadow-md shadow-red-600/30 ring-1 ring-red-500'
+                          : isLight
+                          ? 'bg-slate-100 text-slate-600 hover:text-slate-950 hover:bg-slate-200/80 border border-slate-200/80'
+                          : 'bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.06]'
+                      }`}
+                    >
+                      <span>{year}</span>
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full transition-opacity duration-200 ${
+                          isActive ? 'bg-white opacity-100' : 'opacity-0'
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  )
+                })}
               </div>
             </div>
           </div>
-        </motion.div>
-
-        {/* 6. Activity Level Legend */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-3 flex items-center justify-end gap-2 text-xs font-mono text-zinc-400 select-none"
-        >
-          <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>Less</span>
-          <div className="flex items-center gap-1">
-            <span
-              className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(0)}`}
-              title="0 contributions"
-            />
-            <span
-              className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(1)}`}
-              title="Low"
-            />
-            <span
-              className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(2)}`}
-              title="Medium"
-            />
-            <span
-              className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(3)}`}
-              title="High"
-            />
-            <span
-              className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(4)}`}
-              title="Very High"
-            />
-          </div>
-          <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>More</span>
         </motion.div>
       </motion.div>
 
