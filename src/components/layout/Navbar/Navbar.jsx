@@ -209,20 +209,22 @@ export default function Navbar({
     }
 
     // 4. Target: SKILLS
-    // Berhenti tepat dan presisi di batas atas Skills (titik di mana Hero pin selesai 100%)
+    // Arahkan langsung ke elemen DOM #skills (bukan ke heroTrigger milik About)
     if (targetId === 'skills') {
-      const heroTrigger = ScrollTrigger.getById('hero-trigger')
       const skillsEl = document.getElementById('skills')
-      const targetY = heroTrigger
-        ? Math.round(heroTrigger.end)
-        : (skillsEl ? skillsEl.getBoundingClientRect().top + window.scrollY : 0)
+      if (!skillsEl) return
+
+      // Nilai offset: 0 artinya pas di batas atas section Skills.
+      // Jika ingin agak turun sedikit, Anda bisa ubah angka 0 ini menjadi misalnya 20 atau 40.
+      const SKILLS_OFFSET = -50
 
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetY, { duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(skillsEl, { offset: SKILLS_OFFSET, duration: 1.2, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetY, { duration: 1.2 })
+        window.__lenis.scrollTo(skillsEl, { offset: SKILLS_OFFSET, duration: 1.2 })
       } else {
-        window.scrollTo({ top: targetY, behavior: 'smooth' })
+        const top = skillsEl.getBoundingClientRect().top + window.scrollY + SKILLS_OFFSET
+        window.scrollTo({ top, behavior: 'smooth' })
       }
       return
     }
