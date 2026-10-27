@@ -7,6 +7,7 @@ import './App.css'
 const Skills = lazy(() => import('@/components/sections/Skills/Skills'))
 const Projects = lazy(() => import('@/components/sections/Projects/Projects'))
 const Expe = lazy(() => import('@/components/sections/Experiments/Expe'))
+const Contact = lazy(() => import('@/components/sections/Contact/contact'))
 
 function App() {
   // Initialize Locomotive Scroll v5 (Lenis powered) with GSAP ScrollTrigger synchronization
@@ -72,6 +73,11 @@ function App() {
       {/* Section: Experiments (GitHub Contribution Heatmap & AI Experiments) */}
       <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
         <Expe />
+      </Suspense>
+
+      {/* Section: Contact (Split Channels Info + Transmission Form) */}
+      <Suspense fallback={<div className="min-h-screen bg-[#0A0907]" />}>
+        <Contact />
       </Suspense>
     </div>
   )

@@ -10,7 +10,7 @@ const REFERENCE_NAV_ITEMS = [
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 /**
