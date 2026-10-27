@@ -227,6 +227,8 @@ export default function Projects() {
   const prevIndexRef = useRef(0)
   const hasScrolledPastStartRef = useRef(false)
   const [hasScrolledPastStart, setHasScrolledPastStart] = useState(false)
+  const hasReachedEndRef = useRef(false)
+  const [hasReachedEnd, setHasReachedEnd] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isLight, setIsLight] = useState(() => {
@@ -268,7 +270,7 @@ export default function Projects() {
       id: 'projects-trigger',
       trigger: section,
       start: 'top top',
-      end: '+=300%',
+      end: '+=380%',
       pin: pinWrapper,
       pinSpacing: true,
       scrub: 0.8,
@@ -311,6 +313,23 @@ export default function Projects() {
         if (rotatingIconRef2.current) {
           rotatingIconRef2.current.style.transform = rotDeg
         }
+
+        // 5. Revert background to default when final project reaches 100% and user scrolls further
+        const isLastProject = step === total - 1
+        const reachedEnd = (isLastProject && cycle >= 0.88) || self.progress >= 0.99
+        if (reachedEnd !== hasReachedEndRef.current) {
+          hasReachedEndRef.current = reachedEnd
+          setHasReachedEnd(reachedEnd)
+        }
+      },
+      onLeave: () => {
+        if (!hasReachedEndRef.current) {
+          hasReachedEndRef.current = true
+          setHasReachedEnd(true)
+        }
+      },
+      onEnterBack: () => {
+        // onUpdate will accurately evaluate based on current scroll position
       },
     })
 
@@ -397,7 +416,9 @@ export default function Projects() {
             // Pada Project 01 (idx === 0): saat scroll 0, background polos.
             // Saat mulai scroll (hasScrolledPastStart === true), gambar Project 01 bertransisi fade-in secara halus!
             // Untuk Project berikutnya (idx > 0): opacity penuh saat aktif.
-            const isVisible = isActive && (idx > 0 || hasScrolledPastStart)
+            // Saat project terakhir mencapai 100% dan scroll berlanjut (hasReachedEnd === true),
+            // background bertransisi kembali ke default (polos tanpa gambar background)!
+            const isVisible = isActive && (idx > 0 || hasScrolledPastStart) && !hasReachedEnd
 
             return (
               <div
@@ -427,18 +448,18 @@ export default function Projects() {
             )
           })}
 
-          {/* Adaptive Contrast Overlay: Dark/Light Mode (Fade in only on scroll past start) */}
+          {/* Adaptive Contrast Overlay: Dark/Light Mode (Fade in only on scroll past start, fade out at end) */}
           <div
-            className={`absolute inset-0 transition-opacity duration-700 ease-out ${hasScrolledPastStart ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 transition-opacity duration-700 ease-out ${hasScrolledPastStart && !hasReachedEnd ? 'opacity-100' : 'opacity-0'
               } ${isLight
                 ? 'bg-[#f8fafc]/45 backdrop-brightness-95'
                 : 'bg-[#0A0907]/35 backdrop-brightness-95'
               }`}
           />
 
-          {/* Radial Vignette: keeps center stage clear and focused (Fade in only on scroll past start) */}
+          {/* Radial Vignette: keeps center stage clear and focused (Fade in only on scroll past start, fade out at end) */}
           <div
-            className={`absolute inset-0 transition-opacity duration-700 ${hasScrolledPastStart ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 transition-opacity duration-700 ${hasScrolledPastStart && !hasReachedEnd ? 'opacity-100' : 'opacity-0'
               } ${isLight
                 ? 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(248,250,252,0.65)_92%)]'
                 : 'bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(10,9,7,0.50)_92%)]'
