@@ -103,6 +103,7 @@ function generateContributionGrid() {
 }
 
 export default function Expe({
+  id = 'experience',
   githubUrl = 'https://github.com/billiampalad',
   handle = '@product-llc',
   totalContributions = '3,455',
@@ -168,11 +169,15 @@ export default function Expe({
 
   return (
     <section
-      id="experiments"
+      id={id}
       className={`relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${
         isLight ? 'bg-white text-slate-900' : 'bg-[#0A0907] text-slate-100'
       }`}
     >
+      {/* Fallback Anchors for #experience and #experiments */}
+      <div id="experience" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
+      <div id="experiments" className="absolute -top-20 pointer-events-none" aria-hidden="true" />
+
       <div className="max-w-6xl mx-auto flex flex-col">
         {/* 1. Category Tag */}
         <div className="mb-2">
