@@ -229,14 +229,14 @@ function generateYearGrid(year, seedOffset) {
 }
 
 /**
- * Helper to fetch complete year data: labels, stats & contributions grid
+ * Helper to fetch complete year data: labels, stats & contributions grid (fallback)
  */
 function getYearContributionData(year) {
   if (year === 2026) {
     return {
       monthLabels: DEFAULT_MONTH_LABELS,
-      totalContributions: '3,455',
-      startDateText: 'since January 2025',
+      totalContributions: '1,260',
+      startDateText: 'in 2026',
       grid: generateDefaultContributionGrid(),
     }
   }
@@ -244,7 +244,7 @@ function getYearContributionData(year) {
   if (year === 2025) {
     return {
       monthLabels: STANDARD_MONTH_LABELS,
-      totalContributions: '2,184',
+      totalContributions: '40',
       startDateText: 'in 2025',
       grid: generateYearGrid(2025, 773),
     }
@@ -253,22 +253,125 @@ function getYearContributionData(year) {
   // 2024
   return {
     monthLabels: STANDARD_MONTH_LABELS,
-    totalContributions: '1,420',
+    totalContributions: '0',
     startDateText: 'in 2024',
     grid: generateYearGrid(2024, 389),
   }
 }
 
+/**
+ * Helper to parse live GitHub contributions API data for a specific year
+ * Endpoint: https://github-contributions-api.jogruber.de/v4/${username}?y=all
+ */
+function parseGithubYearData(year, apiData) {
+  if (!apiData || !Array.isArray(apiData.contributions)) return null
+
+  const yearStr = String(year)
+  let days = apiData.contributions.filter((c) => c.date.startsWith(yearStr))
+
+  // If no records (e.g. year before account creation), generate a full empty year (level 0)
+  if (days.length === 0) {
+    const isLeap = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+    const totalDays = isLeap ? 366 : 365
+    days = []
+    const d = new Date(Date.UTC(year, 0, 1))
+    for (let i = 0; i < totalDays; i++) {
+      const iso = d.toISOString().slice(0, 10)
+      days.push({ date: iso, count: 0, level: 0 })
+      d.setUTCDate(d.getUTCDate() + 1)
+    }
+  } else {
+    days = [...days].sort((a, b) => a.date.localeCompare(b.date))
+  }
+
+  const firstDay = new Date(days[0].date + 'T00:00:00Z')
+  const firstDayOfWeek = firstDay.getUTCDay() // 0 = Sunday
+
+  const weeks = []
+  let currentWeek = []
+
+  // Pad days before the first day of the year in week 0
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    currentWeek.push({ isPlaceholder: true, level: 0, count: 0 })
+  }
+
+  days.forEach((item) => {
+    const d = new Date(item.date + 'T00:00:00Z')
+    const dateFormatted = d.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC',
+    })
+    currentWeek.push({
+      date: d,
+      dateString: dateFormatted,
+      rawDate: item.date,
+      count: item.count,
+      level: item.level,
+      isPlaceholder: false,
+    })
+    if (currentWeek.length === 7) {
+      weeks.push(currentWeek)
+      currentWeek = []
+    }
+  })
+
+  // Pad remaining days in the last week
+  if (currentWeek.length > 0) {
+    while (currentWeek.length < 7) {
+      currentWeek.push({ isPlaceholder: true, level: 0, count: 0 })
+    }
+    weeks.push(currentWeek)
+  }
+
+  // Calculate dynamic month labels matching column index
+  const monthLabels = []
+  let lastMonth = -1
+  weeks.forEach((week, wIdx) => {
+    for (const day of week) {
+      if (day.date && !day.isPlaceholder) {
+        const m = day.date.getUTCMonth()
+        if (m !== lastMonth) {
+          const mName = day.date.toLocaleDateString('en-US', {
+            month: 'short',
+            timeZone: 'UTC',
+          })
+          monthLabels.push({ name: mName, colIndex: wIdx })
+          lastMonth = m
+          break
+        }
+      }
+    }
+  })
+
+  const total =
+    apiData.total && apiData.total[yearStr] !== undefined
+      ? apiData.total[yearStr]
+      : days.reduce((sum, d) => sum + d.count, 0)
+
+  return {
+    monthLabels,
+    totalContributions: Number(total).toLocaleString('en-US'),
+    startDateText: `in ${year}`,
+    grid: weeks,
+  }
+}
+
 export default function Expe({
   id = 'experience',
+  username = 'billiampalad',
   githubUrl = 'https://github.com/billiampalad',
-  handle = '@product-llc',
+  handle = '@billiampalad',
   totalContributions: propTotalContributions,
   startDateText: propStartDateText,
   defaultYear = 2026,
 }) {
   const [selectedYear, setSelectedYear] = useState(defaultYear)
   const [hoveredCell, setHoveredCell] = useState(null)
+  const [liveData, setLiveData] = useState(null)
+  const [isLiveSynced, setIsLiveSynced] = useState(false)
+  const [, setIsLoading] = useState(false)
   const [isLight, setIsLight] = useState(() => {
     if (typeof document !== 'undefined') {
       return (
@@ -297,16 +400,49 @@ export default function Expe({
     return () => observer.disconnect()
   }, [])
 
+  // Fetch real-time GitHub contributions dynamically
+  useEffect(() => {
+    let isMounted = true
+    const fetchContributions = async () => {
+      try {
+        setIsLoading(true)
+        const res = await fetch(
+          `https://github-contributions-api.jogruber.de/v4/${username}?y=all`
+        )
+        if (!res.ok) throw new Error('Failed to fetch contributions')
+        const data = await res.json()
+        if (isMounted && data && data.contributions) {
+          setLiveData(data)
+          setIsLiveSynced(true)
+        }
+      } catch (err) {
+        console.warn('Real-time GitHub contributions fetch failed, using fallback:', err)
+      } finally {
+        if (isMounted) setIsLoading(false)
+      }
+    }
+
+    fetchContributions()
+
+    return () => {
+      isMounted = false
+    }
+  }, [username])
+
   const activeData = useMemo(() => {
+    if (liveData) {
+      const parsed = parseGithubYearData(selectedYear, liveData)
+      if (parsed) return parsed
+    }
     return getYearContributionData(selectedYear)
-  }, [selectedYear])
+  }, [selectedYear, liveData])
 
   const totalContributions =
-    selectedYear === 2026 && propTotalContributions
+    selectedYear === 2026 && propTotalContributions && !isLiveSynced
       ? propTotalContributions
       : activeData.totalContributions
   const startDateText =
-    selectedYear === 2026 && propStartDateText
+    selectedYear === 2026 && propStartDateText && !isLiveSynced
       ? propStartDateText
       : activeData.startDateText
   const gridData = activeData.grid
@@ -393,18 +529,31 @@ export default function Expe({
         {/* 4. Stats & Handle Bar */}
         <motion.div
           variants={itemVariants}
-          className="flex items-center justify-between gap-4 mb-4 select-none"
+          className="flex flex-wrap items-center justify-between gap-3 mb-4 select-none"
         >
-          {/* Total Contributions Counter */}
-          <div className="font-sans text-xs sm:text-sm md:text-base">
-            <span
-              className={`font-bold mr-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}
-            >
-              {totalContributions} contributions
-            </span>
-            <span className={`${isLight ? 'text-slate-500' : 'text-zinc-400'}`}>
-              {startDateText}
-            </span>
+          {/* Total Contributions Counter + Live Badge */}
+          <div className="flex items-center gap-2.5 font-sans text-xs sm:text-sm md:text-base">
+            <div>
+              <span
+                className={`font-bold mr-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}
+              >
+                {totalContributions} contributions
+              </span>
+              <span className={`${isLight ? 'text-slate-500' : 'text-zinc-400'}`}>
+                {startDateText}
+              </span>
+            </div>
+
+            {/* Live Real-Time Badge */}
+            {isLiveSynced && (
+              <span
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                title="Synchronized in real-time with GitHub API"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                LIVE SYNC
+              </span>
+            )}
           </div>
 
           {/* Social / GitHub Link Handle */}
@@ -478,27 +627,39 @@ export default function Expe({
                   <div className="flex gap-[3px] select-none">
                     {gridData.map((week, wIdx) => (
                       <div key={wIdx} className="w-[13px] flex flex-col gap-[3px] shrink-0">
-                        {week.map((day, dIdx) => (
-                          <div
-                            key={dIdx}
-                            onMouseEnter={(e) => {
-                              const rect = e.currentTarget.getBoundingClientRect()
-                              const parentRect = e.currentTarget
-                                .closest('.relative')
-                                ?.getBoundingClientRect()
-                              if (parentRect) {
-                                setHoveredCell({
-                                  ...day,
-                                  x: rect.left - parentRect.left + rect.width / 2,
-                                })
-                              }
-                            }}
-                            onMouseLeave={() => setHoveredCell(null)}
-                            className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-150 cursor-pointer hover:scale-125 hover:z-20 ${getCellClasses(
-                              day.level
-                            )}`}
-                          />
-                        ))}
+                        {week.map((day, dIdx) => {
+                          if (day.isPlaceholder) {
+                            return (
+                              <div
+                                key={dIdx}
+                                className="w-[13px] h-[13px] opacity-0 pointer-events-none"
+                                aria-hidden="true"
+                              />
+                            )
+                          }
+
+                          return (
+                            <div
+                              key={dIdx}
+                              onMouseEnter={(e) => {
+                                const rect = e.currentTarget.getBoundingClientRect()
+                                const parentRect = e.currentTarget
+                                  .closest('.relative')
+                                  ?.getBoundingClientRect()
+                                if (parentRect) {
+                                  setHoveredCell({
+                                    ...day,
+                                    x: rect.left - parentRect.left + rect.width / 2,
+                                  })
+                                }
+                              }}
+                              onMouseLeave={() => setHoveredCell(null)}
+                              className={`w-[13px] h-[13px] rounded-[3px] border transition-all duration-150 cursor-pointer hover:scale-125 hover:z-20 ${getCellClasses(
+                                day.level
+                              )}`}
+                            />
+                          )
+                        })}
                       </div>
                     ))}
                   </div>
