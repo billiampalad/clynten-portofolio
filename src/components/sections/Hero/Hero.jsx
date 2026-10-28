@@ -280,30 +280,30 @@ export default function Hero({ onProgressChange }) {
             let cRadius
             let frameOpacity
 
-            if (p <= 0.25) {
-              // TAHAP 1 (100% -> 80%): Membentuk sudut lembut & cyber glow
-              const t = smoothStep(p / 0.25)
-              cScale = 1.00 - t * 0.20 // 1.00 -> 0.80
-              cRadius = t * 20
-              frameOpacity = 1.0 // 100% Jernih
-            } else if (p <= 0.55) {
-              // TAHAP 2 (80% -> 50%): Medium Floating Card
-              const t = smoothStep((p - 0.25) / 0.30)
-              cScale = 0.80 - t * 0.30 // 0.80 -> 0.50
-              cRadius = 20 + t * 12
-              frameOpacity = 1.0 // 100% Jernih
-            } else if (p <= 0.80) {
-              // TAHAP 3 (50% -> 30%): Compact Mini Card (Mulai Meredup Halus)
-              const t = smoothStep((p - 0.55) / 0.25)
-              cScale = 0.50 - t * 0.20 // 0.50 -> 0.30
+            if (p <= 0.30) {
+              // TAHAP 1 (100% -> 75%): Membentuk sudut lembut & cyber glow
+              const t = smoothStep(p / 0.30)
+              cScale = 1.00 - t * 0.25
+              cRadius = t * 24
+              frameOpacity = 1.0 // 100% Jernih, tetap terang penuh
+            } else if (p <= 0.65) {
+              // TAHAP 2 (75% -> 45%): Floating Card tetap jernih & tegas
+              const t = smoothStep((p - 0.30) / 0.35)
+              cScale = 0.75 - t * 0.30
+              cRadius = 24 + t * 8
+              frameOpacity = 1.0 // 100% Jernih, tidak langsung redup
+            } else if (p <= 0.85) {
+              // TAHAP 3 (45% -> 25%): Compact Mini Card — Baru mulai meredup halus di tahap ini
+              const t = smoothStep((p - 0.65) / 0.20)
+              cScale = 0.45 - t * 0.20 // 0.45 -> 0.25
               cRadius = 32
-              frameOpacity = 1.0 - t * 0.50 // 1.0 -> 0.50
+              frameOpacity = 1.0 - t * 0.50 // Mulai meredup halus: 1.00 -> 0.50
             } else {
-              // TAHAP 4 (30% -> 10%): Pinpoint Dissolve (Meredup Tuntas)
-              const t = smoothStep((p - 0.80) / 0.20)
-              cScale = 0.30 - t * 0.20 // 0.30 -> 0.10
+              // TAHAP 4 (25% -> 10%): Pinpoint Dissolve — Meredup tuntas di titik akhir
+              const t = smoothStep((p - 0.85) / 0.15)
+              cScale = 0.25 - t * 0.15 // 0.25 -> 0.10
               cRadius = 32
-              frameOpacity = Math.max(0, 0.50 * (1 - t)) // 0.50 -> 0.00
+              frameOpacity = Math.max(0, 0.50 * (1 - t)) // 0.50 -> 0.00 di ujung transisi
             }
 
             const glowAlpha = Math.min(0.85, p * 1.2)
@@ -351,11 +351,10 @@ export default function Hero({ onProgressChange }) {
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
             currentAboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
             backdropLayerRef.current.style.opacity = currentAboutReveal.toFixed(3)
-            // Begitu section terlihat (reveal > 0.1), aktifkan pointer events & naikkan z-index ke 20
-            // agar seluruh tombol dapat di-klik dengan stabil tanpa terhalang layer HUD/canvas
-            const isInteractive = currentAboutReveal > 0.1
-            backdropLayerRef.current.style.pointerEvents = isInteractive ? 'auto' : 'none'
-            backdropLayerRef.current.style.zIndex = isInteractive ? '20' : '0'
+            // Hanya aktifkan interaktivitas & naikkan z-index di TAHAP 4 saat frame mulai meredup
+            const isTahap4 = progress >= (SHRINK_START + 0.85 * (SHRINK_END - SHRINK_START))
+            backdropLayerRef.current.style.pointerEvents = isTahap4 ? 'auto' : 'none'
+            backdropLayerRef.current.style.zIndex = isTahap4 ? '20' : '0'
           } else {
             // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
             currentAboutReveal = 1
