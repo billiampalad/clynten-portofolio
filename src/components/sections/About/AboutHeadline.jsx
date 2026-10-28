@@ -76,14 +76,8 @@ export default function AboutHeadline({ isLight = false }) {
           }`}
         >
           <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>And I'm a</span>
-          <span
-            className={`inline-flex items-center px-2 py-0.5 rounded-md transition-colors duration-300 ${
-              isLight
-                ? 'text-rose-600 bg-rose-50 border border-rose-200 shadow-sm'
-                : 'text-rose-400 bg-rose-500/10 border border-rose-500/25 shadow-[0_0_10px_rgba(244,63,94,0.12)]'
-            }`}
-          >
-            <span>{displayedText}</span>
+          <span className={isLight ? 'text-rose-600' : 'text-rose-400'}>
+            {displayedText}
             <span className="text-rose-500 font-bold ml-0.5 animate-pulse" aria-hidden="true">_</span>
           </span>
         </div>
