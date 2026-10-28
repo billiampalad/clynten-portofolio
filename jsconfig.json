@@ -3,15 +3,18 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
-    "jsx": "react-jsx",
-    "forceConsistentCasingInFileNames": false
+    "jsx": "react-jsx"
   },
   "include": [
     "src/**/*"

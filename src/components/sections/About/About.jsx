@@ -3,7 +3,17 @@ import { profile } from '@/content/profile'
 import ProfileCard from '@/components/layout/Card/ProfileCard'
 import profileAvatar from '@/assets/profile.webp'
 import Antigravity from '@/components/layout/Background/Antigravity'
+import TechIcon from '@/components/sections/Skills/TechIcon'
 import './About.css'
+
+const PROJECT_TECH_STACK = [
+  { name: 'React', key: 'react' },
+  { name: 'Vite', key: 'vite' },
+  { name: 'Tailwind CSS', key: 'tailwind' },
+  { name: 'Three.js', key: 'threejs' },
+  { name: 'GSAP', key: 'gsap' },
+  { name: 'Framer Motion', key: 'framermotion' },
+]
 
 const SKILLS_ROTATION = [
   'Web Development',
@@ -218,15 +228,70 @@ export default function About({ style = {} }) {
               </div>
             </div>
 
-            {/* Cyber Telemetry Status Bar & Scroll Hint */}
-            <div className="about-telemetry-bar">
-              <div className="about-status">
-                <span className="status-ping" />
-                <span className="status-text">SCAN_STATUS: 100% COMPLETE // IDENTITY_SYNCHRONIZED</span>
+            {/* Project Tech Stack & Actions Bar */}
+            <div className="about-action-bar">
+              {/* Left Side: Tech Stack Icons used in this project */}
+              <div className="about-tech-stack">
+                <span className="about-tech-label">Built with:</span>
+                <div className="about-tech-icons">
+                  {PROJECT_TECH_STACK.map((tech) => (
+                    <div
+                      key={tech.key}
+                      className="about-tech-item"
+                      title={tech.name}
+                      aria-label={tech.name}
+                    >
+                      <TechIcon name={tech.key} className="about-tech-icon" />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="about-scroll-hint">
-                <span>SCROLL TO EXPLORE ARCHITECTURE</span>
-                <span className="scroll-arrow">↓</span>
+
+              {/* Right Side: Action Buttons & LinkedIn */}
+              <div className="about-action-group">
+                <a
+                  href="#contact"
+                  className="about-btn about-btn-primary"
+                  onClick={(e) => {
+                    const el = document.getElementById('contact')
+                    if (el) {
+                      e.preventDefault()
+                      el.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }}
+                >
+                  <span>Get in touch</span>
+                  <span className="btn-arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  href="/assets/CV%20ATS%20-%20CLYNTEN%20BILLIAM%20PALAD.pdf"
+                  download="CV ATS - CLYNTEN BILLIAM PALAD.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="about-btn about-btn-secondary"
+                  title="Download Resume (ATS Format)"
+                >
+                  <svg className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
+                    <polyline points="7 10 12 15 17 10" strokeLinecap="round" strokeLinejoin="round" />
+                    <line x1="12" y1="15" x2="12" y2="3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span>Download Resume</span>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/clynten-palad-915a41432"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="about-icon-btn"
+                  title="Connect on LinkedIn"
+                  aria-label="LinkedIn Profile"
+                >
+                  <svg className="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
@@ -259,4 +324,3 @@ export default function About({ style = {} }) {
     </div>
   )
 }
-

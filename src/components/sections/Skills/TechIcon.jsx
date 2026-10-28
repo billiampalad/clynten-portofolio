@@ -612,6 +612,39 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
         </span>
       )
 
+    case 'gsap':
+    case 'greensock':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" fill="#0AE448" fillOpacity="0.18" stroke="#0AE448" strokeWidth="1.4" />
+            <path d="M8 8.5h8M8 12h5.5M8 15.5h7" stroke="#0AE448" strokeWidth="2" strokeLinecap="round" />
+            <circle cx="16.5" cy="15.5" r="1.2" fill="#0AE448" />
+          </svg>
+        </span>
+      )
+
+    case 'threejs':
+    case 'three':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="m12 2.5 8.5 14.5h-17L12 2.5Z" stroke="#38BDF8" strokeWidth="1.5" strokeLinejoin="round" fill="rgba(56,189,248,0.15)" />
+            <path d="M12 2.5v14.5M3.5 17 16 9.5M20.5 17 8 9.5" stroke="#38BDF8" strokeWidth="1" strokeOpacity="0.7" />
+          </svg>
+        </span>
+      )
+
+    case 'framermotion':
+    case 'framer':
+      return (
+        <span className={className} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 2h16v7h-8zM4 9h8l8 8H4zM4 17h8l-8 5z" fill="#F43F5E" />
+          </svg>
+        </span>
+      )
+
     default:
       return (
         <span className={className} aria-hidden="true">
