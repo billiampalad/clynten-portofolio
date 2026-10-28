@@ -8,7 +8,7 @@ export default function AboutNarrativeCard({ activeTab, setActiveTab, isLight = 
   return (
     <div
       key={currentSection.id}
-      className={`relative rounded-2xl p-5 sm:p-6 backdrop-blur-md overflow-hidden transition-all duration-300 before:absolute before:top-0 before:left-0 before:right-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-rose-500/80 before:to-transparent ${
+      className={`relative rounded-2xl p-5 sm:p-6 backdrop-blur-md overflow-hidden transition-all duration-300 ${
         isLight
           ? 'bg-white/90 border border-slate-200 shadow-[0_16px_36px_rgba(0,0,0,0.06)]'
           : 'bg-[#191720]/85 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.5)]'
