@@ -31,10 +31,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  pointer-events: none;
-}
-
-.about-container * {
   pointer-events: auto;
 }
 
@@ -280,12 +276,19 @@
 }
 
 .pagination-dot {
+  position: relative;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.pagination-dot::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
 }
 
 .pagination-dot.dot-active {

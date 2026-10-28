@@ -117,17 +117,26 @@ export default function About({ style = {} }) {
     return () => observer.disconnect()
   }, [])
 
-  const handleContactClick = () => {
-    console.log('Contact clicked')
+  const handleContactClick = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault()
+    }
     const contactSection = document.getElementById('contact')
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' })
+    if (!contactSection) return
+
+    if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+      window.__locomotiveScroll.scrollTo(contactSection, { offset: 0, duration: 1.2, immediate: false })
+    } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+      window.__lenis.scrollTo(contactSection, { offset: 0, duration: 1.2 })
+    } else {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 
   return (
     <div id="about" className="about-wrap" style={style}>
-      {/* Antigravity Dynamic Particle Background */}
+      {/* Antigravity Dynamic Particle Background (dinonaktifkan sementara) */}
+      {/* 
       <div className="about-antigravity-bg">
         <Antigravity
           colors={["#0065ff", "#ec3a3a", "#5adb43"]}
@@ -155,6 +164,7 @@ export default function About({ style = {} }) {
           lightMode={isLight}
         />
       </div>
+      */}
 
       <div className="about-container">
 
@@ -253,13 +263,7 @@ export default function About({ style = {} }) {
                 <a
                   href="#contact"
                   className="about-btn about-btn-primary"
-                  onClick={(e) => {
-                    const el = document.getElementById('contact')
-                    if (el) {
-                      e.preventDefault()
-                      el.scrollIntoView({ behavior: 'smooth' })
-                    }
-                  }}
+                  onClick={handleContactClick}
                 >
                   <span>Get in touch</span>
                   <span className="btn-arrow" aria-hidden="true">→</span>
