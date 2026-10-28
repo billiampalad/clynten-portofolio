@@ -5,7 +5,6 @@ import AboutHeadline from './AboutHeadline'
 import AboutNarrativeCard from './AboutNarrativeCard'
 import AboutActionBar from './AboutActionBar'
 import { ABOUT_SECTIONS } from './aboutData'
-import './About.css'
 
 export default function About({ style = {} }) {
   const [isLight, setIsLight] = useState(false)
@@ -50,14 +49,23 @@ export default function About({ style = {} }) {
     <div
       id="about"
       style={style}
-      className="relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-[#0A0907] overflow-hidden pointer-events-auto"
+      className={`relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden pointer-events-auto transition-colors duration-300 ${
+        isLight ? 'bg-[#f8fafc]' : 'bg-[#0A0907]'
+      }`}
     >
       <div className="relative z-10 max-w-[1100px] w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 lg:gap-12 items-center pointer-events-auto">
         {/* Left Column: Headline + Story Card + Action Bar */}
         <div className="flex flex-col gap-4 sm:gap-5">
-          <AboutHeadline />
-          <AboutNarrativeCard activeTab={activeTab} setActiveTab={setActiveTab} />
-          <AboutActionBar onContactClick={handleContactClick} />
+          <AboutHeadline isLight={isLight} />
+          <AboutNarrativeCard
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            isLight={isLight}
+          />
+          <AboutActionBar
+            onContactClick={handleContactClick}
+            isLight={isLight}
+          />
         </div>
 
         {/* Right Column: 3D Holographic ProfileCard */}
