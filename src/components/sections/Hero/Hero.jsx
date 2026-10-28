@@ -345,17 +345,23 @@ export default function Hero({ onProgressChange }) {
             currentAboutReveal = 0
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
+            backdropLayerRef.current.style.zIndex = '0'
           } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
             // Saat frame mengecil: Verified Profile memudar masuk 0.0 -> 1.0
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
             currentAboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
             backdropLayerRef.current.style.opacity = currentAboutReveal.toFixed(3)
-            backdropLayerRef.current.style.pointerEvents = currentAboutReveal > 0.5 ? 'auto' : 'none'
+            // Begitu section terlihat (reveal > 0.1), aktifkan pointer events & naikkan z-index ke 20
+            // agar seluruh tombol dapat di-klik dengan stabil tanpa terhalang layer HUD/canvas
+            const isInteractive = currentAboutReveal > 0.1
+            backdropLayerRef.current.style.pointerEvents = isInteractive ? 'auto' : 'none'
+            backdropLayerRef.current.style.zIndex = isInteractive ? '20' : '0'
           } else {
             // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
             currentAboutReveal = 1
             backdropLayerRef.current.style.opacity = '1'
             backdropLayerRef.current.style.pointerEvents = 'auto'
+            backdropLayerRef.current.style.zIndex = '20'
           }
         }
 
