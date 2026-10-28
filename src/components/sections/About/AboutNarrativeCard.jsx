@@ -15,12 +15,10 @@ export default function AboutNarrativeCard({ activeTab, setActiveTab, isLight = 
       }`}
     >
       {/* Header Tag */}
-      <div className="mb-3.5">
+      <div className="mb-3">
         <span
-          className={`inline-block font-mono text-[10.5px] tracking-[1.5px] uppercase px-2.5 py-0.5 rounded-md transition-colors duration-300 ${
-            isLight
-              ? 'text-rose-600 bg-rose-50 border border-rose-200'
-              : 'text-[#ff4d6d] bg-rose-500/10 border border-rose-500/30'
+          className={`inline-block font-mono text-xs font-semibold tracking-[1.5px] uppercase transition-colors duration-300 ${
+            isLight ? 'text-rose-600' : 'text-rose-400'
           }`}
         >
           {currentSection.index} // {currentSection.tag}
