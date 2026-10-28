@@ -193,11 +193,11 @@ export const PROJECTS_DATA = [
     accentColor: '#10b981',
     ambientGlow: 'from-emerald-600/20 via-teal-950/40 to-transparent',
     themeColor: 'rgba(16, 185, 129, 0.4)',
-    image: '/assets/projects/gambar 4/4.png',
+    image: '/assets/projects/gambar 4/4.webp',
     gallery: [
-      '/assets/projects/gambar 4/4.1.png',
-      '/assets/projects/gambar 4/4.2.png',
-      '/assets/projects/gambar 4/4.3.png',
+      '/assets/projects/gambar 4/4.1.webp',
+      '/assets/projects/gambar 4/4.2.webp',
+      '/assets/projects/gambar 4/4.3.webp',
     ],
     screenMockup: {
       headline: 'KALIMANTAN WEBGIS CARTOGRAPHY',
