@@ -9,6 +9,7 @@ import './About.css'
 const PROJECT_TECH_STACK = [
   { name: 'React', key: 'react' },
   { name: 'Vite', key: 'vite' },
+  { name: 'Node.js', key: 'nodejs' },
   { name: 'Tailwind CSS', key: 'tailwind' },
   { name: 'Three.js', key: 'threejs' },
   { name: 'GSAP', key: 'gsap' },
