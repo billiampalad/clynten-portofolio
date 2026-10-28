@@ -480,37 +480,67 @@ const ProfileCard = ({
         </div>
 
         {showUserInfo && (
-          <div className={FOOTER}>
-            {resolvedMini && (
-              <span className={AVATAR}>
-                <img
-                  className={AVATAR_IMAGE}
-                  src={resolvedMini}
-                  alt=""
-                  loading="lazy"
-                  draggable={false}
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = defaultProfile;
-                  }}
-                />
-              </span>
-            )}
-            <div className={META}>
-              {handle && <span className={HANDLE}>@{handle}</span>}
-              {status && <span className={STATUS}>{status}</span>}
-            </div>
-            {contactText && (
-              <button
-                type="button"
-                className={CONTACT}
-                onClick={onContactClick}
-                aria-label={name ? `${contactText} ${name}` : contactText}
-              >
-                <HugeiconsIcon icon={Mail01Icon} size={16} strokeWidth={1.8} />
-                {contactText}
-              </button>
-            )}
+          <div className="px-1.5 pt-1 pb-1">
+            <button
+              type="button"
+              onClick={onContactClick}
+              className={`group w-full flex items-center gap-3 p-2 rounded-xl border transition-all duration-200 cursor-pointer text-left ${
+                theme === 'light'
+                  ? 'bg-rose-50/80 hover:bg-rose-100/90 border-rose-200/90 shadow-sm hover:shadow-md hover:border-rose-300'
+                  : 'bg-gradient-to-r from-[#2c0d13]/95 via-[#22090e]/95 to-[#170509]/95 hover:from-[#381119] hover:via-[#2a0c12] hover:to-[#1e070c] border-rose-500/25 hover:border-rose-500/50 shadow-[0_4px_16px_rgba(0,0,0,0.45)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.3)]'
+              }`}
+              aria-label={contactText || "Let's Connect"}
+            >
+              {resolvedMini && (
+                <div className="relative w-10 h-10 flex-none overflow-hidden rounded-lg border border-white/15 shadow-inner bg-black/40">
+                  <img
+                    className="w-full h-full object-cover object-top"
+                    src={resolvedMini}
+                    alt={name || 'Clynten Palad'}
+                    loading="lazy"
+                    draggable={false}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = defaultProfile;
+                    }}
+                  />
+                </div>
+              )}
+
+              <div className="flex flex-col min-w-0 flex-1 justify-center">
+                {/* Status Row: ONLINE + Red Glowing Dot */}
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`font-mono text-[11px] font-extrabold tracking-wider uppercase leading-none ${
+                      theme === 'light' ? 'text-rose-600' : 'text-white'
+                    }`}
+                  >
+                    {status || 'ONLINE'}
+                  </span>
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 shadow-[0_0_8px_#f43f5e]" />
+                  </span>
+                </div>
+
+                {/* Connect Text */}
+                <div className="flex items-center justify-between mt-0.5">
+                  <span
+                    className={`text-[15px] font-bold tracking-tight leading-tight ${
+                      theme === 'light' ? 'text-slate-900' : 'text-white'
+                    }`}
+                  >
+                    {contactText || "Let's Connect"}
+                  </span>
+                  <span
+                    className="text-rose-400 text-sm font-bold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 mr-1"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </div>
+              </div>
+            </button>
           </div>
         )}
 
