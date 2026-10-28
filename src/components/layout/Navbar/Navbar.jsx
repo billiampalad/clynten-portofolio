@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, memo } from 'react'
 import { motion } from 'framer-motion'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
-import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
+import { ScrollTrigger } from '@/lib/animations/gsap'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
 import './Navbar.css'
 
@@ -35,6 +35,58 @@ function NavItem({ item, onClick }) {
   )
 }
 
+/**
+ * Isolated Brand Component to prevent text-scramble re-renders from cascading to the rest of Navbar
+ */
+const NavbarBrand = memo(function NavbarBrand({ brandText = 'A — Z', onBrandClick }) {
+  const brandParts = brandText.includes('—')
+    ? brandText.split('—').map((s) => s.trim())
+    : [brandText, '']
+  const firstTarget = brandParts[0] || 'A'
+  const lastTarget = brandParts[1] || 'Z'
+
+  // Text scramble hooks on hover (Letters only: A-Z)
+  const [firstChar, triggerFirst] = useHoverScramble(firstTarget, 30, 7, LETTERS)
+  const [lastChar, triggerLast] = useHoverScramble(lastTarget, 30, 9, LETTERS)
+
+  const handleBrandHover = useCallback(() => {
+    triggerFirst()
+    if (lastTarget) {
+      triggerLast()
+    }
+  }, [triggerFirst, triggerLast, lastTarget])
+
+  return (
+    <div className="navbar-left">
+      <a
+        href="#hero"
+        onClick={onBrandClick}
+        onMouseEnter={handleBrandHover}
+        className="navbar-brand"
+        aria-label="Home — Restart from beginning"
+      >
+        {brandText.includes('—') ? (
+          <>
+            <span className="brand-char">{firstChar}</span>
+            <span className="brand-line" aria-hidden="true" />
+            <span className="brand-char">{lastChar}</span>
+            <span className="brand-home-badge" aria-hidden="true">
+              HOME
+            </span>
+          </>
+        ) : (
+          <>
+            <span className="brand-char">{firstChar}</span>
+            <span className="brand-home-badge" aria-hidden="true">
+              HOME
+            </span>
+          </>
+        )}
+      </a>
+    </div>
+  )
+})
+
 export default function Navbar({
   isVisible = true,
   brandText = 'A — Z',
@@ -53,53 +105,34 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false)
   const [dismissedTooltip, setDismissedTooltip] = useState(null)
 
-  // Track scroll position to activate bottom blur and border line (matching navbar.html)
-  // Default saat di About / top: garis dan blur tidak aktif.
-  // Aktif hanya ketika user melakukan scroll meninggalkan About (rect.top < -15).
+  // Track scroll position to activate bottom blur and border line without layout thrashing
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      const aboutEl = document.getElementById('about')
-      if (aboutEl) {
-        const rect = aboutEl.getBoundingClientRect()
-        setIsScrolled(rect.top < -15)
-      } else {
-        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
-        setIsScrolled(scrollY > 15)
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const aboutEl = document.getElementById('about')
+          if (aboutEl) {
+            const rect = aboutEl.getBoundingClientRect()
+            setIsScrolled(rect.top < -15)
+          } else {
+            const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+            setIsScrolled(scrollY > 15)
+          }
+          ticking = false
+        })
+        ticking = true
       }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    if (typeof gsap !== 'undefined' && gsap.ticker) {
-      gsap.ticker.add(handleScroll)
-    }
-
     handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      if (typeof gsap !== 'undefined' && gsap.ticker) {
-        gsap.ticker.remove(handleScroll)
-      }
     }
   }, [])
-
-  // Parse brand text (e.g. 'A — Z' -> 'A' and 'Z')
-  const brandParts = brandText.includes('—')
-    ? brandText.split('—').map((s) => s.trim())
-    : [brandText, '']
-  const firstTarget = brandParts[0] || 'A'
-  const lastTarget = brandParts[1] || 'Z'
-
-  // Text scramble hooks on hover (Letters only: A-Z)
-  const [firstChar, triggerFirst] = useHoverScramble(firstTarget, 30, 7, LETTERS)
-  const [lastChar, triggerLast] = useHoverScramble(lastTarget, 30, 9, LETTERS)
-
-  const handleBrandHover = useCallback(() => {
-    triggerFirst()
-    if (lastTarget) {
-      triggerLast()
-    }
-  }, [triggerFirst, triggerLast, lastTarget])
 
   // Toggle dark / light theme immediately without transition animations or border flash
   const handleToggleTheme = (e) => {
@@ -214,8 +247,6 @@ export default function Navbar({
       const skillsEl = document.getElementById('skills')
       if (!skillsEl) return
 
-      // Nilai offset: 0 artinya pas di batas atas section Skills.
-      // Jika ingin agak turun sedikit, Anda bisa ubah angka 0 ini menjadi misalnya 20 atau 40.
       const SKILLS_OFFSET = -50
 
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
@@ -276,26 +307,6 @@ export default function Navbar({
     // If no contact section in DOM, default mailto behavior runs
   }
 
-  // Render stylized brand mark with animated stretch line and HOME badge on hover
-  const renderBrand = () => {
-    if (brandText.includes('—')) {
-      return (
-        <>
-          <span className="brand-char">{firstChar}</span>
-          <span className="brand-line" aria-hidden="true" />
-          <span className="brand-char">{lastChar}</span>
-          <span className="brand-home-badge" aria-hidden="true">HOME</span>
-        </>
-      )
-    }
-    return (
-      <>
-        <span className="brand-char">{firstChar}</span>
-        <span className="brand-home-badge" aria-hidden="true">HOME</span>
-      </>
-    )
-  }
-
   if (!isVisible) return null
 
   return (
@@ -328,18 +339,8 @@ export default function Navbar({
       </div>
 
       <div className="navbar-container">
-        {/* Left: Brand Identity */}
-        <div className="navbar-left">
-          <a
-            href="#hero"
-            onClick={handleBrandClick}
-            onMouseEnter={handleBrandHover}
-            className="navbar-brand"
-            aria-label="Home — Restart from beginning"
-          >
-            {renderBrand()}
-          </a>
-        </div>
+        {/* Left: Brand Identity (Isolated Memo component) */}
+        <NavbarBrand brandText={brandText} onBrandClick={handleBrandClick} />
 
         {/* Center: Desktop Navigation Links (Original Centered Position) */}
         <nav className="navbar-links" aria-label="Main Navigation">
