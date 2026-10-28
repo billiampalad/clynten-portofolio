@@ -7,14 +7,14 @@ import defaultProfile from '@/assets/profile.webp';
 
 const THEMES = {
   dark: {
-    '--pc-frame': 'rgba(38, 35, 46, 0.66)',
-    '--pc-frame-edge': 'rgba(255, 255, 255, 0.08)',
-    '--pc-frame-highlight': 'rgba(255, 255, 255, 0.07)',
-    '--pc-frame-shadow': '0 22px 44px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5)',
-    '--pc-tile': 'linear-gradient(180deg, #3a3644 0%, #27242f 100%)',
-    '--pc-tile-edge': 'rgba(255, 255, 255, 0.07)',
+    '--pc-frame': 'rgba(25, 23, 32, 0.85)',
+    '--pc-frame-edge': 'rgba(255, 255, 255, 0.10)',
+    '--pc-frame-highlight': 'rgba(255, 255, 255, 0.08)',
+    '--pc-frame-shadow': '0 16px 36px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.10)',
+    '--pc-tile': 'linear-gradient(180deg, #231f2c 0%, #17151e 100%)',
+    '--pc-tile-edge': 'rgba(255, 255, 255, 0.08)',
     '--pc-tile-highlight': 'rgba(255, 255, 255, 0.12)',
-    '--pc-tile-shadow': '0 4px 10px -4px rgba(0, 0, 0, 0.7)',
+    '--pc-tile-shadow': '0 4px 12px -2px rgba(0, 0, 0, 0.6)',
     '--pc-ink': '#f4f4f5',
     '--pc-muted': 'rgba(244, 244, 245, 0.6)',
     '--pc-hover': 'brightness(1.12)',
@@ -22,19 +22,19 @@ const THEMES = {
     '--pc-shade': 'rgba(0, 0, 0, 0.4)'
   },
   light: {
-    '--pc-frame': 'rgba(240, 240, 243, 0.8)',
-    '--pc-frame-edge': 'rgba(24, 24, 27, 0.07)',
-    '--pc-frame-highlight': 'rgba(255, 255, 255, 0.95)',
-    '--pc-frame-shadow': '0 22px 44px -22px rgba(24, 24, 27, 0.3), 0 6px 16px -10px rgba(24, 24, 27, 0.16)',
-    '--pc-tile': 'linear-gradient(180deg, #ffffff 0%, #f6f6f8 100%)',
-    '--pc-tile-edge': 'rgba(24, 24, 27, 0.08)',
+    '--pc-frame': 'rgba(255, 255, 255, 0.90)',
+    '--pc-frame-edge': 'rgba(226, 232, 240, 1)',
+    '--pc-frame-highlight': 'rgba(255, 255, 255, 1)',
+    '--pc-frame-shadow': '0 16px 36px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(226, 232, 240, 1)',
+    '--pc-tile': 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+    '--pc-tile-edge': 'rgba(226, 232, 240, 0.8)',
     '--pc-tile-highlight': 'rgba(255, 255, 255, 1)',
-    '--pc-tile-shadow': '0 4px 10px -5px rgba(24, 24, 27, 0.25)',
-    '--pc-ink': '#27272a',
-    '--pc-muted': 'rgba(39, 39, 42, 0.6)',
+    '--pc-tile-shadow': '0 4px 10px -5px rgba(15, 23, 42, 0.1)',
+    '--pc-ink': '#0f172a',
+    '--pc-muted': 'rgba(71, 85, 105, 0.7)',
     '--pc-hover': 'brightness(0.97)',
     '--pc-press': 'brightness(0.92)',
-    '--pc-shade': 'rgba(24, 24, 27, 0.14)'
+    '--pc-shade': 'rgba(15, 23, 42, 0.06)'
   }
 };
 
@@ -486,7 +486,7 @@ const ProfileCard = ({
               onClick={onContactClick}
               className={`group w-full flex items-center gap-3 p-2 rounded-xl border transition-all duration-200 cursor-pointer text-left ${
                 theme === 'light'
-                  ? 'bg-rose-50/80 hover:bg-rose-100/90 border-rose-200/90 shadow-sm hover:shadow-md hover:border-rose-300'
+                  ? 'bg-white/95 hover:bg-rose-50/60 border-slate-200 shadow-sm hover:shadow-md hover:border-rose-300'
                   : 'bg-gradient-to-r from-[#2c0d13]/95 via-[#22090e]/95 to-[#170509]/95 hover:from-[#381119] hover:via-[#2a0c12] hover:to-[#1e070c] border-rose-500/25 hover:border-rose-500/50 shadow-[0_4px_16px_rgba(0,0,0,0.45)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.3)]'
               }`}
               aria-label={contactText || "Let's Connect"}
