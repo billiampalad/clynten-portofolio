@@ -8,33 +8,33 @@ import defaultProfile from '@/assets/profile.webp';
 const THEMES = {
   dark: {
     '--pc-frame': 'rgba(25, 23, 32, 0.85)',
-    '--pc-frame-edge': 'rgba(255, 255, 255, 0.10)',
+    '--pc-frame-edge': 'rgba(255, 255, 255, 0.1)',
     '--pc-frame-highlight': 'rgba(255, 255, 255, 0.08)',
-    '--pc-frame-shadow': '0 16px 36px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.10)',
-    '--pc-tile': 'linear-gradient(180deg, #231f2c 0%, #17151e 100%)',
-    '--pc-tile-edge': 'rgba(255, 255, 255, 0.08)',
+    '--pc-frame-shadow': '0 16px 36px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.3)',
+    '--pc-tile': 'linear-gradient(180deg, #24202c 0%, #16141d 100%)',
+    '--pc-tile-edge': 'rgba(255, 255, 255, 0.1)',
     '--pc-tile-highlight': 'rgba(255, 255, 255, 0.12)',
-    '--pc-tile-shadow': '0 4px 12px -2px rgba(0, 0, 0, 0.6)',
+    '--pc-tile-shadow': '0 8px 20px -4px rgba(0, 0, 0, 0.6)',
     '--pc-ink': '#f4f4f5',
     '--pc-muted': 'rgba(244, 244, 245, 0.6)',
-    '--pc-hover': 'brightness(1.12)',
-    '--pc-press': 'brightness(0.8)',
+    '--pc-hover': 'brightness(1.08)',
+    '--pc-press': 'brightness(0.85)',
     '--pc-shade': 'rgba(0, 0, 0, 0.4)'
   },
   light: {
-    '--pc-frame': 'rgba(255, 255, 255, 0.90)',
+    '--pc-frame': 'rgba(255, 255, 255, 0.9)',
     '--pc-frame-edge': 'rgba(226, 232, 240, 1)',
     '--pc-frame-highlight': 'rgba(255, 255, 255, 1)',
-    '--pc-frame-shadow': '0 16px 36px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(226, 232, 240, 1)',
+    '--pc-frame-shadow': '0 16px 36px rgba(0, 0, 0, 0.06), 0 4px 14px rgba(0, 0, 0, 0.03)',
     '--pc-tile': 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
-    '--pc-tile-edge': 'rgba(226, 232, 240, 0.8)',
+    '--pc-tile-edge': 'rgba(226, 232, 240, 1)',
     '--pc-tile-highlight': 'rgba(255, 255, 255, 1)',
-    '--pc-tile-shadow': '0 4px 10px -5px rgba(15, 23, 42, 0.1)',
+    '--pc-tile-shadow': '0 6px 16px -6px rgba(0, 0, 0, 0.08)',
     '--pc-ink': '#0f172a',
-    '--pc-muted': 'rgba(71, 85, 105, 0.7)',
+    '--pc-muted': 'rgba(100, 116, 139, 0.7)',
     '--pc-hover': 'brightness(0.97)',
     '--pc-press': 'brightness(0.92)',
-    '--pc-shade': 'rgba(15, 23, 42, 0.06)'
+    '--pc-shade': 'rgba(15, 23, 42, 0.08)'
   }
 };
 
@@ -484,17 +484,23 @@ const ProfileCard = ({
             <button
               type="button"
               onClick={onContactClick}
-              className={`group w-full flex items-center gap-3 p-2 rounded-xl border transition-all duration-200 cursor-pointer text-left ${
+              className={`group w-full flex items-center gap-3 p-2 rounded-xl border transition-all duration-200 cursor-pointer text-left hover:-translate-y-0.5 ${
                 theme === 'light'
-                  ? 'bg-white/95 hover:bg-rose-50/60 border-slate-200 shadow-sm hover:shadow-md hover:border-rose-300'
-                  : 'bg-gradient-to-r from-[#2c0d13]/95 via-[#22090e]/95 to-[#170509]/95 hover:from-[#381119] hover:via-[#2a0c12] hover:to-[#1e070c] border-rose-500/25 hover:border-rose-500/50 shadow-[0_4px_16px_rgba(0,0,0,0.45)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.3)]'
+                  ? 'bg-white/90 hover:bg-rose-50/70 border-slate-200 hover:border-rose-400 shadow-sm hover:shadow-[0_4px_14px_rgba(244,63,94,0.12)]'
+                  : 'bg-[#211d2a]/85 hover:bg-[#291f2c]/90 border-white/10 hover:border-rose-500/40 shadow-[0_4px_16px_rgba(0,0,0,0.45)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.22)]'
               }`}
               aria-label={contactText || "Let's Connect"}
             >
               {resolvedMini && (
-                <div className="relative w-10 h-10 flex-none overflow-hidden rounded-lg border border-white/15 shadow-inner bg-black/40">
+                <div
+                  className={`relative w-10 h-10 flex-none overflow-hidden rounded-lg border shadow-inner transition-all duration-200 ${
+                    theme === 'light'
+                      ? 'border-slate-200 group-hover:border-rose-300 bg-slate-100'
+                      : 'border-white/15 group-hover:border-rose-500/40 bg-black/40'
+                  }`}
+                >
                   <img
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-top transition-transform duration-200 group-hover:scale-105"
                     src={resolvedMini}
                     alt={name || 'Clynten Palad'}
                     loading="lazy"
@@ -511,8 +517,10 @@ const ProfileCard = ({
                 {/* Status Row: ONLINE + Red Glowing Dot */}
                 <div className="flex items-center gap-1.5">
                   <span
-                    className={`font-mono text-[11px] font-extrabold tracking-wider uppercase leading-none ${
-                      theme === 'light' ? 'text-rose-600' : 'text-white'
+                    className={`font-mono text-[10.5px] font-extrabold tracking-wider uppercase leading-none transition-colors duration-200 ${
+                      theme === 'light'
+                        ? 'text-slate-500 group-hover:text-rose-600'
+                        : 'text-zinc-400 group-hover:text-rose-300'
                     }`}
                   >
                     {status || 'ONLINE'}
@@ -526,14 +534,16 @@ const ProfileCard = ({
                 {/* Connect Text */}
                 <div className="flex items-center justify-between mt-0.5">
                   <span
-                    className={`text-[15px] font-bold tracking-tight leading-tight ${
-                      theme === 'light' ? 'text-slate-900' : 'text-white'
+                    className={`text-[15px] font-bold tracking-tight leading-tight transition-colors duration-200 ${
+                      theme === 'light'
+                        ? 'text-slate-900 group-hover:text-rose-600'
+                        : 'text-white group-hover:text-rose-300'
                     }`}
                   >
                     {contactText || "Let's Connect"}
                   </span>
                   <span
-                    className="text-rose-400 text-sm font-bold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 mr-1"
+                    className="text-rose-500 text-sm font-bold opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 mr-1"
                     aria-hidden="true"
                   >
                     →
