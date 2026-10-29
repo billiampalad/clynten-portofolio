@@ -45,6 +45,6 @@ export const SOCIAL_LINKS = [
   {
     name: 'LinkedIn',
     handle: 'Clynten Billiam Palad',
-    href: 'https://www.linkedin.com/in/clynten-palad-915a41432',
+    href: 'https://www.linkedin.com/in/clynten-billiam-palad-915a41432/',
   },
 ]
