@@ -887,10 +887,10 @@ export default function Projects() {
                         className="w-full aspect-[16/10] object-cover"
                       />
                     </div>
-                    {selectedProject.date && (
+                    {(selectedProject.date || selectedProject.period) && (
                       <div className="flex items-center gap-2 font-mono text-xs text-red-500 font-semibold tracking-wider">
                         <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                        <span>{selectedProject.date}</span>
+                        <span>{selectedProject.date || selectedProject.period}</span>
                       </div>
                     )}
                   </motion.div>

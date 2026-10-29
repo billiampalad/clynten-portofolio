@@ -29,6 +29,7 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-amber-600/20 via-red-950/40 to-transparent',
     themeColor: 'rgba(214, 4, 7, 0.4)',
     image: '/assets/projects/gambar 1/1.webp',
+    date: '20 AGUSTUS 2026',
     gallery: [
       '/assets/projects/gambar 1/1.2.webp',
       '/assets/projects/gambar 1/1.3.webp',
@@ -81,6 +82,7 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-purple-600/20 via-indigo-950/40 to-transparent',
     themeColor: 'rgba(139, 92, 246, 0.4)',
     image: '/assets/projects/gambar 2/2.webp',
+    date: '11 JUNI 2025',
     gallery: [
       '/assets/projects/gambar 2/2.1.webp',
       '/assets/projects/gambar 2/2.2.webp',
@@ -142,6 +144,7 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-cyan-600/20 via-blue-950/40 to-transparent',
     themeColor: 'rgba(6, 182, 212, 0.4)',
     image: '/assets/projects/gambar 3/3.webp',
+    date: '18 AGUSTUS 2024',
     gallery: [
       '/assets/projects/gambar 3/3.1.webp',
       '/assets/projects/gambar 3/3.2.webp',
@@ -194,6 +197,7 @@ export const PROJECTS_DATA = [
     ambientGlow: 'from-emerald-600/20 via-teal-950/40 to-transparent',
     themeColor: 'rgba(16, 185, 129, 0.4)',
     image: '/assets/projects/gambar 4/4.webp',
+    date: '15 MARET 2025',
     gallery: [
       '/assets/projects/gambar 4/4.1.webp',
       '/assets/projects/gambar 4/4.2.webp',
