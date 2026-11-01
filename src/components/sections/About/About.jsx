@@ -74,7 +74,7 @@ function About({ style = {} }) {
         {/* Right Column: 3D Holographic ProfileCard (Positioned AT THE TOP on tablet) */}
         <div className="flex justify-center items-center perspective-[1200px] md:max-lg:order-1 lg:order-2">
           <ProfileCard
-            className="md:max-lg:!w-[clamp(180px,min(25vw,28vh),240px)]"
+            className="md:max-lg:!w-[clamp(260px,min(38vw,42vh),340px)]"
             name=""
             title=""
             handle="clyntenbilliam"
