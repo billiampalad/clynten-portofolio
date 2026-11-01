@@ -1,40 +1,43 @@
 # MASTER PROMPT
 
 1. Role
-Bertindaklah sebagai Senior Creative Frontend Engineer dan Web Audio API Specialist (Ahli Audio Programming di Browser, React Hooks, Event Delegation, dan Browser Performance Optimization). Prioritas utama Anda adalah merancang sistem efek suara klik (micro-interaction sound effects) yang responsif, berlatensi ultra-rendah (zero-latency playback), serta bebas lag dan tidak membebani CPU Main Thread bahkan saat terjadi klik beruntun berkecepatan tinggi (rapid clicking).
+Bertindaklah sebagai Senior Frontend Engineer dan Audio/Animation Integration Specialist (Ahli React, Web Audio API / Audio Lifecycle, Tailwind CSS, dan Browser Performance Optimization). Prioritas utama Anda adalah mengintegrasikan pemicu audio berbasis progres loading (threshold 70%) secara mulus, membangun komponen pengontrol audio mini yang futuristik dan bergaya cyberpunk/HUD, serta memastikan pemutaran audio, transisi visual, dan pemantauan state berjalan ultra-ringan tanpa membebani CPU Main Thread, bebas memory leak, dan tidak memicu stuttering atau jank pada animasi hero section.
 
 2. Task
-Rancang dan bangun sistem pemutar suara audio klik yang modular, efisien, dan siap diintegrasikan ke dalam proyek website portofolio menggunakan berkas suara di dalam direktori `public/audio`. Implementasikan arsitektur audio berbasis Web Audio API (`AudioContext` dan `AudioBuffer`) yang melakukan pre-decode berkas audio ke memori saat awal, mendukung polyphonic playback (suara tidak terpotong saat diklik cepat), menyediakan mekanisme event delegation otomatis untuk mendeteksi elemen interaktif, serta menyertakan tombol kendali suara (Sound Toggle Mute/Unmute) global yang tersimpan di `localStorage`.
+Rancang dan implementasikan fitur pemutaran audio otomatis saat progres loading mencapai 70% di `HeroRadarLoader.jsx`, buat komponen audio controller mini yang ringkas namun elegan di dalam folder `src/components/sections/Hero/`, lalu integrasikan komponen tersebut ke dalam `Hero.jsx` dengan posisi persis di atas teks/elemen 'scroll to explore telemetry'. Pastikan pemutar audio memiliki fungsi toggle Play/Pause (Mute/Unmute), menangani kebijakan Browser Autoplay Policy dengan benar, dan dirancang dengan arsitektur yang sangat hemat daya serta bebas dari re-render berlebihan.
 
 3. Context
-- Direktori Berkas Audio: `public/audio/`
-- Nama & Format Berkas Audio Klik: [Sebutkan nama file spesifik di dalam folder public/audio, misal: `public/audio/click.mp3`, `click.wav`, atau `click-soft.ogg`]
-- Tech Stack Proyek: React / Next.js (Client Component), Tailwind CSS, JavaScript (ES6+) / TypeScript.
-- Elemen Target Suara Klik: Seluruh elemen interaktif pada portofolio (seperti tombol `<button>`, tautan navigasi `<a>`, kartu proyek, filter tab, dan toggle switch).
-- Batasan Kinerja & Kerapian Sistem (Anti-Lag):
-  * DILARANG menggunakan `new Audio().play()` pada setiap event klik karena memicu alokasi objek berulang, kebocoran memori (memory leak), pemblokiran Main Thread saat proses decode, dan latensi suara yang lambat.
-  * Wajib menggunakan `AudioContext` tunggal (singleton) dengan buffer yang di-preload dan di-decode satu kali ke memori.
-  * Terapkan penanganan aturan browser modern terkait *Audio Autoplay Policy* (membuka status `AudioContext` yang tersuspensi pada interaksi pertama pengguna secara transparan).
-  * Pemantauan klik harus efisien (disarankan menggunakan Event Delegation pada level `window`/`document` atau atribut data khusus seperti `data-sound="click"` agar tidak perlu memasang `onClick` manual di ratusan elemen).
-- Kode Komponen / Layout Saat Ini:
-[Tempelkan kode file layout utama atau komponen tempat Anda ingin memanggil hook/sistem audio ini, atau kosongkan jika ingin dibuatkan modul terpisah]
+- File Pemicu Loading: `src/components/sections/Hero/HeroRadarLoader.jsx` (memiliki variabel/state progres loading yang saat menyentuh nilai >= 70% atau 0.70 akan memicu pemutaran audio secara aman).
+- File Berkas Audio: `public/audio/sound.MP3` (atau `/audio/sound.MP3` pada root publik).
+- File Komponen Baru: Buat komponen baru di `src/components/sections/Hero/` Sebutkan nama file komponen baru, yaitu `HeroAudioPlayer.jsx`.
+- File Induk Penempatan: `src/components/sections/Hero/Hero.jsx` (posisikan komponen audio player mini tepat di atas tampilan HUD/indikator `'scroll to explore telemetry'`).
+- Desain & Karakteristik Komponen Audio Player Mini:
+  * Dimensi: Ringkas, kompak, dan minimalis (tidak memakan ruang layar).
+  * Estetika: Bergaya Cyberpunk / Sci-Fi HUD Telemetry yang menyatu dengan tema Hero (#0A0907 / aksen neon seperti Cyan `#06b6d4`, Emerald `#10b981`, atau Rose `#f43f5e`).
+  * Elemen Visual: Tombol toggle Play/Pause / Mute yang interaktif, dilengkapi equalizer mini animasi gelombang suara (audio visualizer bars sederhana via CSS keyframes) yang bergerak saat audio menyala dan diam saat dijeda/dimatikan.
+- Batasan Kinerja & Audio Policy (Wajib Bebas Lag):
+  * Gunakan mekanisme audio singleton (menggunakan `HTMLAudioElement` yang dikelola via ref atau Web Audio API) agar tidak membuat instance audio ganda setiap kali komponen re-render.
+  * Hindari loop `useEffect` yang mengeksekusi `audio.play()` berulang kali saat progres berada di atas 70% (wajib menyematkan guard flag seperti `hasTriggeredRef.current = true`).
+  * Tangani Promise dari `.play()` dengan penanganan error (`catch(error => ...)`) guna mengantisipasi blokir *Browser Autoplay Policy* jika pengguna belum berinteraksi dengan dokumen.
+  * Animasi bar visualizer wajib menggunakan akselerasi GPU murni (`transform: scaleY()`, `will-change: transform`) tanpa memanipulasi properti `height` yang memicu layout reflow.
+- Kode `ScrollHeadline.jsx` & `Hero.jsx` Saat Ini:
+[Tempelkan cuplikan kode ScrollHeadline.jsx dan Hero.jsx Anda di sini, terutama bagian pembacaan progres dan area teks 'scroll to explore telemetry']
 
 4. Reasoning
-Menghadirkan umpan balik audio (tactile sound) membuat interaksi portofolio terasa lebih nyata, berbobot, dan hidup layaknya antarmuka aplikasi modern atau video game. Namun, pemutaran audio di web sering kali menjadi penyebab utama lag atau audio yang berbunyi terlambat (jank/latency) jika diproses secara naif menggunakan tag HTML5 `<audio>`. Dengan memanfaatkan Web Audio API, data audio didekode ke dalam bentuk *Pulse-Code Modulation* (PCM) di memori sejak awal, sehingga pemutaran suara hanya membutuhkan pembuatan node sumber sekali pakai (`AudioBufferSourceNode`) yang sangat ringan bagi CPU dan menghasilkan respon suara instan (sub-millisecond) tanpa pernah membuat browser patah-patah.
+Memicu audio berdasarkan nilai progres (seperti scroll atau loading counter) sering kali memicu *infinite play call* atau error `AbortError: The play() request was interrupted` apabila logika pemutarannya dijalankan di dalam loop rendering yang tidak terisolasi. Selain itu, menambahkan elemen animasi audio visualizer di atas antarmuka hero yang sudah padat (kanvas sekuens dan HUD) dapat membebani GPU dan Main Thread jika visualizer menganimasikan properti geometri CSS (`height`). Dengan menyematkan guard clause referensial, penanganan status audio asinkron, dan animasi bar berbasis `transform`, audio dapat diputar tepat pada threshold 70% dengan visualizer yang super mulus tanpa mengorbankan frame rate portofolio.
 
 5. Stop Conditions
 Tugas dianggap selesai apabila:
-- Sistem audio dibangun menggunakan Web Audio API murni (`AudioContext` + `decodeAudioData`) dengan pengelolaan lifecycle yang aman dari memory leak.
-- Suara klik berbunyi instan tepat di momen tombol ditekan tanpa delay atau jeda yang terasa.
-- Ketika pengguna mengklik berkali-kali secara cepat, setiap suara klik terdengar tumpang-tindih secara harmonis tanpa memutus playback sebelumnya dan tanpa lonjakan konsumsi CPU.
-- Terdapat penanganan *AudioContext resume* otomatis untuk memenuhi regulasi keamanan browser tanpa memunculkan pesan error/peringatan di console.
-- Tersedia opsi tombol kontrol Mute/Unmute yang elegan dan mengingat preferensi pengguna via `localStorage`.
-- Kode disajikan secara modular (misal berupa utilitas `soundManager.js` dan custom hook `useClickSound.js`) yang mudah dipanggil dan dipelihara.
+- Kode untuk memicu audio saat progres mencapai 70% pada `HeroRadarLoader.jsx` terpasang dengan aman tanpa memicu pemutaran ganda atau memory leak.
+- Dihasilkan satu file komponen baru di dalam folder `src/components/sections/Hero/` yang memuat player audio mini dengan tombol toggle on/off dan animasi visualizer bar yang ringan.
+- Komponen baru tersebut terpasang rapi di `Hero.jsx` persis di atas elemen 'scroll to explore telemetry'.
+- Penanganan Browser Autoplay Policy telah terpasang rapi sehingga tidak memunculkan uncaught console error jika interaksi user belum terdeteksi.
+- Seluruh kode yang dihasilkan bebas dari re-render tak perlu, tidak memicu layout reflow, dan disajikan secara utuh dan siap disalin.
 
 6. Output
 Sajikan hasil dalam Bahasa Indonesia dengan format:
-1. **Arsitektur Sistem (Web Audio API vs HTML5 Audio)**: Penjelasan teknis singkat mengapa Web Audio API menjamin nol latensi dan nol lonjakan CPU.
-2. **Implementasi Modul `soundManager.js` / Custom Hook**: Blok kode lengkap untuk memuat buffer audio, menangani autoplay policy, dan memutar suara klik secara aman.
-3. **Komponen Pengontrol Suara (`SoundToggle.jsx`)**: Blok kode tombol switch Mute/Unmute audio dengan ikon dan animasi Tailwind CSS.
-4. **Panduan Integrasi Global (Event Delegation)**: Cara memasang listener klik terpusat di file root/layout portofolio agar semua tombol langsung bersuara secara otomatis tanpa koding manual satu per satu.
-5. **Tips Optimasi Berkas Audio**: Saran pengaturan ukuran berkas (sample rate, bit depth, dan durasi) agar berkas audio di folder `public/audio` super ringan saat diunduh browser.
+1. **Analisis Teknis & Mekanisme Pemicu (Threshold 70%)**: Penjelasan singkat bagaimana audio di-trigger satu kali saja tanpa membebani Main Thread CPU.
+2. **Implementasi Komponen Pemutar Audio Mini**: Blok kode lengkap untuk komponen baru di folder `src/components/sections/Hero/` (termasuk styling Tailwind, ikon, dan animasi visualizer GPU-friendly).
+3. **Modifikasi Kode `HeroRadarLoader.jsx`**: Cuplikan perubahan kode untuk mendeteksi batas 70% dan memicu audio.
+4. **Integrasi pada `Hero.jsx`**: Cuplikan kode penempatan komponen baru tepat di atas elemen 'scroll to explore telemetry'.
+5. **Panduan Verifikasi & Edge Case**: Langkah singkat menguji tombol toggle serta tips jika browser memblokir audio otomatis sebelum klik pertama.

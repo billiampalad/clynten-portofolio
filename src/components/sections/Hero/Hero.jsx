@@ -6,6 +6,7 @@ import DeveloperSignal from './DeveloperSignal'
 import TargetReticle from './TargetReticle'
 import ScrollHeadline from './ScrollHeadline'
 import TelemetryWidgets from './TelemetryWidgets'
+import HeroAudioPlayer from './HeroAudioPlayer'
 import BodySignals from './BodySignals'
 import About from '@/components/sections/About/About'
 import { HERO_CONFIG, HERO_SCROLL_TRIGGER_CONFIG } from '@/lib/constants/hero'
@@ -501,6 +502,9 @@ function Hero({ onProgressChange }) {
 
           {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry */}
           {!loading && <TelemetryWidgets ref={telemetryWidgetsRef} progress={scrollProgress} />}
+
+          {/* Mini Cyberpunk Audio Player HUD (Directly above 'scroll to explore telemetry') */}
+          {!loading && <HeroAudioPlayer />}
 
           {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Direct Imperative Sync) */}
           {!loading && <ScrollHeadline ref={scrollHeadlineRef} progress={scrollProgress} />}

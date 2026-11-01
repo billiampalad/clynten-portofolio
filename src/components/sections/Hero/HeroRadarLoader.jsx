@@ -1,4 +1,5 @@
-import { useMemo, useState, useEffect, memo } from 'react'
+import { useMemo, useState, useEffect, useRef, memo } from 'react'
+import { heroAudio } from '@/utils/heroAudio'
 
 const SLATS = [
   { id: '01', code: 'SYS_RECON' },
@@ -17,6 +18,15 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
 
   // State to control the staggered shutter wipe transition
   const [isShutterOpen, setIsShutterOpen] = useState(false)
+
+  // Trigger audio playback at 70% loading threshold
+  const hasTriggeredAudioRef = useRef(false)
+  useEffect(() => {
+    if (percentage >= 70 && !hasTriggeredAudioRef.current) {
+      hasTriggeredAudioRef.current = true
+      heroAudio.triggerAtThreshold()
+    }
+  }, [percentage])
 
   // Trigger shutter opening after reaching 100%
   useEffect(() => {
