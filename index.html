@@ -1,74 +1,67 @@
 <!doctype html>
 <html lang="en" class="is-loading" style="overflow: hidden;">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap"
-      />
-    </noscript>
-    <!-- Preload first hero canvas frame for instant LCP render -->
-    <link
-      rel="preload"
-      as="image"
-      href="/gif/ezgif-frame-011.jpg"
-      fetchpriority="high"
-      type="image/jpeg"
-    />
-    <title>clynten-portfolio</title>
-    <style>
-      /* Critical Base CSS: prevent FOUC & layout shifts before main bundle loads */
-      html.is-loading, html.is-loading body {
-        overflow: hidden !important;
-      }
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        background-color: #0A0907;
-        color: #f1f5f9;
-        overflow-x: hidden;
-      }
-      #root {
-        width: 100%;
-        min-height: 100vh;
-        background: #0A0907;
-      }
-    </style>
-    <script>
-      (function() {
-        try {
-          var saved = localStorage.getItem('portfolio-theme');
-          var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
-          document.documentElement.setAttribute('data-theme', theme);
-          if (theme === 'light') {
-            document.documentElement.classList.add('light-theme');
-          } else {
-            document.documentElement.classList.add('dark-theme', 'dark');
-          }
-        } catch (e) {}
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/clay1.webp" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap"
+    media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800;900&display=swap" />
+  </noscript>
+  <!-- Preload first hero canvas frame for instant LCP render -->
+  <link rel="preload" as="image" href="/gif/ezgif-frame-011.jpg" fetchpriority="high" type="image/jpeg" />
+  <title>Clynten Palad - Web Developer</title>
+  <style>
+    /* Critical Base CSS: prevent FOUC & layout shifts before main bundle loads */
+    html.is-loading,
+    html.is-loading body {
+      overflow: hidden !important;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background-color: #0A0907;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    #root {
+      width: 100%;
+      min-height: 100vh;
+      background: #0A0907;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('portfolio-theme');
+        var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'light') {
+          document.documentElement.classList.add('light-theme');
+        } else {
+          document.documentElement.classList.add('dark-theme', 'dark');
+        }
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
