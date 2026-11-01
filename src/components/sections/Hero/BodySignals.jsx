@@ -12,16 +12,16 @@ const POSITION_MAP = {
     'top-[6.5%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(18px,3vh,36px)] md:max-lg:left-auto md:max-lg:right-[clamp(26px,min(3.12vw,3.4vh),32px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
-    'top-[22.5%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(110px,18.5vh,188px)] md:max-lg:left-[clamp(26px,min(3.12vw,3.4vh),32px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[22.5%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(150px,22.5vh,250px)] md:max-lg:left-[clamp(26px,min(3.12vw,3.4vh),32px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 4 (Cloud & Networking)
   'net-wrapper':
-    'top-[25%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(110px,18.5vh,188px)] md:max-lg:left-auto md:max-lg:right-[clamp(26px,min(3.12vw,3.4vh),32px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[25%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(150px,22.5vh,250px)] md:max-lg:left-auto md:max-lg:right-[clamp(26px,min(3.12vw,3.4vh),32px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 5 (Database Architecture)
   'db-wrapper':
-    'top-[41%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(202px,33.8vh,340px)] md:max-lg:left-[clamp(26px,min(3.12vw,3.4vh),32px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[41%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(280px,42vh,470px)] md:max-lg:left-[clamp(26px,min(3.12vw,3.4vh),32px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 6 (UI/UX Engineering)
   'uiux-wrapper':
-    'top-[43.5%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(202px,33.8vh,340px)] md:max-lg:left-auto md:max-lg:right-[clamp(26px,min(3.12vw,3.4vh),32px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[43.5%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(280px,42vh,470px)] md:max-lg:left-auto md:max-lg:right-[clamp(26px,min(3.12vw,3.4vh),32px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
