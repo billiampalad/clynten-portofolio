@@ -671,7 +671,7 @@ function Projects() {
             </div>
 
             {/* Circular Step Indicator (Matching Meer Mohsin Reference) */}
-            <div className="relative w-16 h-16 sm:w-18 sm:h-18 lg:w-[clamp(68px,5.4vw,78px)] lg:h-[clamp(68px,5.4vw,78px)] [@media(min-width:1440px)]:w-28 [@media(min-width:1440px)]:h-28 [@media(min-width:1600px)]:w-32 [@media(min-width:1600px)]:h-32 flex items-center justify-center mt-1.5 lg:mt-2 [@media(min-width:1440px)]:mt-4">
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 lg:w-[clamp(68px,5.4vw,78px)] lg:h-[clamp(68px,5.4vw,78px)] [@media(min-width:1440px)]:w-28 [@media(min-width:1440px)]:h-28 [@media(min-width:1600px)]:w-32 [@media(min-width:1600px)]:h-32 flex items-center justify-center mt-1.5 lg:mt-2 [@media(min-width:1440px)]:mt-4 self-end">
               <svg className="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 86 86">
                 <circle
                   ref={circleRef}
