@@ -3,19 +3,20 @@
  *
  * Core Engineering:
  * 1. Singleton HTMLAudioElement (`/audio/sound.MP3`).
- * 2. Autoplay Policy handling with transparent user-gesture unlock.
- * 3. Reactive state subscription for UI components (HeroAudioPlayer).
- * 4. Safe Play/Pause guards (prevents AbortError and infinite trigger loops).
- * 5. 100% memory leak free lifecycle.
+ * 2. Intelligent Browser Autoplay Policy bypass & graceful fallback.
+ * 3. Reactive state subscription for UI components (HeroAudioPlayer, HeroRadarLoader).
+ * 4. Safe Play/Pause guards (prevents AbortError and duplicate trigger loops).
+ * 5. Instant un-mute on first user touch/click with zero delay.
  */
 
 class HeroAudioController {
   constructor() {
     this.audio = null
     this.isPlaying = false
+    this.isBlocked = false
     this.hasTriggered = false
     this.subscribers = new Set()
-    this.volume = 0.45
+    this.volume = 0.4
   }
 
   init() {
@@ -54,24 +55,35 @@ class HeroAudioController {
     if (!this.audio) return
 
     try {
+      this.audio.muted = false
       await this.audio.play()
       this.isPlaying = true
+      this.isBlocked = false
       this.notify()
     } catch (err) {
-      // Browser Autoplay Policy blocked playback (waiting for first user gesture)
-      console.warn('[HeroAudio] Autoplay blocked by Browser Policy (user gesture required). Waiting for first interaction...', err)
+      // Browser Autoplay Policy blocked unmuted playback
+      this.isBlocked = true
       this.isPlaying = false
       this.notify()
 
+      // Start muted playback so track starts buffering and running timeline immediately
+      try {
+        this.audio.muted = true
+        await this.audio.play()
+      } catch {}
+
+      // Fast-unlock on the very first physical interaction (click/touch/key) anywhere on screen
       const unlock = async () => {
-        if (this.audio && !this.isPlaying && this.hasTriggered) {
+        if (this.audio) {
           try {
-            await this.audio.play()
+            this.audio.muted = false
+            if (this.audio.paused) {
+              await this.audio.play()
+            }
             this.isPlaying = true
+            this.isBlocked = false
             this.notify()
-          } catch {
-            // Still waiting for valid gesture
-          }
+          } catch {}
         }
         window.removeEventListener('pointerdown', unlock)
         window.removeEventListener('click', unlock)
@@ -116,14 +128,15 @@ class HeroAudioController {
 
   subscribe(callback) {
     this.subscribers.add(callback)
-    callback(this.isPlaying)
+    callback({ isPlaying: this.isPlaying, isBlocked: this.isBlocked })
     return () => {
       this.subscribers.delete(callback)
     }
   }
 
   notify() {
-    this.subscribers.forEach((cb) => cb(this.isPlaying))
+    const payload = { isPlaying: this.isPlaying, isBlocked: this.isBlocked }
+    this.subscribers.forEach((cb) => cb(payload))
   }
 }
 

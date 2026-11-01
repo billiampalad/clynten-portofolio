@@ -18,6 +18,13 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
 
   // State to control the staggered shutter wipe transition
   const [isShutterOpen, setIsShutterOpen] = useState(false)
+  const [isAudioBlocked, setIsAudioBlocked] = useState(false)
+
+  useEffect(() => {
+    return heroAudio.subscribe(({ isBlocked }) => {
+      setIsAudioBlocked(isBlocked)
+    })
+  }, [])
 
   // Trigger audio playback at 70% loading threshold
   const hasTriggeredAudioRef = useRef(false)
@@ -104,7 +111,15 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
   const activeBlocks = Math.round((percentage / 100) * totalBlocks)
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden font-mono select-none pointer-events-auto">
+    <div
+      onPointerDown={() => {
+        heroAudio.init()
+        if (percentage >= 70) {
+          heroAudio.play()
+        }
+      }}
+      className="fixed inset-0 z-50 overflow-hidden font-mono select-none pointer-events-auto"
+    >
       {/* ====================================================================
           LAYER 1: Staggered Cyber Shutter (Multi-Bar Curtain Wipe)
           5 vertical slats that slide up sequentially to reveal the hero canvas
@@ -288,6 +303,21 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
               CBP-SIGNAL 99.4%
             </span>
           </div>
+
+          {/* Interactive Cyber Audio Activation Hint (shown only if browser blocks unmuted autoplay at 70%) */}
+          {isAudioBlocked && percentage >= 70 && !isComplete && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                heroAudio.play()
+              }}
+              className="mt-2 flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/50 bg-emerald-950/70 text-emerald-400 text-[8.5px] tracking-widest font-bold uppercase pointer-events-auto hover:bg-emerald-900/60 hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,170,0.35)] cursor-pointer"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>TAP ANYWHERE TO ACTIVATE AUDIO</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -13,8 +13,8 @@ function HeroAudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(heroAudio.isPlaying)
 
   useEffect(() => {
-    return heroAudio.subscribe((state) => {
-      setIsPlaying(state)
+    return heroAudio.subscribe(({ isPlaying }) => {
+      setIsPlaying(isPlaying)
     })
   }, [])
 
