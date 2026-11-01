@@ -12,16 +12,16 @@ const POSITION_MAP = {
     'top-[6.5%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
-    'top-[22.5%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(96px,13.5vh,165px)] md:max-lg:left-[clamp(16px,2vw,28px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[22.5%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-[clamp(16px,2vw,28px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 4 (Cloud & Networking)
   'net-wrapper':
-    'top-[25%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(96px,13.5vh,165px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[25%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 5 (Database Architecture)
   'db-wrapper':
-    'top-[41%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(176px,24.8vh,298px)] md:max-lg:left-[clamp(16px,2vw,28px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[41%] left-[clamp(31px,3.06vw,44px)] md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-[clamp(16px,2vw,28px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 6 (UI/UX Engineering)
   'uiux-wrapper':
-    'top-[43.5%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(176px,24.8vh,298px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[43.5%] left-[clamp(210px,20.57vw,296px)] md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
