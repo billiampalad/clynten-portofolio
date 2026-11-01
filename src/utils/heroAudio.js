@@ -59,19 +59,30 @@ class HeroAudioController {
       this.notify()
     } catch (err) {
       // Browser Autoplay Policy blocked playback (waiting for first user gesture)
+      console.warn('[HeroAudio] Autoplay blocked by Browser Policy (user gesture required). Waiting for first interaction...', err)
       this.isPlaying = false
       this.notify()
 
-      const unlock = () => {
+      const unlock = async () => {
         if (this.audio && !this.isPlaying && this.hasTriggered) {
-          this.audio.play().catch(() => {})
+          try {
+            await this.audio.play()
+            this.isPlaying = true
+            this.notify()
+          } catch {
+            // Still waiting for valid gesture
+          }
         }
         window.removeEventListener('pointerdown', unlock)
+        window.removeEventListener('click', unlock)
         window.removeEventListener('keydown', unlock)
+        window.removeEventListener('touchstart', unlock)
       }
 
       window.addEventListener('pointerdown', unlock, { once: true, passive: true })
+      window.addEventListener('click', unlock, { once: true, passive: true })
       window.addEventListener('keydown', unlock, { once: true, passive: true })
+      window.addEventListener('touchstart', unlock, { once: true, passive: true })
     }
   }
 
@@ -117,4 +128,3 @@ class HeroAudioController {
 }
 
 export const heroAudio = new HeroAudioController()
-
