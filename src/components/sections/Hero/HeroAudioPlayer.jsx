@@ -23,16 +23,16 @@ function HeroAudioPlayer() {
   }
 
   return (
-    <div className="absolute bottom-20 sm:bottom-24 lg:bottom-[clamp(112px,8.8vw,132px)] [@media(min-width:1440px)]:bottom-42 [@media(min-width:1600px)]:bottom-48 right-6 sm:right-12 lg:right-[clamp(24px,2.2vw,32px)] [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 z-25 pointer-events-auto select-none font-mono">
+    <div className="absolute bottom-20 sm:bottom-24 lg:bottom-[clamp(122px,16.5vh,152px)] [@media(min-width:1440px)]:bottom-42 [@media(min-width:1600px)]:bottom-48 right-6 sm:right-12 lg:right-[clamp(34px,3.2vw,48px)] [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 z-25 pointer-events-auto select-none font-mono">
       <button
         type="button"
         onClick={handleToggle}
         aria-label={isPlaying ? 'Pause Background Audio' : 'Play Background Audio'}
         aria-pressed={isPlaying}
-        className="group flex items-center gap-2.5 lg:gap-3.5 [@media(min-width:1440px)]:gap-4 px-2.5 py-1.5 lg:px-3.5 lg:py-2.5 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-3 rounded-lg lg:rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/90 border border-white/10 hover:border-emerald-500/40 shadow-xl backdrop-blur-md transition-all duration-200 cursor-pointer text-left"
+        className="group flex items-center gap-2.5 lg:gap-[clamp(8px,1vw,13px)] [@media(min-width:1440px)]:gap-4 px-2.5 py-1.5 lg:px-[clamp(10px,1.1vw,14px)] lg:py-[clamp(6px,1.1vh,10px)] [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-3 rounded-lg lg:rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/90 border border-white/10 hover:border-emerald-500/40 shadow-xl backdrop-blur-md transition-all duration-200 cursor-pointer text-left"
       >
         {/* Animated Sound Wave Equalizer Bars (GPU transform: scaleY, zero layout reflow) */}
-        <div className="flex items-end gap-[2px] lg:gap-[3px] [@media(min-width:1440px)]:gap-[4px] h-[18px] lg:h-[22px] [@media(min-width:1440px)]:h-[32px] px-0.5">
+        <div className="flex items-end gap-[2px] lg:gap-[clamp(2px,0.22vw,3px)] [@media(min-width:1440px)]:gap-[4px] h-[18px] lg:h-[clamp(18px,2.6vh,22px)] [@media(min-width:1440px)]:h-[32px] px-0.5">
           {BARS.map((bar) => (
             <span
               key={bar.id}
@@ -43,7 +43,7 @@ function HeroAudioPlayer() {
                 transform: isPlaying ? undefined : 'scaleY(0.25)',
                 willChange: 'transform',
               }}
-              className={`w-[2.5px] lg:w-[3.5px] [@media(min-width:1440px)]:w-[5px] rounded-t-[1px] transition-colors duration-200 ${
+              className={`w-[2.5px] lg:w-[clamp(2.8px,0.25vw,3.5px)] [@media(min-width:1440px)]:w-[5px] rounded-t-[1px] transition-colors duration-200 ${
                 isPlaying
                   ? 'bg-emerald-400 shadow-[0_0_6px_#00ffaa]'
                   : 'bg-zinc-600'
@@ -54,25 +54,25 @@ function HeroAudioPlayer() {
 
         {/* Audio Meta Text */}
         <div className="flex flex-col">
-          <div className="flex items-center gap-1.5 lg:gap-2 [@media(min-width:1440px)]:gap-2">
+          <div className="flex items-center gap-1.5 lg:gap-[clamp(5px,0.6vw,7px)] [@media(min-width:1440px)]:gap-2">
             <span
-              className={`w-1.5 h-1.5 lg:w-2 lg:h-2 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full transition-colors duration-200 ${
+              className={`w-1.5 h-1.5 lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full transition-colors duration-200 ${
                 isPlaying
                   ? 'bg-emerald-400 shadow-[0_0_6px_#00ffaa] animate-pulse'
                   : 'bg-zinc-600'
               }`}
             />
-            <span className="text-[8px] sm:text-[8.5px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-[1.5px] lg:tracking-[1.7px] [@media(min-width:1440px)]:tracking-[2px] font-bold text-zinc-300 uppercase">
+            <span className="text-[8px] sm:text-[8.5px] lg:text-[clamp(8.5px,1.25vh,10px)] [@media(min-width:1440px)]:text-[12px] tracking-[1.5px] lg:tracking-[1.7px] [@media(min-width:1440px)]:tracking-[2px] font-bold text-zinc-300 uppercase">
               BGM // {isPlaying ? 'ACTIVE' : 'MUTED'}
             </span>
           </div>
-          <span className="text-[7px] lg:text-[8.5px] [@media(min-width:1440px)]:text-[10px] tracking-wider text-zinc-500 uppercase">
+          <span className="text-[7px] lg:text-[clamp(7.5px,1vh,8.5px)] [@media(min-width:1440px)]:text-[10px] tracking-wider text-zinc-500 uppercase">
             44.1kHz • AMBIENT
           </span>
         </div>
 
         {/* Play/Mute Icon Indicator */}
-        <div className="pl-1 text-zinc-400 group-hover:text-white transition-colors [&>svg]:w-[13px] [&>svg]:h-[13px] lg:[&>svg]:w-[15px] lg:[&>svg]:h-[15px] [@media(min-width:1440px)]:[&>svg]:w-[19px] [@media(min-width:1440px)]:[&>svg]:h-[19px]">
+        <div className="pl-1 text-zinc-400 group-hover:text-white transition-colors [&>svg]:w-[13px] [&>svg]:h-[13px] lg:[&>svg]:w-[clamp(13px,1.8vh,15px)] lg:[&>svg]:h-[clamp(13px,1.8vh,15px)] [@media(min-width:1440px)]:[&>svg]:w-[19px] [@media(min-width:1440px)]:[&>svg]:h-[19px]">
           {isPlaying ? (
             <Volume2 strokeWidth={2} className="text-emerald-400 drop-shadow-[0_0_6px_rgba(0,255,170,0.6)]" />
           ) : (
