@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, memo } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, memo } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { profile } from '@/content/profile'
 import { SKILLS_CONFIG } from '@/content/skills'
 import TechIcon from './TechIcon'
@@ -147,50 +147,48 @@ const DOMAINS = SKILLS_CONFIG.map((skill, index) => {
 })
 
 const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
-  const [isInView, setIsInView] = useState(false)
   const cardRef = useRef(null)
   const numRef = useRef(null)
+  const isInView = useInView(cardRef, { once: true, amount: 0.15 })
+  const hasAnimatedRef = useRef(false)
 
   useEffect(() => {
-    let rafId = 0
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        if (entry.isIntersecting && !isInView) {
-          setIsInView(true)
+    if (!isInView || hasAnimatedRef.current) return
+    hasAnimatedRef.current = true
 
-          const target = domain.confidenceVal || 80
-          const duration = 1400
-          const startTime = performance.now()
+    const target = domain.confidenceVal || 80
 
-          const updateCount = (currentTime) => {
-            const elapsed = currentTime - startTime
-            const progress = Math.min(elapsed / duration, 1)
-            const easeProgress = 1 - Math.pow(1 - progress, 3)
-            const currentCount = Math.round(easeProgress * target)
-            if (numRef.current) {
-              numRef.current.textContent = `${currentCount}%`
-            }
-
-            if (progress < 1) {
-              rafId = requestAnimationFrame(updateCount)
-            } else if (numRef.current) {
-              numRef.current.textContent = `${target}%`
-            }
-          }
-
-          rafId = requestAnimationFrame(updateCount)
-        }
-      },
-      { threshold: 0.15 }
-    )
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (numRef.current) {
+        numRef.current.textContent = `${target}%`
+      }
+      return
     }
 
+    const duration = 1200
+    const startTime = performance.now()
+    let rafId = 0
+
+    const updateCount = (currentTime) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const easeProgress = 1 - Math.pow(1 - progress, 3)
+      const currentCount = Math.round(easeProgress * target)
+
+      if (numRef.current) {
+        numRef.current.textContent = `${currentCount}%`
+      }
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(updateCount)
+      } else if (numRef.current) {
+        numRef.current.textContent = `${target}%`
+      }
+    }
+
+    rafId = requestAnimationFrame(updateCount)
+
     return () => {
-      observer.disconnect()
       if (rafId) {
         cancelAnimationFrame(rafId)
       }
@@ -212,7 +210,9 @@ const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
         </div>
         <div className="pillar-metric-badge" title={`Confidence: ${domain.confidence}`}>
           <span className="pillar-metric-dot" />
-          <span ref={numRef} className="pillar-metric-num">0%</span>
+          <span ref={numRef} className="pillar-metric-num">
+            {domain.confidence}
+          </span>
         </div>
       </div>
 
