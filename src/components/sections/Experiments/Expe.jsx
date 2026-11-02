@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, memo } from 'react'
 import { motion } from 'framer-motion'
 
 /**
@@ -9,8 +9,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.08,
+      staggerChildren: 0.1,
+      delayChildren: 0.06,
     },
   },
 }
@@ -18,15 +18,13 @@ const containerVariants = {
 const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 35,
-    filter: 'blur(6px)',
+    y: 25,
   },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
-      duration: 0.8,
+      duration: 0.65,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -35,46 +33,17 @@ const itemVariants = {
 const heatmapVariants = {
   hidden: {
     opacity: 0,
-    y: 55,
-    scale: 0.98,
-    filter: 'blur(8px)',
+    y: 35,
+    scale: 0.99,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    filter: 'blur(0px)',
     transition: {
-      duration: 0.95,
+      duration: 0.75,
       ease: [0.16, 1, 0.3, 1],
     },
-  },
-}
-
-/**
- * Scattered / Randomized pop-in animation for individual contribution cells
- * (Each cell pops in independently at its own pseudo-random time)
- */
-const cellVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.15,
-  },
-  visible: ({ wIdx, dIdx }) => {
-    // Deterministic pseudo-random delay between 0.04s and 0.76s
-    const seed = (wIdx * 41 + dIdx * 89 + 17) % 1000
-    const pseudoRandom = Math.abs((Math.sin(seed) * 10000) % 1)
-    const delay = 0.04 + pseudoRandom * 0.72
-
-    return {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay,
-        duration: 0.38,
-        ease: [0.34, 1.45, 0.64, 1], // bouncy pop
-      },
-    }
   },
 }
 
@@ -385,7 +354,7 @@ function parseGithubYearData(year, apiData) {
   }
 }
 
-export default function Expe({
+function Expe({
   id = 'experience',
   username = 'billiampalad',
   githubUrl = 'https://github.com/billiampalad',
@@ -672,12 +641,8 @@ export default function Expe({
                           const blinkDuration = (3.6 + (seed2 / 100) * 2.2).toFixed(2)
 
                           return (
-                            <motion.div
+                            <div
                               key={`${wIdx}-${dIdx}`}
-                              custom={{ wIdx, dIdx }}
-                              variants={cellVariants}
-                              initial="hidden"
-                              animate="visible"
                               onMouseEnter={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect()
                                 const parentRect = e.currentTarget
@@ -695,7 +660,7 @@ export default function Expe({
                                 '--blink-delay': `${blinkDelay}s`,
                                 '--blink-duration': `${blinkDuration}s`,
                               }}
-                              className={`w-[13px] h-[13px] rounded-[3px] border cursor-pointer hover:scale-125 hover:z-30 transition-all duration-75 ${getCellClasses(
+                              className={`w-[13px] h-[13px] rounded-[3px] border cursor-pointer hover:scale-125 hover:z-30 transition-[transform,border-color] duration-150 ${getCellClasses(
                                 day.level
                               )} ${
                                 isHighActive
@@ -855,3 +820,5 @@ export default function Expe({
     </section>
   )
 }
+
+export default memo(Expe)
