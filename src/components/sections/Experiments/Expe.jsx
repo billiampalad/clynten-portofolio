@@ -473,7 +473,7 @@ function Expe({
 
   return (
     <section
-      id={id}
+      id={id ? `${id}-section` : 'experience-section'}
       className={`relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${
         isLight ? 'bg-[#f8fafc] text-[#0f172a]' : 'bg-[#0A0907] text-[#f1f5f9]'
       }`}

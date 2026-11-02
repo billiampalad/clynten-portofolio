@@ -208,21 +208,28 @@ function Navbar({
     }
   }, [onHomeClick])
 
-  // Smart landing navigation that navigates accurately to Hero, About, Skills, and Projects
+  // Smart landing navigation that navigates accurately to Hero, About, Skills, Projects, Experience, and Contact
   const scrollToSection = useCallback((targetId) => {
     const currentY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+
+    // Standardized smooth scroll executor that synchronizes with LocomotiveScroll / Lenis / native scroll
+    const executeScroll = (targetY) => {
+      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(targetY, { duration: 0.9, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(targetY, { duration: 0.9 })
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
+      }
+    }
 
     // 1. Target: HERO / HOME (Scroll 0)
     if (targetId === 'hero' || targetId === 'home') {
       if (currentY < 35) return
       if (onHomeClick) {
         onHomeClick()
-      } else if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(0, { duration: 0.9, immediate: false })
-      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(0, { duration: 0.9 })
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        executeScroll(0)
       }
       return
     }
@@ -237,68 +244,63 @@ function Navbar({
 
       // Abaikan jika sudah berada di section About (+/- 35px) untuk menghindari CPU/Scroll churn
       if (Math.abs(currentY - targetY) < 35) return
-
-      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetY, { duration: 0.9, immediate: false })
-      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetY, { duration: 0.9 })
-      } else {
-        window.scrollTo({ top: targetY, behavior: 'smooth' })
-      }
+      executeScroll(targetY)
       return
     }
 
     // 3. Target: SKILLS
-    // Mendarat tepat di elemen section #skills
     if (targetId === 'skills') {
       const skillsEl = document.getElementById('skills')
       if (!skillsEl) return
 
-      const targetY = skillsEl.getBoundingClientRect().top + currentY
+      const targetY = Math.max(0, Math.round(skillsEl.getBoundingClientRect().top + currentY - 70))
       if (Math.abs(currentY - targetY) < 35) return
-
-      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(skillsEl, { offset: 0, duration: 0.9, immediate: false })
-      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(skillsEl, { offset: 0, duration: 0.9 })
-      } else {
-        window.scrollTo({ top: targetY, behavior: 'smooth' })
-      }
+      executeScroll(targetY)
       return
     }
 
     // 4. Target: PROJECTS
-    // Mendarat tepat di section Projects secara presisi
     if (targetId === 'projects') {
       const projectsEl = document.getElementById('projects')
       if (!projectsEl) return
 
-      const targetY = projectsEl.getBoundingClientRect().top + currentY
+      const targetY = Math.max(0, Math.round(projectsEl.getBoundingClientRect().top + currentY - 70))
       if (Math.abs(currentY - targetY) < 35) return
-
-      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(projectsEl, { offset: 0, duration: 0.9, immediate: false })
-      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(projectsEl, { offset: 0, duration: 0.9 })
-      } else {
-        window.scrollTo({ top: targetY, behavior: 'smooth' })
-      }
+      executeScroll(targetY)
       return
     }
 
-    // 5. Fallback for other sections (Contact, Experience, etc.)
+    // 5. Target: EXPERIENCE / EXPERIMENTS
+    if (targetId === 'experience' || targetId === 'experiments') {
+      const expEl =
+        document.getElementById('experience') ||
+        document.getElementById('experiments') ||
+        document.getElementById('experience-section')
+      if (!expEl) return
+
+      const targetY = Math.max(0, Math.round(expEl.getBoundingClientRect().top + currentY - 70))
+      if (Math.abs(currentY - targetY) < 35) return
+      executeScroll(targetY)
+      return
+    }
+
+    // 6. Target: CONTACT
+    if (targetId === 'contact') {
+      const contactEl = document.getElementById('contact')
+      if (!contactEl) return
+
+      const targetY = Math.max(0, Math.round(contactEl.getBoundingClientRect().top + currentY - 70))
+      if (Math.abs(currentY - targetY) < 35) return
+      executeScroll(targetY)
+      return
+    }
+
+    // 7. General Fallback for any other anchor IDs
     const targetEl = document.getElementById(targetId)
     if (targetEl) {
-      const targetY = targetEl.getBoundingClientRect().top + currentY
+      const targetY = Math.max(0, Math.round(targetEl.getBoundingClientRect().top + currentY - 70))
       if (Math.abs(currentY - targetY) < 35) return
-
-      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetEl, { offset: 0, duration: 0.9, immediate: false })
-      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetEl, { offset: 0, duration: 0.9 })
-      } else {
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
+      executeScroll(targetY)
     }
   }, [onHomeClick])
 

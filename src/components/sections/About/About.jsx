@@ -36,12 +36,15 @@ function About({ style = {} }) {
     const contactSection = document.getElementById('contact')
     if (!contactSection) return
 
+    const currentY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+    const targetY = Math.max(0, Math.round(contactSection.getBoundingClientRect().top + currentY - 70))
+
     if (window.__locomotiveScroll?.scrollTo) {
-      window.__locomotiveScroll.scrollTo(contactSection, { offset: 0, duration: 1.2, immediate: false })
+      window.__locomotiveScroll.scrollTo(targetY, { duration: 0.9, immediate: false })
     } else if (window.__lenis?.scrollTo) {
-      window.__lenis.scrollTo(contactSection, { offset: 0, duration: 1.2 })
+      window.__lenis.scrollTo(targetY, { duration: 0.9 })
     } else {
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      window.scrollTo({ top: targetY, behavior: 'smooth' })
     }
   }, [])
 
