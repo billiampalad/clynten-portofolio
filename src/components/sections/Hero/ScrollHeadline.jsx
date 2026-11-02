@@ -216,9 +216,9 @@ const ScrollHeadline = memo(
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          className="block text-[clamp(15px,min(4.8vw,3.2dvh),26px)] md:max-lg:text-[clamp(35px,min(4.74vw,5.5vh),48.5px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.02] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
+          className="block text-[clamp(18px,min(5.8vw,3.8dvh),30px)] md:max-lg:text-[clamp(35px,min(4.74vw,5.5vh),48.5px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.02] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
         >
-          {/* Line 1: Guaranteed single line on tablet */}
+          {/* Line 1 (Tablet/Desktop) / Segments 1 & 2 (Mobile) */}
           <span className="inline md:max-lg:inline-block md:max-lg:whitespace-nowrap">
             {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
             <FoldWord
@@ -244,6 +244,9 @@ const ScrollHeadline = memo(
               LEARNING,
             </FoldWord>
 
+            {/* Mobile Line Break 1: Breaks after LEARNING, on mobile to form Line 1 */}
+            <span className="block md:hidden w-full h-0 pointer-events-none select-none" />
+
             {/* Word: BUILDING, (3D Fold: Cyan / Blue with Shutter Laser Block) */}
             <FoldWord
               isUnlocked={isUnlocked}
@@ -260,10 +263,10 @@ const ScrollHeadline = memo(
             </FoldWord>
           </span>
 
-          {/* Guaranteed 100% Reliable Line Break for All Laptop/Desktop Screens */}
-          <span className="block w-full h-0 pointer-events-none select-none" />
+          {/* Guaranteed Line Break for Tablet/Desktop */}
+          <span className="hidden md:block w-full h-0 pointer-events-none select-none" />
 
-          {/* Line 2: Guaranteed single line on tablet */}
+          {/* Line 2 (Tablet/Desktop) / Segments 3 & 4 (Mobile) */}
           <span className="inline md:max-lg:inline-block md:max-lg:whitespace-nowrap">
             {/* Word: AND (3D Fold: Rose / Red) */}
             <FoldWord
@@ -288,6 +291,9 @@ const ScrollHeadline = memo(
             >
               GROWING
             </FoldWord>
+
+            {/* Mobile Line Break 2: Breaks after GROWING on mobile to form Line 2 */}
+            <span className="block md:hidden w-full h-0 pointer-events-none select-none" />
 
             {/* Word: THROUGH (3D Fold: Cyan / Blue) */}
             <FoldWord
