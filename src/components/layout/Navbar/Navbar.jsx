@@ -112,13 +112,14 @@ export default function Navbar({
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const aboutEl = document.getElementById('about')
-          if (aboutEl) {
-            const rect = aboutEl.getBoundingClientRect()
-            setIsScrolled(rect.top < -15)
+          const heroTrigger = ScrollTrigger.getById('hero-trigger')
+          const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+
+          if (heroTrigger) {
+            // Aktifkan border/blur saat scroll melewati akhir hero sequence tanpa memicu forced layout reflow
+            setIsScrolled(scrollY > heroTrigger.end - 50)
           } else {
-            const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
-            setIsScrolled(scrollY > 15)
+            setIsScrolled(scrollY > 50)
           }
           ticking = false
         })
@@ -307,24 +308,24 @@ export default function Navbar({
     // If no contact section in DOM, default mailto behavior runs
   }
 
-  if (!isVisible) return null
-
   return (
     <motion.header
       key="portfolio-navbar"
-      className={`portfolio-navbar navbar-visible ${isScrolled ? 'scrolled navbar-scrolled' : ''
-        }`}
-      initial={{
-        y: -40,
-        opacity: 0,
-      }}
+      className={`portfolio-navbar ${isVisible ? 'navbar-visible' : 'navbar-hidden'} ${
+        isScrolled ? 'scrolled navbar-scrolled' : ''
+      }`}
+      initial={false}
       animate={{
-        y: 0,
-        opacity: 1,
-        transition: {
-          duration: 0.5,
-          ease: [0.16, 1, 0.3, 1],
-        },
+        y: isVisible ? 0 : -40,
+        opacity: isVisible ? 1 : 0,
+      }}
+      transition={{
+        duration: 0.45,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      style={{
+        pointerEvents: isVisible ? 'auto' : 'none',
+        visibility: isVisible ? 'visible' : 'hidden',
       }}
     >
       {/* Dark base underlay matching Hero backdrop (#000000) */}

@@ -81,6 +81,7 @@ body.light-theme {
 
 .portfolio-navbar.navbar-hidden {
   pointer-events: none;
+  visibility: hidden;
 }
 
 /* Layer 0: Seamless base matching About surface (transparent so About background flows seamlessly) */
@@ -161,6 +162,7 @@ body.light-theme .portfolio-navbar.scrolled .navbar-theme-bg {
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   opacity: 0;
+  will-change: opacity;
   transition: opacity 0.25s ease;
 }
 
