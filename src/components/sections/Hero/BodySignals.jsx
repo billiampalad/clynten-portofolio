@@ -18,21 +18,20 @@ const POSITION_MAP = {
   'uiux-wrapper': 'top-[50%] left-[175px] lg:left-[290px] xl:left-[calc(50%-370px)]',
 }
 
-function HudRow({ label, value, highlightColor = '', speed = 20, isContinuous = false }) {
-  const scrambledLabel = useTextScramble(label, speed, isContinuous)
+const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20, isContinuous = false }) {
   const scrambledVal = useTextScramble(value, speed, isContinuous)
 
   return (
     <div className="flex items-center justify-between text-[7px] tracking-wider py-0.5 border-b border-white/[0.04] last:border-none whitespace-nowrap">
-      <span className="text-zinc-500 uppercase">{scrambledLabel}</span>
+      <span className="text-zinc-500 uppercase">{label}</span>
       <span className={`font-semibold truncate max-w-[85px] ml-1 ${highlightColor || 'text-zinc-300'}`}>
         {scrambledVal}
       </span>
     </div>
   )
-}
+})
 
-function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
+const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
   const scrambledText = useTextScramble(text, speed, isContinuous)
 
   const squareColor =
@@ -55,10 +54,9 @@ function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
       )}
     </div>
   )
-}
+})
 
-function SkillCard({ skill, index, progress, isScrollZero }) {
-  const isResolved = progress >= skill.threshold
+const SkillCard = memo(function SkillCard({ skill, index, isResolved, isScrollZero }) {
   const data = isResolved ? skill.resolved : skill.unresolved
   const color = skill.activeColor
 
@@ -87,9 +85,9 @@ function SkillCard({ skill, index, progress, isScrollZero }) {
         delay: 0.45 + index * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className={`absolute ${positionClass} pointer-events-none select-none z-10 transition-all duration-300`}
+      className={`absolute ${positionClass} pointer-events-none select-none z-10`}
     >
-      <div className={`relative w-[155px] sm:w-[165px] p-2 rounded-lg bg-zinc-950/90 backdrop-blur-xl border ${borderColor} shadow-xl`}>
+      <div className={`relative w-[155px] sm:w-[165px] p-2 rounded-lg bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg`}>
         <HudHeader
           text={data.header}
           tag={skill.tag}
@@ -128,27 +126,25 @@ function SkillCard({ skill, index, progress, isScrollZero }) {
       </div>
     </motion.div>
   )
-}
+})
 
 function BodySignals({ progress = 0 }) {
   const isScrollZero = progress < 0.04
-  // Tetap aktif dan terang penuh hingga telemetri mencapai 100%, baru kemudian memudar bersamaan dengan tampilan HUD lainnya
-  const fadeOpacity = progress < 1 ? 1 : Math.max(0, 1 - (progress - 1) / 0.05)
 
   return (
-    <div
-      className="absolute inset-0 pointer-events-none z-18 font-mono select-none transition-opacity duration-150 hidden lg:block"
-      style={{ opacity: fadeOpacity }}
-    >
-      {SKILLS_CONFIG.map((skill, index) => (
-        <SkillCard
-          key={skill.id}
-          skill={skill}
-          index={index}
-          progress={progress}
-          isScrollZero={isScrollZero}
-        />
-      ))}
+    <div className="absolute inset-0 pointer-events-none z-18 font-mono select-none hidden lg:block">
+      {SKILLS_CONFIG.map((skill, index) => {
+        const isResolved = progress >= skill.threshold
+        return (
+          <SkillCard
+            key={skill.id}
+            skill={skill}
+            index={index}
+            isResolved={isResolved}
+            isScrollZero={isScrollZero}
+          />
+        )
+      })}
     </div>
   )
 }

@@ -5,55 +5,75 @@ export const GLYPHS = '01XYZ0123456789_#*<>[]/=+-@$!?'
 
 export function useTextScramble(targetText, speed = 25, isContinuous = false) {
   const [displayText, setDisplayText] = useState(targetText)
-  const animRef = useRef(null)
+  const rafRef = useRef(null)
 
   useEffect(() => {
-    let iteration = 0
-    const maxIterations = targetText.length
-
-    clearInterval(animRef.current)
-
-    if (isContinuous) {
-      // Continuous random live signal packet glyph shuffle (SignalIQ style)
-      animRef.current = setInterval(() => {
-        setDisplayText(() => {
-          return targetText
-            .split('')
-            .map((char) => {
-              if (char === ' ') return ' '
-              // 20% random chance to show original char, 80% scramble glyph
-              if (Math.random() < 0.2) return char
-              return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
-            })
-            .join('')
-        })
-      }, speed * 1.6)
-    } else {
-      // Progressive decode/lock-in animation to target text
-      animRef.current = setInterval(() => {
-        setDisplayText(() => {
-          return targetText
-            .split('')
-            .map((char, index) => {
-              if (char === ' ') return ' '
-              if (index < iteration) {
-                return targetText[index]
-              }
-              return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
-            })
-            .join('')
-        })
-
-        if (iteration >= maxIterations) {
-          clearInterval(animRef.current)
-          setDisplayText(targetText)
-        }
-
-        iteration += 1 / 2
-      }, speed)
+    if (!targetText) {
+      setDisplayText('')
+      return
     }
 
-    return () => clearInterval(animRef.current)
+    let iteration = 0
+    const maxIterations = targetText.length
+    let lastTime = performance.now()
+    const stepInterval = isContinuous ? speed * 1.6 : speed
+
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+    }
+
+    const loop = (currentTime) => {
+      const delta = currentTime - lastTime
+      if (delta >= stepInterval) {
+        lastTime = currentTime - (delta % stepInterval)
+
+        if (isContinuous) {
+          setDisplayText(() => {
+            return targetText
+              .split('')
+              .map((char) => {
+                if (char === ' ') return ' '
+                // 20% random chance to show original char, 80% scramble glyph
+                if (Math.random() < 0.2) return char
+                return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+              })
+              .join('')
+          })
+          rafRef.current = requestAnimationFrame(loop)
+        } else {
+          setDisplayText(() => {
+            return targetText
+              .split('')
+              .map((char, index) => {
+                if (char === ' ') return ' '
+                if (index < iteration) {
+                  return targetText[index]
+                }
+                return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+              })
+              .join('')
+          })
+
+          if (iteration >= maxIterations) {
+            setDisplayText(targetText)
+            return
+          }
+
+          iteration += 0.5
+          rafRef.current = requestAnimationFrame(loop)
+        }
+      } else {
+        rafRef.current = requestAnimationFrame(loop)
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(loop)
+
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+    }
   }, [targetText, speed, isContinuous])
 
   return displayText
@@ -66,7 +86,7 @@ export function useTextScramble(targetText, speed = 25, isContinuous = false) {
 export function useHoverScramble(targetText, speed = 30, totalIterations = 8, charPool = LETTERS) {
   const [displayText, setDisplayText] = useState(targetText)
   const [prevTargetText, setPrevTargetText] = useState(targetText)
-  const animRef = useRef(null)
+  const rafRef = useRef(null)
 
   if (prevTargetText !== targetText) {
     setPrevTargetText(targetText)
@@ -74,34 +94,49 @@ export function useHoverScramble(targetText, speed = 30, totalIterations = 8, ch
   }
 
   const trigger = useCallback(() => {
-    clearInterval(animRef.current)
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+    }
     let iteration = 0
+    let lastTime = performance.now()
 
-    animRef.current = setInterval(() => {
-      setDisplayText(() => {
-        return targetText
-          .split('')
-          .map((char, index) => {
-            if (char === ' ') return ' '
-            if (iteration >= totalIterations - (targetText.length - index)) {
-              return targetText[index]
-            }
-            return charPool[Math.floor(Math.random() * charPool.length)]
-          })
-          .join('')
-      })
+    const loop = (currentTime) => {
+      const delta = currentTime - lastTime
+      if (delta >= speed) {
+        lastTime = currentTime - (delta % speed)
 
-      if (iteration >= totalIterations) {
-        clearInterval(animRef.current)
-        setDisplayText(targetText)
+        setDisplayText(() => {
+          return targetText
+            .split('')
+            .map((char, index) => {
+              if (char === ' ') return ' '
+              if (iteration >= totalIterations - (targetText.length - index)) {
+                return targetText[index]
+              }
+              return charPool[Math.floor(Math.random() * charPool.length)]
+            })
+            .join('')
+        })
+
+        if (iteration >= totalIterations) {
+          setDisplayText(targetText)
+          return
+        }
+
+        iteration += 1
       }
+      rafRef.current = requestAnimationFrame(loop)
+    }
 
-      iteration += 1
-    }, speed)
+    rafRef.current = requestAnimationFrame(loop)
   }, [targetText, speed, totalIterations, charPool])
 
   useEffect(() => {
-    return () => clearInterval(animRef.current)
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+    }
   }, [])
 
   return [displayText, trigger]

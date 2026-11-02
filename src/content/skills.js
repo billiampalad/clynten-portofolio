@@ -27,7 +27,7 @@ export const SKILLS_CONFIG = [
     wrapperClass: 'android-wrapper',
     cardClass: 'android-card',
     activeColor: 'green',
-    threshold: 0.3,
+    threshold: 0.28,
     resolved: {
       header: 'ANDROID DEV',
       stackId: 'MOBILE_OS_NODE',
@@ -49,7 +49,7 @@ export const SKILLS_CONFIG = [
     wrapperClass: 'cyber-wrapper',
     cardClass: 'cyber-card',
     activeColor: 'cyan',
-    threshold: 0.45,
+    threshold: 0.41,
     resolved: {
       header: 'CYBER SECURITY',
       stackId: 'SEC_AUDIT_PRO',
@@ -71,7 +71,7 @@ export const SKILLS_CONFIG = [
     wrapperClass: 'net-wrapper',
     cardClass: 'net-card',
     activeColor: 'red',
-    threshold: 0.6,
+    threshold: 0.54,
     resolved: {
       header: 'NETWORK - IOT',
       stackId: 'NET_TOPOLOGY_V2',
@@ -93,7 +93,7 @@ export const SKILLS_CONFIG = [
     wrapperClass: 'db-wrapper',
     cardClass: 'db-card',
     activeColor: 'green',
-    threshold: 0.75,
+    threshold: 0.67,
     resolved: {
       header: 'DBMS',
       stackId: 'DATA_ENGINE_V3',
@@ -115,7 +115,7 @@ export const SKILLS_CONFIG = [
     wrapperClass: 'uiux-wrapper',
     cardClass: 'uiux-card',
     activeColor: 'cyan',
-    threshold: 0.88,
+    threshold: 0.80,
     resolved: {
       header: 'UI/UX DESIGN',
       stackId: 'DESIGN_SYSTEM_PRO',
