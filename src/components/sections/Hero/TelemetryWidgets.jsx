@@ -113,12 +113,12 @@ function TelemetryWidgets({ progress = 0 }) {
 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
-      {/* 1. Top Right Holographic Radar Widget */}
+      {/* 1. Top Right Holographic Radar Widget (Solid high-depth background removes heavy Gaussian blur kernel over animated canvas) */}
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-12 right-6 sm:right-12 hidden md:flex items-center gap-3.5 px-3.5 py-2 rounded-xl bg-zinc-950/90 border border-white/10 backdrop-blur-md shadow-2xl"
+        className="absolute top-12 right-6 sm:right-12 hidden md:flex items-center gap-3.5 px-3.5 py-2 rounded-xl bg-[#0A0907]/95 border border-white/10 shadow-xl"
       >
         <RadarGauge rotation={radarRotation} />
         <SensorInfo />
