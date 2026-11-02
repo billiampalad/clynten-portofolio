@@ -37,7 +37,7 @@ export default function Hero({ onProgressChange }) {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     const width = window.innerWidth
     const height = window.innerHeight
     const targetWidth = Math.round(width * dpr)
@@ -59,6 +59,7 @@ export default function Hero({ onProgressChange }) {
     if (!ctx) return
 
     const index = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(rawIndex)))
+    if (lastRenderedIndexRef.current === index) return
     const img = imagesRef.current[index]
     if (!img || !img.complete || img.naturalWidth === 0) return
 
@@ -72,7 +73,7 @@ export default function Hero({ onProgressChange }) {
     }
 
     ctx.imageSmoothingEnabled = true
-    ctx.imageSmoothingQuality = 'high'
+    ctx.imageSmoothingQuality = 'medium'
 
     ctx.save()
     ctx.scale(dpr, dpr)
@@ -266,7 +267,7 @@ export default function Hero({ onProgressChange }) {
         if (canvas) {
           if (progress < HOLD_FULL_END) {
             // TAHAP FULL / 100%: Tampilan Fullscreen Penuh Bersih, 100% Terang & Jernih
-            canvas.style.transform = 'scale(1)'
+            canvas.style.transform = 'translate3d(0,0,0) scale(1)'
             canvas.style.opacity = '1'
             canvas.style.borderRadius = '0px'
             canvas.style.boxShadow = 'none'
@@ -312,7 +313,7 @@ export default function Hero({ onProgressChange }) {
               document.documentElement.getAttribute('data-theme') === 'light' ||
               document.documentElement.classList.contains('light-theme')
 
-            canvas.style.transform = `scale(${cScale.toFixed(4)})`
+            canvas.style.transform = `translate3d(0,0,0) scale(${cScale.toFixed(4)})`
             canvas.style.opacity = frameOpacity.toFixed(3)
             canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
             canvas.style.border = 'none'
@@ -326,7 +327,7 @@ export default function Hero({ onProgressChange }) {
             }
           } else {
             // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
-            canvas.style.transform = 'scale(0)'
+            canvas.style.transform = 'translate3d(0,0,0) scale(0)'
             canvas.style.opacity = '0'
             canvas.style.boxShadow = 'none'
             canvas.style.border = 'none'
@@ -439,7 +440,7 @@ export default function Hero({ onProgressChange }) {
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
         <canvas
           ref={canvasRef}
-          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[filter,transform,opacity,border-radius] origin-center"
+          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[transform,opacity,border-radius] origin-center"
         />
 
         {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
