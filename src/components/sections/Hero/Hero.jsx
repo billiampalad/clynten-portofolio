@@ -32,6 +32,7 @@ export default function Hero({ onProgressChange }) {
   const lastRenderedIndexRef = useRef(-1)
   const lastFilterRef = useRef('')
   const lastNavRevealRef = useRef('')
+  const isCanvasTransformedRef = useRef(false)
   const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
 
   // Synchronize canvas dimensions once on mount and on resize
@@ -207,32 +208,38 @@ export default function Hero({ onProgressChange }) {
         renderFrame(targetFrame)
 
         // Filter visual menajam sempurna dan cerah pada progress 0.65
+        // Kuantisasi diskrit (step 1px) mencegah GPU me-re-rasterize filter kernel Gaussian blur di setiap micro-step
         const filterProgress = Math.min(1, progress / 0.65)
-        const currentBlur = gsap.utils.interpolate(
-          HERO_CONFIG.blurStart,
-          HERO_CONFIG.blurEnd,
-          filterProgress
-        )
-        const currentBrightness = gsap.utils.interpolate(
-          HERO_CONFIG.brightnessStart,
-          HERO_CONFIG.brightnessEnd,
-          filterProgress
-        )
-        const currentContrast = gsap.utils.interpolate(
-          HERO_CONFIG.contrastStart,
-          HERO_CONFIG.contrastEnd,
-          filterProgress
-        )
-
         if (canvas) {
-          const filterStr =
-            filterProgress >= 0.98
-              ? 'none'
-              : `blur(${currentBlur.toFixed(1)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
+          if (filterProgress >= 0.95) {
+            if (lastFilterRef.current !== 'none') {
+              canvas.style.filter = 'none'
+              lastFilterRef.current = 'none'
+            }
+          } else {
+            const steppedBlur = Math.round(
+              gsap.utils.interpolate(HERO_CONFIG.blurStart, HERO_CONFIG.blurEnd, filterProgress)
+            )
+            const steppedBrightness = (
+              Math.round(
+                gsap.utils.interpolate(HERO_CONFIG.brightnessStart, HERO_CONFIG.brightnessEnd, filterProgress) * 10
+              ) / 10
+            ).toFixed(1)
+            const steppedContrast = (
+              Math.round(
+                gsap.utils.interpolate(HERO_CONFIG.contrastStart, HERO_CONFIG.contrastEnd, filterProgress) * 10
+              ) / 10
+            ).toFixed(1)
 
-          if (lastFilterRef.current !== filterStr) {
-            canvas.style.filter = filterStr
-            lastFilterRef.current = filterStr
+            const filterStr =
+              steppedBlur > 0
+                ? `blur(${steppedBlur}px) brightness(${steppedBrightness}) contrast(${steppedContrast})`
+                : 'none'
+
+            if (lastFilterRef.current !== filterStr) {
+              canvas.style.filter = filterStr
+              lastFilterRef.current = filterStr
+            }
           }
         }
 
@@ -271,13 +278,17 @@ export default function Hero({ onProgressChange }) {
 
         if (canvas) {
           if (progress < HOLD_FULL_END) {
-            // TAHAP FULL / 100%: Tampilan Fullscreen Penuh Bersih, 100% Terang & Jernih
-            canvas.style.transform = 'translate3d(0,0,0) scale(1)'
-            canvas.style.opacity = '1'
-            canvas.style.borderRadius = '0px'
-            canvas.style.boxShadow = 'none'
-            canvas.style.border = 'none'
+            // TAHAP FULL / 100%: Tampilan Fullscreen Penuh Bersih (Zero Redundant DOM Mutation)
+            if (isCanvasTransformedRef.current) {
+              canvas.style.transform = 'translate3d(0,0,0) scale(1)'
+              canvas.style.opacity = '1'
+              canvas.style.borderRadius = '0px'
+              canvas.style.boxShadow = 'none'
+              canvas.style.border = 'none'
+              isCanvasTransformedRef.current = false
+            }
           } else if (progress >= SHRINK_START && progress <= SHRINK_END) {
+            isCanvasTransformedRef.current = true
             // Normalisasi progres outro (0.00 -> 1.00)
             const p = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
 
@@ -332,6 +343,7 @@ export default function Hero({ onProgressChange }) {
             }
           } else {
             // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
+            isCanvasTransformedRef.current = true
             canvas.style.transform = 'translate3d(0,0,0) scale(0)'
             canvas.style.opacity = '0'
             canvas.style.boxShadow = 'none'

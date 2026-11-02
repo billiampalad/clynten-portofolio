@@ -12,7 +12,7 @@ export const HERO_CONFIG = {
 export const HERO_SCROLL_TRIGGER_CONFIG = {
   start: 'top top',
   end: '+=420%',
-  scrub: 0.25,
+  scrub: 0.4,
   anticipatePin: 0,
   progressThreshold: 0.003,
 }
