@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, memo } from 'react'
 import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 import PixelGrid from '@/components/effects/PixelGrid'
 import CodeRain from '@/components/effects/CodeRain'
@@ -15,7 +15,7 @@ import HeroRadarLoader from './HeroRadarLoader'
 
 const TOTAL_FRAMES = frameUrls.length
 
-export default function Hero({ onProgressChange }) {
+function Hero({ onProgressChange }) {
   const heroSectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
   const backdropLayerRef = useRef(null)
@@ -31,7 +31,6 @@ export default function Hero({ onProgressChange }) {
   const playheadRef = useRef({ frame: 0 })
   const lastRenderedIndexRef = useRef(-1)
   const lastFilterRef = useRef('')
-  const lastNavRevealRef = useRef('')
   const isCanvasTransformedRef = useRef(false)
   const hasSetShrinkStylesRef = useRef(false)
   const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
@@ -378,14 +377,7 @@ export default function Hero({ onProgressChange }) {
           }
         }
 
-        // Sinkronkan CSS variable --navbar-reveal hanya ketika canvas sudah 0% (progress >= 0.95)
-        const navRevealVal = progress >= 0.95 ? '1' : '0'
-        if (lastNavRevealRef.current !== navRevealVal) {
-          document.documentElement.style.setProperty('--navbar-reveal', navRevealVal)
-          lastNavRevealRef.current = navRevealVal
-        }
-
-        // Beritahu Navbar & App state
+        // Beritahu Navbar & App state saat melintasi ambang batas
         if (onProgressChange) {
           onProgressChange(progress)
         }
@@ -492,3 +484,5 @@ export default function Hero({ onProgressChange }) {
     </section>
   )
 }
+
+export default memo(Hero)

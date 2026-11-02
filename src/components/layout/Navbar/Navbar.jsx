@@ -87,13 +87,12 @@ const NavbarBrand = memo(function NavbarBrand({ brandText = 'A — Z', onBrandCl
   )
 })
 
-export default function Navbar({
+function Navbar({
   isVisible = true,
   brandText = 'A — Z',
   navItems = REFERENCE_NAV_ITEMS,
   email = 'billiampalad@gmail.com',
   onHomeClick,
-  revealProgress = 1,
 }) {
   const [theme, setTheme] = useState(() => {
     if (typeof document !== 'undefined') {
@@ -106,7 +105,10 @@ export default function Navbar({
   const [dismissedTooltip, setDismissedTooltip] = useState(null)
 
   // Track scroll position to activate bottom blur and border line without layout thrashing
+  // Hanya aktif ketika Navbar berstatus terlihat (isVisible = true)
   useEffect(() => {
+    if (!isVisible) return
+
     let ticking = false
 
     const handleScroll = () => {
@@ -133,7 +135,7 @@ export default function Navbar({
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [isVisible])
 
   // Toggle dark / light theme immediately without transition animations or border flash
   const handleToggleTheme = (e) => {
@@ -438,3 +440,5 @@ export default function Navbar({
     </motion.header>
   )
 }
+
+export default memo(Navbar)

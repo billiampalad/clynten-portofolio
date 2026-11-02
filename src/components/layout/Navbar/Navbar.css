@@ -230,7 +230,6 @@ body.light-theme .portfolio-navbar.scrolled .blur-layer-dark {
   justify-content: space-between;
   box-sizing: border-box;
   z-index: 2;
-  opacity: var(--navbar-reveal, 1);
 }
 
 /* Left: Brand Identity (A — Z) */

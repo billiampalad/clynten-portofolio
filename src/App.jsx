@@ -14,7 +14,6 @@ function App() {
   const scrollRef = useLocomotiveScroll()
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
-  const [navbarReveal, setNavbarReveal] = useState(0)
   const [heroKey, setHeroKey] = useState(0)
 
   const isNavbarVisibleRef = useRef(false)
@@ -24,15 +23,12 @@ function App() {
     if (shouldShow !== isNavbarVisibleRef.current) {
       isNavbarVisibleRef.current = shouldShow
       setIsNavbarVisible(shouldShow)
-      setNavbarReveal(shouldShow ? 1 : 0)
     }
   }, [])
 
   const handleResetToHome = useCallback(() => {
-    // 1. Immediately hide navbar and reset dimming
+    // 1. Immediately hide navbar
     setIsNavbarVisible(false)
-    setNavbarReveal(0)
-    document.documentElement.style.setProperty('--navbar-reveal', '0')
 
     // 2. Instantly reset window and locomotive scroll to top (0, 0)
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -50,10 +46,9 @@ function App() {
 
   return (
     <div className="portfolio-app">
-      {/* Global Navigation Bar (Dims and fades in identically with About section) */}
+      {/* Global Navigation Bar */}
       <Navbar
         isVisible={isNavbarVisible}
-        revealProgress={isNavbarVisible ? navbarReveal : 0}
         onHomeClick={handleResetToHome}
       />
 
