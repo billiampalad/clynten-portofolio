@@ -34,7 +34,7 @@ function SignalLine({ progress = 0, color = '#00ffaa' }) {
             pathLength: normalizedProgress,
           }}
           transition={{
-            pathLength: { duration: 0.12, ease: 'easeOut' },
+            pathLength: { duration: 0 },
           }}
           className="transition-colors duration-300 ease-linear"
         />
@@ -52,7 +52,7 @@ function SignalLine({ progress = 0, color = '#00ffaa' }) {
             opacity: normalizedProgress > 0.005 ? 1 : 0,
           }}
           transition={{
-            pathLength: { duration: 0.12, ease: 'easeOut' },
+            pathLength: { duration: 0 },
             opacity: { duration: 0.15 },
           }}
           className="transition-colors duration-300 ease-linear"

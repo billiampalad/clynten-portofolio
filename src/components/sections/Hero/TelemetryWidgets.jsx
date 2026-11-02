@@ -48,12 +48,11 @@ const RadarGauge = memo(function RadarGauge({ rotation = 0 }) {
         {/* Center dot */}
         <circle cx="40" cy="40" r="2.5" fill="#00ffaa" />
 
-        {/* Rotating radar ray with smooth GPU transition & native laser glow */}
+        {/* Rotating radar ray synchronized directly with scroll progress & native laser glow */}
         <g
           style={{
             transformOrigin: '40px 40px',
             transform: `rotate(${rotation}deg)`,
-            transition: 'transform 0.15s ease-out',
             willChange: 'transform',
           }}
         >
