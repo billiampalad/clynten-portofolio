@@ -1,4 +1,6 @@
-export default function TechIcon({ name, className = 'tech-chip-icon' }) {
+import { memo } from 'react'
+
+function TechIcon({ name, className = 'tech-chip-icon' }) {
   const key = name.toLowerCase().replace(/[^a-z0-9]/g, '')
 
   switch (key) {
@@ -656,3 +658,6 @@ export default function TechIcon({ name, className = 'tech-chip-icon' }) {
       )
   }
 }
+
+export default memo(TechIcon)
+

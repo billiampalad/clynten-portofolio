@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { motion } from 'framer-motion'
 import { profile } from '@/content/profile'
 import { SKILLS_CONFIG } from '@/content/skills'
@@ -22,15 +22,13 @@ const headlineContainerVariants = {
 const itemFadeUpVariants = {
   hidden: {
     opacity: 0,
-    y: 35,
-    filter: 'blur(6px)',
+    y: 30,
   },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
-      duration: 0.8,
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -50,15 +48,13 @@ const statsGridVariants = {
 const statCardVariants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    filter: 'blur(4px)',
+    y: 25,
   },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
-      duration: 0.7,
+      duration: 0.65,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -78,17 +74,15 @@ const pillarsGridVariants = {
 const pillarCardVariants = {
   hidden: {
     opacity: 0,
-    y: 45,
+    y: 35,
     scale: 0.98,
-    filter: 'blur(6px)',
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    filter: 'blur(0px)',
     transition: {
-      duration: 0.85,
+      duration: 0.75,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -152,12 +146,13 @@ const DOMAINS = SKILLS_CONFIG.map((skill, index) => {
   }
 })
 
-function SkillDomainCard({ domain }) {
-  const [count, setCount] = useState(0)
+const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
   const [isInView, setIsInView] = useState(false)
   const cardRef = useRef(null)
+  const numRef = useRef(null)
 
   useEffect(() => {
+    let rafId = 0
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
@@ -172,16 +167,19 @@ function SkillDomainCard({ domain }) {
             const elapsed = currentTime - startTime
             const progress = Math.min(elapsed / duration, 1)
             const easeProgress = 1 - Math.pow(1 - progress, 3)
-            setCount(Math.round(easeProgress * target))
+            const currentCount = Math.round(easeProgress * target)
+            if (numRef.current) {
+              numRef.current.textContent = `${currentCount}%`
+            }
 
             if (progress < 1) {
-              requestAnimationFrame(updateCount)
-            } else {
-              setCount(target)
+              rafId = requestAnimationFrame(updateCount)
+            } else if (numRef.current) {
+              numRef.current.textContent = `${target}%`
             }
           }
 
-          requestAnimationFrame(updateCount)
+          rafId = requestAnimationFrame(updateCount)
         }
       },
       { threshold: 0.15 }
@@ -191,7 +189,12 @@ function SkillDomainCard({ domain }) {
       observer.observe(cardRef.current)
     }
 
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
+    }
   }, [isInView, domain.confidenceVal])
 
   return (
@@ -209,7 +212,7 @@ function SkillDomainCard({ domain }) {
         </div>
         <div className="pillar-metric-badge" title={`Confidence: ${domain.confidence}`}>
           <span className="pillar-metric-dot" />
-          <span className="pillar-metric-num">{count}%</span>
+          <span ref={numRef} className="pillar-metric-num">0%</span>
         </div>
       </div>
 
@@ -247,9 +250,9 @@ function SkillDomainCard({ domain }) {
       </div>
     </motion.div>
   )
-}
+})
 
-export default function Skills({ style = {} }) {
+function Skills({ style = {} }) {
   return (
     <section id="skills" className="skills-section relative" style={style}>
       {/* Big Headline */}
@@ -316,3 +319,6 @@ export default function Skills({ style = {} }) {
     </section>
   )
 }
+
+export default memo(Skills)
+

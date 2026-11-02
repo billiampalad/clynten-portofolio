@@ -68,13 +68,11 @@
   100% {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 0 8px #f43f5e;
   }
 
   50% {
-    opacity: 0.4;
+    opacity: 0.45;
     transform: scale(0.8);
-    box-shadow: 0 0 2px #f43f5e;
   }
 }
 
@@ -143,14 +141,12 @@
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(8px);
-  transition: transform 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
   border-color: rgba(244, 63, 94, 0.35);
   box-shadow: 0 8px 24px -4px rgba(244, 63, 94, 0.15);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .stat-num {
@@ -192,15 +188,13 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pillar-card:hover {
   border-color: rgba(244, 63, 94, 0.35);
-  transform: translateY(-3px);
   background: rgba(18, 12, 16, 0.85);
   box-shadow: 0 12px 30px rgba(244, 63, 94, 0.12);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pillar-header {
