@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 
-export default function TelemetryWidgets({ progress = 0 }) {
+function TelemetryWidgets({ progress = 0 }) {
   const radarRotation = Math.round(progress * 360)
   // Tetap aktif dan terang penuh hingga telemetri mencapai 100%, baru kemudian memudar bersamaan dengan tampilan HUD lainnya
   const fadeOpacity = progress < 1 ? 1 : Math.max(0, 1 - (progress - 1) / 0.05)
@@ -101,3 +102,5 @@ export default function TelemetryWidgets({ progress = 0 }) {
     </div>
   )
 }
+
+export default memo(TelemetryWidgets)

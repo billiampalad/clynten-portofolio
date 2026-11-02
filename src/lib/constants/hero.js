@@ -14,5 +14,5 @@ export const HERO_SCROLL_TRIGGER_CONFIG = {
   end: '+=420%',
   scrub: 0.8,
   anticipatePin: 0,
-  progressThreshold: 0.005,
+  progressThreshold: 0.01,
 }

@@ -1,10 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo, memo } from 'react'
 import { motion } from 'framer-motion'
 import { developerSignals } from '@/content/developerSignals'
 import { useTextScramble } from '@/hooks/useTextScramble'
 import SignalLine from './SignalLine'
 
-export default function DeveloperSignal({ progress = 0 }) {
+function DeveloperSignal({ progress = 0 }) {
   const activeSignal = useMemo(() => {
     return (
       developerSignals.find(
@@ -234,3 +234,5 @@ export default function DeveloperSignal({ progress = 0 }) {
   </div>
   )
 }
+
+export default memo(DeveloperSignal)

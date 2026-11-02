@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { SKILLS_CONFIG } from '@/content/skills'
 import { useTextScramble } from '@/hooks/useTextScramble'
@@ -129,7 +130,7 @@ function SkillCard({ skill, index, progress, isScrollZero }) {
   )
 }
 
-export default function BodySignals({ progress = 0 }) {
+function BodySignals({ progress = 0 }) {
   const isScrollZero = progress < 0.04
   // Tetap aktif dan terang penuh hingga telemetri mencapai 100%, baru kemudian memudar bersamaan dengan tampilan HUD lainnya
   const fadeOpacity = progress < 1 ? 1 : Math.max(0, 1 - (progress - 1) / 0.05)
@@ -151,3 +152,5 @@ export default function BodySignals({ progress = 0 }) {
     </div>
   )
 }
+
+export default memo(BodySignals)

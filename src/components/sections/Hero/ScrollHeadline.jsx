@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { motion } from 'framer-motion'
 import { useTextScramble } from '@/hooks/useTextScramble'
 
@@ -93,7 +93,7 @@ function FoldWord({
   )
 }
 
-export default function ScrollHeadline({ progress = 0 }) {
+function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 1 (LEARNING): Uncovers smoothly on scroll (0.04 -> 0.28)
   const reveal1 = Math.min(1, Math.max(0, (progress - 0.04) / 0.24))
 
@@ -271,3 +271,5 @@ export default function ScrollHeadline({ progress = 0 }) {
     </div>
   )
 }
+
+export default memo(ScrollHeadline)

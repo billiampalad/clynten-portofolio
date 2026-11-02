@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 
-export default function TargetReticle() {
+function TargetReticle() {
   return (
     <div className="absolute inset-4 sm:inset-6 pointer-events-none z-15 font-mono select-none">
       {/* 4 Corner Tech HUD Brackets */}
@@ -52,3 +53,5 @@ export default function TargetReticle() {
     </div>
   )
 }
+
+export default memo(TargetReticle)
