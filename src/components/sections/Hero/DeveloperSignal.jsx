@@ -175,7 +175,7 @@ function DeveloperSignal({ progress = 0 }) {
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.60, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/90 backdrop-blur-md border ${cardBorderClass} transition-[border-color,box-shadow] duration-500`}
+        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/90 backdrop-blur-md border ${cardBorderClass} transition-colors duration-200`}
       >
         {/* Animated Glowing Light Beam Running Around Card Border Perimeter (Pure Dual-Stroke GPU accelerated) */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">

@@ -41,7 +41,6 @@ const ShutterBlock = memo(function ShutterBlock({ reveal = 0 }) {
       className="absolute inset-0 pointer-events-none z-20 overflow-visible"
       style={{
         transform: `translate3d(${reveal * 100}%, 0, 0)`,
-        transition: 'transform 0.12s ease-out',
         willChange: 'transform',
         opacity: isFinished ? 0 : 1,
       }}

@@ -183,7 +183,8 @@ export default function Hero({ onProgressChange }) {
     const playhead = playheadRef.current
     playhead.frame = 0
 
-    let lastProgressUpdate = 0
+    let pendingRaf = null
+    let latestScanProgress = 0
 
     const trigger = ScrollTrigger.create({
       id: 'hero-trigger',
@@ -381,14 +382,14 @@ export default function Hero({ onProgressChange }) {
           onProgressChange(progress)
         }
 
-        // Update React state telemetri secara efisien menggunakan scanProgress (0.00 -> 1.00)
-        if (
-          Math.abs(scanProgress - lastProgressUpdate) > HERO_SCROLL_TRIGGER_CONFIG.progressThreshold ||
-          scanProgress === 1 ||
-          scanProgress === 0
-        ) {
-          setScrollProgress(scanProgress)
-          lastProgressUpdate = scanProgress
+        // Update React state telemetri secara tersinkronisasi 1:1 dengan frame monitor (RAF Batching)
+        // Mencegah penumpukan ratusan setState saat scroll cepat dan menjaga 60 FPS mentok
+        latestScanProgress = scanProgress
+        if (!pendingRaf) {
+          pendingRaf = requestAnimationFrame(() => {
+            setScrollProgress(latestScanProgress)
+            pendingRaf = null
+          })
         }
       },
     })
@@ -409,6 +410,9 @@ export default function Hero({ onProgressChange }) {
     window.addEventListener('orientationchange', handleResize)
 
     return () => {
+      if (pendingRaf) {
+        cancelAnimationFrame(pendingRaf)
+      }
       clearTimeout(resizeTimer)
       trigger.kill()
       window.removeEventListener('resize', handleResize)

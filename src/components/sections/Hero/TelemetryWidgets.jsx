@@ -92,11 +92,9 @@ const ScrollPrompt = memo(function ScrollPrompt({ progress = 0 }) {
   if (opacity <= 0) return null
 
   return (
-    <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity }}
-      transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
-      className="absolute bottom-6 sm:bottom-9 right-6 sm:right-12 flex flex-col items-center gap-1.5"
+    <div
+      style={{ opacity }}
+      className="absolute bottom-6 sm:bottom-9 right-6 sm:right-12 flex flex-col items-center gap-1.5 transition-opacity duration-100 will-change-[opacity]"
     >
       <div className="w-4 h-7 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 bg-black/40 backdrop-blur-sm">
         <span className="w-1 h-2 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
@@ -106,7 +104,7 @@ const ScrollPrompt = memo(function ScrollPrompt({ progress = 0 }) {
         <span className="text-zinc-300">SCROLL TO EXPLORE TELEMETRY</span>
         <span className="text-emerald-400">]</span>
       </div>
-    </motion.div>
+    </div>
   )
 })
 
