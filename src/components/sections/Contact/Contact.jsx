@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion } from 'framer-motion'
 import ContactHeader from './ContactHeader'
 import ContactInfo from './ContactInfo'
@@ -15,7 +15,7 @@ const containerVariants = {
   },
 }
 
-export default function Contact({ id = 'contact' }) {
+function Contact({ id = 'contact' }) {
   const [isLight, setIsLight] = useState(() => {
     if (typeof document !== 'undefined') {
       return (
@@ -73,3 +73,5 @@ export default function Contact({ id = 'contact' }) {
     </section>
   )
 }
+
+export default memo(Contact)

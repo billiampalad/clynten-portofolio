@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo, memo } from 'react'
 import { motion } from 'framer-motion'
 
 const itemVariants = {
@@ -18,7 +18,7 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
 }
 
-export default function ContactForm({ isLight }) {
+function ContactForm({ isLight }) {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -121,13 +121,16 @@ export default function ContactForm({ isLight }) {
     }
   }
 
-  // Common input styling class generator
-  const getInputClasses = () =>
-    `w-full px-4 py-3 rounded-lg font-sans text-sm outline-none transition-all duration-200 border ${
-      isLight
-        ? 'bg-slate-100 text-slate-900 border-slate-200 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-500/15 placeholder-slate-400'
-        : 'bg-white/[0.04] text-white border-white/[0.08] focus:border-red-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-red-500/20 placeholder-zinc-500'
-    }`
+  // Memoized input styling class to eliminate recalculation on every keystroke
+  const inputClass = useMemo(
+    () =>
+      `w-full px-4 py-3 rounded-lg font-sans text-sm outline-none transition-[color,background-color,border-color,box-shadow] duration-200 border ${
+        isLight
+          ? 'bg-slate-100 text-slate-900 border-slate-200 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-500/15 placeholder-slate-400'
+          : 'bg-white/[0.04] text-white border-white/[0.08] focus:border-red-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-red-500/20 placeholder-zinc-500'
+      }`,
+    [isLight]
+  )
 
   return (
     <motion.div variants={itemVariants} className="w-full lg:w-[62%] flex flex-col justify-start">
@@ -151,7 +154,7 @@ export default function ContactForm({ isLight }) {
               placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
-              className={getInputClasses()}
+              className={inputClass}
             />
           </div>
           <div>
@@ -161,7 +164,7 @@ export default function ContactForm({ isLight }) {
               placeholder="Company Name"
               value={formData.company}
               onChange={handleChange}
-              className={getInputClasses()}
+              className={inputClass}
             />
           </div>
         </div>
@@ -176,7 +179,7 @@ export default function ContactForm({ isLight }) {
               placeholder="Email Address"
               value={formData.email}
               onChange={handleChange}
-              className={getInputClasses()}
+              className={inputClass}
             />
           </div>
           <div>
@@ -186,7 +189,7 @@ export default function ContactForm({ isLight }) {
               placeholder="Mobile Number (Optional)"
               value={formData.phone}
               onChange={handleChange}
-              className={getInputClasses()}
+              className={inputClass}
             />
           </div>
         </div>
@@ -200,7 +203,7 @@ export default function ContactForm({ isLight }) {
             placeholder="Message..."
             value={formData.message}
             onChange={handleChange}
-            className={`${getInputClasses()} resize-y min-h-[120px]`}
+            className={`${inputClass} resize-y min-h-[120px]`}
           />
         </div>
 
@@ -224,7 +227,7 @@ export default function ContactForm({ isLight }) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-8 py-3 rounded-lg font-sans font-bold text-sm tracking-wide transition-all duration-200 cursor-pointer select-none flex items-center gap-2 shadow-lg ${
+            className={`px-8 py-3 rounded-lg font-sans font-bold text-sm tracking-wide transition-[background-color,box-shadow,transform,opacity] duration-200 cursor-pointer select-none flex items-center gap-2 shadow-lg ${
               isSubmitting
                 ? 'opacity-60 cursor-not-allowed bg-red-600 text-white'
                 : 'bg-red-600 hover:bg-red-500 text-white hover:shadow-red-600/30 active:scale-[0.98]'
@@ -267,3 +270,5 @@ export default function ContactForm({ isLight }) {
     </motion.div>
   )
 }
+
+export default memo(ContactForm)

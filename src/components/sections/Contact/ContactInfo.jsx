@@ -106,7 +106,7 @@ function ContactInfo({ isLight }) {
           >
             {/* Circular Badge Icon (Matching Reference Image) */}
             <div
-              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 border transition-all duration-200 group-hover:border-red-500/60 group-hover:shadow-md group-hover:shadow-red-500/10 ${isLight
+              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 border transition-[background-color,border-color,box-shadow] duration-200 group-hover:border-red-500/60 group-hover:shadow-md group-hover:shadow-red-500/10 ${isLight
                 ? 'bg-slate-100 border-slate-200/90 group-hover:bg-red-500/5'
                 : 'bg-white/[0.04] border-white/[0.08] group-hover:bg-white/[0.08]'
                 }`}
