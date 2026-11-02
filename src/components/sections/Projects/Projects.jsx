@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { gsap, ScrollTrigger } from '@/lib/animations/gsap'
 import { PROJECTS_DATA } from '@/content/projects'
@@ -7,7 +7,7 @@ import TechIcon from '@/components/sections/Skills/TechIcon'
 const CIRCUMFERENCE = 219.91 // 2 * PI * 35
 
 // Kinetic Staggered Character Reveal for Project Title
-function SplitTextReveal({ text, className = '' }) {
+const SplitTextReveal = memo(function SplitTextReveal({ text, className = '' }) {
   const letters = text.split('')
 
   const containerVariants = {
@@ -74,10 +74,10 @@ function SplitTextReveal({ text, className = '' }) {
       ))}
     </motion.span>
   )
-}
+})
 
 // Kinetic Staggered Word Reveal for Paragraphs & Descriptions
-function SplitWordsReveal({ text, className = '' }) {
+const SplitWordsReveal = memo(function SplitWordsReveal({ text, className = '' }) {
   const words = text.split(' ')
 
   const containerVariants = {
@@ -102,26 +102,23 @@ function SplitWordsReveal({ text, className = '' }) {
     hidden: {
       y: '105%',
       opacity: 0,
-      rotateX: -30,
-      filter: 'blur(3px)',
+      rotateX: -25,
     },
     visible: {
       y: '0%',
       opacity: 1,
       rotateX: 0,
-      filter: 'blur(0px)',
       transition: {
-        duration: 0.4,
+        duration: 0.38,
         ease: [0.16, 1, 0.3, 1],
       },
     },
     exit: {
       y: '-105%',
       opacity: 0,
-      rotateX: 30,
-      filter: 'blur(3px)',
+      rotateX: 25,
       transition: {
-        duration: 0.25,
+        duration: 0.22,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -147,7 +144,8 @@ function SplitWordsReveal({ text, className = '' }) {
       ))}
     </motion.span>
   )
-}
+})
+
 
 // Framer Motion 3D Physics Spring for Tilted Coverflow (matching reference)
 const COVERFLOW_SPRING = {
@@ -216,7 +214,7 @@ const drawerItemVariants = {
   },
 }
 
-export default function Projects() {
+function Projects() {
   const sectionRef = useRef(null)
   const pinWrapperRef = useRef(null)
   const circleRef = useRef(null)
@@ -227,8 +225,8 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrollDirection, setScrollDirection] = useState(1)
   const prevIndexRef = useRef(0)
-  const hasScrolledPastStartRef = useRef(true)
-  const [hasScrolledPastStart, setHasScrolledPastStart] = useState(true)
+  const hasScrolledPastStartRef = useRef(false)
+  const [hasScrolledPastStart, setHasScrolledPastStart] = useState(false)
   const hasReachedEndRef = useRef(false)
   const [hasReachedEnd, setHasReachedEnd] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
@@ -275,7 +273,7 @@ export default function Projects() {
       end: '+=380%',
       pin: pinWrapper,
       pinSpacing: true,
-      scrub: 0.8,
+      scrub: 0.35,
       anticipatePin: 0,
       refreshPriority: -1,
       onUpdate: (self) => {
@@ -431,7 +429,7 @@ export default function Projects() {
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform] ${isVisible ? 'opacity-100 scale-105' : 'opacity-0 scale-115'
+                className={`absolute inset-0 transition-opacity duration-700 ease-out will-change-[opacity] scale-105 ${isVisible ? 'opacity-100' : 'opacity-0'
                   }`}
               >
                 <img
@@ -621,7 +619,7 @@ export default function Projects() {
                 return (
                   <motion.div
                     key={project.id}
-                    className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none"
+                    className="absolute inset-0 w-full h-full rounded-[8px] overflow-hidden pointer-events-none select-none"
                     style={{
                       transformStyle: 'preserve-3d',
                       transformOrigin: 'center center',
@@ -1019,3 +1017,5 @@ export default function Projects() {
     </section>
   )
 }
+
+export default memo(Projects)
