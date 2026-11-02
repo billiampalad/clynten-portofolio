@@ -1,7 +1,8 @@
+import { memo } from 'react'
 import TechIcon from '@/components/sections/Skills/TechIcon'
 import { PROJECT_TECH_STACK } from './aboutData'
 
-export default function AboutActionBar({ onContactClick, isLight = false }) {
+function AboutActionBar({ onContactClick, isLight = false }) {
   return (
     <div
       className={`relative z-20 flex flex-wrap items-center justify-between gap-3.5 p-3 sm:px-4 sm:py-3 rounded-xl backdrop-blur-md transition-all duration-300 ${
@@ -96,3 +97,6 @@ export default function AboutActionBar({ onContactClick, isLight = false }) {
     </div>
   )
 }
+
+export default memo(AboutActionBar)
+

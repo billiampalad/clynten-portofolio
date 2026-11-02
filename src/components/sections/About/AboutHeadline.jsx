@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { SKILLS_ROTATION } from './aboutData'
 
-export default function AboutHeadline({ isLight = false }) {
+function AboutHeadline({ isLight = false }) {
   const [skillIndex, setSkillIndex] = useState(0)
-  const [displayedText, setDisplayedText] = useState('')
+  const [displayedText, setDisplayedText] = useState(SKILLS_ROTATION[0])
   const [isDeleting, setIsDeleting] = useState(false)
 
-  // Typing and Deleting Effect (Typewriter)
+  // Typing and Deleting Effect (Typewriter) dengan interval stabil & hemat CPU
   useEffect(() => {
     const currentWord = SKILLS_ROTATION[skillIndex]
     let timer
@@ -15,22 +15,22 @@ export default function AboutHeadline({ isLight = false }) {
       if (displayedText.length < currentWord.length) {
         timer = setTimeout(() => {
           setDisplayedText(currentWord.slice(0, displayedText.length + 1))
-        }, 90)
+        }, 110)
       } else {
         timer = setTimeout(() => {
           setIsDeleting(true)
-        }, 1800)
+        }, 2200)
       }
     } else {
       if (displayedText.length > 0) {
         timer = setTimeout(() => {
           setDisplayedText(currentWord.slice(0, displayedText.length - 1))
-        }, 45)
+        }, 60)
       } else {
         timer = setTimeout(() => {
           setIsDeleting(false)
           setSkillIndex((prev) => (prev + 1) % SKILLS_ROTATION.length)
-        }, 320)
+        }, 360)
       }
     }
 
@@ -87,3 +87,5 @@ export default function AboutHeadline({ isLight = false }) {
     </div>
   )
 }
+
+export default memo(AboutHeadline)

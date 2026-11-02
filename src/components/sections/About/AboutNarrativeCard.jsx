@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { ABOUT_SECTIONS } from './aboutData'
 
-export default function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
+function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
   const currentSectionIndex = ABOUT_SECTIONS.findIndex((s) => s.id === activeTab)
   const currentSection = ABOUT_SECTIONS[currentSectionIndex] || ABOUT_SECTIONS[0]
   const nextSection = ABOUT_SECTIONS[(currentSectionIndex + 1) % ABOUT_SECTIONS.length]
@@ -96,3 +97,6 @@ export default function AboutNarrativeCard({ activeTab, setActiveTab, isLight = 
     </div>
   )
 }
+
+export default memo(AboutNarrativeCard)
+

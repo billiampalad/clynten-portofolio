@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, memo } from 'react'
 import ProfileCard from '@/components/layout/Card/ProfileCard'
 import profileAvatar from '@/assets/profile.webp'
 import AboutHeadline from './AboutHeadline'
@@ -6,7 +6,7 @@ import AboutNarrativeCard from './AboutNarrativeCard'
 import AboutActionBar from './AboutActionBar'
 import { ABOUT_SECTIONS } from './aboutData'
 
-export default function About({ style = {} }) {
+function About({ style = {} }) {
   const [isLight, setIsLight] = useState(false)
   const [activeTab, setActiveTab] = useState(ABOUT_SECTIONS[0].id)
 
@@ -29,7 +29,7 @@ export default function About({ style = {} }) {
     return () => observer.disconnect()
   }, [])
 
-  const handleContactClick = (e) => {
+  const handleContactClick = useCallback((e) => {
     if (e?.preventDefault) {
       e.preventDefault()
     }
@@ -43,7 +43,7 @@ export default function About({ style = {} }) {
     } else {
       contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-  }
+  }, [])
 
   return (
     <div
@@ -85,7 +85,7 @@ export default function About({ style = {} }) {
             parallax={0}
             radius={16}
             enableTilt
-            intro
+            intro={false}
             showUserInfo
             enableMobileTilt={false}
             theme={isLight ? 'light' : 'dark'}
@@ -96,3 +96,5 @@ export default function About({ style = {} }) {
     </div>
   )
 }
+
+export default memo(About)
