@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 
-export default function SignalLine({ progress = 0, color = '#00ffaa' }) {
+function SignalLine({ progress = 0, color = '#00ffaa' }) {
   const normalizedProgress = Math.min(1, Math.max(0, progress))
 
   return (
@@ -20,7 +21,25 @@ export default function SignalLine({ progress = 0, color = '#00ffaa' }) {
           strokeLinejoin="round"
         />
 
-        {/* Dynamic scanning progress line with neon drop shadow matching scroll & percentage */}
+        {/* Outer Halo Glow Stroke (Pure GPU composited, 0 raster filter overhead) */}
+        <motion.path
+          d="M0 12 H70 L80 4 L90 20 L100 8 L110 16 L120 12 H180 L190 2 L200 22 L210 12 H300"
+          stroke={color}
+          strokeWidth="4.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.35"
+          initial={{ pathLength: 0 }}
+          animate={{
+            pathLength: normalizedProgress,
+          }}
+          transition={{
+            pathLength: { duration: 0.12, ease: 'easeOut' },
+          }}
+          className="transition-colors duration-300 ease-linear"
+        />
+
+        {/* Core Sharp Stroke */}
         <motion.path
           d="M0 12 H70 L80 4 L90 20 L100 8 L110 16 L120 12 H180 L190 2 L200 22 L210 12 H300"
           stroke={color}
@@ -36,12 +55,11 @@ export default function SignalLine({ progress = 0, color = '#00ffaa' }) {
             pathLength: { duration: 0.12, ease: 'easeOut' },
             opacity: { duration: 0.15 },
           }}
-          style={{
-            filter: `drop-shadow(0 0 6px ${color}) drop-shadow(0 0 12px ${color})`,
-          }}
           className="transition-colors duration-300 ease-linear"
         />
       </svg>
     </div>
   )
 }
+
+export default memo(SignalLine)

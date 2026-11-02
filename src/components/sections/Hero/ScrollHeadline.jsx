@@ -30,8 +30,38 @@ const wordVariants = {
   },
 }
 
+// GPU-Accelerated Shutter Cover Block with Laser Frontier Edge
+const ShutterBlock = memo(function ShutterBlock({ reveal = 0 }) {
+  const isFinished = reveal >= 1
+  const isStarted = reveal > 0.01
+  const isVisible = isStarted && !isFinished
+
+  return (
+    <div
+      className="absolute inset-0 pointer-events-none z-20 overflow-visible"
+      style={{
+        transform: `translate3d(${reveal * 100}%, 0, 0)`,
+        transition: 'transform 0.12s ease-out',
+        willChange: 'transform',
+        opacity: isFinished ? 0 : 1,
+      }}
+    >
+      {/* Sliding Maroon Cover Block */}
+      <span className="absolute inset-0 bg-[#830000]" />
+
+      {/* Laser Frontier Edge (Affixed directly to the leading edge of the sliding block via GPU) */}
+      <span
+        className="absolute top-0 bottom-0 left-0 w-[2.5px] -translate-x-full bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] pointer-events-none transition-opacity duration-150"
+        style={{
+          opacity: isVisible ? 1 : 0,
+        }}
+      />
+    </div>
+  )
+})
+
 // Interactive 3D Fold Word Component (Active only when scroll reaches 80% / blocks finished)
-function FoldWord({
+const FoldWord = memo(function FoldWord({
   children,
   colorClass = 'text-cyan-400',
   glowColor = '#06b6d4',
@@ -44,7 +74,7 @@ function FoldWord({
 
   return (
     <span
-      className={`inline-block overflow-hidden align-baseline ${mr} [perspective:1000px] select-none transition-all duration-300 ${
+      className={`inline-block overflow-hidden align-baseline ${mr} [perspective:1000px] select-none ${
         isUnlocked
           ? 'pointer-events-auto cursor-pointer'
           : 'pointer-events-none cursor-default'
@@ -91,7 +121,7 @@ function FoldWord({
       </motion.span>
     </span>
   )
-}
+})
 
 function ScrollHeadline({ progress = 0 }) {
   // Reveal Progress 1 (LEARNING): Uncovers smoothly on scroll (0.04 -> 0.28)
@@ -135,26 +165,7 @@ function ScrollHeadline({ progress = 0 }) {
           isUnlocked={isUnlocked}
           colorClass="text-rose-400"
           glowColor="#f43f5e"
-          shutter={
-            <>
-              {/* Sliding Cover Block */}
-              <span
-                className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
-                style={{
-                  transform: `translateX(${reveal1 * 100}%)`,
-                  opacity: reveal1 >= 1 ? 0 : 1,
-                }}
-              />
-              {/* Laser Frontier Edge */}
-              <span
-                className="absolute top-0 bottom-0 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-                style={{
-                  left: `calc(${reveal1 * 100}% - 2px)`,
-                  opacity: reveal1 > 0.01 && reveal1 < 0.99 ? 1 : 0,
-                }}
-              />
-            </>
-          }
+          shutter={<ShutterBlock reveal={reveal1} />}
         >
           LEARNING,
         </FoldWord>
@@ -164,26 +175,7 @@ function ScrollHeadline({ progress = 0 }) {
           isUnlocked={isUnlocked}
           colorClass="text-cyan-400"
           glowColor="#06b6d4"
-          shutter={
-            <>
-              {/* Sliding Cover Block */}
-              <span
-                className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
-                style={{
-                  transform: `translateX(${reveal2 * 100}%)`,
-                  opacity: reveal2 >= 1 ? 0 : 1,
-                }}
-              />
-              {/* Laser Frontier Edge */}
-              <span
-                className="absolute top-0 bottom-0 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-                style={{
-                  left: `calc(${reveal2 * 100}% - 2px)`,
-                  opacity: reveal2 > 0.01 && reveal2 < 0.99 ? 1 : 0,
-                }}
-              />
-            </>
-          }
+          shutter={<ShutterBlock reveal={reveal2} />}
         >
           BUILDING,
         </FoldWord>
@@ -205,26 +197,7 @@ function ScrollHeadline({ progress = 0 }) {
           isUnlocked={isUnlocked}
           colorClass="text-emerald-400"
           glowColor="#10b981"
-          shutter={
-            <>
-              {/* Sliding Cover Block */}
-              <span
-                className="absolute inset-0 bg-[#830000] z-20 pointer-events-none will-change-transform"
-                style={{
-                  transform: `translateX(${reveal3 * 100}%)`,
-                  opacity: reveal3 >= 1 ? 0 : 1,
-                }}
-              />
-              {/* Laser Frontier Edge */}
-              <span
-                className="absolute top-0 bottom-0 w-[2.5px] bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] z-30 pointer-events-none transition-opacity duration-150"
-                style={{
-                  left: `calc(${reveal3 * 100}% - 2px)`,
-                  opacity: reveal3 > 0.01 && reveal3 < 0.99 ? 1 : 0,
-                }}
-              />
-            </>
-          }
+          shutter={<ShutterBlock reveal={reveal3} />}
         >
           GROWING
         </FoldWord>

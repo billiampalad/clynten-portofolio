@@ -18,8 +18,8 @@ const POSITION_MAP = {
   'uiux-wrapper': 'top-[50%] left-[175px] lg:left-[290px] xl:left-[calc(50%-370px)]',
 }
 
-const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20, isContinuous = false }) {
-  const scrambledVal = useTextScramble(value, speed, isContinuous)
+const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
+  const scrambledVal = useTextScramble(value, speed, false)
 
   return (
     <div className="flex items-center justify-between text-[7px] tracking-wider py-0.5 border-b border-white/[0.04] last:border-none whitespace-nowrap">
@@ -31,8 +31,8 @@ const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed =
   )
 })
 
-const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18, isContinuous = false }) {
-  const scrambledText = useTextScramble(text, speed, isContinuous)
+const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18 }) {
+  const scrambledText = useTextScramble(text, speed, false)
 
   const squareColor =
     color === 'red'
@@ -56,7 +56,7 @@ const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18, isCont
   )
 })
 
-const SkillCard = memo(function SkillCard({ skill, index, isResolved, isScrollZero }) {
+const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
   const data = isResolved ? skill.resolved : skill.unresolved
   const color = skill.activeColor
 
@@ -93,7 +93,6 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved, isScrollZe
           tag={skill.tag}
           color={color}
           speed={18}
-          isContinuous={isScrollZero}
         />
 
         <div className="flex flex-col">
@@ -101,26 +100,22 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved, isScrollZe
             label="STACK ID"
             value={data.stackId}
             speed={18}
-            isContinuous={isScrollZero}
           />
           <HudRow
             label="CONFIDENCE"
             value={data.confidence}
             highlightColor={highlightClass}
             speed={22}
-            isContinuous={isScrollZero}
           />
           <HudRow
             label="CORE TECH"
             value={data.frameworks}
             speed={20}
-            isContinuous={isScrollZero}
           />
           <HudRow
             label="LATENCY"
             value={data.latency}
             speed={18}
-            isContinuous={isScrollZero}
           />
         </div>
       </div>
@@ -129,8 +124,6 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved, isScrollZe
 })
 
 function BodySignals({ progress = 0 }) {
-  const isScrollZero = progress < 0.04
-
   return (
     <div className="absolute inset-0 pointer-events-none z-18 font-mono select-none hidden lg:block">
       {SKILLS_CONFIG.map((skill, index) => {
@@ -141,7 +134,6 @@ function BodySignals({ progress = 0 }) {
             skill={skill}
             index={index}
             isResolved={isResolved}
-            isScrollZero={isScrollZero}
           />
         )
       })}
