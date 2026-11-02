@@ -149,7 +149,7 @@ function ScrollHeadline({ progress = 0 }) {
         variants={headlineContainerVariants}
         initial="hidden"
         animate="visible"
-        className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+        className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
       >
         {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
         <FoldWord

@@ -30,6 +30,7 @@ export default function Hero({ onProgressChange }) {
   const imagesRef = useRef([])
   const playheadRef = useRef({ frame: 0 })
   const lastRenderedIndexRef = useRef(-1)
+  const lastFilterRef = useRef('')
   const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
 
   // Synchronize canvas dimensions once on mount and on resize
@@ -75,19 +76,17 @@ export default function Hero({ onProgressChange }) {
     ctx.imageSmoothingEnabled = true
     ctx.imageSmoothingQuality = 'medium'
 
-    ctx.save()
-    ctx.scale(dpr, dpr)
+    const targetWidth = width * dpr
+    const targetHeight = height * dpr
 
     const { drawWidth, drawHeight, offsetX, offsetY } = calculateCoverFit(
-      width,
-      height,
+      targetWidth,
+      targetHeight,
       img.naturalWidth,
       img.naturalHeight
     )
 
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
-
-    ctx.restore()
     lastRenderedIndexRef.current = index
   }, [updateCanvasSize])
 
@@ -224,10 +223,14 @@ export default function Hero({ onProgressChange }) {
         )
 
         if (canvas) {
-          if (filterProgress >= 1) {
-            canvas.style.filter = 'none'
-          } else {
-            canvas.style.filter = `blur(${currentBlur.toFixed(1)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
+          const filterStr =
+            filterProgress >= 0.98
+              ? 'none'
+              : `blur(${currentBlur.toFixed(1)}px) brightness(${currentBrightness.toFixed(2)}) contrast(${currentContrast.toFixed(2)})`
+
+          if (lastFilterRef.current !== filterStr) {
+            canvas.style.filter = filterStr
+            lastFilterRef.current = filterStr
           }
         }
 
@@ -320,8 +323,8 @@ export default function Hero({ onProgressChange }) {
 
             if (frameOpacity > 0.02 && cScale > 0.08) {
               canvas.style.boxShadow = isLight
-                ? `0 20px 60px rgba(15, 23, 42, ${(0.18 * frameOpacity).toFixed(2)}), 0 0 35px rgba(244, 63, 94, ${(0.28 * frameOpacity).toFixed(2)}), inset 0 0 15px rgba(244, 63, 94, ${(0.12 * frameOpacity).toFixed(2)})`
-                : `0 25px 90px rgba(0, 0, 0, ${(0.95 * frameOpacity).toFixed(2)}), 0 0 50px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 100px rgba(255, 30, 70, ${(glowAlpha * 0.6 * frameOpacity).toFixed(2)}), inset 0 0 25px rgba(255, 0, 60, ${(0.25 * frameOpacity).toFixed(2)})`
+                ? `0 15px 40px rgba(15, 23, 42, ${(0.18 * frameOpacity).toFixed(2)}), 0 0 25px rgba(244, 63, 94, ${(0.25 * frameOpacity).toFixed(2)})`
+                : `0 20px 50px rgba(0, 0, 0, ${(0.85 * frameOpacity).toFixed(2)}), 0 0 35px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 70px rgba(255, 30, 70, ${(glowAlpha * 0.4 * frameOpacity).toFixed(2)})`
             } else {
               canvas.style.boxShadow = 'none'
             }
@@ -440,7 +443,7 @@ export default function Hero({ onProgressChange }) {
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
         <canvas
           ref={canvasRef}
-          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[transform,opacity,border-radius] origin-center"
+          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[transform,opacity] origin-center"
         />
 
         {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
