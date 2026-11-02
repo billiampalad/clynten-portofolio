@@ -212,7 +212,7 @@ const ProfileCard = ({
   tiltStrength = 24,
   parallax = 0,
   enableTilt = true,
-  intro = true,
+  intro = false,
   showUserInfo: showInfoProp = true,
   enableMobileTilt = false,
   mobileTiltSensitivity = 5,
@@ -306,15 +306,26 @@ const ProfileCard = ({
       wake();
     };
 
+    let cachedRect = null;
+    const updateRect = () => {
+      if (root) cachedRect = root.getBoundingClientRect();
+    };
+
     const aimAt = event => {
-      const rect = root.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      aim(((event.clientX - rect.left) / rect.width) * 2 - 1, ((event.clientY - rect.top) / rect.height) * 2 - 1);
+      if (!cachedRect || !cachedRect.width || !cachedRect.height) {
+        updateRect();
+      }
+      if (!cachedRect || !cachedRect.width || !cachedRect.height) return;
+      aim(
+        ((event.clientX - cachedRect.left) / cachedRect.width) * 2 - 1,
+        ((event.clientY - cachedRect.top) / cachedRect.height) * 2 - 1
+      );
     };
 
     const release = () => aim(0, 0, false);
 
     const onEnter = event => {
+      updateRect();
       if (event.pointerType === 'mouse') aimAt(event);
     };
     const onMove = event => {
@@ -326,6 +337,7 @@ const ProfileCard = ({
     const onDown = event => {
       if (event.pointerType === 'mouse') return;
       touchId = event.pointerId;
+      updateRect();
       aimAt(event);
     };
     const onUp = event => {
@@ -344,6 +356,7 @@ const ProfileCard = ({
     const observer = new ResizeObserver(() => {
       size.width = root.offsetWidth;
       size.height = root.offsetHeight;
+      updateRect();
       write();
     });
     observer.observe(root);
@@ -526,7 +539,7 @@ const ProfileCard = ({
                     {status || 'ONLINE'}
                   </span>
                   <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75" />
+                    <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-60" />
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500 shadow-[0_0_8px_#f43f5e]" />
                   </span>
                 </div>
