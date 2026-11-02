@@ -17,10 +17,12 @@ const wordVariants = {
   hidden: {
     y: '105%',
     opacity: 0,
+    filter: 'blur(4px)',
   },
   visible: {
     y: '0%',
     opacity: 1,
+    filter: 'blur(0px)',
     transition: {
       duration: 0.65,
       ease: [0.16, 1, 0.3, 1],
@@ -46,9 +48,9 @@ const ShutterBlock = memo(function ShutterBlock({ reveal = 0 }) {
       {/* Sliding Maroon Cover Block */}
       <span className="absolute inset-0 bg-[#830000]" />
 
-      {/* Laser Frontier Edge (Hardware accelerated laser line) */}
+      {/* Laser Frontier Edge (Affixed directly to the leading edge of the sliding block via GPU) */}
       <span
-        className="absolute top-0 bottom-0 left-0 w-[2.5px] -translate-x-full bg-white rounded shadow-[0_0_8px_#ffffff,0_0_12px_#f43f5e] pointer-events-none transition-opacity duration-150"
+        className="absolute top-0 bottom-0 left-0 w-[2.5px] -translate-x-full bg-white rounded shadow-[0_0_8px_#ffffff,0_0_14px_#e11d48,0_0_24px_#881337] pointer-events-none transition-opacity duration-150"
         style={{
           opacity: isVisible ? 1 : 0,
         }}
@@ -62,7 +64,7 @@ const FoldWord = memo(function FoldWord({
   children,
   colorClass = 'text-cyan-400',
   glowColor = '#06b6d4',
-  reveal = null,
+  shutter = null,
   mr = 'mr-[0.25em]',
   isUnlocked = false,
 }) {
@@ -96,7 +98,7 @@ const FoldWord = memo(function FoldWord({
           {children}
         </motion.span>
 
-        {/* 3D Folded Face: Cyber Color with Text Glow (Using textShadow to avoid breaking 3D hardware context) */}
+        {/* 3D Folded Face: Cyber Color with Glow, Rolls into view from Bottom on Hover (when unlocked) */}
         <motion.span
           initial={{ y: '100%', rotateX: 90, opacity: 0 }}
           animate={
@@ -106,31 +108,16 @@ const FoldWord = memo(function FoldWord({
           }
           transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            textShadow: `0 0 16px ${glowColor}`,
+            filter: `drop-shadow(0 0 12px ${glowColor})`,
           }}
           className={`absolute inset-0 inline-block font-black [transform-origin:50%_0%] [backface-visibility:hidden] ${colorClass}`}
         >
           {children}
         </motion.span>
 
-        {/* Shutter Laser Block (Active during scroll, rendered only when reveal is numeric) */}
-        {reveal !== null && <ShutterBlock reveal={reveal} />}
+        {/* Shutter Laser Block (Active during scroll) */}
+        {shutter}
       </motion.span>
-    </span>
-  )
-})
-
-// Isolated Subtext component to prevent 22ms text scramble RAF from re-rendering the entire headline
-const ScrambledSubtext = memo(function ScrambledSubtext() {
-  const scrambled = useTextScramble(
-    'TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE',
-    22
-  )
-
-  return (
-    <span className="text-zinc-300 font-medium">
-      {scrambled}
-      <span className="animate-pulse text-emerald-400 font-bold ml-1">_</span>
     </span>
   )
 })
@@ -147,6 +134,12 @@ function ScrollHeadline({ progress = 0 }) {
 
   // 3D Fold Text is unlocked & interactive only after blocks are completely revealed (scroll >= 80%)
   const isUnlocked = progress >= 0.8 || reveal3 >= 1
+
+  // Dynamic Scramble Decrypt Animation for Subtext
+  const scrambledSubtext = useTextScramble(
+    'TRANSFORMING VISION INTO HIGH-PERFORMANCE WEB ARCHITECTURE',
+    22
+  )
 
   return (
     <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-7xl pointer-events-none select-none font-sans">
@@ -171,7 +164,7 @@ function ScrollHeadline({ progress = 0 }) {
           isUnlocked={isUnlocked}
           colorClass="text-rose-400"
           glowColor="#f43f5e"
-          reveal={reveal1}
+          shutter={<ShutterBlock reveal={reveal1} />}
         >
           LEARNING,
         </FoldWord>
@@ -181,7 +174,7 @@ function ScrollHeadline({ progress = 0 }) {
           isUnlocked={isUnlocked}
           colorClass="text-cyan-400"
           glowColor="#06b6d4"
-          reveal={reveal2}
+          shutter={<ShutterBlock reveal={reveal2} />}
         >
           BUILDING,
         </FoldWord>
@@ -203,7 +196,7 @@ function ScrollHeadline({ progress = 0 }) {
           isUnlocked={isUnlocked}
           colorClass="text-emerald-400"
           glowColor="#10b981"
-          reveal={reveal3}
+          shutter={<ShutterBlock reveal={reveal3} />}
         >
           GROWING
         </FoldWord>
@@ -242,7 +235,10 @@ function ScrollHeadline({ progress = 0 }) {
           style={{ transformOrigin: 'left' }}
           className="w-8 sm:w-12 h-[1px] bg-emerald-400/60 shadow-[0_0_6px_#00ffaa]"
         />
-        <ScrambledSubtext />
+        <span className="text-zinc-300 font-medium">
+          {scrambledSubtext}
+          <span className="animate-pulse text-emerald-400 font-bold ml-1">_</span>
+        </span>
       </motion.div>
     </div>
   )
