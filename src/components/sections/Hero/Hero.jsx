@@ -265,6 +265,7 @@ export default function Hero({ onProgressChange }) {
         if (hudLayer) {
           hudLayer.style.opacity = hudFade.toFixed(3)
           hudLayer.style.pointerEvents = hudFade > 0.05 ? 'auto' : 'none'
+          hudLayer.style.visibility = hudFade > 0 ? 'visible' : 'hidden'
         }
 
         // =========================================================================
@@ -361,22 +362,19 @@ export default function Hero({ onProgressChange }) {
             currentAboutReveal = 0
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
-            backdropLayerRef.current.style.zIndex = '0'
           } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
             // Saat frame mengecil: Verified Profile memudar masuk 0.0 -> 1.0
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
             currentAboutReveal = smoothStep(Math.min(1, Math.max(0, normAbout)))
             backdropLayerRef.current.style.opacity = currentAboutReveal.toFixed(3)
-            // Hanya aktifkan interaktivitas & naikkan z-index di TAHAP 4 saat frame mulai meredup
+            // Aktifkan interaktivitas di ujung saat frame canvas sudah meredup habis
             const isTahap4 = progress >= (SHRINK_START + 0.85 * (SHRINK_END - SHRINK_START))
             backdropLayerRef.current.style.pointerEvents = isTahap4 ? 'auto' : 'none'
-            backdropLayerRef.current.style.zIndex = isTahap4 ? '20' : '0'
           } else {
             // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
             currentAboutReveal = 1
             backdropLayerRef.current.style.opacity = '1'
             backdropLayerRef.current.style.pointerEvents = 'auto'
-            backdropLayerRef.current.style.zIndex = '20'
           }
         }
 
@@ -453,7 +451,7 @@ export default function Hero({ onProgressChange }) {
         {/* Layer 0: Seamless Backdrop Reveal (Directly behind the Canvas Floating Card) */}
         <div
           ref={backdropLayerRef}
-          className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-0 will-change-[opacity]"
+          className="absolute inset-0 w-full h-full pointer-events-none z-[1] opacity-0 will-change-[opacity] [contain:paint]"
         >
           <About />
         </div>
@@ -461,7 +459,7 @@ export default function Hero({ onProgressChange }) {
         {/* Layer 1: Cinematic Canvas Frame Sequence (Perlahan mengecil bertahap menjadi Floating Card) */}
         <canvas
           ref={canvasRef}
-          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[1] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[transform,opacity] origin-center"
+          className="absolute top-0 left-0 w-full h-full block pointer-events-none bg-black z-[2] [filter:blur(8px)_brightness(0.65)_contrast(0.9)] scale-100 opacity-100 will-change-[transform,opacity] origin-center"
         />
 
         {/* Grouped HUD Telemetry Layer (Memudar halus terlebih dahulu pada 0.64 -> 0.76) */}
@@ -469,8 +467,8 @@ export default function Hero({ onProgressChange }) {
           ref={hudLayerRef}
           className="absolute inset-0 w-full h-full pointer-events-none z-[5] opacity-100 scale-100 will-change-[opacity,transform] origin-center"
         >
-          {/* Layer 2: Matrix Cyber Falling Code Streams */}
-          {!loading && <CodeRain opacity={0.22} />}
+          {/* Layer 2: Matrix Cyber Falling Code Streams (Otomatis stop render loop saat HUD lenyap) */}
+          {!loading && scrollProgress < 0.77 && <CodeRain opacity={0.22} />}
 
           {/* Layer 3: Digital Scanline & Vignette Overlay */}
           <PixelGrid gridRef={gridOverlayRef} />
