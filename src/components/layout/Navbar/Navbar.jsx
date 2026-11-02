@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from 'react'
+import { useState, useEffect, useCallback, useRef, memo } from 'react'
 import { motion } from 'framer-motion'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import { ScrollTrigger } from '@/lib/animations/gsap'
@@ -16,7 +16,7 @@ const REFERENCE_NAV_ITEMS = [
 /**
  * Individual Navbar Item with Hover Red Slide Block
  */
-function NavItem({ item, onClick }) {
+const NavItem = memo(function NavItem({ item, onClick }) {
   return (
     <a
       href={item.href}
@@ -33,7 +33,7 @@ function NavItem({ item, onClick }) {
       )}
     </a>
   )
-}
+})
 
 /**
  * Isolated Brand Component to prevent text-scramble re-renders from cascading to the rest of Navbar
@@ -102,10 +102,11 @@ function Navbar({
   })
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const isScrolledRef = useRef(false)
   const [dismissedTooltip, setDismissedTooltip] = useState(null)
 
   // Track scroll position to activate bottom blur and border line without layout thrashing
-  // Hanya aktif ketika Navbar berstatus terlihat (isVisible = true)
+  // Menggunakan histeresis agar tidak terjadi flickering / re-render thrashing di garis batas
   useEffect(() => {
     if (!isVisible) return
 
@@ -117,11 +118,25 @@ function Navbar({
           const heroTrigger = ScrollTrigger.getById('hero-trigger')
           const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
 
+          let nextScrolled = isScrolledRef.current
           if (heroTrigger) {
-            // Aktifkan border/blur saat scroll melewati akhir hero sequence tanpa memicu forced layout reflow
-            setIsScrolled(scrollY > heroTrigger.end - 50)
+            // Histeresis: aktif saat melewati heroTrigger.end - 15, padam saat kembali di bawah heroTrigger.end - 75
+            if (!isScrolledRef.current && scrollY > heroTrigger.end - 15) {
+              nextScrolled = true
+            } else if (isScrolledRef.current && scrollY < heroTrigger.end - 75) {
+              nextScrolled = false
+            }
           } else {
-            setIsScrolled(scrollY > 50)
+            if (!isScrolledRef.current && scrollY > 60) {
+              nextScrolled = true
+            } else if (isScrolledRef.current && scrollY < 30) {
+              nextScrolled = false
+            }
+          }
+
+          if (nextScrolled !== isScrolledRef.current) {
+            isScrolledRef.current = nextScrolled
+            setIsScrolled(nextScrolled)
           }
           ticking = false
         })
@@ -195,14 +210,17 @@ function Navbar({
 
   // Smart landing navigation that navigates accurately to Hero, About, Skills, and Projects
   const scrollToSection = useCallback((targetId) => {
+    const currentY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+
     // 1. Target: HERO / HOME (Scroll 0)
     if (targetId === 'hero' || targetId === 'home') {
+      if (currentY < 35) return
       if (onHomeClick) {
         onHomeClick()
       } else if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(0, { duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(0, { duration: 0.9, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(0, { duration: 1.2 })
+        window.__lenis.scrollTo(0, { duration: 0.9 })
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
@@ -217,48 +235,53 @@ function Navbar({
         ? Math.round(heroTrigger.start + (heroTrigger.end - heroTrigger.start) * 0.98)
         : 0
 
+      // Abaikan jika sudah berada di section About (+/- 35px) untuk menghindari CPU/Scroll churn
+      if (Math.abs(currentY - targetY) < 35) return
+
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetY, { duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(targetY, { duration: 0.9, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetY, { duration: 1.2 })
+        window.__lenis.scrollTo(targetY, { duration: 0.9 })
       } else {
         window.scrollTo({ top: targetY, behavior: 'smooth' })
       }
       return
     }
 
-    // 3. Target: PROJECTS
-    // Mendarat tepat di section Projects (100vh) secara presisi
-    if (targetId === 'projects') {
-      const projectsEl = document.getElementById('projects')
-      if (!projectsEl) return
-
-      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(projectsEl, { offset: 0, duration: 1.2, immediate: false })
-      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(projectsEl, { offset: 0, duration: 1.2 })
-      } else {
-        const top = projectsEl.getBoundingClientRect().top + window.scrollY
-        window.scrollTo({ top, behavior: 'smooth' })
-      }
-      return
-    }
-
-    // 4. Target: SKILLS
-    // Arahkan langsung ke elemen DOM #skills (bukan ke heroTrigger milik About)
+    // 3. Target: SKILLS
+    // Mendarat tepat di elemen section #skills
     if (targetId === 'skills') {
       const skillsEl = document.getElementById('skills')
       if (!skillsEl) return
 
-      const SKILLS_OFFSET = -50
+      const targetY = skillsEl.getBoundingClientRect().top + currentY
+      if (Math.abs(currentY - targetY) < 35) return
 
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(skillsEl, { offset: SKILLS_OFFSET, duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(skillsEl, { offset: 0, duration: 0.9, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(skillsEl, { offset: SKILLS_OFFSET, duration: 1.2 })
+        window.__lenis.scrollTo(skillsEl, { offset: 0, duration: 0.9 })
       } else {
-        const top = skillsEl.getBoundingClientRect().top + window.scrollY + SKILLS_OFFSET
-        window.scrollTo({ top, behavior: 'smooth' })
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
+      }
+      return
+    }
+
+    // 4. Target: PROJECTS
+    // Mendarat tepat di section Projects secara presisi
+    if (targetId === 'projects') {
+      const projectsEl = document.getElementById('projects')
+      if (!projectsEl) return
+
+      const targetY = projectsEl.getBoundingClientRect().top + currentY
+      if (Math.abs(currentY - targetY) < 35) return
+
+      if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
+        window.__locomotiveScroll.scrollTo(projectsEl, { offset: 0, duration: 0.9, immediate: false })
+      } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(projectsEl, { offset: 0, duration: 0.9 })
+      } else {
+        window.scrollTo({ top: targetY, behavior: 'smooth' })
       }
       return
     }
@@ -266,10 +289,13 @@ function Navbar({
     // 5. Fallback for other sections (Contact, Experience, etc.)
     const targetEl = document.getElementById(targetId)
     if (targetEl) {
+      const targetY = targetEl.getBoundingClientRect().top + currentY
+      if (Math.abs(currentY - targetY) < 35) return
+
       if (window.__locomotiveScroll && typeof window.__locomotiveScroll.scrollTo === 'function') {
-        window.__locomotiveScroll.scrollTo(targetEl, { offset: 0, duration: 1.2, immediate: false })
+        window.__locomotiveScroll.scrollTo(targetEl, { offset: 0, duration: 0.9, immediate: false })
       } else if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
-        window.__lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 })
+        window.__lenis.scrollTo(targetEl, { offset: 0, duration: 0.9 })
       } else {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }

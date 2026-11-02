@@ -361,6 +361,7 @@ function Hero({ onProgressChange }) {
             currentAboutReveal = 0
             backdropLayerRef.current.style.opacity = '0'
             backdropLayerRef.current.style.pointerEvents = 'none'
+            backdropLayerRef.current.style.visibility = 'hidden'
           } else if (progress >= ABOUT_FADE_START && progress < SHRINK_END) {
             // Saat frame mengecil: Verified Profile memudar masuk 0.0 -> 1.0
             const normAbout = (progress - ABOUT_FADE_START) / (SHRINK_END - ABOUT_FADE_START)
@@ -369,11 +370,13 @@ function Hero({ onProgressChange }) {
             // Aktifkan interaktivitas di ujung saat frame canvas sudah meredup habis
             const isTahap4 = progress >= (SHRINK_START + 0.85 * (SHRINK_END - SHRINK_START))
             backdropLayerRef.current.style.pointerEvents = isTahap4 ? 'auto' : 'none'
+            backdropLayerRef.current.style.visibility = 'visible'
           } else {
             // Dari 0.95 -> 1.00 (Landing Buffer): Verified Profile 100% penuh, DIAM KOKOH
             currentAboutReveal = 1
             backdropLayerRef.current.style.opacity = '1'
             backdropLayerRef.current.style.pointerEvents = 'auto'
+            backdropLayerRef.current.style.visibility = 'visible'
           }
         }
 
