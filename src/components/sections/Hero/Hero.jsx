@@ -31,6 +31,7 @@ export default function Hero({ onProgressChange }) {
   const playheadRef = useRef({ frame: 0 })
   const lastRenderedIndexRef = useRef(-1)
   const lastFilterRef = useRef('')
+  const lastNavRevealRef = useRef('')
   const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
 
   // Synchronize canvas dimensions once on mount and on resize
@@ -370,7 +371,10 @@ export default function Hero({ onProgressChange }) {
 
         // Sinkronkan CSS variable --navbar-reveal hanya ketika canvas sudah 0% (progress >= 0.95)
         const navRevealVal = progress >= 0.95 ? '1' : '0'
-        document.documentElement.style.setProperty('--navbar-reveal', navRevealVal)
+        if (lastNavRevealRef.current !== navRevealVal) {
+          document.documentElement.style.setProperty('--navbar-reveal', navRevealVal)
+          lastNavRevealRef.current = navRevealVal
+        }
 
         // Beritahu Navbar & App state
         if (onProgressChange) {

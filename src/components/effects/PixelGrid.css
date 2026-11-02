@@ -6,7 +6,6 @@
   pointer-events: none;
   z-index: 10;
   overflow: hidden;
-  transition: opacity 0.1s ease-out;
 }
 
 /* Subtle, elegant horizontal digital scanlines */

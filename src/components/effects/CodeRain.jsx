@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { MATRIX_CODE_SNIPPETS } from '@/lib/constants/codeSnippets'
 import './CodeRain.css'
 
-export default function CodeRain({ opacity = 0.25 }) {
+function CodeRain({ opacity = 0.25 }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -63,17 +63,12 @@ export default function CodeRain({ opacity = 0.25 }) {
 
           if (isHead) {
             ctx.fillStyle = '#ffffff'
-            ctx.shadowColor = '#00ffaa'
-            ctx.shadowBlur = 10
           } else {
             ctx.fillStyle = `rgba(0, 255, 170, ${tailFade * stream.alpha})`
-            ctx.shadowBlur = 0
           }
 
           ctx.fillText(chars[j % chars.length], stream.x, charY)
         }
-
-        ctx.shadowBlur = 0
 
         // Reset to top when passed bottom
         if (stream.y - stream.length * 16 > height) {
@@ -102,3 +97,5 @@ export default function CodeRain({ opacity = 0.25 }) {
     />
   )
 }
+
+export default memo(CodeRain)
