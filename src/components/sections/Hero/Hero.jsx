@@ -117,6 +117,7 @@ function Hero({ onProgressChange }) {
   // Preload and GPU-decode all frames
   useEffect(() => {
     let loadedCount = 0
+    let lastReportedProgress = 0
     const images = []
     let isMounted = true
 
@@ -137,7 +138,11 @@ function Hero({ onProgressChange }) {
           if (!isMounted) return
 
           loadedCount++
-          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100))
+          const p = Math.round((loadedCount / TOTAL_FRAMES) * 100)
+          if (p > lastReportedProgress) {
+            lastReportedProgress = p
+            setLoadProgress(p)
+          }
 
           if (loadedCount === 1) {
             renderFrame(0)

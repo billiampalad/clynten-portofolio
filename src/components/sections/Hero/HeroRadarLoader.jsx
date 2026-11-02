@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState, useEffect, memo } from 'react'
 
 const SLATS = [
   { id: '01', code: 'SYS_RECON' },
@@ -8,12 +8,12 @@ const SLATS = [
   { id: '05', code: 'INITIALIZE' },
 ]
 
-export default function HeroRadarLoader({ progress = 0, onComplete }) {
+// Pre-allocated static array to prevent GC allocations on every progress update
+const BLOCKS_ARRAY = Array.from({ length: 10 }, (_, i) => i)
+
+function HeroRadarLoader({ progress = 0, onComplete }) {
   const percentage = Math.min(100, Math.max(0, Math.round(progress)))
   const isComplete = percentage >= 100
-
-  // Active theme color (Cyber Neon Red)
-  const activeColorHex = '#f43f5e'
 
   // State to control the staggered shutter wipe transition
   const [isShutterOpen, setIsShutterOpen] = useState(false)
@@ -103,7 +103,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
         {SLATS.map((slat, idx) => (
           <div
             key={slat.id}
-            className={`relative h-full flex-1 bg-[#0A0907] transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
+            className={`relative h-full flex-1 bg-[#0A0907] will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] ${
               isShutterOpen ? '-translate-y-full' : 'translate-y-0'
             }`}
             style={{
@@ -132,7 +132,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
           Fades out smoothly when the shutter opens so attention moves to the canvas
           ==================================================================== */}
       <div
-        className={`absolute inset-0 z-20 flex flex-col items-center justify-center text-white transition-all duration-300 ${
+        className={`absolute inset-0 z-20 flex flex-col items-center justify-center text-white will-change-[opacity,transform] transition-[opacity,transform] duration-300 ${
           isShutterOpen ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100'
         }`}
       >
@@ -147,7 +147,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
         {/* Main Radar Scope */}
         <div className="relative flex items-center justify-center w-72 h-72 sm:w-80 sm:h-80 max-w-[82vw] max-h-[82vw]">
           {/* Outer Rotating Compass Degree Ring - Neon Red */}
-          <div className="absolute inset-0 rounded-full border border-dashed border-rose-500/35 animate-[spin_35s_linear_infinite]" />
+          <div className="absolute inset-0 rounded-full border border-dashed border-rose-500/35 animate-[spin_35s_linear_infinite] will-change-transform" />
 
           {/* Cardinal Azimuth Degrees in Neon Red */}
           <span className="absolute top-1 text-[8px] tracking-widest text-rose-400/80 font-bold">
@@ -175,7 +175,7 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
 
           {/* Sweeping Conical Radar Beam (Neon Red) */}
           <div
-            className="absolute inset-0 rounded-full animate-[spin_2.8s_linear_infinite] pointer-events-none"
+            className="absolute inset-0 rounded-full animate-[spin_2.8s_linear_infinite] will-change-transform pointer-events-none"
             style={{
               background: 'conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(244,63,94,0.06) 320deg, rgba(244,63,94,0.40) 360deg)',
             }}
@@ -209,10 +209,10 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
             <span className="text-[7px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-03</span>
           </div>
 
-          {/* Center Digital HUD Target Hub */}
-          <div className="relative z-10 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-black/90 backdrop-blur-md border border-rose-500/40 shadow-[0_0_30px_rgba(244,63,94,0.25)]">
+          {/* Center Digital HUD Target Hub (Solid High-Depth Dark background eliminates heavy Gaussian blur over spinning beam) */}
+          <div className="relative z-10 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#0A0907]/95 border border-rose-500/40 shadow-[0_0_25px_rgba(244,63,94,0.25)]">
             {/* Rotating Hub Trim Ring */}
-            <div className="absolute inset-[-4px] rounded-full border border-dashed border-rose-500/30 animate-[spin_18s_linear_infinite]" />
+            <div className="absolute inset-[-4px] rounded-full border border-dashed border-rose-500/30 animate-[spin_18s_linear_infinite] will-change-transform" />
 
             {/* Percentage Value */}
             <div className="flex items-baseline justify-center text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.7)]">
@@ -250,20 +250,20 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
           {/* Modern Sleek Neon Red Progress Bar */}
           <div className="w-full h-1.5 bg-zinc-900/90 border border-rose-500/25 rounded-full overflow-hidden p-[1px] shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-rose-600 via-rose-500 to-red-500 shadow-[0_0_12px_#f43f5e] transition-all duration-200 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-rose-600 via-rose-500 to-red-500 shadow-[0_0_12px_#f43f5e] transition-[width] duration-75 ease-out"
               style={{ width: `${percentage}%` }}
             />
           </div>
 
-          {/* 10 Segmented Cyber Data Blocks in Neon Red */}
+          {/* 10 Segmented Cyber Data Blocks in Neon Red (Using static pre-allocated array) */}
           <div className="flex items-center justify-between w-full gap-1 pt-1">
-            {Array.from({ length: totalBlocks }).map((_, idx) => {
+            {BLOCKS_ARRAY.map((idx) => {
               const isBlockActive = idx < activeBlocks
 
               return (
                 <div
                   key={idx}
-                  className={`h-1 flex-1 rounded-[1px] transition-all duration-200 ${
+                  className={`h-1 flex-1 rounded-[1px] transition-[background-color,box-shadow] duration-150 ${
                     isBlockActive ? 'bg-rose-500 shadow-[0_0_5px_#f43f5e]' : 'bg-zinc-800'
                   }`}
                 />
@@ -283,3 +283,5 @@ export default function HeroRadarLoader({ progress = 0, onComplete }) {
     </div>
   )
 }
+
+export default memo(HeroRadarLoader)
