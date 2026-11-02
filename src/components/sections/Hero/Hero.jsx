@@ -33,6 +33,7 @@ export default function Hero({ onProgressChange }) {
   const lastFilterRef = useRef('')
   const lastNavRevealRef = useRef('')
   const isCanvasTransformedRef = useRef(false)
+  const hasSetShrinkStylesRef = useRef(false)
   const canvasDimensionsRef = useRef({ width: 0, height: 0, dpr: 1 })
 
   // Synchronize canvas dimensions once on mount and on resize
@@ -286,64 +287,61 @@ export default function Hero({ onProgressChange }) {
               canvas.style.boxShadow = 'none'
               canvas.style.border = 'none'
               isCanvasTransformedRef.current = false
+              hasSetShrinkStylesRef.current = false
             }
           } else if (progress >= SHRINK_START && progress <= SHRINK_END) {
             isCanvasTransformedRef.current = true
+
+            // Set visual border-radius dan cyber glow tepat 1 KALI saat memasuki fase mengecil
+            // Ini mengeliminasi 100% rekalkulasi clipping mask dan Gaussian convolution blur per frame
+            if (!hasSetShrinkStylesRef.current) {
+              canvas.style.borderRadius = '24px'
+              const isLight =
+                document.documentElement.getAttribute('data-theme') === 'light' ||
+                document.documentElement.classList.contains('light-theme')
+              canvas.style.boxShadow = isLight
+                ? '0 10px 30px rgba(15, 23, 42, 0.22), 0 0 20px rgba(244, 63, 94, 0.25)'
+                : '0 20px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 0, 60, 0.45)'
+              canvas.style.border = 'none'
+              hasSetShrinkStylesRef.current = true
+            }
+
             // Normalisasi progres outro (0.00 -> 1.00)
             const p = (progress - SHRINK_START) / (SHRINK_END - SHRINK_START)
 
             // Hitung Rasio Skala Sangat Halus (Smooth Interpolation)
             let cScale
-            let cRadius
             let frameOpacity
 
             if (p <= 0.30) {
-              // TAHAP 1 (100% -> 75%): Membentuk sudut lembut & cyber glow
+              // TAHAP 1 (100% -> 75%): Floating Card tetap jernih & tegas
               const t = smoothStep(p / 0.30)
               cScale = 1.00 - t * 0.25
-              cRadius = t * 24
               frameOpacity = 1.0 // 100% Jernih, tetap terang penuh
             } else if (p <= 0.65) {
               // TAHAP 2 (75% -> 45%): Floating Card tetap jernih & tegas
               const t = smoothStep((p - 0.30) / 0.35)
               cScale = 0.75 - t * 0.30
-              cRadius = 24 + t * 8
               frameOpacity = 1.0 // 100% Jernih, tidak langsung redup
             } else if (p <= 0.85) {
               // TAHAP 3 (45% -> 25%): Compact Mini Card — Baru mulai meredup halus di tahap ini
               const t = smoothStep((p - 0.65) / 0.20)
               cScale = 0.45 - t * 0.20 // 0.45 -> 0.25
-              cRadius = 32
               frameOpacity = 1.0 - t * 0.50 // Mulai meredup halus: 1.00 -> 0.50
             } else {
               // TAHAP 4 (25% -> 10%): Pinpoint Dissolve — Meredup tuntas di titik akhir
               const t = smoothStep((p - 0.85) / 0.15)
               cScale = 0.25 - t * 0.15 // 0.25 -> 0.10
-              cRadius = 32
               frameOpacity = Math.max(0, 0.50 * (1 - t)) // 0.50 -> 0.00 di ujung transisi
             }
 
-            const glowAlpha = Math.min(0.85, p * 1.2)
-
-            const isLight =
-              document.documentElement.getAttribute('data-theme') === 'light' ||
-              document.documentElement.classList.contains('light-theme')
-
+            // Hanya update transform scale dan opacity (100% GPU Hardware Accelerated - Zero Repaint)
             canvas.style.transform = `translate3d(0,0,0) scale(${cScale.toFixed(4)})`
             canvas.style.opacity = frameOpacity.toFixed(3)
-            canvas.style.borderRadius = `${cRadius.toFixed(1)}px`
-            canvas.style.border = 'none'
-
-            if (frameOpacity > 0.02 && cScale > 0.08) {
-              canvas.style.boxShadow = isLight
-                ? `0 15px 40px rgba(15, 23, 42, ${(0.18 * frameOpacity).toFixed(2)}), 0 0 25px rgba(244, 63, 94, ${(0.25 * frameOpacity).toFixed(2)})`
-                : `0 20px 50px rgba(0, 0, 0, ${(0.85 * frameOpacity).toFixed(2)}), 0 0 35px rgba(255, 0, 60, ${(glowAlpha * frameOpacity).toFixed(2)}), 0 0 70px rgba(255, 30, 70, ${(glowAlpha * 0.4 * frameOpacity).toFixed(2)})`
-            } else {
-              canvas.style.boxShadow = 'none'
-            }
           } else {
             // FASE 3C (0.95 -> 1.00): LANDING BUFFER ZONE (Frame hilang total)
             isCanvasTransformedRef.current = true
+            hasSetShrinkStylesRef.current = false
             canvas.style.transform = 'translate3d(0,0,0) scale(0)'
             canvas.style.opacity = '0'
             canvas.style.boxShadow = 'none'
