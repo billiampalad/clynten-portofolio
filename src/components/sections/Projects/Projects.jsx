@@ -648,8 +648,8 @@ function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-[260px] lg:w-[clamp(250px,21vw,330px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end lg:items-start [@media(min-width:1440px)]:items-end justify-between text-left gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-6 shrink-0">
-            <div className="flex flex-col items-start text-left w-full max-w-none lg:max-w-[330px] [@media(min-width:1440px)]:max-w-md min-h-[70px] lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[120px]">
+          <div className="w-full md:w-[260px] lg:w-[clamp(275px,24vw,370px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end lg:items-start [@media(min-width:1440px)]:items-end justify-between text-left gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-6 shrink-0 lg:-translate-x-[clamp(14px,1.6vw,30px)] [@media(min-width:1440px)]:translate-x-0">
+            <div className="flex flex-col items-start text-left w-full max-w-none lg:max-w-[clamp(290px,25vw,380px)] [@media(min-width:1440px)]:max-w-md min-h-[70px] lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[120px]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
                   key={currentProject.id}
