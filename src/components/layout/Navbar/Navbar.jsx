@@ -278,14 +278,22 @@ function Navbar({
 
     // 5. Target: EXPERIENCE / EXPERIMENTS
     if (targetId === 'experience' || targetId === 'experiments') {
-      const expEl =
+      const projectsTrigger = ScrollTrigger.getById('projects-trigger')
+      const expSection =
         document.getElementById('experience') ||
-        document.getElementById('experiments') ||
-        document.getElementById('experience-section')
-      if (!expEl) return
+        document.getElementById('experience-section') ||
+        document.getElementById('experiments')
 
-      const targetY = Math.max(0, Math.round(expEl.getBoundingClientRect().top + currentY - 70))
-      if (Math.abs(currentY - targetY) < 35) return
+      // projectsTrigger.end adalah titik saat scrub selesai, di mana elemen pin (Projects) masih mengisi viewport sebesar 100vh.
+      // Tambahkan tinggi pinned stage (pinHeight) agar seksi Projects ter-scroll penuh ke atas dan seksi Experience tampil tepat di viewport.
+      const pinHeight = projectsTrigger?.pin?.offsetHeight || window.innerHeight || 0
+      const targetY = projectsTrigger
+        ? Math.round(projectsTrigger.end + pinHeight)
+        : expSection
+        ? Math.max(0, Math.round(expSection.getBoundingClientRect().top + currentY))
+        : 0
+
+      if (Math.abs(currentY - targetY) < 15) return
       executeScroll(targetY)
       return
     }
