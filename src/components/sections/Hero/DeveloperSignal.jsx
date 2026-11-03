@@ -258,12 +258,12 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
   const beamHex = beamHexMap[themeColor]
 
   return (
-    <div className="absolute top-[45%] right-4 sm:right-8 md:max-lg:top-auto md:max-lg:bottom-[clamp(168px,21vh,205px)] md:max-lg:left-[clamp(16px,1.95vw,20px)] md:max-lg:right-auto md:max-lg:translate-y-0 lg:top-[45%] lg:bottom-auto lg:left-auto lg:right-[clamp(28px,2.5vw,36px)] lg:-translate-y-1/2 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] -translate-y-1/2 z-25 pointer-events-none">
+    <div className="absolute top-auto bottom-[clamp(145px,min(38vw,22dvh),185px)] left-6 sm:left-12 right-auto translate-y-0 md:max-lg:top-auto md:max-lg:bottom-[clamp(168px,21vh,205px)] md:max-lg:left-[clamp(16px,1.95vw,20px)] md:max-lg:right-auto md:max-lg:translate-y-0 lg:top-[45%] lg:bottom-auto lg:left-auto lg:right-[clamp(28px,2.5vw,36px)] lg:-translate-y-1/2 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] z-25 pointer-events-none">
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:max-lg:w-[clamp(435px,min(58vw,66vh),585px)] lg:w-[clamp(340px,33.36vw,480px)] [@media(min-width:1440px)]:w-[clamp(435px,30.21vw,580px)] p-3.5 sm:p-4 md:max-lg:px-[clamp(18px,2.15vw,26px)] md:max-lg:py-[clamp(14px,1.66vh,19px)] lg:p-[clamp(12px,1.9vh,22px)] [@media(min-width:1440px)]:px-[clamp(24px,1.67vw,32px)] [@media(min-width:1440px)]:py-[clamp(24px,2.96vh,32px)] rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
+        className={`relative font-mono select-none w-[calc(100vw-48px)] sm:w-[336px] md:max-lg:w-[clamp(435px,min(58vw,66vh),585px)] lg:w-[clamp(340px,33.36vw,480px)] [@media(min-width:1440px)]:w-[clamp(435px,30.21vw,580px)] p-[clamp(10px,2.8vw,14px)] sm:p-4 md:max-lg:px-[clamp(18px,2.15vw,26px)] md:max-lg:py-[clamp(14px,1.66vh,19px)] lg:p-[clamp(12px,1.9vh,22px)] [@media(min-width:1440px)]:px-[clamp(24px,1.67vw,32px)] [@media(min-width:1440px)]:py-[clamp(24px,2.96vh,32px)] rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
       >
         {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">
