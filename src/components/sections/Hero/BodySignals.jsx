@@ -1,27 +1,27 @@
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { SKILLS_CONFIG } from '@/content/skills'
 import { useTextScramble } from '@/hooks/useTextScramble'
 
 const POSITION_MAP = {
-  // skil 1 (Web Development)
+  // skil 1 (Web Development) - Pair 0 Left
   'webdev-wrapper':
     'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[4%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
-  // skil 2 (Android Development)
+  // skil 2 (Android Development) - Pair 0 Right
   'android-wrapper':
     'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[6.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
-  // skil 3 (Cyber Security)
+  // skil 3 (Cyber Security) - Pair 1 Left
   'cyber-wrapper':
-    'top-[clamp(114px,min(25vw,15.5dvh),148px)] left-[clamp(6px,min(2vw,1.2dvh),14px)] right-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[22.5%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
-  // skil 4 (Cloud & Networking)
+    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[22.5%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+  // skil 4 (Cloud & Networking) - Pair 1 Right
   'net-wrapper':
-    'top-[clamp(114px,min(25vw,15.5dvh),148px)] right-[clamp(6px,min(2vw,1.2dvh),14px)] left-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[25%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
-  // skil 5 (Database Architecture)
+    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[25%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+  // skil 5 (Database Architecture) - Pair 2 Left
   'db-wrapper':
-    'top-[clamp(186px,min(40vw,25dvh),242px)] left-[clamp(6px,min(2vw,1.2dvh),14px)] right-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[41%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
-  // skil 6 (UI/UX Engineering)
+    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[41%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+  // skil 6 (UI/UX Engineering) - Pair 2 Right
   'uiux-wrapper':
-    'top-[clamp(186px,min(40vw,25dvh),242px)] right-[clamp(6px,min(2vw,1.2dvh),14px)] left-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[43.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[43.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
@@ -62,7 +62,7 @@ const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18 }) {
   )
 })
 
-const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
+const SkillCard = memo(function SkillCard({ skill, index, isResolved, isMobileActive }) {
   const data = isResolved ? skill.resolved : skill.unresolved
   const color = skill.activeColor
 
@@ -82,7 +82,9 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
         ? 'text-cyan-400'
         : 'text-emerald-400'
 
-  const hideOnMobileClass = index >= 2 ? 'max-md:hidden' : ''
+  const mobileVisibilityClass = isMobileActive
+    ? 'max-md:opacity-100 max-md:scale-100 max-md:visible max-md:pointer-events-auto'
+    : 'max-md:opacity-0 max-md:scale-95 max-md:invisible max-md:pointer-events-none'
 
   return (
     <motion.div
@@ -90,10 +92,10 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
       animate={{ scale: 1, opacity: 1 }}
       transition={{
         duration: 0.5,
-        delay: 0.45 + index * 0.08,
+        delay: 0.45 + (index % 2) * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className={`absolute ${positionClass} ${hideOnMobileClass} pointer-events-none select-none z-10`}
+      className={`absolute ${positionClass} ${mobileVisibilityClass} transition-all duration-300 ease-out pointer-events-none select-none z-10`}
     >
       <div className={`relative w-[clamp(112px,min(34vw,17dvh),154px)] md:max-lg:w-[clamp(138px,min(18vw,20vh),192px)] lg:w-[clamp(166px,16.26vw,234px)] [@media(min-width:1440px)]:w-[clamp(215px,14.9vw,286px)] px-[clamp(5px,min(1.3vw,0.7dvh),7.5px)] py-[clamp(4px,min(1vw,0.7dvh),7px)] md:max-lg:px-[clamp(7px,0.9vw,11px)] md:max-lg:py-[clamp(6px,0.9vh,10px)] lg:px-[clamp(8px,0.76vw,11px)] lg:py-[clamp(11px,1.67vh,15px)] [@media(min-width:1440px)]:px-[clamp(14px,0.94vw,18px)] [@media(min-width:1440px)]:py-[clamp(12px,1.67vh,18px)] rounded-lg md:max-lg:rounded-[clamp(6px,0.8vw,10px)] [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg [contain:paint]`}>
         <HudHeader
@@ -132,16 +134,40 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
 })
 
 function BodySignals({ progress = 0 }) {
+  const [timerPair, setTimerPair] = useState(0)
+
+  // Auto-cycle timer when at the top (progress < 0.05)
+  useEffect(() => {
+    if (progress >= 0.05) return
+    const interval = setInterval(() => {
+      setTimerPair((prev) => (prev + 1) % 3)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [progress])
+
+  // If user has scrolled, map progress to pair (0, 1, 2); otherwise use auto-cycle timer
+  const activeMobilePair =
+    progress >= 0.05
+      ? progress < 0.36
+        ? 0
+        : progress < 0.60
+          ? 1
+          : 2
+      : timerPair
+
   return (
     <div className="absolute inset-0 pointer-events-none z-18 font-mono select-none block">
       {SKILLS_CONFIG.map((skill, index) => {
         const isResolved = progress >= skill.threshold
+        const pairIndex = Math.floor(index / 2)
+        const isMobileActive = activeMobilePair === pairIndex
         return (
           <SkillCard
             key={skill.id}
             skill={skill}
             index={index}
             isResolved={isResolved}
+            isMobileActive={isMobileActive}
           />
         )
       })}
