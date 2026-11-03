@@ -413,7 +413,7 @@ function Projects() {
       {/* Pinned Viewport Stage (Fills full viewport cleanly) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen h-[100dvh] min-h-[100dvh] overflow-hidden flex flex-col justify-between pt-[52px] sm:pt-[56px] lg:pt-[56px] pb-2 sm:pb-3 lg:pb-3.5 px-4 sm:px-6 lg:px-[clamp(24px,2.8vw,42px)] [@media(min-width:1440px)]:pt-[76px] [@media(min-width:1440px)]:pb-8 [@media(min-width:1440px)]:px-14 [@media(min-width:1600px)]:px-20 select-none box-border"
+        className="relative w-full h-screen min-h-screen h-[100dvh] min-h-[100dvh] overflow-hidden flex flex-col justify-between pt-[52px] sm:pt-[56px] lg:pt-[56px] pb-2 sm:pb-3 lg:pb-3.5 px-4 sm:px-6 lg:pl-[clamp(20px,2.2vw,36px)] lg:pr-[clamp(16px,1.6vw,26px)] [@media(min-width:1440px)]:pt-[76px] [@media(min-width:1440px)]:pb-8 [@media(min-width:1440px)]:px-14 [@media(min-width:1600px)]:px-20 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -506,7 +506,7 @@ function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-full lg:max-w-[clamp(940px,85vw,1180px)] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-[clamp(14px,1.8vw,28px)] [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 mb-auto py-0.5">
+        <div className="relative z-10 w-full max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-[clamp(16px,2vw,36px)] [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 mb-auto py-0.5">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
           <div className="w-full md:w-[240px] lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
@@ -648,8 +648,8 @@ function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-[240px] lg:w-[clamp(210px,17vw,260px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end lg:items-start [@media(min-width:1440px)]:items-end justify-between text-left gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-6 shrink-0">
-            <div className="flex flex-col items-start text-left w-full max-w-xs lg:max-w-sm min-h-[70px] lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[120px]">
+          <div className="w-full md:w-[260px] lg:w-[clamp(250px,21vw,330px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end lg:items-start [@media(min-width:1440px)]:items-end justify-between text-left gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-6 shrink-0">
+            <div className="flex flex-col items-start text-left w-full max-w-none lg:max-w-[330px] [@media(min-width:1440px)]:max-w-md min-h-[70px] lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[120px]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
                   key={currentProject.id}
