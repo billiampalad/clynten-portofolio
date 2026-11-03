@@ -82,6 +82,8 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
         ? 'text-cyan-400'
         : 'text-emerald-400'
 
+  const hideOnMobileClass = index >= 2 ? 'max-md:hidden' : ''
+
   return (
     <motion.div
       initial={{ scale: 0.88, opacity: 0 }}
@@ -91,7 +93,7 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
         delay: 0.45 + index * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className={`absolute ${positionClass} pointer-events-none select-none z-10`}
+      className={`absolute ${positionClass} ${hideOnMobileClass} pointer-events-none select-none z-10`}
     >
       <div className={`relative w-[clamp(112px,min(34vw,17dvh),154px)] md:max-lg:w-[clamp(138px,min(18vw,20vh),192px)] lg:w-[clamp(166px,16.26vw,234px)] [@media(min-width:1440px)]:w-[clamp(215px,14.9vw,286px)] px-[clamp(5px,min(1.3vw,0.7dvh),7.5px)] py-[clamp(4px,min(1vw,0.7dvh),7px)] md:max-lg:px-[clamp(7px,0.9vw,11px)] md:max-lg:py-[clamp(6px,0.9vh,10px)] lg:px-[clamp(8px,0.76vw,11px)] lg:py-[clamp(11px,1.67vh,15px)] [@media(min-width:1440px)]:px-[clamp(14px,0.94vw,18px)] [@media(min-width:1440px)]:py-[clamp(12px,1.67vh,18px)] rounded-lg md:max-lg:rounded-[clamp(6px,0.8vw,10px)] [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg [contain:paint]`}>
         <HudHeader
