@@ -155,36 +155,27 @@ html.light-theme #root {
 }
 
 /* ==========================================================================
-   Custom Futuristic Cyberpunk Mecha Cursor
+   Custom Futuristic Cyberpunk Mecha Cursor (Universal Strict Override)
    ========================================================================== */
 @media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after,
   html,
-  body {
-    cursor: url('/cursor-pointer.svg') 5 1, auto;
-  }
-
-  /* Kursor interaktif saat hover link, tombol, dan elemen klik */
-  a,
+  body,
+  input,
+  textarea,
   button,
-  [role="button"],
-  .cursor-pointer,
-  input[type="button"],
-  input[type="submit"],
+  a,
   select,
-  summary {
-    cursor: url('/cursor-pointer.svg') 5 1, pointer;
+  [role="button"],
+  .cursor-pointer {
+    cursor: none !important;
   }
 
-  /* Tetap pertahankan cursor I-beam pada input teks agar nyaman mengetik */
-  input[type="text"],
-  input[type="email"],
+  /* Cyberpunk Red Text Caret inside inputs & textareas */
+  input,
   textarea {
-    cursor: text;
-  }
-
-  /* Elemen dinonaktifkan (disabled) */
-  [disabled],
-  .cursor-not-allowed {
-    cursor: not-allowed;
+    caret-color: #ef4444 !important;
   }
 }

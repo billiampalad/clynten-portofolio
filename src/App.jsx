@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, lazy, Suspense } from 'react'
 import Navbar from '@/components/layout/Navbar/Navbar'
 import Hero from '@/components/sections/Hero/Hero'
+import CustomCursor from '@/components/layout/Cursor/CustomCursor'
 import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
 import './App.css'
 
@@ -46,6 +47,9 @@ function App() {
 
   return (
     <div className="portfolio-app">
+      {/* Precision Cyberpunk Hardware Cursor */}
+      <CustomCursor />
+
       {/* Global Navigation Bar */}
       <Navbar
         isVisible={isNavbarVisible}
