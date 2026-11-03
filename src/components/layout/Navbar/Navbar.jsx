@@ -303,8 +303,10 @@ function Navbar({
       const contactEl = document.getElementById('contact')
       if (!contactEl) return
 
-      const targetY = Math.max(0, Math.round(contactEl.getBoundingClientRect().top + currentY - 70))
-      if (Math.abs(currentY - targetY) < 35) return
+      // Mendarat tepat di batas atas seksi Contact tanpa offset negatif
+      // agar seksi Experience 100% terangkat keluar dari viewport
+      const targetY = Math.max(0, Math.round(contactEl.getBoundingClientRect().top + currentY))
+      if (Math.abs(currentY - targetY) < 15) return
       executeScroll(targetY)
       return
     }
