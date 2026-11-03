@@ -6,10 +6,10 @@ import { useTextScramble } from '@/hooks/useTextScramble'
 const POSITION_MAP = {
   // skil 1 (Web Development)
   'webdev-wrapper':
-    'top-[clamp(42px,min(9.5vw,5.8dvh),54px)] left-[clamp(6px,min(2vw,1.2dvh),14px)] right-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[4%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[clamp(32px,min(7.5vw,4.5dvh),44px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[4%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 2 (Android Development)
   'android-wrapper':
-    'top-[clamp(42px,min(9.5vw,5.8dvh),54px)] right-[clamp(6px,min(2vw,1.2dvh),14px)] left-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[6.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[clamp(32px,min(7.5vw,4.5dvh),44px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[6.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
     'top-[clamp(114px,min(25vw,15.5dvh),148px)] left-[clamp(6px,min(2vw,1.2dvh),14px)] right-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[22.5%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
