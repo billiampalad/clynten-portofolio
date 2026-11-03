@@ -261,11 +261,17 @@ function Navbar({
 
     // 4. Target: PROJECTS
     if (targetId === 'projects') {
+      const projectsTrigger = ScrollTrigger.getById('projects-trigger')
       const projectsEl = document.getElementById('projects')
-      if (!projectsEl) return
 
-      const targetY = Math.max(0, Math.round(projectsEl.getBoundingClientRect().top + currentY - 70))
-      if (Math.abs(currentY - targetY) < 35) return
+      // Gunakan koordinat start trigger GSAP (progress 0.0) agar langsung terkunci (pin) tepat di scroll 0 tanpa jeda
+      const targetY = projectsTrigger
+        ? Math.round(projectsTrigger.start)
+        : projectsEl
+        ? Math.round(projectsEl.getBoundingClientRect().top + currentY)
+        : 0
+
+      if (Math.abs(currentY - targetY) < 15) return
       executeScroll(targetY)
       return
     }
