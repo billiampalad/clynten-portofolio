@@ -144,7 +144,7 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
       {/* Right Cluster: Optical Sensor (Above), Audio Player (Middle), Scroll Prompt (Bottom) */}
-      <div className="absolute bottom-[clamp(240px,min(62vw,35dvh),295px)] left-6 sm:left-12 right-auto w-[calc(100vw-48px)] sm:w-[336px] flex flex-col items-center gap-2 z-25 pointer-events-none md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:w-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-stretch md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25 lg:contents">
+      <div className="absolute bottom-[clamp(260px,min(68vw,39dvh),320px)] left-6 sm:left-12 right-auto w-[calc(100vw-48px)] sm:w-[336px] flex flex-col items-center gap-2 z-25 pointer-events-none md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:w-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-stretch md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25 lg:contents">
         {/* 1. Holographic Radar Optical Sensor Widget */}
         <motion.div
           initial={{ x: 40, opacity: 0 }}
