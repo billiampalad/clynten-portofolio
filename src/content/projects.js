@@ -278,6 +278,5 @@ export const PROJECTS_DATA = [
       'Thematic Demographic Density & Population Dispersion Mapping',
       'Multi-Format High-Resolution Print Layout & Spatial Map Composition',
     ],
-    github: 'https://github.com/billiampalad',
   },
 ]
