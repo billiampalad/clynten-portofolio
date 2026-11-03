@@ -23,7 +23,7 @@ function HeroAudioPlayer() {
   }
 
   return (
-    <div className="w-full static pointer-events-auto select-none font-mono md:max-lg:static md:max-lg:w-full lg:absolute lg:bottom-[clamp(124px,17vh,156px)] [@media(min-width:1440px)]:bottom-[clamp(150px,17.78vh,192px)] lg:right-[clamp(70px,5.8vw,82px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(54px,3.75vw,72px)] lg:z-25">
+    <div className="absolute bottom-20 sm:bottom-24 md:max-lg:static md:max-lg:w-full lg:bottom-[clamp(124px,17vh,156px)] [@media(min-width:1440px)]:bottom-[clamp(150px,17.78vh,192px)] right-6 sm:right-12 md:max-lg:right-auto md:max-lg:left-auto md:max-lg:translate-x-0 lg:right-[clamp(70px,5.8vw,82px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(54px,3.75vw,72px)] z-25 pointer-events-auto select-none font-mono">
       <button
         type="button"
         onClick={handleToggle}

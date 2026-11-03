@@ -96,12 +96,12 @@ const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
       ref={promptRef}
-      className="w-full static flex flex-col items-center gap-1 transition-opacity duration-100 will-change-[opacity] md:max-lg:absolute md:max-lg:top-full md:max-lg:bottom-auto md:max-lg:left-1/2 md:max-lg:-translate-x-1/2 md:max-lg:right-auto md:max-lg:mt-[clamp(10px,1.3vh,14px)] lg:absolute lg:bottom-[clamp(44px,3.8vw,56px)] [@media(min-width:1440px)]:bottom-[clamp(80px,8.89vh,96px)] lg:right-[clamp(28px,2.5vw,36px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] lg:gap-2.5 [@media(min-width:1440px)]:gap-[clamp(9px,1.11vh,12px)]"
+      className="absolute bottom-6 sm:bottom-9 md:max-lg:absolute md:max-lg:top-full md:max-lg:bottom-auto md:max-lg:left-1/2 md:max-lg:-translate-x-1/2 md:max-lg:right-auto md:max-lg:mt-[clamp(10px,1.3vh,14px)] lg:bottom-[clamp(44px,3.8vw,56px)] [@media(min-width:1440px)]:bottom-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] flex flex-col items-center gap-1.5 md:max-lg:gap-[clamp(8px,1.07vh,12px)] lg:gap-2.5 [@media(min-width:1440px)]:gap-[clamp(9px,1.11vh,12px)] transition-opacity duration-100 will-change-[opacity]"
     >
-      <div className="w-3.5 h-6 sm:w-4 sm:h-7 md:max-lg:w-[clamp(20px,2.35vw,26px)] md:max-lg:h-[clamp(34px,3.91vh,42px)] lg:w-5 lg:h-9 [@media(min-width:1440px)]:w-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:h-[clamp(35px,3.89vh,42px)] border border-emerald-400/50 md:max-lg:border-[1.5px] rounded-full flex items-start justify-center p-1 md:max-lg:p-[clamp(4px,0.45vw,5.5px)] lg:p-1.2 [@media(min-width:1440px)]:p-[clamp(4.5px,0.31vw,6px)] bg-black/50">
+      <div className="w-4 h-7 md:max-lg:w-[clamp(20px,2.35vw,26px)] md:max-lg:h-[clamp(34px,3.91vh,42px)] lg:w-5 lg:h-9 [@media(min-width:1440px)]:w-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:h-[clamp(35px,3.89vh,42px)] border border-emerald-400/50 md:max-lg:border-[1.5px] rounded-full flex items-start justify-center p-1 md:max-lg:p-[clamp(4px,0.45vw,5.5px)] lg:p-1.2 [@media(min-width:1440px)]:p-[clamp(4.5px,0.31vw,6px)] bg-black/50">
         <span className="w-1 h-2 md:max-lg:w-[clamp(5px,0.59vw,7px)] md:max-lg:h-[clamp(9px,1.07vh,12px)] lg:w-1.5 lg:h-2.5 [@media(min-width:1440px)]:w-[clamp(6px,0.42vw,8px)] [@media(min-width:1440px)]:h-[clamp(11.5px,1.3vh,14px)] bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
       </div>
-      <div className="flex items-center gap-1 md:max-lg:gap-[clamp(4px,0.49vw,6px)] text-[7.5px] sm:text-[9px] md:max-lg:text-[clamp(10.5px,1.27vh,13px)] lg:text-[10.5px] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-[1.5px] sm:tracking-[2px] md:max-lg:tracking-[clamp(2px,0.24vw,3px)] lg:tracking-[2.8px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] font-semibold text-zinc-400 uppercase whitespace-nowrap">
+      <div className="flex items-center gap-1 md:max-lg:gap-[clamp(4px,0.49vw,6px)] text-[8px] sm:text-[9px] md:max-lg:text-[clamp(10.5px,1.27vh,13px)] lg:text-[10.5px] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-[2px] md:max-lg:tracking-[clamp(2px,0.24vw,3px)] lg:tracking-[2.8px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] font-semibold text-zinc-400 uppercase whitespace-nowrap">
         <span className="text-emerald-400">[</span>
         <span className="text-zinc-300">SCROLL TO EXPLORE TELEMETRY</span>
         <span className="text-emerald-400">]</span>
@@ -144,7 +144,7 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
       {/* Right Cluster: Optical Sensor (Above), Audio Player (Middle), Scroll Prompt (Bottom) */}
-      <div className="absolute bottom-[clamp(380px,min(98vw,58dvh),480px)] left-6 sm:left-12 right-auto w-[calc(100vw-48px)] sm:w-[336px] flex flex-col items-center gap-2 z-25 pointer-events-none md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:w-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-stretch md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25 lg:contents">
+      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-stretch md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25">
         {/* 1. Holographic Radar Optical Sensor Widget */}
         <motion.div
           initial={{ x: 40, opacity: 0 }}
