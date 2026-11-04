@@ -1,36 +1,32 @@
 # MASTER PROMPT
 
 1. Role
-Bertindaklah sebagai Principal Frontend Performance Engineer dan Spesialis Optimasi Animasi Berbasis Scroll (GSAP ScrollTrigger, HTML5 Canvas 2D, & Browser Compositor Pipeline). Prioritas utama Anda adalah menemukan dan mengeliminasi sumber micro-stuttering, frame drops, dan ketidakhalusan (jank) pada transisi animasi berbasis scroll, sehingga setiap pergerakan frame dan perubahan properti visual berjalan super mulus (buttery smooth 60fps–120fps) dengan beban kerja CPU dan GPU seminimal mungkin.
+Bertindaklah sebagai Senior Creative Frontend Engineer dan Browser Rendering & Animation Specialist (Ahli Web Animation API, CSS Transitions/Keyframes, GSAP, & GPU Compositing). Prioritas utama Anda adalah mengeliminasi jank, frame drop, dan micro-stuttering pada animasi teks, mengalihkan seluruh proses interpolasi visual ke Compositor Thread (GPU-accelerated), serta menghasilkan animasi blok teks yang mengalir sangat mulus (buttery smooth 60fps–120fps) tanpa membebani CPU Main Thread.
 
 2. Task
-Lakukan audit performa mendalam (deep-dive analysis) dan refaktor ulang kode tampilan berbasis scroll yang masih mengalami lag serta patah-patah saat transisi berlangsung. Bedah secara kritis sinkronisasi antara kecepatan scroll pengguna, eksekusi callback pada setiap tick animasi (seperti `onUpdate` pada GSAP atau `requestAnimationFrame`), proses penggambaran kanvas/DOM, hingga properti CSS yang sedang ditransisikan. Berikan perbaikan kode konkret yang membuat transisi menjadi sangat halus tanpa mengubah estetika visual maupun fitur yang sudah ada.
+Lakukan audit performa mendalam dan perbaiki kode animasi pada elemen/blok teks bertuliskan **“continuously learning, building, and growing through technology”** yang saat ini masih patah-patah dan lag. Identifikasi penyebab teknis ketidakhalusan tersebut (seperti pemicu layout reflow/repaint terus-menerus, animating non-composited properties, konflik frame timing, atau re-render loop di JavaScript/React) dan berikan kode hasil refaktor yang siap pakai dengan transisi ultra-halus.
 
 3. Context
-- Kondisi Masalah Saat Ini: Tampilan mengandalkan fitur scroll sebagai penggerak utama animasi, namun setelah optimasi sebelumnya, transisi saat di-scroll masih terasa berat, patah-patah (stuttering), dan belum mengalir secara halus (smooth).
-- Gejala Spesifik Saat Scroll: [Sebutkan kapan lag paling terasa, misal: saat awal scroll (efek blur 8px->0px), saat transisi morphing kartu di progres > 0.81, saat scroll dilakukan dengan cepat, atau sepanjang scroll dari atas ke bawah]
-- Mekanisme Penggerak Scroll: [Sebutkan library/metode yang dipakai, misal: GSAP ScrollTrigger dengan scrub: true / angka, Lenis Smooth Scroll, atau native scroll event + requestAnimationFrame]
-- Properti yang Ditransisikan Saat Scroll: [Sebutkan perubahan yang terjadi per frame, misal: drawImage 145 frame WebP di Canvas, perubahan filter: blur(), transform scale/border-radius, opacity section About, dan update teks/warna HUD]
-- Kode Sumber Saat Ini:
-[Tempelkan kode komponen/hook pengendali scroll dan elemen tampilan Anda di sini]
+- Teks Target Animasi: **“continuously learning, building, and growing through technology”**
+- Jenis/Efek Animasi yang Dijalankan: [Sebutkan jenis animasi, misal: running text / marquee horizontal loop, typewriter effect, text scramble/decrypt, fade-in staggered per kata/huruf, atau reveal text dengan sliding clip-path/background block]
+- Library / Teknologi Penggerak: [Sebutkan yang digunakan, misal: CSS @keyframes murni, Tailwind CSS animation classes, GSAP / ScrollTrigger, Framer Motion, atau requestAnimationFrame / setInterval di JavaScript]
+- Properti CSS yang Saat Ini Di-animasikan: [Sebutkan properti yang diubah dalam animasi, misal: width/max-width, left/margin-left, clip-path, opacity, transform: translateX(), atau filter: blur()]
+- Kode Sumber Animasi Saat Ini:
+[Tempelkan kode HTML/JSX, CSS/Tailwind, dan JavaScript/animasi dari blok teks tersebut di sini]
 
 4. Reasoning
-Ketika animasi berbasis scroll masih patah-patah meskipun sudah dilakukan optimasi dasar, penyebabnya biasanya tersembunyi pada level eksekusi per-frame (frame budget < 16.6ms untuk 60fps atau < 8.3ms untuk 120fps yang terlampaui). Hal ini sering dipicu oleh:
-1) Kalkulasi properti berat di dalam loop `onUpdate` (seperti memodifikasi `filter: blur()` secara langsung di setiap desimal progres yang memaksa GPU melakukan *re-rasterize* tekstur terus-menerus),
-2) Belum digunakannya `gsap.quickSetter` atau interpolasi nilai (`scrub: 0.5` / `lerp`) sehingga lompatan delta scroll dari mouse wheel langsung mengguncang frame,
-3) Pembaruan state React yang tidak sengaja terpanggil di tengah proses scroll, atau
-4) Tabrakan antara CSS `transition` bawaan (misal class `transition-all` dari Tailwind) dengan pembaruan nilai real-time dari JavaScript/GSAP.
+Animasi teks sering kali mengalami lag dan patah-patah karena menganimasikan properti geometri yang memicu siklus Layout (Reflow) atau Repaint di setiap frame (seperti `width`, `left`, `margin`, atau `clip-path` tanpa layer promotion). Setiap kali nilai tersebut berubah, browser terpaksa menghitung ulang tata letak dokumen di Main Thread CPU, merusak batas anggaran frame (frame budget 16.6ms). Mengubah mekanisme animasi ke properti yang ramah GPU Compositor (`transform: translate3d/translate`, `opacity`) serta menerapkan akselerasi hardware yang tepat adalah satu-satunya cara memastikan teks bergerak dengan kehalusan sub-pixel yang konsisten di berbagai perangkat.
 
 5. Stop Conditions
 Tugas dianggap selesai apabila:
-- Seluruh bottleneck tersembunyi yang menyebabkan transisi scroll patah-patah berhasil diidentifikasi secara spesifik beserta bukti baris kodenya (terutama konflik CSS transition vs JS animation, beban `filter: blur()`, atau eksekusi DOM update yang belum di-batch).
-- Tersedia kode hasil refaktor yang menerapkan teknik penghalusan mutakhir (seperti penghapusan konflik `transition` CSS pada elemen yang dikontrol JS, penggunaan interpolasi scrub/damping yang presisi, penggunaan `gsap.quickSetter` atau mutasi ref langsung, serta alternatif/optimasi efek blur dan morphing yang ramah GPU).
-- Seluruh tampilan, tahapan transisi, warna, dan fitur tetap 100% utuh sesuai desain awal.
-- Transisi scroll terbukti mengalir halus tanpa jeda (stutter) baik saat di-scroll perlahan maupun cepat.
+- Akar masalah penyebab lag dan animasi teks patah-patah teridentifikasi secara presisi berdasarkan properti dan loop animasi yang digunakan.
+- Tersedia kode perbaikan (refactored code) yang sepenuhnya beralih ke properti terakselerasi GPU (`transform`, `opacity`) dengan pemanfaatan `will-change` secara tepat (tanpa layer leak).
+- Jika menggunakan JavaScript/GSAP, tidak ada mutasi layout sinkron, timer interval yang tidak presisi (`setInterval`/`setTimeout`), atau state re-render yang memotong siklus animasi.
+- Efek visual teks tetap sesuai konsep awal, namun pergerakannya terbukti berjalan stabil di 60fps–120fps tanpa lonjakan CPU.
 
 6. Output
 Sajikan hasil dalam Bahasa Indonesia dengan format:
-1. **Audit Akar Masalah (Mengapa Masih Lag & Patah-Patah)**: Analisis tajam poin demi poin yang membedah penyebab teknis ketidakhalusan transisi pada kode saat ini (misal: konflik CSS vs JS, bottleneck `filter`, atau antrean frame di Main Thread/GPU).
-2. **Matriks Solusi Penghalusan Transisi**: Tabel ringkas (Titik Lag pada Transisi | Penyebab Teknis | Teknik Perbaikan Mutakhir | Dampak pada Kehalusan Frame).
-3. **Kode Hasil Refaktor (Ultra-Smooth Scroll)**: Blok kode lengkap yang sudah diperbaiki, siap pakai, dan dilengkapi komentar penjelas pada bagian-bagian krusial yang dioptimasi.
-4. **Checklist Kalibrasi & Pengujian Kehalusan**: Langkah praktis untuk memvalidasi bahwa frame time sudah stabil di bawah 16ms (atau 8ms) dan transisi berjalan mulus.
+1. **Diagnosis Bottleneck Animasi**: Analisis teknis singkat mengapa kode saat ini memicu stutter/lag pada rendering browser.
+2. **Strategi GPU Compositing**: Penjelasan solusi (properti mana yang diganti dan teknik apa yang digunakan untuk mengunci 60fps/120fps).
+3. **Kode Hasil Refaktor (Ultra-Smooth)**: Blok kode lengkap (HTML/JSX, CSS/Tailwind, atau JS/GSAP) yang sudah dioptimasi, bebas lag, dan siap langsung disalin.
+4. **Tips Kalibrasi Kehalusan**: Panduan singkat (1-3 poin) mengenai pengaturan durasi, easing curve (seperti cubic-bezier yang tepat), atau sinkronisasi refresh rate layar.

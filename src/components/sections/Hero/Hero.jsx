@@ -22,6 +22,8 @@ function Hero({ onProgressChange }) {
   const canvasRef = useRef(null)
   const gridOverlayRef = useRef(null)
   const hudLayerRef = useRef(null)
+  const scrollHeadlineRef = useRef(null)
+  const lastReportedScrollProgressRef = useRef(-1)
 
   const [loading, setLoading] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
@@ -212,6 +214,9 @@ function Hero({ onProgressChange }) {
         playhead.frame = targetFrame
         renderFrame(targetFrame)
 
+        // Langsung sinkronkan animasi shutter teks di frame yang sama persis dengan canvas (Zero Latency)
+        scrollHeadlineRef.current?.update(scanProgress)
+
         // Filter visual menajam sempurna dan cerah pada progress 0.65
         // Kuantisasi diskrit (step 1px) mencegah GPU me-re-rasterize filter kernel Gaussian blur di setiap micro-step
         const filterProgress = Math.min(1, progress / 0.65)
@@ -390,14 +395,21 @@ function Hero({ onProgressChange }) {
           onProgressChange(progress)
         }
 
-        // Update React state telemetri secara tersinkronisasi 1:1 dengan frame monitor (RAF Batching)
-        // Mencegah penumpukan ratusan setState saat scroll cepat dan menjaga 60 FPS mentok
-        latestScanProgress = scanProgress
-        if (!pendingRaf) {
-          pendingRaf = requestAnimationFrame(() => {
-            setScrollProgress(latestScanProgress)
-            pendingRaf = null
-          })
+        // Update React state telemetri secara terkuantisasi (hanya saat delta >= 0.02 atau di ujung)
+        // Mencegah re-render massal CPU Main Thread 120Hz saat scroll
+        if (
+          Math.abs(scanProgress - lastReportedScrollProgressRef.current) >= 0.02 ||
+          scanProgress === 0 ||
+          scanProgress >= 1
+        ) {
+          lastReportedScrollProgressRef.current = scanProgress
+          latestScanProgress = scanProgress
+          if (!pendingRaf) {
+            pendingRaf = requestAnimationFrame(() => {
+              setScrollProgress(latestScanProgress)
+              pendingRaf = null
+            })
+          }
         }
       },
     })
@@ -477,13 +489,13 @@ function Hero({ onProgressChange }) {
           {!loading && <BodySignals progress={scrollProgress} />}
 
           {/* Layer 5: Cyber Target Reticle & Corner Brackets HUD */}
-          {!loading && <TargetReticle progress={scrollProgress} />}
+          {!loading && <TargetReticle />}
 
           {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry */}
           {!loading && <TelemetryWidgets progress={scrollProgress} />}
 
-          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline */}
-          {!loading && <ScrollHeadline progress={scrollProgress} />}
+          {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Direct Imperative Sync) */}
+          {!loading && <ScrollHeadline ref={scrollHeadlineRef} progress={scrollProgress} />}
 
           {/* Layer 8: Developer Signal HUD */}
           {!loading && <DeveloperSignal progress={scrollProgress} />}
