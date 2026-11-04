@@ -157,7 +157,7 @@ html.light-theme #root {
 /* ==========================================================================
    Custom Futuristic Cyberpunk Mecha Cursor (Universal Strict Override)
    ========================================================================== */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover), (any-pointer: fine) {
   *,
   *::before,
   *::after,
