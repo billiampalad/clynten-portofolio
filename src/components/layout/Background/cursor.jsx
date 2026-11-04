@@ -209,14 +209,21 @@ void main() {
 
   // Gradasi sinematik Merah Maron pekat dan bayangan Hitam (Maroon & Charcoal Obsidian Smoke)
   float shadow = smoothstep(0.1, 0.9, light);
-  vec3 darkShadow = mix(vec3(0.012, 0.003, 0.005), uColor * 0.35, shadow);
-  vec3 maroonMid = uColor * (0.65 + 0.35 * light);
-  vec3 maroonCore = mix(uColor, vec3(0.72, 0.03, 0.08), 0.45); // Inti merah maron pekat tanpa pudar putih
+  vec3 darkShadow = mix(vec3(0.008, 0.001, 0.002), uColor * 0.25, shadow);
+  vec3 maroonMid = uColor * (0.6 + 0.4 * light);
+  
+  // Inti kursor maron pekat: kunci kanal agar selalu merah maron membara tanpa pudar putih
+  vec3 maroonCore = vec3(uColor.r * 1.25, uColor.g * 0.08, uColor.b * 0.14);
 
   vec3 smokeBody = mix(darkShadow, maroonMid, smoothstep(0.1, 0.7, cloud));
-  vec3 tint = mix(smokeBody, maroonCore * (0.85 + 0.25 * light), core);
-  vec3 ink = mix(vec3(0.01), uColor * 0.75, core);
+  vec3 tint = mix(smokeBody, maroonCore * (0.8 + 0.2 * light), core);
+  vec3 ink = mix(vec3(0.005), uColor * 0.75, core);
   vec3 color = mix(tint * uBrightness, ink, uTheme) * cloud;
+
+  // Proteksi desaturasi: pastikan kanal hijau dan biru tidak pernah meninggi menjadi putih
+  color.g = min(color.g, color.r * 0.06);
+  color.b = min(color.b, color.r * 0.12);
+
   fragColor = vec4(color, cloud);
 }`;
 
@@ -307,10 +314,23 @@ void main() {
     fragColor = vec4(pow(pigment, vec3(1.0 / 2.2)) * coverage, coverage);
     return;
   }
-  vec3 color = (shade.rgb + bloom.rgb * uBloom) * fade;
-  color = pow(1.0 - exp(-color * 0.95), vec3(1.0 / 2.2));
-  color += color * grain * uGrain * 2.0;
+  vec3 totalColor = (shade.rgb + bloom.rgb * uBloom) * fade;
+  
+  // Kunci batas kanal hijau dan biru agar selalu dalam spektrum merah maron pekat (bebas pudar putih)
+  float rVal = 1.0 - exp(-totalColor.r * 1.05);
+  vec3 color = vec3(
+    rVal,
+    rVal * 0.04,
+    rVal * 0.10
+  );
+  color = pow(color, vec3(1.0 / 2.2));
+  color += color * grain * uGrain * 1.5;
   color = clamp(color + (hash(gl_FragCoord.xy * 1.37) - 0.5) / 255.0, 0.0, 1.0);
+
+  // Kunci batas akhir agar tidak ada desaturasi putih pada intensitas pergerakan tinggi
+  color.g = min(color.g, color.r * 0.05);
+  color.b = min(color.b, color.r * 0.12);
+
   fragColor = vec4(color, max(color.r, max(color.g, color.b)));
 }`;
 
