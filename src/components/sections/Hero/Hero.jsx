@@ -23,6 +23,7 @@ function Hero({ onProgressChange }) {
   const gridOverlayRef = useRef(null)
   const hudLayerRef = useRef(null)
   const scrollHeadlineRef = useRef(null)
+  const telemetryWidgetsRef = useRef(null)
   const lastReportedScrollProgressRef = useRef(-1)
 
   const [loading, setLoading] = useState(true)
@@ -216,6 +217,9 @@ function Hero({ onProgressChange }) {
 
         // Langsung sinkronkan animasi shutter teks di frame yang sama persis dengan canvas (Zero Latency)
         scrollHeadlineRef.current?.update(scanProgress)
+
+        // Langsung sinkronkan radar gauge & telemetry widgets di frame yang sama persis (Zero Latency)
+        telemetryWidgetsRef.current?.update(scanProgress)
 
         // Filter visual menajam sempurna dan cerah pada progress 0.65
         // Kuantisasi diskrit (step 1px) mencegah GPU me-re-rasterize filter kernel Gaussian blur di setiap micro-step
@@ -492,7 +496,7 @@ function Hero({ onProgressChange }) {
           {!loading && <TargetReticle />}
 
           {/* Layer 6: Ambient Milestone Tracker & Radar Telemetry */}
-          {!loading && <TelemetryWidgets progress={scrollProgress} />}
+          {!loading && <TelemetryWidgets ref={telemetryWidgetsRef} progress={scrollProgress} />}
 
           {/* Layer 7: Large Bold Scroll-Highlighted Narrative Headline (Direct Imperative Sync) */}
           {!loading && <ScrollHeadline ref={scrollHeadlineRef} progress={scrollProgress} />}

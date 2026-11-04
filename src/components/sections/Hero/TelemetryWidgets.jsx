@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useRef, useEffect, useImperativeHandle, forwardRef } from 'react'
 import { motion } from 'framer-motion'
 
 // Memoized Static Sensor Metadata (Never re-renders on scroll)
@@ -21,8 +21,8 @@ const SensorInfo = memo(function SensorInfo() {
   )
 })
 
-// Dynamic Radar Gauge (Only renders the rotating needle & angle indicator)
-const RadarGauge = memo(function RadarGauge({ rotation = 0 }) {
+// Dynamic Radar Gauge (Direct GPU Transform, Zero React Re-render)
+const RadarGauge = memo(function RadarGauge({ needleRef, degreeRef, initialRotation = 0 }) {
   return (
     <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
       <svg className="w-12 h-12 overflow-visible" viewBox="0 0 80 80">
@@ -50,9 +50,10 @@ const RadarGauge = memo(function RadarGauge({ rotation = 0 }) {
 
         {/* Rotating radar ray synchronized directly with scroll progress & native laser glow */}
         <g
+          ref={needleRef}
           style={{
             transformOrigin: '40px 40px',
-            transform: `rotate(${rotation}deg)`,
+            transform: `rotate(${initialRotation}deg)`,
             willChange: 'transform',
           }}
         >
@@ -79,24 +80,24 @@ const RadarGauge = memo(function RadarGauge({ rotation = 0 }) {
           />
         </g>
       </svg>
-      <div className="absolute -bottom-1 -right-1 text-[8px] font-bold text-cyan-400 bg-black/85 px-1 rounded border border-cyan-500/30 tabular-nums">
-        {rotation}°
+      <div
+        ref={degreeRef}
+        className="absolute -bottom-1 -right-1 text-[8px] font-bold text-cyan-400 bg-black/90 px-1 rounded border border-cyan-500/30 tabular-nums"
+      >
+        {initialRotation}°
       </div>
     </div>
   )
 })
 
-// Isolated Scroll Prompt Widget (Unmounts when opacity reaches 0 to free resources)
-const ScrollPrompt = memo(function ScrollPrompt({ progress = 0 }) {
-  const opacity = Math.max(0, 1 - progress * 4)
-  if (opacity <= 0) return null
-
+// Isolated Scroll Prompt Widget (Direct opacity control via Ref)
+const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
-      style={{ opacity }}
+      ref={promptRef}
       className="absolute bottom-6 sm:bottom-9 right-6 sm:right-12 flex flex-col items-center gap-1.5 transition-opacity duration-100 will-change-[opacity]"
     >
-      <div className="w-4 h-7 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 bg-black/40 backdrop-blur-sm">
+      <div className="w-4 h-7 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 bg-black/50">
         <span className="w-1 h-2 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
       </div>
       <div className="flex items-center gap-1 text-[8px] sm:text-[9px] tracking-[2px] font-semibold text-zinc-400 uppercase">
@@ -108,26 +109,57 @@ const ScrollPrompt = memo(function ScrollPrompt({ progress = 0 }) {
   )
 })
 
-function TelemetryWidgets({ progress = 0 }) {
-  const radarRotation = Math.round(progress * 360)
+const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, ref) {
+  const needleRef = useRef(null)
+  const degreeRef = useRef(null)
+  const promptRef = useRef(null)
+
+  const applyProgress = (prog) => {
+    const deg = Math.round(prog * 360)
+    if (needleRef.current) {
+      needleRef.current.style.transform = `rotate(${deg}deg)`
+    }
+    if (degreeRef.current) {
+      degreeRef.current.textContent = `${deg}°`
+    }
+    if (promptRef.current) {
+      const opacity = Math.max(0, 1 - prog * 4)
+      promptRef.current.style.opacity = opacity.toFixed(2)
+      promptRef.current.style.display = opacity <= 0 ? 'none' : 'flex'
+    }
+  }
+
+  useImperativeHandle(ref, () => ({
+    update: (prog) => {
+      applyProgress(prog)
+    },
+  }))
+
+  useEffect(() => {
+    applyProgress(progress)
+  }, [])
 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
-      {/* 1. Top Right Holographic Radar Widget */}
+      {/* 1. Top Right Holographic Radar Widget (Zero backdrop-blur overhead over canvas) */}
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-12 right-6 sm:right-12 hidden md:flex items-center gap-3.5 px-3.5 py-2 rounded-xl bg-zinc-950/90 border border-white/10 backdrop-blur-md shadow-2xl"
+        className="absolute top-12 right-6 sm:right-12 hidden md:flex items-center gap-3.5 px-3.5 py-2 rounded-xl bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
       >
-        <RadarGauge rotation={radarRotation} />
+        <RadarGauge
+          needleRef={needleRef}
+          degreeRef={degreeRef}
+          initialRotation={Math.round(progress * 360)}
+        />
         <SensorInfo />
       </motion.div>
 
       {/* 2. Right Bottom Ambient Futuristic Scroll Prompt */}
-      <ScrollPrompt progress={progress} />
+      <ScrollPrompt promptRef={promptRef} />
     </div>
   )
-}
+})
 
 export default memo(TelemetryWidgets)
