@@ -1,42 +1,40 @@
 # MASTER PROMPT
 
 1. Role
-Bertindaklah sebagai Senior Creative Frontend Engineer dan Specialist Browser Performance & Hardware-Accelerated Graphics (Ahli React, WebGL2 Shader Optimization, Tailwind CSS, dan Canvas-DOM Compositing). Prioritas utama Anda adalah mengintegrasikan komponen `GhostCursor` (berbasis WebGL2 GPGPU fluid/smoke simulation) ke dalam file `src/components/layout/Background/cursor.jsx`, memadukannya dengan aset pointer kustom `public/cursor-pointer.svg` dan mikro-animasi klik, serta mengoptimalkan alokasi memori buffer/shader agar animasi jejak asap (fluid trail) berjalan ultra-mulus (60fps–120fps) tanpa membebani GPU/CPU dan tidak merusak interaksi klik elemen website (`pointer-events: none`).
+Bertindaklah sebagai Senior Creative Frontend Engineer dan Web Audio API Specialist (Ahli Audio Programming di Browser, React Hooks, Event Delegation, dan Browser Performance Optimization). Prioritas utama Anda adalah merancang sistem efek suara klik (micro-interaction sound effects) yang responsif, berlatensi ultra-rendah (zero-latency playback), serta bebas lag dan tidak membebani CPU Main Thread bahkan saat terjadi klik beruntun berkecepatan tinggi (rapid clicking).
 
 2. Task
-Lakukan modifikasi dan penyempurnaan pada file `src/components/layout/Background/cursor.jsx` dengan mengintegrasikan kode shader `GhostCursor` yang sudah disediakan. Gabungkan simulasi jejak WebGL2 tersebut dengan kursor fisik SVG kustom (`cursor-pointer.svg`) yang bergerak sinkron mengikuti mouse dan merespons klik (scale down / ripple). Pastikan integrasi ini mencakup seluruh area layar portofolio (global fixed overlay), teroptimasi penuh untuk perangkat desktop tanpa lag, serta membersihkan event listener dan context WebGL2 dengan aman.
+Rancang dan bangun sistem pemutar suara audio klik yang modular, efisien, dan siap diintegrasikan ke dalam proyek website portofolio menggunakan berkas suara di dalam direktori `public/audio`. Implementasikan arsitektur audio berbasis Web Audio API (`AudioContext` dan `AudioBuffer`) yang melakukan pre-decode berkas audio ke memori saat awal, mendukung polyphonic playback (suara tidak terpotong saat diklik cepat), menyediakan mekanisme event delegation otomatis untuk mendeteksi elemen interaktif, serta menyertakan tombol kendali suara (Sound Toggle Mute/Unmute) global yang tersimpan di `localStorage`.
 
 3. Context
-- File Target Integrasi: `src/components/layout/Background/cursor.jsx`
-- Kode Sumber Acuan (WebGL2 Shader & Sim Engine):
-  [Gunakan implementasi lengkap GhostCursor yang memuat VERTEX, SIM, SHADE, DOWN, BLUR, dan COMPOSITE shader seperti yang telah dilampirkan]
-- Aset Pointer Kustom: `public/cursor-pointer.svg` (harus muncul sebagai penunjuk utama tepat di titik koordinat pointer mouse dengan animasi mikro saat mouse ditekan/klik).
-- Cakupan & Penempatan (Layout Scope):
-  * Kursor dan efek fluid trail harus aktif secara global di seluruh halaman portofolio (`position: fixed`, `inset-0`, `pointer-events: none`, dengan `z-index` tinggi agar terlihat di atas background).
-  * Kursor asli browser disembunyikan (`cursor: none`) ketika mouse berada di dalam area window.
-- Konfigurasi Default Efek Visual (Styling & Cyberpunk/Dark Aesthetic):
-  * Warna Fluid Asap: [Sesuaikan warna hex, misal: Cyan `#06b6d4`, Emerald `#10b981`, atau gradasi bawaan `#B497CF`]
-  * Parameter Ghost: `size={70-80}`, `trailLength={40-50}`, `bloomStrength={0.5-0.6}`, `clickPuff={true}`.
-  * Pointer SVG: Ukuran proporsional (~20px–28px) dengan transisi `transform` yang ringan saat klik (misal: `scale(0.85)` saat mousedown).
-- Batasan Kinerja & Hardware (Anti-Lag):
-  * Tracking koordinat SVG pointer TIDAK BOLEH menggunakan `useState` (karena akan memicu re-render React 60-120 kali per detik). Gunakan `useRef` dan direct DOM translation (`transform: translate3d(...)`) atau `requestAnimationFrame`.
-  * DPR WebGL2 harus dibatasi (`maxDevicePixelRatio = 1.5` atau `2`) untuk mencegah bottleneck resolusi tinggi pada layar Retina/4K.
-  * Komponen harus otomatis idle/pause jika tab diminimalkan atau mouse berhenti bergerak (`wake` and sleep loop sudah ada di kode dasar).
+- Direktori Berkas Audio: `public/audio/`
+- Nama & Format Berkas Audio Klik: [Sebutkan nama file spesifik di dalam folder public/audio, misal: `public/audio/click.mp3`, `click.wav`, atau `click-soft.ogg`]
+- Tech Stack Proyek: React / Next.js (Client Component), Tailwind CSS, JavaScript (ES6+) / TypeScript.
+- Elemen Target Suara Klik: Seluruh elemen interaktif pada portofolio (seperti tombol `<button>`, tautan navigasi `<a>`, kartu proyek, filter tab, dan toggle switch).
+- Batasan Kinerja & Kerapian Sistem (Anti-Lag):
+  * DILARANG menggunakan `new Audio().play()` pada setiap event klik karena memicu alokasi objek berulang, kebocoran memori (memory leak), pemblokiran Main Thread saat proses decode, dan latensi suara yang lambat.
+  * Wajib menggunakan `AudioContext` tunggal (singleton) dengan buffer yang di-preload dan di-decode satu kali ke memori.
+  * Terapkan penanganan aturan browser modern terkait *Audio Autoplay Policy* (membuka status `AudioContext` yang tersuspensi pada interaksi pertama pengguna secara transparan).
+  * Pemantauan klik harus efisien (disarankan menggunakan Event Delegation pada level `window`/`document` atau atribut data khusus seperti `data-sound="click"` agar tidak perlu memasang `onClick` manual di ratusan elemen).
+- Kode Komponen / Layout Saat Ini:
+[Tempelkan kode file layout utama atau komponen tempat Anda ingin memanggil hook/sistem audio ini, atau kosongkan jika ingin dibuatkan modul terpisah]
 
 4. Reasoning
-Komponen `GhostCursor` menggunakan simulasi fluida multi-pass WebGL2 yang sangat memukau, namun jika ditempatkan di dalam wrapper container lokal dengan tinggi statis (`height: 600`), ia tidak dapat berfungsi sebagai cursor global website. Selain itu, pengguna tetap membutuhkan titik bidik fisik yang presisi (ikon pointer kustom) agar navigasi dan klik tautan tidak membingungkan. Menggabungkan pointer SVG yang digerakkan via GPU hardware translation dengan kanvas WebGL2 di dalam satu file modular `cursor.jsx` menghadirkan pengalaman visual sinematik kelas atas tanpa menimbulkan frame drop di Main Thread.
+Menghadirkan umpan balik audio (tactile sound) membuat interaksi portofolio terasa lebih nyata, berbobot, dan hidup layaknya antarmuka aplikasi modern atau video game. Namun, pemutaran audio di web sering kali menjadi penyebab utama lag atau audio yang berbunyi terlambat (jank/latency) jika diproses secara naif menggunakan tag HTML5 `<audio>`. Dengan memanfaatkan Web Audio API, data audio didekode ke dalam bentuk *Pulse-Code Modulation* (PCM) di memori sejak awal, sehingga pemutaran suara hanya membutuhkan pembuatan node sumber sekali pakai (`AudioBufferSourceNode`) yang sangat ringan bagi CPU dan menghasilkan respon suara instan (sub-millisecond) tanpa pernah membuat browser patah-patah.
 
 5. Stop Conditions
 Tugas dianggap selesai apabila:
-- Kode lengkap untuk `src/components/layout/Background/cursor.jsx` disajikan secara utuh, siap disalin tanpa placeholder atau bagian yang terpotong.
-- Kursor fisik SVG `cursor-pointer.svg` dan kanvas WebGL2 `GhostCursor` bekerja berdampingan secara presisi pada satu koordinat mouse yang sama.
-- Pointer SVG memiliki animasi visual saat ditekan (`mousedown`) dan dilepas (`mouseup`).
-- Seluruh overlay kursor memiliki `pointer-events: none` sehingga tidak ada tombol, tautan, atau form di halaman portofolio yang terhalang dari klik.
-- Tracking pergerakan pointer terbukti bebas dari `useState` React re-render loop dan aman dari memory leak.
+- Sistem audio dibangun menggunakan Web Audio API murni (`AudioContext` + `decodeAudioData`) dengan pengelolaan lifecycle yang aman dari memory leak.
+- Suara klik berbunyi instan tepat di momen tombol ditekan tanpa delay atau jeda yang terasa.
+- Ketika pengguna mengklik berkali-kali secara cepat, setiap suara klik terdengar tumpang-tindih secara harmonis tanpa memutus playback sebelumnya dan tanpa lonjakan konsumsi CPU.
+- Terdapat penanganan *AudioContext resume* otomatis untuk memenuhi regulasi keamanan browser tanpa memunculkan pesan error/peringatan di console.
+- Tersedia opsi tombol kontrol Mute/Unmute yang elegan dan mengingat preferensi pengguna via `localStorage`.
+- Kode disajikan secara modular (misal berupa utilitas `soundManager.js` dan custom hook `useClickSound.js`) yang mudah dipanggil dan dipelihara.
 
 6. Output
 Sajikan hasil dalam Bahasa Indonesia dengan format:
-1. **Arsitektur Penggabungan WebGL2 & Custom Pointer SVG**: Penjelasan ringkas bagaimana koordinat mouse dibagi antara simulasi WebGL2 dan pergerakan SVG DOM tanpa overhead CPU.
-2. **Kode Lengkap `cursor.jsx` (Siap Pakai)**: Blok kode komponen React utuh yang menyatukan shader WebGL2, container fixed full-screen, SVG pointer kustom, dan animasi klik.
-3. **Konfigurasi CSS Global**: Baris CSS untuk menyembunyikan kursor default browser (`cursor: none`) pada body/elemen HTML.
-4. **Panduan Penyetelan Props & Parameter Performa**: Tips cepat menyesuaikan warna aksen, intensitas bloom, dan batasan resolusi (targetPixels/DPR) untuk menjaga perangkat tetap dingin.
+1. **Arsitektur Sistem (Web Audio API vs HTML5 Audio)**: Penjelasan teknis singkat mengapa Web Audio API menjamin nol latensi dan nol lonjakan CPU.
+2. **Implementasi Modul `soundManager.js` / Custom Hook**: Blok kode lengkap untuk memuat buffer audio, menangani autoplay policy, dan memutar suara klik secara aman.
+3. **Komponen Pengontrol Suara (`SoundToggle.jsx`)**: Blok kode tombol switch Mute/Unmute audio dengan ikon dan animasi Tailwind CSS.
+4. **Panduan Integrasi Global (Event Delegation)**: Cara memasang listener klik terpusat di file root/layout portofolio agar semua tombol langsung bersuara secara otomatis tanpa koding manual satu per satu.
+5. **Tips Optimasi Berkas Audio**: Saran pengaturan ukuran berkas (sample rate, bit depth, dan durasi) agar berkas audio di folder `public/audio` super ringan saat diunduh browser.

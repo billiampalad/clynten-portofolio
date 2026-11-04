@@ -3,6 +3,7 @@ import Navbar from '@/components/layout/Navbar/Navbar'
 import Hero from '@/components/sections/Hero/Hero'
 import CustomCursor from '@/components/layout/Cursor/CustomCursor'
 import useLocomotiveScroll from '@/hooks/useLocomotiveScroll'
+import { useClickSound } from '@/hooks/useClickSound'
 import './App.css'
 
 const Skills = lazy(() => import('@/components/sections/Skills/Skills'))
@@ -11,6 +12,9 @@ const Expe = lazy(() => import('@/components/sections/Experiments/Expe'))
 const Contact = lazy(() => import('@/components/sections/Contact/Contact'))
 
 function App() {
+  // Global Web Audio API click sound effects (Zero latency event delegation)
+  useClickSound({ autoDelegate: true })
+
   // Initialize Locomotive Scroll v5 (Lenis powered) with GSAP ScrollTrigger synchronization
   const scrollRef = useLocomotiveScroll()
 

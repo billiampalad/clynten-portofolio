@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Moon, Sun, Mail, Menu, X } from 'lucide-react'
 import { ScrollTrigger } from '@/lib/animations/gsap'
 import { useHoverScramble, LETTERS } from '@/hooks/useTextScramble'
+import SoundToggle from '@/components/common/SoundToggle'
 import './Navbar.css'
 
 const REFERENCE_NAV_ITEMS = [
@@ -400,8 +401,10 @@ function Navbar({
           ))}
         </nav>
 
-        {/* Right: Actions (Theme Toggle, Contact Mail, Mobile Menu) */}
+        {/* Right: Actions (Sound Toggle, Theme Toggle, Contact Mail, Mobile Menu) */}
         <div className="navbar-actions">
+          {/* Audio Sound FX Toggle */}
+          <SoundToggle />
           <div
             className={`nav-tooltip-wrapper ${dismissedTooltip === 'theme' ? 'tooltip-dismissed' : ''}`}
             onMouseLeave={() => {
