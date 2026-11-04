@@ -207,8 +207,15 @@ void main() {
   float light = 0.7 + 0.5 * max(dot(normal, normalize(vec3(-0.35, 0.55, 0.75))), 0.0);
   float core = smoothstep(0.7, 2.2, cloud);
 
-  vec3 tint = mix(uColor * light, mix(uColor, vec3(1.0), 0.55) * light, core);
-  vec3 ink = mix(uColor, uColor * 0.78, core * 0.6) * (1.12 - 0.12 * light);
+  // Gradasi sinematik Merah Maron pekat dan bayangan Hitam (Maroon & Charcoal Obsidian Smoke)
+  float shadow = smoothstep(0.1, 0.9, light);
+  vec3 darkShadow = mix(vec3(0.012, 0.003, 0.005), uColor * 0.35, shadow);
+  vec3 maroonMid = uColor * (0.65 + 0.35 * light);
+  vec3 maroonCore = mix(uColor, vec3(0.72, 0.03, 0.08), 0.45); // Inti merah maron pekat tanpa pudar putih
+
+  vec3 smokeBody = mix(darkShadow, maroonMid, smoothstep(0.1, 0.7, cloud));
+  vec3 tint = mix(smokeBody, maroonCore * (0.85 + 0.25 * light), core);
+  vec3 ink = mix(vec3(0.01), uColor * 0.75, core);
   vec3 color = mix(tint * uBrightness, ink, uTheme) * cloud;
   fragColor = vec4(color, cloud);
 }`;
@@ -320,7 +327,7 @@ const parseColor = value => {
   }
   const rgb = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(text);
   if (rgb) return [rgb[1], rgb[2], rgb[3]].map(channel => clamp(parseFloat(channel) / 255, 0, 1));
-  return [0.937, 0.035, 0.039]; // Default Cyberpunk Red
+  return [0.545, 0.0, 0.0]; // Default Deep Maroon (#8B0000)
 };
 
 const compile = (gl, type, source) => {
@@ -369,17 +376,17 @@ const link = (gl, fragmentSource) => {
  * GhostCursor (React Bits WebGL2) + Cyberpunk Hardware SVG Pointer
  */
 const GhostCursor = ({
-  color = '#ef4444',
+  color = '#8b0000',
   brightness = 1,
-  size = 80,
-  trailLength = 50,
+  size = 48,
+  trailLength = 32,
   inertia = 0.5,
   turbulence = 0.5,
-  drift = 0.3,
+  drift = 0.25,
   detail = 1,
   grainIntensity = 0.05,
-  bloomStrength = 0.6,
-  bloomRadius = 1,
+  bloomStrength = 0.45,
+  bloomRadius = 0.8,
   bloomThreshold = 0.025,
   edgeIntensity = 0,
   clickPuff = true,
@@ -812,8 +819,8 @@ const GhostCursor = ({
         );
         if (pointerEl) {
           pointerEl.style.filter = isHoveringInteractive
-            ? 'drop-shadow(0 0 14px rgba(255, 26, 26, 0.95))'
-            : 'drop-shadow(0 0 8px rgba(239, 9, 10, 0.6))';
+            ? 'drop-shadow(0 0 12px rgba(180, 0, 20, 0.95))'
+            : 'drop-shadow(0 0 8px rgba(139, 0, 0, 0.75))';
         }
         updatePointerDOM(event.clientX, event.clientY);
       }
@@ -946,7 +953,7 @@ const GhostCursor = ({
             alt=""
             className="w-full h-full object-contain pointer-events-none select-none"
             style={{
-              filter: 'drop-shadow(0 0 8px rgba(239, 9, 10, 0.6))',
+              filter: 'drop-shadow(0 0 8px rgba(139, 0, 0, 0.75))',
             }}
             draggable={false}
           />
