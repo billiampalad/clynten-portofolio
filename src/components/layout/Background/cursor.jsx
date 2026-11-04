@@ -569,7 +569,6 @@ const GhostCursor = ({
     let introStart = -1;
 
     let isClicking = false;
-    let isHoveringInteractive = false;
     const TIP_X = 5;
     const TIP_Y = 1;
 
@@ -578,7 +577,7 @@ const GhostCursor = ({
       if (pointerEl.style.opacity !== '1') {
         pointerEl.style.opacity = '1';
       }
-      const scale = isClicking ? 0.88 : isHoveringInteractive ? 1.15 : 1.0;
+      const scale = isClicking ? 0.88 : 1.0;
       const rotate = isClicking ? -6 : 0;
       pointerEl.style.transform = `translate3d(${spotX - TIP_X}px, ${spotY - TIP_Y}px, 0) scale(${scale}) rotate(${rotate}deg)`;
     };
@@ -831,17 +830,6 @@ const GhostCursor = ({
 
       // Sinkronisasi posisi hardware pointer SVG
       if (event.pointerType !== 'touch') {
-        const target = event.target;
-        isHoveringInteractive = Boolean(
-          target?.closest?.(
-            'a, button, [role="button"], input, textarea, select, .cursor-pointer, [data-cursor-interactive]'
-          )
-        );
-        if (pointerEl) {
-          pointerEl.style.filter = isHoveringInteractive
-            ? 'drop-shadow(0 0 12px rgba(180, 0, 20, 0.95))'
-            : 'drop-shadow(0 0 8px rgba(139, 0, 0, 0.75))';
-        }
         updatePointerDOM(event.clientX, event.clientY);
       }
 

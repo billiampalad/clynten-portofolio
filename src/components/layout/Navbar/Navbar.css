@@ -252,7 +252,6 @@ body.light-theme .portfolio-navbar.scrolled .blur-layer-dark {
   text-transform: uppercase;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
-  cursor: url('/cursor-pointer.svg') 5 1, pointer;
 }
 
 .brand-char {
@@ -549,7 +548,6 @@ body.dark-theme .nav-item::before {
   align-items: center;
   justify-content: center;
   color: var(--nav-icon);
-  cursor: url('/cursor-pointer.svg') 5 1, pointer;
   border-radius: 6px;
   overflow: hidden;
   box-sizing: border-box;
