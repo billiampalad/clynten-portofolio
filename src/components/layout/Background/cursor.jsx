@@ -1,246 +1,335 @@
 import { useEffect, useRef, memo } from 'react'
-import { gsap } from '@/lib/animations/gsap'
 
 /**
- * Custom Hardware-Accelerated Cyberpunk Mecha Cursor
- * - Precision Tip: Hotspot di (5px, 1px) tepat pada ujung SVG cursor-pointer.svg
- * - Trailing Aura Ring: Smooth fluid inertia follower dengan GSAP quickTo
- * - Click Shockwave: Pulse ripple yang memancar dari koordinat klik
- * - Zero React re-renders: 100% direct GPU compositing via GSAP & requestAnimationFrame
+ * GhostCursor + Precision Cyberpunk Hardware Pointer
+ * Adaptasi dari @react-bits/GhostCursor-JS-TW yang dioptimalkan untuk:
+ * - 0 React state re-renders (100% Canvas 2D / GPU transform loop)
+ * - Auto-sleep RAF loop saat kursor diam (hemat CPU & baterai)
+ * - Presisi Hotspot (5px, 1px) untuk aset /cursor-pointer.svg
+ * - Efek Ghost Trail elastis bergradasi Cyberpunk Crimson-Rose
+ * - Shockwave Pulse & Particle Puff saat klik (mousedown)
  */
-function Cursor() {
+function Cursor({
+  color = '#ef4444',
+  trailColor = 'rgba(239, 68, 68, 0.45)',
+  pointsCount = 35,
+  springStrength = 0.32,
+  friction = 0.72,
+  trailWidth = 3.5,
+  fadeDelayMs = 400,
+  fadeDurationMs = 600,
+}) {
+  const canvasRef = useRef(null)
   const pointerRef = useRef(null)
-  const followerRef = useRef(null)
-  const rippleRef = useRef(null)
 
   useEffect(() => {
-    // Abaikan hanya jika perangkat murni sentuh (misal smartphone tanpa mouse)
+    // Abaikan jika hanya perangkat layar sentuh murni tanpa mouse
     const isTouchOnly =
       window.matchMedia('(pointer: coarse)').matches &&
       !window.matchMedia('(any-pointer: fine)').matches
     if (isTouchOnly) return
 
+    const canvas = canvasRef.current
     const pointer = pointerRef.current
-    const follower = followerRef.current
-    const ripple = rippleRef.current
-    if (!pointer || !follower) return
+    if (!canvas || !pointer) return
 
-    // Offset koordinat fisik pointer SVG (ujung tip berada di 5px, 1px dari bounding box 32x32)
+    const ctx = canvas.getContext('2d')
+    let animationFrameId
+    let isRunning = false
+    let lastMoveTime = performance.now()
+    let isHoveringInteractive = false
+    let isClicking = false
+
+    // Offset koordinat fisik pointer SVG (ujung tip berada di 5px, 1px)
     const TIP_X = 5
     const TIP_Y = 1
 
-    // Posisi inisial di luar viewport sebelum kursor masuk
-    gsap.set([pointer, follower], {
-      xPercent: 0,
-      yPercent: 0,
-      x: -100,
-      y: -100,
-      opacity: 0,
-      force3D: true,
-    })
+    // Setup ukuran Canvas dengan High-DPI support (Retina / 4K)
+    let dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let width = (canvas.width = window.innerWidth * dpr)
+    let height = (canvas.height = window.innerHeight * dpr)
+    ctx.scale(dpr, dpr)
 
-    if (ripple) {
-      gsap.set(ripple, {
-        xPercent: -50,
-        yPercent: -50,
-        scale: 0,
-        opacity: 0,
-        force3D: true,
-      })
+    const handleResize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2)
+      width = canvas.width = window.innerWidth * dpr
+      height = canvas.height = window.innerHeight * dpr
+      ctx.scale(dpr, dpr)
     }
 
-    // 1. Snappy Precision Tracker untuk Pointer SVG (responsif seketika, no mouse lag)
-    const pointerX = gsap.quickTo(pointer, 'x', { duration: 0.05, ease: 'power1.out' })
-    const pointerY = gsap.quickTo(pointer, 'y', { duration: 0.05, ease: 'power1.out' })
+    // Koordinat kursor & rantai titik ghost trail
+    const mouse = { x: -100, y: -100 }
+    const points = Array.from({ length: pointsCount }, () => ({
+      x: -100,
+      y: -100,
+      vx: 0,
+      vy: 0,
+    }))
 
-    // 2. Fluid Trailing Inertia untuk Aura Follower (menghasilkan efek melayang sinematik)
-    const followerX = gsap.quickTo(follower, 'x', { duration: 0.22, ease: 'power2.out' })
-    const followerY = gsap.quickTo(follower, 'y', { duration: 0.22, ease: 'power2.out' })
+    // Partikel percikan (puffs) saat kursor diklik
+    let clickPuffs = []
 
-    let isVisible = false
-    let isHovering = false
+    // Mulai render loop jika belum aktif
+    const startLoop = () => {
+      if (!isRunning) {
+        isRunning = true
+        render()
+      }
+    }
 
-    // Handler Pergerakan Kursor (Pointer / Mouse)
-    const onMove = (e) => {
-      // Abaikan jika event berasal dari sentuhan layar
+    // Update Transform Pointer SVG (Direct GPU translation)
+    const updatePointerTransform = () => {
+      const scale = isClicking ? 0.88 : isHoveringInteractive ? 1.15 : 1.0
+      const rotate = isClicking ? -6 : 0
+      pointer.style.transform = `translate3d(${mouse.x - TIP_X}px, ${mouse.y - TIP_Y}px, 0) scale(${scale}) rotate(${rotate}deg)`
+    }
+
+    // Event Handler: Mouse Movement
+    const onMouseMove = (e) => {
       if (e.pointerType === 'touch') return
 
-      const clientX = e.clientX
-      const clientY = e.clientY
+      mouse.x = e.clientX
+      mouse.y = e.clientY
+      lastMoveTime = performance.now()
 
-      if (!isVisible) {
-        isVisible = true
-        gsap.to([pointer, follower], {
-          opacity: 1,
-          duration: 0.2,
-          ease: 'power2.out',
-        })
+      // Tampilkan kursor jika sebelumnya tersembunyi
+      if (pointer.style.opacity !== '1') {
+        pointer.style.opacity = '1'
+        canvas.style.opacity = '1'
       }
 
-      // Pointer SVG tepat di ujung tip (clientX - TIP_X, clientY - TIP_Y)
-      pointerX(clientX - TIP_X)
-      pointerY(clientY - TIP_Y)
-
-      // Follower ring berpusat tepat di koordinat mouse (clientX, clientY)
-      followerX(clientX)
-      followerY(clientY)
+      updatePointerTransform()
 
       // Deteksi elemen interaktif di bawah kursor
       const target = e.target
-      const isInteractive = target && target.closest?.(
-        'a, button, [role="button"], input, textarea, select, .cursor-pointer, [data-cursor-interactive]'
+      const isInteractive = Boolean(
+        target?.closest?.(
+          'a, button, [role="button"], input, textarea, select, .cursor-pointer, [data-cursor-interactive]'
+        )
       )
 
-      if (isInteractive && !isHovering) {
-        isHovering = true
-        gsap.to(follower, {
-          scale: 1.6,
-          borderColor: 'rgba(239, 68, 68, 0.95)',
-          backgroundColor: 'rgba(239, 68, 68, 0.15)',
-          boxShadow: '0 0 16px rgba(239, 68, 68, 0.5)',
-          duration: 0.25,
-          ease: 'power2.out',
-        })
-        gsap.to(pointer, {
-          scale: 1.15,
-          filter: 'drop-shadow(0 0 12px rgba(255, 26, 26, 0.95))',
-          duration: 0.2,
-          ease: 'power2.out',
-        })
-      } else if (!isInteractive && isHovering) {
-        isHovering = false
-        gsap.to(follower, {
-          scale: 1.0,
-          borderColor: 'rgba(239, 68, 68, 0.45)',
-          backgroundColor: 'rgba(239, 68, 68, 0.05)',
-          boxShadow: '0 0 8px rgba(239, 68, 68, 0.2)',
-          duration: 0.25,
-          ease: 'power2.out',
-        })
-        gsap.to(pointer, {
-          scale: 1.0,
-          filter: 'drop-shadow(0 0 8px rgba(239, 9, 10, 0.6))',
-          duration: 0.2,
-          ease: 'power2.out',
-        })
+      if (isInteractive !== isHoveringInteractive) {
+        isHoveringInteractive = isInteractive
+        pointer.style.filter = isInteractive
+          ? 'drop-shadow(0 0 14px rgba(255, 26, 26, 0.95))'
+          : 'drop-shadow(0 0 8px rgba(239, 9, 10, 0.6))'
+        updatePointerTransform()
       }
+
+      startLoop()
     }
 
-    // Handler Klik Mouse (Down: Recoil & Ripple Shockwave)
+    // Event Handler: Mouse Down (Klik)
     const onMouseDown = (e) => {
       if (e.pointerType === 'touch') return
+      isClicking = true
+      updatePointerTransform()
 
-      // Efek recoil pointer saat klik
-      gsap.to(pointer, {
-        scale: isHovering ? 0.98 : 0.85,
-        rotate: -6,
-        duration: 0.1,
-        ease: 'power3.out',
-      })
-
-      // Efek kompresi follower aura
-      gsap.to(follower, {
-        scale: isHovering ? 1.3 : 0.75,
-        duration: 0.1,
-        ease: 'power3.out',
-      })
-
-      // Efek Shockwave Pulse Ring dari titik klik
-      if (ripple) {
-        gsap.killTweensOf(ripple)
-        gsap.set(ripple, {
-          x: e.clientX,
-          y: e.clientY,
-          scale: 0.2,
-          opacity: 0.9,
-        })
-        gsap.to(ripple, {
-          scale: 2.8,
-          opacity: 0,
-          duration: 0.5,
-          ease: 'power2.out',
+      // Tambahkan efek shockwave & partikel ghost burst di titik klik
+      const numParticles = 8
+      for (let i = 0; i < numParticles; i++) {
+        const angle = (Math.PI * 2 * i) / numParticles + (Math.random() - 0.5)
+        const speed = Math.random() * 3 + 2
+        clickPuffs.push({
+          x: mouse.x,
+          y: mouse.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: Math.random() * 3 + 2,
+          alpha: 0.9,
+          decay: Math.random() * 0.03 + 0.02,
         })
       }
+
+      startLoop()
     }
 
-    // Handler Lepas Klik Mouse (Up: Snap Back)
+    // Event Handler: Mouse Up (Lepas Klik)
     const onMouseUp = (e) => {
       if (e.pointerType === 'touch') return
-
-      gsap.to(pointer, {
-        scale: isHovering ? 1.15 : 1.0,
-        rotate: 0,
-        duration: 0.25,
-        ease: 'back.out(2.5)',
-      })
-
-      gsap.to(follower, {
-        scale: isHovering ? 1.6 : 1.0,
-        duration: 0.25,
-        ease: 'back.out(2)',
-      })
+      isClicking = false
+      updatePointerTransform()
     }
 
-    // Handler Batas Viewport
+    // Event Handler: Window Boundary
     const onMouseLeave = () => {
-      isVisible = false
-      gsap.to([pointer, follower], {
-        opacity: 0,
-        duration: 0.2,
-        ease: 'power2.out',
-      })
+      pointer.style.opacity = '0'
+      canvas.style.opacity = '0'
     }
 
     const onMouseEnter = () => {
-      isVisible = true
-      gsap.to([pointer, follower], {
-        opacity: 1,
-        duration: 0.2,
-        ease: 'power2.out',
-      })
+      pointer.style.opacity = '1'
+      canvas.style.opacity = '1'
+      lastMoveTime = performance.now()
+      startLoop()
     }
 
-    // Pasang listeners dengan kombinasi pointer & mouse agar kompatibel di semua desktop/laptop
-    window.addEventListener('pointermove', onMove, { passive: true })
-    window.addEventListener('mousemove', onMove, { passive: true })
+    // Core Animation Render Loop (Ghost Trail Physics)
+    const render = () => {
+      const now = performance.now()
+      const timeSinceMove = now - lastMoveTime
+
+      // Hitung fade out jika kursor berhenti bergerak
+      let globalAlpha = 1
+      if (timeSinceMove > fadeDelayMs) {
+        const fadeProgress = (timeSinceMove - fadeDelayMs) / fadeDurationMs
+        globalAlpha = Math.max(0, 1 - fadeProgress)
+      }
+
+      // Bersihkan canvas setiap frame
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
+      // 1. Update & Render Titik Jejak Ghost Trail
+      let leadX = mouse.x
+      let leadY = mouse.y
+
+      for (let i = 0; i < points.length; i++) {
+        const pt = points[i]
+
+        // Jika inisial di luar layar, bawa langsung mendekati kursor
+        if (pt.x < 0) {
+          pt.x = mouse.x
+          pt.y = mouse.y
+        }
+
+        // Spring / Damping Physics
+        const dx = leadX - pt.x
+        const dy = leadY - pt.y
+        pt.vx = (pt.vx + dx * springStrength) * friction
+        pt.vy = (pt.vy + dy * springStrength) * friction
+        pt.x += pt.vx
+        pt.y += pt.vy
+
+        leadX = pt.x
+        leadY = pt.y
+      }
+
+      // 2. Gambar Kurva Halus Ghost Ribbon Trail
+      if (globalAlpha > 0.01 && points.length > 2) {
+        ctx.save()
+        ctx.lineCap = 'round'
+        ctx.lineJoin = 'round'
+
+        // Gambar segmen per segmen dengan tapering width dan alpha decay
+        for (let i = 0; i < points.length - 1; i++) {
+          const p1 = points[i]
+          const p2 = points[i + 1]
+          const progress = i / (points.length - 1)
+
+          // Tapering: tebal di dekat mouse, meruncing tipis di ekor
+          const segWidth = Math.max(0.5, (1 - progress * 0.85) * trailWidth)
+          const segAlpha = (1 - progress) * 0.75 * globalAlpha
+
+          ctx.beginPath()
+          ctx.moveTo(p1.x, p1.y)
+          ctx.lineTo(p2.x, p2.y)
+
+          ctx.strokeStyle = `rgba(239, 68, 68, ${segAlpha})`
+          ctx.lineWidth = segWidth
+          ctx.shadowColor = '#ff2a55'
+          ctx.shadowBlur = (1 - progress) * 12
+          ctx.stroke()
+        }
+
+        // Ghost Aura Glow di kepala jejak
+        const head = points[0]
+        const auraGrad = ctx.createRadialGradient(
+          head.x,
+          head.y,
+          0,
+          head.x,
+          head.y,
+          isHoveringInteractive ? 28 : 16
+        )
+        auraGrad.addColorStop(0, `rgba(239, 68, 68, ${0.45 * globalAlpha})`)
+        auraGrad.addColorStop(1, 'rgba(239, 68, 68, 0)')
+
+        ctx.beginPath()
+        ctx.arc(head.x, head.y, isHoveringInteractive ? 28 : 16, 0, Math.PI * 2)
+        ctx.fillStyle = auraGrad
+        ctx.fill()
+        ctx.restore()
+      }
+
+      // 3. Render Click Burst Puffs (Partikel klik)
+      if (clickPuffs.length > 0) {
+        ctx.save()
+        for (let i = clickPuffs.length - 1; i >= 0; i--) {
+          const puff = clickPuffs[i]
+          puff.x += puff.vx
+          puff.y += puff.vy
+          puff.vx *= 0.92
+          puff.vy *= 0.92
+          puff.alpha -= puff.decay
+
+          if (puff.alpha <= 0) {
+            clickPuffs.splice(i, 1)
+            continue
+          }
+
+          ctx.beginPath()
+          ctx.arc(puff.x, puff.y, puff.radius, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(255, 68, 68, ${puff.alpha})`
+          ctx.shadowColor = '#ef4444'
+          ctx.shadowBlur = 8
+          ctx.fill()
+        }
+        ctx.restore()
+      }
+
+      // Loop berlanjut jika trail masih terlihat atau ada partikel klik aktif
+      if (globalAlpha > 0.005 || clickPuffs.length > 0) {
+        animationFrameId = requestAnimationFrame(render)
+      } else {
+        // Sleep RAF loop untuk menghemat resource CPU saat kursor berhenti
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+        isRunning = false
+      }
+    }
+
+    // Registrasi Event Listener
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
+    window.addEventListener('pointermove', onMouseMove, { passive: true })
     window.addEventListener('mousedown', onMouseDown, { passive: true })
     window.addEventListener('mouseup', onMouseUp, { passive: true })
     document.addEventListener('mouseleave', onMouseLeave, { passive: true })
     document.addEventListener('mouseenter', onMouseEnter, { passive: true })
+    window.addEventListener('resize', handleResize, { passive: true })
 
+    // Cleanup Listener & RAF saat Unmount
     return () => {
-      window.removeEventListener('pointermove', onMove)
-      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('pointermove', onMouseMove)
       window.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mouseup', onMouseUp)
       document.removeEventListener('mouseleave', onMouseLeave)
       document.removeEventListener('mouseenter', onMouseEnter)
+      window.removeEventListener('resize', handleResize)
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [pointsCount, springStrength, friction, trailWidth, fadeDelayMs, fadeDurationMs])
 
   return (
     <>
-      {/* 1. Ripple Shockwave Ring saat Klik */}
-      <div
-        ref={rippleRef}
-        className="fixed top-0 left-0 pointer-events-none z-[999997] w-10 h-10 rounded-full border border-red-500 will-change-transform select-none"
+      {/* Canvas Layer: Ghost Cursor Trail & Click Puffs */}
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-[999998] transition-opacity duration-300"
+        style={{
+          width: '100vw',
+          height: '100vh',
+        }}
         aria-hidden="true"
       />
 
-      {/* 2. Fluid Trailing Aura Follower Ring */}
-      <div
-        ref={followerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[999998] w-8 h-8 rounded-full border border-red-500/45 bg-red-500/5 shadow-[0_0_8px_rgba(239,68,68,0.2)] -translate-x-1/2 -translate-y-1/2 will-change-transform select-none"
-        aria-hidden="true"
-      />
-
-      {/* 3. Hardware Precision Pointer SVG */}
+      {/* DOM Layer: Precision Cyberpunk Hardware Pointer SVG */}
       <div
         ref={pointerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[999999] will-change-transform select-none"
+        className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-200"
         style={{
           width: 32,
           height: 32,
+          transformOrigin: '5px 1px',
         }}
         aria-hidden="true"
       >
@@ -250,7 +339,6 @@ function Cursor() {
           className="w-full h-full object-contain pointer-events-none select-none"
           style={{
             filter: 'drop-shadow(0 0 8px rgba(239, 9, 10, 0.6))',
-            transformOrigin: '5px 1px',
           }}
           draggable={false}
         />
