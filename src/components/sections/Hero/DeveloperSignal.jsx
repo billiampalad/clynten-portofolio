@@ -1,10 +1,10 @@
-import { useMemo, memo } from 'react'
+import { useState, useRef, useEffect, useImperativeHandle, forwardRef, memo } from 'react'
 import { motion } from 'framer-motion'
 import { developerSignals } from '@/content/developerSignals'
 import { useTextScramble } from '@/hooks/useTextScramble'
 import SignalLine from './SignalLine'
 
-// Memoized Main Signal Details (Only re-renders when activeSignal or scramble changes, NOT on every 1% scroll)
+// Memoized Main Signal Details (Only re-renders on phase transition, NOT on continuous scroll)
 const SignalDetails = memo(function SignalDetails({
   activeSignal,
   themeColor,
@@ -113,71 +113,148 @@ const SignalDetails = memo(function SignalDetails({
   )
 })
 
-function DeveloperSignal({ progress = 0 }) {
-  const activeSignal = useMemo(() => {
-    return (
-      developerSignals.find(
-        (s) => progress >= s.start && progress <= s.end
-      ) || developerSignals[developerSignals.length - 1]
-    )
-  }, [progress])
+const blockActiveClasses = {
+  red: 'bg-rose-500 shadow-[0_0_5px_#f43f5e]',
+  blue: 'bg-cyan-400 shadow-[0_0_5px_#06b6d4]',
+  green: 'bg-emerald-400 shadow-[0_0_5px_#10b981]',
+}
 
-  const percentage = Math.min(100, Math.max(0, Math.round(progress * 100)))
+const percentTextClasses = {
+  red: 'text-rose-400',
+  blue: 'text-cyan-400',
+  green: 'text-emerald-400',
+}
 
-  // Digital Scramble Text for dynamic Signal titles and status
+const cardBorderClasses = {
+  red: 'border-rose-500/35 shadow-[0_20px_50px_-10px_rgba(244,63,94,0.18)]',
+  blue: 'border-cyan-500/35 shadow-[0_20px_50px_-10px_rgba(6,182,212,0.18)]',
+  green: 'border-emerald-500/35 shadow-[0_20px_50px_-10px_rgba(16,185,129,0.18)]',
+}
+
+const badgeClassesMap = {
+  red: 'text-rose-400 border-rose-500/35 bg-rose-950/40',
+  blue: 'text-cyan-400 border-cyan-500/35 bg-cyan-950/40',
+  green: 'text-emerald-400 border-emerald-500/35 bg-emerald-950/40',
+}
+
+const dotClassesMap = {
+  red: 'bg-rose-400 shadow-[0_0_6px_#f43f5e]',
+  blue: 'bg-cyan-400 shadow-[0_0_6px_#06b6d4]',
+  green: 'bg-emerald-400 shadow-[0_0_6px_#10b981]',
+}
+
+const beamHexMap = {
+  red: '#f43f5e',
+  blue: '#06b6d4',
+  green: '#10b981',
+}
+
+const TOTAL_BLOCKS = 10
+
+const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, ref) {
+  const getPhaseIndex = (prog) => {
+    const idx = developerSignals.findIndex((s) => prog >= s.start && prog <= s.end)
+    return idx >= 0 ? idx : developerSignals.length - 1
+  }
+
+  const getThemeColor = (prog) => {
+    if (prog < 0.33) return 'red'
+    if (prog < 0.67) return 'blue'
+    return 'green'
+  }
+
+  const [signalState, setSignalState] = useState(() => ({
+    phaseIndex: getPhaseIndex(progress),
+    themeColor: getThemeColor(progress),
+  }))
+
+  const activeSignal = developerSignals[signalState.phaseIndex]
+  const themeColor = signalState.themeColor
+
+  // Scramble text triggers ONLY on phase milestone changes
   const scrambledTitle = useTextScramble(activeSignal.title, 20)
   const scrambledLabel = useTextScramble(activeSignal.label, 30)
 
-  // Segmented 10-block progress bar calculation
-  const totalBlocks = 10
-  const filledBlocks = Math.round((percentage / 100) * totalBlocks)
+  // Direct DOM Refs for 60fps/120fps fluid zero-latency updates
+  const percentRef = useRef(null)
+  const blocksRef = useRef([])
+  const signalLineRef = useRef(null)
 
-  // Dynamic color theme mapped to scroll progress:
-  const isRed = progress < 0.33
-  const isBlue = progress >= 0.33 && progress < 0.67
-  const themeColor = isRed ? 'red' : isBlue ? 'blue' : 'green'
+  const currentPhaseIndexRef = useRef(signalState.phaseIndex)
+  const currentThemeColorRef = useRef(signalState.themeColor)
+  const lastFilledBlocksRef = useRef(-1)
+  const lastPctRef = useRef(-1)
 
-  const beamHex = isRed ? '#f43f5e' : isBlue ? '#06b6d4' : '#10b981'
+  const applyProgress = (prog) => {
+    const pct = Math.min(100, Math.max(0, Math.round(prog * 100)))
 
-  const cardBorderClass = isRed
-    ? 'border-rose-500/35 shadow-[0_20px_50px_-10px_rgba(244,63,94,0.18)]'
-    : isBlue
-    ? 'border-cyan-500/35 shadow-[0_20px_50px_-10px_rgba(6,182,212,0.18)]'
-    : 'border-emerald-500/35 shadow-[0_20px_50px_-10px_rgba(16,185,129,0.18)]'
+    // 1. Update Percentage Text (Imperative DOM)
+    if (percentRef.current && lastPctRef.current !== pct) {
+      percentRef.current.textContent = `${pct}%`
+      lastPctRef.current = pct
+    }
 
-  const badgeClasses = isRed
-    ? 'text-rose-400 border-rose-500/35 bg-rose-950/40'
-    : isBlue
-    ? 'text-cyan-400 border-cyan-500/35 bg-cyan-950/40'
-    : 'text-emerald-400 border-emerald-500/35 bg-emerald-950/40'
+    // 2. Update 10-Segmented Progress Blocks (Imperative DOM)
+    const filled = Math.round((pct / 100) * TOTAL_BLOCKS)
+    if (lastFilledBlocksRef.current !== filled) {
+      lastFilledBlocksRef.current = filled
+      const activeClass = blockActiveClasses[currentThemeColorRef.current]
+      for (let i = 0; i < TOTAL_BLOCKS; i++) {
+        const block = blocksRef.current[i]
+        if (block) {
+          if (i < filled) {
+            block.className = `h-1.5 w-1 rounded-[1px] transition-colors duration-150 ${activeClass}`
+          } else {
+            block.className = 'h-1.5 w-1 rounded-[1px] transition-colors duration-150 bg-zinc-800'
+          }
+        }
+      }
+    }
 
-  const dotClasses = isRed
-    ? 'bg-rose-400 shadow-[0_0_6px_#f43f5e]'
-    : isBlue
-    ? 'bg-cyan-400 shadow-[0_0_6px_#06b6d4]'
-    : 'bg-emerald-400 shadow-[0_0_6px_#10b981]'
+    // 3. Update ECG Line SVG Path
+    signalLineRef.current?.update(prog)
 
-  const blockActiveClass = isRed
-    ? 'bg-rose-500 shadow-[0_0_5px_#f43f5e]'
-    : isBlue
-    ? 'bg-cyan-400 shadow-[0_0_5px_#06b6d4]'
-    : 'bg-emerald-400 shadow-[0_0_5px_#10b981]'
+    // 4. Milestone Phase Transition Check (React state only fires when crossing major boundaries)
+    const newPhase = getPhaseIndex(prog)
+    const newTheme = getThemeColor(prog)
 
-  const percentTextClass = isRed
-    ? 'text-rose-400'
-    : isBlue
-    ? 'text-cyan-400'
-    : 'text-emerald-400'
+    if (
+      newPhase !== currentPhaseIndexRef.current ||
+      newTheme !== currentThemeColorRef.current
+    ) {
+      currentPhaseIndexRef.current = newPhase
+      currentThemeColorRef.current = newTheme
+      setSignalState({
+        phaseIndex: newPhase,
+        themeColor: newTheme,
+      })
+      signalLineRef.current?.setColor(beamHexMap[newTheme])
+    }
+  }
+
+  useImperativeHandle(ref, () => ({
+    update: (prog) => {
+      applyProgress(prog)
+    },
+  }))
+
+  useEffect(() => {
+    applyProgress(progress)
+  }, [])
+
+  const initialPct = Math.min(100, Math.max(0, Math.round(progress * 100)))
+  const initialFilled = Math.round((initialPct / 100) * TOTAL_BLOCKS)
+  const beamHex = beamHexMap[themeColor]
 
   return (
     <div className="absolute top-[45%] right-4 sm:right-8 md:right-10 -translate-y-1/2 z-25 pointer-events-none">
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.60, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/90 backdrop-blur-md border ${cardBorderClass} transition-colors duration-200`}
+        transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
       >
-        {/* Animated Glowing Light Beam Running Around Card Border Perimeter (Pure Dual-Stroke GPU accelerated) */}
+        {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">
           <defs>
             <linearGradient id={`card-beam-${themeColor}`} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -234,11 +311,12 @@ function DeveloperSignal({ progress = 0 }) {
               PROFILE SCANNED
             </span>
             <div className="flex items-center gap-0.5">
-              {Array.from({ length: totalBlocks }).map((_, i) => (
+              {Array.from({ length: TOTAL_BLOCKS }).map((_, i) => (
                 <span
                   key={i}
-                  className={`h-1.5 w-1 rounded-[1px] transition-colors duration-200 ${
-                    i < filledBlocks ? blockActiveClass : 'bg-zinc-800'
+                  ref={(el) => (blocksRef.current[i] = el)}
+                  className={`h-1.5 w-1 rounded-[1px] transition-colors duration-150 ${
+                    i < initialFilled ? blockActiveClasses[themeColor] : 'bg-zinc-800'
                   }`}
                 />
               ))}
@@ -246,19 +324,22 @@ function DeveloperSignal({ progress = 0 }) {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className={`text-[12px] sm:text-[13px] font-bold font-mono transition-colors duration-300 ${percentTextClass}`}>
-              {percentage}%
+            <span
+              ref={percentRef}
+              className={`text-[12px] sm:text-[13px] font-bold font-mono transition-colors duration-300 ${percentTextClasses[themeColor]}`}
+            >
+              {initialPct}%
             </span>
-            <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[8px] font-bold tracking-widest uppercase border shrink-0 transition-colors duration-300 ${badgeClasses}`}>
-              <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${dotClasses}`} />
+            <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[8px] font-bold tracking-widest uppercase border shrink-0 transition-colors duration-300 ${badgeClassesMap[themeColor]}`}>
+              <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${dotClassesMap[themeColor]}`} />
               <span>{activeSignal.status}</span>
             </div>
           </div>
         </div>
 
-        {/* Dynamic ECG Waveform Line */}
+        {/* Dynamic ECG Waveform Line (Zero Framer Motion overhead on scroll) */}
         <div className="my-1 relative z-10">
-          <SignalLine progress={progress} color={beamHex} />
+          <SignalLine ref={signalLineRef} progress={progress} color={beamHex} />
         </div>
 
         {/* Memoized Main Signal Details */}
@@ -271,6 +352,6 @@ function DeveloperSignal({ progress = 0 }) {
       </motion.div>
     </div>
   )
-}
+})
 
 export default memo(DeveloperSignal)

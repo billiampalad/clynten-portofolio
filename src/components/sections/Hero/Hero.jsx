@@ -24,6 +24,7 @@ function Hero({ onProgressChange }) {
   const hudLayerRef = useRef(null)
   const scrollHeadlineRef = useRef(null)
   const telemetryWidgetsRef = useRef(null)
+  const developerSignalRef = useRef(null)
   const lastReportedScrollProgressRef = useRef(-1)
 
   const [loading, setLoading] = useState(true)
@@ -220,6 +221,9 @@ function Hero({ onProgressChange }) {
 
         // Langsung sinkronkan radar gauge & telemetry widgets di frame yang sama persis (Zero Latency)
         telemetryWidgetsRef.current?.update(scanProgress)
+
+        // Langsung sinkronkan profile scanned card (DeveloperSignal) di frame yang sama persis (Zero Latency)
+        developerSignalRef.current?.update(scanProgress)
 
         // Filter visual menajam sempurna dan cerah pada progress 0.65
         // Kuantisasi diskrit (step 1px) mencegah GPU me-re-rasterize filter kernel Gaussian blur di setiap micro-step
@@ -502,7 +506,7 @@ function Hero({ onProgressChange }) {
           {!loading && <ScrollHeadline ref={scrollHeadlineRef} progress={scrollProgress} />}
 
           {/* Layer 8: Developer Signal HUD */}
-          {!loading && <DeveloperSignal progress={scrollProgress} />}
+          {!loading && <DeveloperSignal ref={developerSignalRef} progress={scrollProgress} />}
         </div>
       </div>
     </section>
