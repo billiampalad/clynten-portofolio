@@ -204,25 +204,25 @@ void main() {
   }
 
   vec3 normal = normalize(vec3(-dx * 2.2, -dy * 2.2, 1.0) + vec3((q - 0.5) * 0.35 * uDetail, 0.0));
-  float light = 0.7 + 0.5 * max(dot(normal, normalize(vec3(-0.35, 0.55, 0.75))), 0.0);
+  float light = 0.45 + 0.35 * max(dot(normal, normalize(vec3(-0.35, 0.55, 0.75))), 0.0);
   float core = smoothstep(0.7, 2.2, cloud);
 
-  // Gradasi sinematik Merah Maron pekat dan bayangan Hitam (Maroon & Charcoal Obsidian Smoke)
+  // Gradasi sinematik Merah Maron pekat gelap dan bayangan Hitam (Dark Velvet Maroon & Charcoal Smoke)
   float shadow = smoothstep(0.1, 0.9, light);
-  vec3 darkShadow = mix(vec3(0.008, 0.001, 0.002), uColor * 0.25, shadow);
-  vec3 maroonMid = uColor * (0.6 + 0.4 * light);
+  vec3 darkShadow = mix(vec3(0.003, 0.0008, 0.001), uColor * 0.15, shadow);
+  vec3 maroonMid = uColor * (0.45 + 0.25 * light);
   
-  // Inti kursor maron pekat: kunci kanal agar selalu merah maron membara tanpa pudar putih
-  vec3 maroonCore = vec3(uColor.r * 1.25, uColor.g * 0.08, uColor.b * 0.14);
+  // Inti kursor maron pekat gelap elegan (teduh dan tidak silau)
+  vec3 maroonCore = vec3(uColor.r * 0.82, uColor.g * 0.03, uColor.b * 0.06);
 
   vec3 smokeBody = mix(darkShadow, maroonMid, smoothstep(0.1, 0.7, cloud));
-  vec3 tint = mix(smokeBody, maroonCore * (0.8 + 0.2 * light), core);
-  vec3 ink = mix(vec3(0.005), uColor * 0.75, core);
+  vec3 tint = mix(smokeBody, maroonCore * (0.65 + 0.2 * light), core);
+  vec3 ink = mix(vec3(0.003), uColor * 0.55, core);
   vec3 color = mix(tint * uBrightness, ink, uTheme) * cloud;
 
-  // Proteksi desaturasi: pastikan kanal hijau dan biru tidak pernah meninggi menjadi putih
-  color.g = min(color.g, color.r * 0.06);
-  color.b = min(color.b, color.r * 0.12);
+  // Proteksi desaturasi: pastikan kanal hijau dan biru tetap rendah
+  color.g = min(color.g, color.r * 0.04);
+  color.b = min(color.b, color.r * 0.08);
 
   fragColor = vec4(color, cloud);
 }`;
@@ -316,20 +316,20 @@ void main() {
   }
   vec3 totalColor = (shade.rgb + bloom.rgb * uBloom) * fade;
   
-  // Kunci batas kanal hijau dan biru agar selalu dalam spektrum merah maron pekat (bebas pudar putih)
-  float rVal = 1.0 - exp(-totalColor.r * 1.05);
+  // Kecerahan dikalibrasi lebih gelap & teduh: skala puncak dibatasi ke ~0.62
+  float rVal = (1.0 - exp(-totalColor.r * 1.1)) * 0.62;
   vec3 color = vec3(
     rVal,
-    rVal * 0.04,
-    rVal * 0.10
+    rVal * 0.035,
+    rVal * 0.08
   );
-  color = pow(color, vec3(1.0 / 2.2));
-  color += color * grain * uGrain * 1.5;
+  color = pow(color, vec3(1.0 / 2.0));
+  color += color * grain * uGrain * 1.2;
   color = clamp(color + (hash(gl_FragCoord.xy * 1.37) - 0.5) / 255.0, 0.0, 1.0);
 
-  // Kunci batas akhir agar tidak ada desaturasi putih pada intensitas pergerakan tinggi
-  color.g = min(color.g, color.r * 0.05);
-  color.b = min(color.b, color.r * 0.12);
+  // Kunci batas akhir agar tetap merah maron gelap pekat
+  color.g = min(color.g, color.r * 0.04);
+  color.b = min(color.b, color.r * 0.08);
 
   fragColor = vec4(color, max(color.r, max(color.g, color.b)));
 }`;
@@ -347,7 +347,7 @@ const parseColor = value => {
   }
   const rgb = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(text);
   if (rgb) return [rgb[1], rgb[2], rgb[3]].map(channel => clamp(parseFloat(channel) / 255, 0, 1));
-  return [0.545, 0.0, 0.0]; // Default Deep Maroon (#8B0000)
+  return [0.42, 0.0, 0.05]; // Default Dark Maroon (#6B000D)
 };
 
 const compile = (gl, type, source) => {
@@ -396,18 +396,18 @@ const link = (gl, fragmentSource) => {
  * GhostCursor (React Bits WebGL2) + Cyberpunk Hardware SVG Pointer
  */
 const GhostCursor = ({
-  color = '#8b0000',
-  brightness = 1,
-  size = 48,
-  trailLength = 32,
+  color = '#6b000d',
+  brightness = 0.72,
+  size = 46,
+  trailLength = 30,
   inertia = 0.5,
-  turbulence = 0.5,
-  drift = 0.25,
+  turbulence = 0.45,
+  drift = 0.2,
   detail = 1,
-  grainIntensity = 0.05,
-  bloomStrength = 0.45,
-  bloomRadius = 0.8,
-  bloomThreshold = 0.025,
+  grainIntensity = 0.04,
+  bloomStrength = 0.25,
+  bloomRadius = 0.7,
+  bloomThreshold = 0.035,
   edgeIntensity = 0,
   clickPuff = true,
   intro = true,
