@@ -398,15 +398,15 @@ const link = (gl, fragmentSource) => {
 const GhostCursor = ({
   color = '#6b000d',
   brightness = 0.72,
-  size = 46,
-  trailLength = 30,
+  size = 54,
+  trailLength = 35,
   inertia = 0.5,
   turbulence = 0.45,
   drift = 0.2,
   detail = 1,
   grainIntensity = 0.04,
   bloomStrength = 0.25,
-  bloomRadius = 0.7,
+  bloomRadius = 0.8,
   bloomThreshold = 0.035,
   edgeIntensity = 0,
   clickPuff = true,
@@ -569,17 +569,28 @@ const GhostCursor = ({
     let introStart = -1;
 
     let isClicking = false;
-    const TIP_X = 5;
-    const TIP_Y = 1;
+    let tipX = 5.7;
+    let tipY = 1.0;
+
+    const updateTip = () => {
+      if (!pointerEl) return;
+      const rect = pointerEl.getBoundingClientRect();
+      const w = rect.width || 38;
+      const h = rect.height || 38;
+      tipX = w * (60.5 / 404);
+      tipY = h * (13.0 / 463);
+      pointerEl.style.transformOrigin = `${tipX}px ${tipY}px`;
+    };
 
     const updatePointerDOM = (spotX, spotY) => {
       if (!pointerEl) return;
       if (pointerEl.style.opacity !== '1') {
         pointerEl.style.opacity = '1';
+        updateTip();
       }
       const scale = isClicking ? 0.88 : 1.0;
       const rotate = isClicking ? -6 : 0;
-      pointerEl.style.transform = `translate3d(${spotX - TIP_X}px, ${spotY - TIP_Y}px, 0) scale(${scale}) rotate(${rotate}deg)`;
+      pointerEl.style.transform = `translate3d(${spotX - tipX}px, ${spotY - tipY}px, 0) scale(${scale}) rotate(${rotate}deg)`;
     };
 
     const resize = () => {
@@ -587,6 +598,13 @@ const GhostCursor = ({
       const rect = container.getBoundingClientRect();
       const width = Math.max(1, Math.round(rect.width));
       const height = Math.max(1, Math.round(rect.height));
+
+      // Dynamically scale fluid animation radius & trail for desktop displays (QueryScreen.md)
+      const desktopScale = width >= 1920 ? 1.45 : width >= 1600 ? 1.32 : width >= 1440 ? 1.2 : 1.0;
+      s.activeSize = s.size * desktopScale;
+      s.activeTrail = s.trail * (desktopScale >= 1.2 ? 1.15 : 1.0);
+      updateTip();
+
       const ratio = Math.min(window.devicePixelRatio || 1, s.maxRatio);
       view.width = width;
       view.height = height;
@@ -622,8 +640,10 @@ const GhostCursor = ({
       const src = sims[current];
       const dst = sims[1 - current];
       const scale = view.sim;
-      const sigma = s.size * scale * 0.3;
-      const decay = Math.exp(-dt / (0.12 + s.trail * 0.022));
+      const currentSize = s.activeSize || s.size;
+      const currentTrail = s.activeTrail || s.trail;
+      const sigma = currentSize * scale * 0.3;
+      const decay = Math.exp(-dt / (0.12 + currentTrail * 0.022));
       const u = pass(dst, programs.sim);
       bind(0, src.texture);
       gl.uniform1i(u.uState, 0);
@@ -634,7 +654,7 @@ const GhostCursor = ({
       gl.uniform1f(u.uDrag, Math.exp(-dt * 2.4));
       gl.uniform2f(u.uDrift, 0, s.drift * 110 * scale);
       gl.uniform1f(u.uTurbulence, s.turbulence * 70 * scale);
-      gl.uniform1f(u.uSwirl, 1 / Math.max(1, s.size * scale * 2.2));
+      gl.uniform1f(u.uSwirl, 1 / Math.max(1, currentSize * scale * 2.2));
       gl.uniform2f(u.uFrom, ghost.px * scale, (view.height - ghost.py) * scale);
       gl.uniform2f(u.uTo, ghost.x * scale, (view.height - ghost.y) * scale);
       gl.uniform1f(u.uRadius, sigma);
@@ -653,18 +673,19 @@ const GhostCursor = ({
 
     const render = () => {
       const s = settingsRef.current;
+      const currentSize = s.activeSize || s.size;
       let u = pass(shade, programs.shade);
       bind(0, sims[current].texture);
       gl.uniform1i(u.uState, 0);
       gl.uniform2f(u.uSimSize, sims[current].width, sims[current].height);
       gl.uniform2f(u.uView, view.width, view.height);
       gl.uniform2f(u.uHead, ghost.x, view.height - ghost.y);
-      gl.uniform1f(u.uHeadSize, s.size * 0.38);
+      gl.uniform1f(u.uHeadSize, currentSize * 0.38);
       gl.uniform1f(u.uHeadAmount, ghost.ready ? 0.8 * presence : 0);
       gl.uniform1f(u.uTime, clock);
       gl.uniform3fv(u.uColor, s.color);
       gl.uniform1f(u.uDetail, s.detail);
-      gl.uniform1f(u.uNoiseScale, 2.4 / Math.max(20, s.size * 2.6));
+      gl.uniform1f(u.uNoiseScale, 2.4 / Math.max(20, currentSize * 2.6));
       gl.uniform2f(u.uFlow, 0, flow.y);
       gl.uniform1f(u.uBrightness, s.brightness);
       gl.uniform1f(u.uTheme, s.theme);
@@ -948,12 +969,7 @@ const GhostCursor = ({
       {showPointer && (
         <div
           ref={pointerRef}
-          className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-150"
-          style={{
-            width: 32,
-            height: 32,
-            transformOrigin: '5px 1px',
-          }}
+          className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-150 w-[38px] h-[38px] [@media(min-width:1440px)]:w-[46px] [@media(min-width:1440px)]:h-[46px] [@media(min-width:1600px)]:w-[50px] [@media(min-width:1600px)]:h-[50px] [@media(min-width:1920px)]:w-[56px] [@media(min-width:1920px)]:h-[56px]"
           aria-hidden="true"
         >
           <img
@@ -961,7 +977,7 @@ const GhostCursor = ({
             alt=""
             className="w-full h-full object-contain pointer-events-none select-none"
             style={{
-              filter: 'drop-shadow(0 0 8px rgba(139, 0, 0, 0.75))',
+              filter: 'drop-shadow(0 0 10px rgba(239, 9, 10, 0.75))',
             }}
             draggable={false}
           />
