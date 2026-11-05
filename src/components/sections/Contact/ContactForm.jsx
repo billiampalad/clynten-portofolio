@@ -124,7 +124,7 @@ function ContactForm({ isLight }) {
   // Memoized input styling class to eliminate recalculation on every keystroke
   const inputClass = useMemo(
     () =>
-      `w-full px-4 py-3 rounded-lg font-sans text-sm outline-none transition-[color,background-color,border-color,box-shadow] duration-200 border ${
+      `w-full px-4 py-3 [@media(min-width:1440px)]:px-5 [@media(min-width:1440px)]:py-4 [@media(min-width:1920px)]:px-6 [@media(min-width:1920px)]:py-4.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-sans text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1920px)]:text-lg outline-none transition-[color,background-color,border-color,box-shadow] duration-200 border ${
         isLight
           ? 'bg-slate-100 text-slate-900 border-slate-200 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-500/15 placeholder-slate-400'
           : 'bg-white/[0.04] text-white border-white/[0.08] focus:border-red-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-red-500/20 placeholder-zinc-500'
@@ -133,19 +133,19 @@ function ContactForm({ isLight }) {
   )
 
   return (
-    <motion.div variants={itemVariants} className="w-full lg:w-[62%] flex flex-col justify-start">
+    <motion.div variants={itemVariants} className="w-full lg:w-[62%] [@media(min-width:1440px)]:w-[64%] flex flex-col justify-start">
       {/* Form Section Header (Matching Reference Image) */}
       <h3
-        className={`font-sans text-xl sm:text-2xl font-bold tracking-tight mb-6 ${
+        className={`font-sans text-xl sm:text-2xl [@media(min-width:1440px)]:text-3xl [@media(min-width:1600px)]:text-4xl font-bold tracking-tight mb-6 [@media(min-width:1440px)]:mb-8 ${
           isLight ? 'text-slate-900' : 'text-white'
         }`}
       >
         Send Us a Message
       </h3>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 [@media(min-width:1440px)]:gap-6">
         {/* Row 1: Full Name & Company Name */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 [@media(min-width:1440px)]:gap-6">
           <div>
             <input
               type="text"
@@ -170,7 +170,7 @@ function ContactForm({ isLight }) {
         </div>
 
         {/* Row 2: Email Address & Mobile Number (Optional) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 [@media(min-width:1440px)]:gap-6">
           <div>
             <input
               type="email"
@@ -203,31 +203,31 @@ function ContactForm({ isLight }) {
             placeholder="Message..."
             value={formData.message}
             onChange={handleChange}
-            className={`${inputClass} resize-y min-h-[120px]`}
+            className={`${inputClass} resize-y min-h-[120px] [@media(min-width:1440px)]:min-h-[160px] [@media(min-width:1920px)]:min-h-[200px]`}
           />
         </div>
 
         {/* Status Notification Toast */}
         {submitStatus === 'success' && (
-          <div className="p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+          <div className="p-3.5 [@media(min-width:1440px)]:p-5 rounded-lg [@media(min-width:1440px)]:rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs sm:text-sm [@media(min-width:1440px)]:text-base font-medium flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3">
             <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
             <span>Thank you! Your transmission has been dispatched to Telegram successfully.</span>
           </div>
         )}
 
         {submitStatus === 'error' && (
-          <div className="p-3.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+          <div className="p-3.5 [@media(min-width:1440px)]:p-5 rounded-lg [@media(min-width:1440px)]:rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs sm:text-sm [@media(min-width:1440px)]:text-base font-medium flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3">
             <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
             <span>{errorMessage || 'Failed to transmit message. Please try again.'}</span>
           </div>
         )}
 
         {/* Row 4: Submit Button (Anchored to Right bottom corner) */}
-        <div className="flex items-center justify-end mt-2">
+        <div className="flex items-center justify-end mt-2 [@media(min-width:1440px)]:mt-4">
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-8 py-3 rounded-lg font-sans font-bold text-sm tracking-wide transition-[background-color,box-shadow,transform,opacity] duration-200 cursor-pointer select-none flex items-center gap-2 shadow-lg ${
+            className={`px-8 py-3 [@media(min-width:1440px)]:px-10 [@media(min-width:1440px)]:py-4 [@media(min-width:1920px)]:px-12 [@media(min-width:1920px)]:py-4.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-sans font-bold text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1920px)]:text-lg tracking-wide transition-[background-color,box-shadow,transform,opacity] duration-200 cursor-pointer select-none flex items-center gap-2 [@media(min-width:1440px)]:gap-3 shadow-lg ${
               isSubmitting
                 ? 'opacity-60 cursor-not-allowed bg-red-600 text-white'
                 : 'bg-red-600 hover:bg-red-500 text-white hover:shadow-red-600/30 active:scale-[0.98]'
@@ -236,7 +236,7 @@ function ContactForm({ isLight }) {
             {isSubmitting ? (
               <>
                 <svg
-                  className="animate-spin -ml-1 mr-1 h-4 w-4 text-white"
+                  className="animate-spin -ml-1 mr-1 h-4 w-4 [@media(min-width:1440px)]:h-5 [@media(min-width:1440px)]:w-5 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -259,7 +259,7 @@ function ContactForm({ isLight }) {
             ) : (
               <>
                 <span>Submit</span>
-                <span className="text-xs transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
+                <span className="text-xs [@media(min-width:1440px)]:text-base transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
                   →
                 </span>
               </>

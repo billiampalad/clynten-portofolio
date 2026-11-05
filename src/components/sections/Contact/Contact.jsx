@@ -47,7 +47,7 @@ function Contact({ id = 'contact' }) {
   return (
     <section
       id={id}
-      className={`relative w-full py-20 sm:py-28 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${
+      className={`relative w-full py-20 sm:py-28 [@media(min-width:1440px)]:py-28 [@media(min-width:1600px)]:py-32 [@media(min-width:1920px)]:py-36 px-4 sm:px-6 lg:px-8 [@media(min-width:1440px)]:px-14 [@media(min-width:1600px)]:px-20 [@media(min-width:1920px)]:px-28 transition-colors duration-500 ${
         isLight ? 'bg-[#f8fafc] text-[#0f172a]' : 'bg-[#0A0907] text-[#f1f5f9]'
       }`}
       style={{
@@ -59,13 +59,13 @@ function Contact({ id = 'contact' }) {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.12 }}
-        className="max-w-6xl mx-auto flex flex-col relative z-10"
+        className="max-w-6xl [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] w-full mx-auto flex flex-col relative z-10"
       >
         {/* 1. Header & Narrative Intro */}
         <ContactHeader isLight={isLight} />
 
         {/* 2. Split Grid: Channels Info (Left) + Send Message Form (Right) */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-14 items-start w-full">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-14 [@media(min-width:1440px)]:gap-16 [@media(min-width:1600px)]:gap-20 [@media(min-width:1920px)]:gap-24 items-start w-full">
           <ContactInfo isLight={isLight} />
           <ContactForm isLight={isLight} />
         </div>
