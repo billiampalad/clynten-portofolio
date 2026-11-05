@@ -22,7 +22,7 @@ function ContactHeader({ isLight }) {
 
       {/* Main Title */}
       <h2
-        className={`font-sans text-3xl sm:text-4xl md:text-5xl [@media(min-width:1440px)]:text-6xl [@media(min-width:1600px)]:text-7xl [@media(min-width:1920px)]:text-[80px] font-extrabold tracking-tight mb-4 [@media(min-width:1440px)]:mb-6 ${
+        className={`font-sans text-2xl sm:text-3xl md:text-4xl [@media(min-width:1440px)]:text-5xl [@media(min-width:1600px)]:text-[58px] [@media(min-width:1920px)]:text-[66px] font-extrabold tracking-tight mb-4 [@media(min-width:1440px)]:mb-6 ${
           isLight ? 'text-slate-950' : 'text-white'
         }`}
       >

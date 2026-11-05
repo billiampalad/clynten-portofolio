@@ -124,7 +124,7 @@ function ContactForm({ isLight }) {
   // Memoized input styling class to eliminate recalculation on every keystroke
   const inputClass = useMemo(
     () =>
-      `w-full px-4 py-3 [@media(min-width:1440px)]:px-5 [@media(min-width:1440px)]:py-4 [@media(min-width:1920px)]:px-6 [@media(min-width:1920px)]:py-4.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-sans text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1920px)]:text-lg outline-none transition-[color,background-color,border-color,box-shadow] duration-200 border ${
+      `w-full px-4 py-3.5 sm:px-5 sm:py-4 [@media(min-width:1440px)]:px-6 [@media(min-width:1440px)]:py-5 [@media(min-width:1920px)]:px-7 [@media(min-width:1920px)]:py-5.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-sans text-base sm:text-[17px] [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl [@media(min-width:1920px)]:text-2xl outline-none transition-[color,background-color,border-color,box-shadow] duration-200 border ${
         isLight
           ? 'bg-slate-100 text-slate-900 border-slate-200 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-500/15 placeholder-slate-400'
           : 'bg-white/[0.04] text-white border-white/[0.08] focus:border-red-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-red-500/20 placeholder-zinc-500'
@@ -136,7 +136,7 @@ function ContactForm({ isLight }) {
     <motion.div variants={itemVariants} className="w-full lg:w-[62%] [@media(min-width:1440px)]:w-[64%] flex flex-col justify-start">
       {/* Form Section Header (Matching Reference Image) */}
       <h3
-        className={`font-sans text-xl sm:text-2xl [@media(min-width:1440px)]:text-3xl [@media(min-width:1600px)]:text-4xl font-bold tracking-tight mb-6 [@media(min-width:1440px)]:mb-8 ${
+        className={`font-sans text-2xl sm:text-3xl [@media(min-width:1440px)]:text-3xl [@media(min-width:1600px)]:text-4xl [@media(min-width:1920px)]:text-[42px] font-bold tracking-tight mb-6 [@media(min-width:1440px)]:mb-8 ${
           isLight ? 'text-slate-900' : 'text-white'
         }`}
       >
@@ -203,21 +203,21 @@ function ContactForm({ isLight }) {
             placeholder="Message..."
             value={formData.message}
             onChange={handleChange}
-            className={`${inputClass} resize-y min-h-[120px] [@media(min-width:1440px)]:min-h-[160px] [@media(min-width:1920px)]:min-h-[200px]`}
+            className={`${inputClass} resize-y min-h-[140px] [@media(min-width:1440px)]:min-h-[180px] [@media(min-width:1920px)]:min-h-[220px]`}
           />
         </div>
 
         {/* Status Notification Toast */}
         {submitStatus === 'success' && (
-          <div className="p-3.5 [@media(min-width:1440px)]:p-5 rounded-lg [@media(min-width:1440px)]:rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs sm:text-sm [@media(min-width:1440px)]:text-base font-medium flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
+          <div className="p-3.5 [@media(min-width:1440px)]:p-5 rounded-lg [@media(min-width:1440px)]:rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-sm sm:text-base [@media(min-width:1440px)]:text-lg [@media(min-width:1920px)]:text-xl font-medium flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
             <span>Thank you! Your transmission has been dispatched to Telegram successfully.</span>
           </div>
         )}
 
         {submitStatus === 'error' && (
-          <div className="p-3.5 [@media(min-width:1440px)]:p-5 rounded-lg [@media(min-width:1440px)]:rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs sm:text-sm [@media(min-width:1440px)]:text-base font-medium flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3">
-            <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+          <div className="p-3.5 [@media(min-width:1440px)]:p-5 rounded-lg [@media(min-width:1440px)]:rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm sm:text-base [@media(min-width:1440px)]:text-lg [@media(min-width:1920px)]:text-xl font-medium flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0" />
             <span>{errorMessage || 'Failed to transmit message. Please try again.'}</span>
           </div>
         )}
@@ -227,7 +227,7 @@ function ContactForm({ isLight }) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-8 py-3 [@media(min-width:1440px)]:px-10 [@media(min-width:1440px)]:py-4 [@media(min-width:1920px)]:px-12 [@media(min-width:1920px)]:py-4.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-sans font-bold text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1920px)]:text-lg tracking-wide transition-[background-color,box-shadow,transform,opacity] duration-200 cursor-pointer select-none flex items-center gap-2 [@media(min-width:1440px)]:gap-3 shadow-lg ${
+            className={`px-8 py-3.5 sm:px-10 sm:py-4 [@media(min-width:1440px)]:px-12 [@media(min-width:1440px)]:py-4.5 [@media(min-width:1920px)]:px-14 [@media(min-width:1920px)]:py-5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-sans font-bold text-base sm:text-lg [@media(min-width:1440px)]:text-xl [@media(min-width:1920px)]:text-2xl tracking-wide transition-[background-color,box-shadow,transform,opacity] duration-200 cursor-pointer select-none flex items-center gap-2.5 [@media(min-width:1440px)]:gap-3.5 shadow-lg ${
               isSubmitting
                 ? 'opacity-60 cursor-not-allowed bg-red-600 text-white'
                 : 'bg-red-600 hover:bg-red-500 text-white hover:shadow-red-600/30 active:scale-[0.98]'
@@ -236,7 +236,7 @@ function ContactForm({ isLight }) {
             {isSubmitting ? (
               <>
                 <svg
-                  className="animate-spin -ml-1 mr-1 h-4 w-4 [@media(min-width:1440px)]:h-5 [@media(min-width:1440px)]:w-5 text-white"
+                  className="animate-spin -ml-1 mr-1 h-5 w-5 [@media(min-width:1440px)]:h-6 [@media(min-width:1440px)]:w-6 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -259,7 +259,7 @@ function ContactForm({ isLight }) {
             ) : (
               <>
                 <span>Submit</span>
-                <span className="text-xs [@media(min-width:1440px)]:text-base transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
+                <span className="text-sm [@media(min-width:1440px)]:text-lg transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
                   →
                 </span>
               </>
