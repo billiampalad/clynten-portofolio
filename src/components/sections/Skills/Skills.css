@@ -620,21 +620,77 @@ body.light-theme .tech-chip:hover {
 
 @media only screen and (max-width: 767px) {
   .skills-section {
-    padding: clamp(30px, 4.74dvh, 50px) clamp(12px, 3.88vw, 20px) clamp(40px, 5.92dvh, 60px) clamp(12px, 3.88vw, 20px);
+    padding: clamp(28px, 4.74dvh, 52px) clamp(12px, 3.88vw, 22px) clamp(36px, 5.92dvh, 65px) clamp(12px, 3.88vw, 22px);
     scroll-margin-top: clamp(35px, 5.92dvh, 60px);
+  }
+
+  .skills-headline-block {
+    margin-bottom: clamp(20px, 3.79dvh, 44px);
+  }
+
+  .skills-header-meta {
+    margin-bottom: clamp(12px, 2.37dvh, 26px);
+    gap: clamp(6px, 0.95dvh, 12px) clamp(8px, 2.91vw, 16px);
+  }
+
+  .skills-badge {
+    font-size: clamp(9px, 2.67vw, 13px);
+    padding: clamp(2.5px, 0.47dvh, 6px) clamp(8px, 2.91vw, 15px);
+  }
+
+  .skills-badge .dot {
+    width: clamp(4.5px, 1.46vw, 8px);
+    height: clamp(4.5px, 0.71dvh, 8px);
+  }
+
+  .skills-tagline {
+    font-size: clamp(10px, 2.91vw, 14px);
+    letter-spacing: clamp(1px, 0.36vw, 2px);
+  }
+
+  .skills-sys-id {
+    font-size: clamp(9px, 2.67vw, 12px);
+    letter-spacing: clamp(1px, 0.36vw, 2px);
+  }
+
+  .skills-title {
+    font-size: clamp(22px, 6.80vw, 34px);
+    margin-bottom: clamp(10px, 1.90dvh, 22px);
+  }
+
+  .skills-description {
+    font-size: clamp(12px, 3.40vw, 16px);
+    line-height: 1.6;
   }
 
   .skills-stats-grid {
     grid-template-columns: repeat(1, 1fr);
+    gap: clamp(8px, 1.42dvh, 16px);
+    margin-bottom: clamp(24px, 4.27dvh, 48px);
+  }
+
+  .stat-card {
+    padding: clamp(12px, 1.90dvh, 22px) clamp(12px, 3.88vw, 22px);
+    border-radius: clamp(6px, 1.94vw, 10px);
+  }
+
+  .stat-num {
+    font-size: clamp(22px, 6.80vw, 34px);
+    margin-bottom: clamp(2px, 0.47dvh, 6px);
+  }
+
+  .stat-title {
+    font-size: clamp(11px, 3.16vw, 15px);
+    margin-bottom: clamp(2px, 0.47dvh, 6px);
+  }
+
+  .stat-desc {
+    font-size: clamp(9.5px, 2.67vw, 13px);
   }
 
   .skills-pillars-grid {
     grid-template-columns: 1fr;
     gap: clamp(14px, 2.37dvh, 26px);
-  }
-
-  .skills-title {
-    font-size: 28px;
   }
 
   .pillar-card {

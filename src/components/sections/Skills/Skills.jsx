@@ -254,37 +254,37 @@ const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
 
 function Skills({ style = {} }) {
   return (
-    <section id="skills" className="skills-section relative" style={style}>
+    <section id="skills" className="skills-section relative max-md:pt-[clamp(28px,4.74dvh,52px)] max-md:pb-[clamp(36px,5.92dvh,65px)] max-md:px-[clamp(12px,3.88vw,22px)]" style={style}>
       {/* Big Headline */}
       <motion.div
-        className="skills-headline-block relative z-10"
+        className="skills-headline-block relative z-10 max-md:mb-[clamp(20px,3.79dvh,44px)]"
         variants={headlineContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
         {/* Header Metadata */}
-        <motion.div variants={itemFadeUpVariants} className="skills-header-meta max-md:gap-y-2">
+        <motion.div variants={itemFadeUpVariants} className="skills-header-meta max-md:gap-x-[clamp(8px,2.91vw,16px)] max-md:gap-y-[clamp(6px,0.95dvh,12px)] max-md:mb-[clamp(12px,2.37dvh,26px)]">
           <div className="skills-header-left max-md:contents">
-            <div className="skills-badge max-md:order-1">
-              <span className="dot" />
+            <div className="skills-badge max-md:order-1 max-md:text-[clamp(9px,2.67vw,13px)] max-md:px-[clamp(8px,2.91vw,15px)] max-md:py-[clamp(2.5px,0.47dvh,6px)]">
+              <span className="dot max-md:w-[clamp(4.5px,1.46vw,8px)] max-md:h-[clamp(4.5px,0.71dvh,8px)]" />
               <span>Skills</span>
             </div>
-            <span className="skills-tagline max-md:order-3 max-md:w-full max-md:mt-1 max-md:text-[clamp(11px,2.9vw,13px)]">Technical Stack & Competencies</span>
+            <span className="skills-tagline max-md:order-3 max-md:w-full max-md:mt-[clamp(2px,0.47dvh,6px)] max-md:text-[clamp(10px,2.91vw,14px)] max-md:tracking-[clamp(1px,0.36vw,2px)]">Technical Stack & Competencies</span>
           </div>
-          <span className="skills-sys-id max-md:order-2 max-md:text-[clamp(9.5px,2.5vw,11px)]">SPEC_ID: {profile.systemId}</span>
+          <span className="skills-sys-id max-md:order-2 max-md:text-[clamp(9px,2.67vw,12px)] max-md:tracking-[clamp(1px,0.36vw,2px)]">SPEC_ID: {profile.systemId}</span>
         </motion.div>
-        <motion.h2 variants={itemFadeUpVariants} className="skills-title">
+        <motion.h2 variants={itemFadeUpVariants} className="skills-title max-md:text-[clamp(22px,6.80vw,34px)] max-md:mb-[clamp(10px,1.90dvh,22px)]">
           Production-grade systems <span className="highlight">engineered for scale</span> and high resilience.
         </motion.h2>
-        <motion.p variants={itemFadeUpVariants} className="skills-description">
+        <motion.p variants={itemFadeUpVariants} className="skills-description max-md:text-[clamp(12px,3.40vw,16px)]">
           Explore the core technical pillars, verifiable engineering metrics, and specialized stack modules powering modern web architectures, mobile applications, network infrastructure, and cybersecurity.
         </motion.p>
       </motion.div>
 
       {/* Stats Grid */}
       <motion.div
-        className="skills-stats-grid relative z-10"
+        className="skills-stats-grid relative z-10 max-md:gap-[clamp(8px,1.42dvh,16px)] max-md:mb-[clamp(24px,4.27dvh,48px)]"
         variants={statsGridVariants}
         initial="hidden"
         whileInView="visible"
@@ -293,13 +293,13 @@ function Skills({ style = {} }) {
         {STATS.map((stat, i) => (
           <motion.div
             key={i}
-            className="stat-card"
+            className="stat-card max-md:px-[clamp(12px,3.88vw,22px)] max-md:py-[clamp(12px,1.90dvh,22px)] max-md:rounded-[clamp(6px,1.94vw,10px)]"
             variants={statCardVariants}
             whileHover={{ y: -3, transition: { duration: 0.2 } }}
           >
-            <div className="stat-num">{stat.num}</div>
-            <div className="stat-title">{stat.title}</div>
-            <div className="stat-desc">{stat.desc}</div>
+            <div className="stat-num max-md:text-[clamp(22px,6.80vw,34px)] max-md:mb-[clamp(2px,0.47dvh,6px)]">{stat.num}</div>
+            <div className="stat-title max-md:text-[clamp(11px,3.16vw,15px)] max-md:mb-[clamp(2px,0.47dvh,6px)]">{stat.title}</div>
+            <div className="stat-desc max-md:text-[clamp(9.5px,2.67vw,13px)]">{stat.desc}</div>
           </motion.div>
         ))}
       </motion.div>
