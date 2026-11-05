@@ -506,9 +506,9 @@ function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-[clamp(14px,1.8vw,28px)] [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1.5 mb-auto py-0.5">
+        <div className="relative z-10 w-full max-w-full lg:max-w-[97vw] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-[clamp(16px,2vw,32px)] [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 mb-auto py-0.5">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
-          <div className="w-full md:w-[240px] lg:w-[clamp(210px,18vw,270px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
+          <div className="w-full md:w-[240px] lg:w-[clamp(210px,17vw,260px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -562,7 +562,7 @@ function Projects() {
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
           <div className="w-full md:w-auto flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 shrink-0">
-            <div className="relative w-[300px] sm:w-[360px] md:w-[400px] lg:w-[clamp(370px,30vw,445px)] [@media(min-width:1440px)]:w-[650px] [@media(min-width:1600px)]:w-[730px] [@media(min-width:1920px)]:w-[820px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+            <div className="relative w-[300px] sm:w-[360px] md:w-[400px] lg:w-[clamp(440px,36vw,530px)] [@media(min-width:1440px)]:w-[650px] [@media(min-width:1600px)]:w-[730px] [@media(min-width:1920px)]:w-[820px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
@@ -588,26 +588,26 @@ function Projects() {
                   brightness = 1
                   borderRadius = 8
                 } else if (isTop) {
-                  // Thumbnail Atas (Diperkecil lebih ramping dengan gap seimbang & sedikit transparan)
-                  translateY = '-64%'
+                  // Thumbnail Atas (Diperbesar sedikit dengan gap seimbang & sedikit transparan)
+                  translateY = '-75%'
                   rotateX = -8
-                  scale = 0.28
+                  scale = 0.30
                   zIndex = 20
-                  opacity = 0.55
+                  opacity = 0.6
                   brightness = 0.92
                   borderRadius = 8
                 } else if (isBottom) {
-                  // Thumbnail Bawah (Diperkecil lebih ramping dengan gap seimbang & sedikit transparan)
-                  translateY = '64%'
+                  // Thumbnail Bawah (Diperbesar sedikit dengan gap seimbang & sedikit transparan)
+                  translateY = '75%'
                   rotateX = 8
-                  scale = 0.28
+                  scale = 0.30
                   zIndex = 20
-                  opacity = 0.55
+                  opacity = 0.6
                   brightness = 0.92
                   borderRadius = 8
                 } else {
                   // Kartu di luar layar
-                  translateY = offset > 0 ? '135%' : '-135%'
+                  translateY = offset > 0 ? '145%' : '-145%'
                   rotateX = offset > 0 ? 15 : -15
                   scale = 0.2
                   zIndex = 0
@@ -648,7 +648,7 @@ function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-[240px] lg:w-[clamp(210px,18vw,270px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end justify-between text-left gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-6 shrink-0">
+          <div className="w-full md:w-[240px] lg:w-[clamp(210px,17vw,260px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end justify-between text-left gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-6 shrink-0">
             <div className="flex flex-col items-start text-left w-full max-w-xs lg:max-w-sm min-h-[70px] lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[120px]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
