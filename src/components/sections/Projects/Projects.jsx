@@ -508,7 +508,7 @@ function Projects() {
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
         <div className="relative z-10 w-full max-w-full lg:max-w-[97vw] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-[clamp(16px,2vw,32px)] [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 mb-auto py-0.5">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
-          <div className="w-full md:w-[240px] lg:w-[clamp(210px,17vw,260px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
+          <div className="w-full md:w-[240px] lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -518,7 +518,7 @@ function Projects() {
                 className="flex flex-col items-start w-max max-w-none"
               >
                 {/* 1. Technical Code Badge with Reveal */}
-                <div className="overflow-hidden py-0.5 mb-1.5 lg:mb-2 [@media(min-width:1440px)]:mb-3">
+                <div className="overflow-hidden py-0.5 mb-1.5 lg:mb-2.5 [@media(min-width:1440px)]:mb-3">
                   <motion.div
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
@@ -526,8 +526,8 @@ function Projects() {
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     className="inline-flex items-center gap-1.5 lg:gap-2"
                   >
-                    <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-red-500 animate-pulse" />
-                    <span className="font-mono text-xs lg:text-[clamp(11px,0.95vw,13px)] font-bold text-red-500 tracking-[0.2em] uppercase">
+                    <span className="w-1.5 h-1.5 lg:w-2.5 lg:h-2.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="font-mono text-xs lg:text-[clamp(13px,1.05vw,15.5px)] font-bold text-red-500 tracking-[0.2em] uppercase">
                       {currentProject.code}
                     </span>
                   </motion.div>
@@ -540,7 +540,7 @@ function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-[clamp(19px,1.65vw,25px)] [@media(min-width:1440px)]:text-3xl [@media(min-width:1600px)]:text-4xl [@media(min-width:1920px)]:text-5xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-[clamp(24px,2.05vw,30px)] [@media(min-width:1440px)]:text-3xl [@media(min-width:1600px)]:text-4xl [@media(min-width:1920px)]:text-5xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -548,9 +548,9 @@ function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-2 lg:mt-2.5 [@media(min-width:1440px)]:mt-3 w-max max-w-none">
+                <div className="overflow-hidden py-0.5 mt-2 lg:mt-3 [@media(min-width:1440px)]:mt-3 w-max max-w-none">
                   <p
-                    className={`font-mono text-xs sm:text-sm lg:text-[clamp(11.5px,0.95vw,13.5px)] [@media(min-width:1440px)]:text-base [@media(min-width:1600px)]:text-lg whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
+                    className={`font-mono text-xs sm:text-sm lg:text-[clamp(13.5px,1.1vw,16px)] [@media(min-width:1440px)]:text-base [@media(min-width:1600px)]:text-lg whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
                   >
                     <SplitTextReveal text={currentProject.category} className="whitespace-nowrap flex-nowrap" />
