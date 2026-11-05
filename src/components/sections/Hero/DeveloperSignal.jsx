@@ -150,6 +150,8 @@ const beamHexMap = {
 }
 
 const TOTAL_BLOCKS = 10
+const BASE_BLOCK_CLASS =
+  'h-1.5 w-1 [@media(min-width:1440px)]:h-3 [@media(min-width:1440px)]:w-2 rounded-[1px] transition-colors duration-150'
 
 const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, ref) {
   const getPhaseIndex = (prog) => {
@@ -203,9 +205,9 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
         const block = blocksRef.current[i]
         if (block) {
           if (i < filled) {
-            block.className = `h-1.5 w-1 rounded-[1px] transition-colors duration-150 ${activeClass}`
+            block.className = `${BASE_BLOCK_CLASS} ${activeClass}`
           } else {
-            block.className = 'h-1.5 w-1 rounded-[1px] transition-colors duration-150 bg-zinc-800'
+            block.className = `${BASE_BLOCK_CLASS} bg-zinc-800`
           }
         }
       }
@@ -229,6 +231,15 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
         themeColor: newTheme,
       })
       signalLineRef.current?.setColor(beamHexMap[newTheme])
+
+      // Instantly update active block colors for new theme without size change
+      const activeClass = blockActiveClasses[newTheme]
+      for (let i = 0; i < lastFilledBlocksRef.current; i++) {
+        const block = blocksRef.current[i]
+        if (block) {
+          block.className = `${BASE_BLOCK_CLASS} ${activeClass}`
+        }
+      }
     }
   }
 
@@ -315,7 +326,7 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
                 <span
                   key={i}
                   ref={(el) => (blocksRef.current[i] = el)}
-                  className={`h-1.5 w-1 [@media(min-width:1440px)]:h-3 [@media(min-width:1440px)]:w-2 rounded-[1px] transition-colors duration-150 ${
+                  className={`${BASE_BLOCK_CLASS} ${
                     i < initialFilled ? blockActiveClasses[themeColor] : 'bg-zinc-800'
                   }`}
                 />
