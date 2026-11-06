@@ -474,7 +474,7 @@ function Expe({
   return (
     <section
       id={id || 'experience'}
-      className={`relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${
+      className={`relative w-full py-16 sm:py-24 [@media(min-width:1440px)]:py-28 [@media(min-width:1600px)]:py-32 [@media(min-width:1920px)]:py-36 px-4 sm:px-6 lg:px-8 [@media(min-width:1440px)]:px-14 [@media(min-width:1600px)]:px-20 [@media(min-width:1920px)]:px-28 transition-colors duration-500 ${
         isLight ? 'bg-[#f8fafc] text-[#0f172a]' : 'bg-[#0A0907] text-[#f1f5f9]'
       }`}
       style={{
@@ -490,11 +490,11 @@ function Expe({
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
-        className="max-w-6xl mx-auto flex flex-col relative z-10"
+        className="max-w-6xl [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] w-full mx-auto flex flex-col relative z-10"
       >
         {/* 1. Category Tag */}
-        <motion.div variants={itemVariants} className="mb-2">
-          <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-red-500">
+        <motion.div variants={itemVariants} className="mb-2 [@media(min-width:1440px)]:mb-3">
+          <span className="font-mono text-xs sm:text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1920px)]:text-lg font-bold tracking-[0.2em] uppercase text-red-500">
             CODE
           </span>
         </motion.div>
@@ -502,7 +502,7 @@ function Expe({
         {/* 2. Main Title */}
         <motion.h2
           variants={itemVariants}
-          className={`font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 ${
+          className={`font-sans text-3xl sm:text-4xl md:text-5xl [@media(min-width:1440px)]:text-6xl [@media(min-width:1600px)]:text-7xl [@media(min-width:1920px)]:text-[80px] font-extrabold tracking-tight mb-3 [@media(min-width:1440px)]:mb-5 ${
             isLight ? 'text-slate-950' : 'text-white'
           }`}
         >
@@ -512,7 +512,7 @@ function Expe({
         {/* 3. Subtitle / Narrative */}
         <motion.p
           variants={itemVariants}
-          className={`text-sm sm:text-base md:text-[15px] font-normal max-w-2xl leading-relaxed mb-8 ${
+          className={`text-sm sm:text-base md:text-[15px] [@media(min-width:1440px)]:text-xl [@media(min-width:1600px)]:text-2xl font-normal max-w-2xl [@media(min-width:1440px)]:max-w-3xl [@media(min-width:1600px)]:max-w-4xl [@media(min-width:1920px)]:max-w-5xl leading-relaxed mb-8 [@media(min-width:1440px)]:mb-12 ${
             isLight ? 'text-slate-600' : 'text-zinc-400'
           }`}
         >
@@ -522,10 +522,10 @@ function Expe({
         {/* 4. Stats & Handle Bar */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap items-center justify-between gap-3 mb-4 select-none"
+          className="flex flex-wrap items-center justify-between gap-3 mb-4 [@media(min-width:1440px)]:mb-8 select-none"
         >
           {/* Total Contributions Counter + Live Badge */}
-          <div className="flex items-center gap-2.5 font-sans text-xs sm:text-sm md:text-base">
+          <div className="flex items-center gap-2.5 font-sans text-xs sm:text-sm md:text-base [@media(min-width:1440px)]:text-xl [@media(min-width:1920px)]:text-2xl">
             <div>
               <span
                 className={`font-bold mr-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}
@@ -540,10 +540,10 @@ function Expe({
             {/* Live Real-Time Badge */}
             {isLiveSynced && (
               <span
-                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 [@media(min-width:1440px)]:px-3 [@media(min-width:1440px)]:py-1 rounded-full text-[10px] sm:text-[11px] [@media(min-width:1440px)]:text-xs [@media(min-width:1920px)]:text-sm font-mono font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
                 title="Synchronized in real-time with GitHub API"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-2 rounded-full bg-emerald-500 animate-pulse" />
                 LIVE SYNC
               </span>
             )}
@@ -554,7 +554,7 @@ function Expe({
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`font-sans text-xs sm:text-sm md:text-base font-medium inline-flex items-center gap-1 transition-colors group ${
+            className={`font-sans text-xs sm:text-sm md:text-base [@media(min-width:1440px)]:text-xl [@media(min-width:1920px)]:text-2xl font-medium inline-flex items-center gap-1.5 transition-colors group ${
               isLight
                 ? 'text-slate-600 hover:text-red-600'
                 : 'text-zinc-400 hover:text-red-400'
@@ -562,7 +562,7 @@ function Expe({
           >
             <span>{handle}</span>
             <span
-              className="text-xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              className="text-xs [@media(min-width:1440px)]:text-base transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               aria-hidden="true"
             >
               ↗
@@ -572,13 +572,13 @@ function Expe({
 
         {/* 5. Contributions Heatmap Stage + Year Selector Column */}
         <motion.div variants={heatmapVariants} className="relative w-full">
-          <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
+          <div className="flex flex-col lg:flex-row gap-6 [@media(min-width:1440px)]:gap-10 [@media(min-width:1600px)]:gap-12 items-start w-full">
             {/* Left/Main Column: Heatmap Canvas + Activity Level Legend */}
             <div className="flex-1 w-full min-w-0">
               {/* Tooltip Popup on Hover */}
               {hoveredCell && (
                 <div
-                  className={`absolute -top-10 z-30 px-3 py-1 rounded-md text-xs font-mono font-medium shadow-lg pointer-events-none transition-all duration-150 transform -translate-x-1/2 whitespace-nowrap ${
+                  className={`absolute -top-10 [@media(min-width:1440px)]:-top-12 z-30 px-3 py-1 [@media(min-width:1440px)]:px-4 [@media(min-width:1440px)]:py-1.5 rounded-md [@media(min-width:1440px)]:rounded-lg text-xs [@media(min-width:1440px)]:text-sm font-mono font-medium shadow-lg pointer-events-none transition-all duration-150 transform -translate-x-1/2 whitespace-nowrap ${
                     isLight
                       ? 'bg-slate-900 text-white shadow-slate-900/20'
                       : 'bg-zinc-800 text-zinc-100 border border-white/10 shadow-black/40'
@@ -596,19 +596,19 @@ function Expe({
 
               {/* Scrollable Heatmap Canvas */}
               <div
-                className={`overflow-x-auto pb-4 pt-1 [-webkit-overflow-scrolling:touch] ${
+                className={`overflow-x-auto pb-4 pt-1 [-webkit-overflow-scrolling:touch] heatmap-container ${
                   isLight ? 'heatmap-scrollbar-light' : 'heatmap-scrollbar-dark'
                 }`}
               >
-                <div className="min-w-max flex flex-col gap-2">
+                <div className="min-w-max flex flex-col gap-2 [@media(min-width:1440px)]:gap-3">
                   {/* Month Labels Header Row */}
-                  <div className="relative h-5 flex text-[11px] font-mono text-zinc-400 dark:text-zinc-500 select-none">
+                  <div className="relative h-5 [@media(min-width:1440px)]:h-7 flex text-[11px] [@media(min-width:1440px)]:text-sm [@media(min-width:1920px)]:text-base font-mono text-zinc-400 dark:text-zinc-500 select-none">
                     {monthLabels.map((m, idx) => (
                       <span
                         key={idx}
                         className="absolute"
                         style={{
-                          left: `${m.colIndex * 16}px`,
+                          left: `calc(var(--col-step, 16px) * ${m.colIndex})`,
                         }}
                       >
                         {m.name}
@@ -617,15 +617,30 @@ function Expe({
                   </div>
 
                   {/* 7-Row Grid of Rounded Contribution Squares with Staggered Wave animation */}
-                  <div key={selectedYear} className="flex gap-[3px] select-none">
+                  <div
+                    key={selectedYear}
+                    className="flex select-none"
+                    style={{ gap: 'var(--cell-gap, 3px)' }}
+                  >
                     {gridData.map((week, wIdx) => (
-                      <div key={wIdx} className="w-[13px] flex flex-col gap-[3px] shrink-0">
+                      <div
+                        key={wIdx}
+                        className="flex flex-col shrink-0"
+                        style={{
+                          width: 'var(--cell-size, 13px)',
+                          gap: 'var(--cell-gap, 3px)',
+                        }}
+                      >
                         {week.map((day, dIdx) => {
                           if (day.isPlaceholder) {
                             return (
                               <div
                                 key={dIdx}
-                                className="w-[13px] h-[13px] opacity-0 pointer-events-none"
+                                className="opacity-0 pointer-events-none"
+                                style={{
+                                  width: 'var(--cell-size, 13px)',
+                                  height: 'var(--cell-size, 13px)',
+                                }}
                                 aria-hidden="true"
                               />
                             )
@@ -657,10 +672,12 @@ function Expe({
                               }}
                               onMouseLeave={() => setHoveredCell(null)}
                               style={{
+                                width: 'var(--cell-size, 13px)',
+                                height: 'var(--cell-size, 13px)',
                                 '--blink-delay': `${blinkDelay}s`,
                                 '--blink-duration': `${blinkDuration}s`,
                               }}
-                              className={`w-[13px] h-[13px] rounded-[3px] border cursor-pointer hover:scale-125 hover:z-30 transition-[transform,border-color] duration-150 ${getCellClasses(
+                              className={`rounded-[3px] [@media(min-width:1440px)]:rounded-[4px] [@media(min-width:1920px)]:rounded-[5px] border cursor-pointer hover:scale-125 hover:z-30 transition-[transform,border-color] duration-150 ${getCellClasses(
                                 day.level
                               )} ${
                                 isHighActive
@@ -679,27 +696,27 @@ function Expe({
               </div>
 
               {/* 6. Activity Level Legend */}
-              <div className="mt-3 flex items-center justify-end gap-2 text-xs font-mono text-zinc-400 select-none">
+              <div className="mt-3 [@media(min-width:1440px)]:mt-6 flex items-center justify-end gap-2 [@media(min-width:1440px)]:gap-3 text-xs [@media(min-width:1440px)]:text-sm [@media(min-width:1920px)]:text-base font-mono text-zinc-400 select-none">
                 <span className={isLight ? 'text-slate-500' : 'text-zinc-500'}>Less</span>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 [@media(min-width:1440px)]:gap-1.5">
                   <span
-                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(0)}`}
+                    className={`w-[11px] h-[11px] [@media(min-width:1440px)]:w-[15px] [@media(min-width:1440px)]:h-[15px] [@media(min-width:1920px)]:w-[18px] [@media(min-width:1920px)]:h-[18px] rounded-[2px] [@media(min-width:1440px)]:rounded-[3px] border ${getCellClasses(0)}`}
                     title="0 contributions"
                   />
                   <span
-                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(1)}`}
+                    className={`w-[11px] h-[11px] [@media(min-width:1440px)]:w-[15px] [@media(min-width:1440px)]:h-[15px] [@media(min-width:1920px)]:w-[18px] [@media(min-width:1920px)]:h-[18px] rounded-[2px] [@media(min-width:1440px)]:rounded-[3px] border ${getCellClasses(1)}`}
                     title="Low"
                   />
                   <span
-                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(2)}`}
+                    className={`w-[11px] h-[11px] [@media(min-width:1440px)]:w-[15px] [@media(min-width:1440px)]:h-[15px] [@media(min-width:1920px)]:w-[18px] [@media(min-width:1920px)]:h-[18px] rounded-[2px] [@media(min-width:1440px)]:rounded-[3px] border ${getCellClasses(2)}`}
                     title="Medium"
                   />
                   <span
-                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(3)}`}
+                    className={`w-[11px] h-[11px] [@media(min-width:1440px)]:w-[15px] [@media(min-width:1440px)]:h-[15px] [@media(min-width:1920px)]:w-[18px] [@media(min-width:1920px)]:h-[18px] rounded-[2px] [@media(min-width:1440px)]:rounded-[3px] border ${getCellClasses(3)}`}
                     title="High"
                   />
                   <span
-                    className={`w-[11px] h-[11px] rounded-[2px] border ${getCellClasses(4)}`}
+                    className={`w-[11px] h-[11px] [@media(min-width:1440px)]:w-[15px] [@media(min-width:1440px)]:h-[15px] [@media(min-width:1920px)]:w-[18px] [@media(min-width:1920px)]:h-[18px] rounded-[2px] [@media(min-width:1440px)]:rounded-[3px] border ${getCellClasses(4)}`}
                     title="Very High"
                   />
                 </div>
@@ -708,11 +725,11 @@ function Expe({
             </div>
 
             {/* Right Column: 3 Latest Years Selection (2026, 2025, 2024 Stacked Vertically) */}
-            <div className="w-full lg:w-32 shrink-0 flex flex-col gap-1.5 select-none pt-0.5">
-              <span className="font-mono text-[10px] tracking-wider uppercase text-zinc-400 dark:text-zinc-500 hidden lg:block mb-1">
+            <div className="w-full lg:w-32 [@media(min-width:1440px)]:w-44 [@media(min-width:1600px)]:w-52 [@media(min-width:1920px)]:w-60 shrink-0 flex flex-col gap-1.5 [@media(min-width:1440px)]:gap-2.5 select-none pt-0.5">
+              <span className="font-mono text-[10px] [@media(min-width:1440px)]:text-xs [@media(min-width:1920px)]:text-sm tracking-wider uppercase text-zinc-400 dark:text-zinc-500 hidden lg:block mb-1 [@media(min-width:1440px)]:mb-2">
                 YEARS
               </span>
-              <div className="flex lg:flex-col gap-1.5 w-full overflow-x-auto pb-1 lg:pb-0">
+              <div className="flex lg:flex-col gap-1.5 [@media(min-width:1440px)]:gap-2.5 w-full overflow-x-auto pb-1 lg:pb-0">
                 {AVAILABLE_YEARS.map((year) => {
                   const isActive = selectedYear === year
                   return (
@@ -723,7 +740,7 @@ function Expe({
                         setSelectedYear(year)
                         setHoveredCell(null)
                       }}
-                      className={`px-3.5 py-2 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all duration-200 text-left flex items-center justify-between gap-3 cursor-pointer shrink-0 ${
+                      className={`px-3.5 py-2 [@media(min-width:1440px)]:px-5 [@media(min-width:1440px)]:py-3.5 [@media(min-width:1920px)]:px-6 [@media(min-width:1920px)]:py-4 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs sm:text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1920px)]:text-lg font-bold transition-all duration-200 text-left flex items-center justify-between gap-3 cursor-pointer shrink-0 ${
                         isActive
                           ? 'bg-red-600 text-white shadow-md shadow-red-600/30 ring-1 ring-red-500'
                           : isLight
@@ -733,7 +750,7 @@ function Expe({
                     >
                       <span>{year}</span>
                       <span
-                        className={`w-1.5 h-1.5 rounded-full transition-opacity duration-200 ${
+                        className={`w-1.5 h-1.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-2 rounded-full transition-opacity duration-200 ${
                           isActive ? 'bg-white opacity-100' : 'opacity-0'
                         }`}
                         aria-hidden="true"
@@ -749,6 +766,36 @@ function Expe({
 
       {/* Scoped Scrollbar & Smooth Blink Styling */}
       <style>{`
+        .heatmap-container {
+          --cell-size: 13px;
+          --cell-gap: 3px;
+          --col-step: 16px;
+        }
+
+        @media only screen and (min-width: 1440px) {
+          .heatmap-container {
+            --cell-size: 17px;
+            --cell-gap: 4px;
+            --col-step: 21px;
+          }
+        }
+
+        @media only screen and (min-width: 1600px) {
+          .heatmap-container {
+            --cell-size: 20px;
+            --cell-gap: 4.5px;
+            --col-step: 24.5px;
+          }
+        }
+
+        @media only screen and (min-width: 1920px) {
+          .heatmap-container {
+            --cell-size: 23px;
+            --cell-gap: 5px;
+            --col-step: 28px;
+          }
+        }
+
         /* Smooth, Gentle Blinking on Active Cells */
         @keyframes cell-blink-high {
           0%, 25%, 75%, 100% {
