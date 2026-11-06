@@ -540,7 +540,7 @@ function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl [@media(min-width:1440px)]:text-4xl [@media(min-width:1600px)]:text-5xl [@media(min-width:1920px)]:text-6xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl [@media(min-width:1440px)]:text-3xl [@media(min-width:1600px)]:text-4xl [@media(min-width:1920px)]:text-5xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -548,9 +548,9 @@ function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-2.5 [@media(min-width:1440px)]:mt-3.5 w-max max-w-none">
+                <div className="overflow-hidden py-0.5 mt-2.5 [@media(min-width:1440px)]:mt-3 w-max max-w-none">
                   <p
-                    className={`font-mono text-xs sm:text-sm [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
+                    className={`font-mono text-xs sm:text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1600px)]:text-lg whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
                   >
                     <SplitTextReveal text={currentProject.category} className="whitespace-nowrap flex-nowrap" />
