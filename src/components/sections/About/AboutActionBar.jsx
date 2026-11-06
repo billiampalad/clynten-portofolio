@@ -42,7 +42,7 @@ function AboutActionBar({ onContactClick, isLight = false }) {
         <a
           href="#contact"
           onClick={onContactClick}
-          className="inline-flex items-center gap-2 [@media(min-width:1440px)]:gap-2.5 px-3.5 py-1.5 [@media(min-width:1440px)]:px-5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5.5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl [@media(min-width:1920px)]:text-2xl font-semibold text-white bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 border border-white/20 shadow-[0_4px_14px_rgba(244,63,94,0.35)] hover:shadow-[0_6px_18px_rgba(244,63,94,0.5)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 px-3 [@media(min-width:1440px)]:px-4.5 py-1.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold text-white bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 border border-white/20 shadow-[0_4px_14px_rgba(244,63,94,0.35)] hover:shadow-[0_6px_18px_rgba(244,63,94,0.5)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
         >
           <span>Get in touch</span>
           <span className="font-bold transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
@@ -55,7 +55,7 @@ function AboutActionBar({ onContactClick, isLight = false }) {
           target="_blank"
           rel="noopener noreferrer"
           title="Download Resume (ATS Format)"
-          className={`inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 px-3 py-1.5 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl [@media(min-width:1920px)]:text-2xl font-semibold transition-all duration-200 cursor-pointer ${
+          className={`inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 px-3 [@media(min-width:1440px)]:px-4.5 py-1.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold transition-all duration-200 cursor-pointer ${
             isLight
               ? 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 hover:border-rose-400 hover:text-rose-600 hover:-translate-y-0.5'
               : 'text-zinc-200 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-rose-500/40 hover:text-rose-300 hover:-translate-y-0.5'
