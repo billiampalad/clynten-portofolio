@@ -636,3 +636,314 @@ body.light-theme .tech-chip:hover {
     font-size: 28px;
   }
 }
+
+/* ==========================================================================
+   Desktop Wide Screen Optimization (Strict Scope: min-width: 1440px)
+   Full-screen proportion & large card scaling matching About section
+   ========================================================================== */
+@media only screen and (min-width: 1440px) {
+  .skills-section {
+    padding: 90px 48px 120px 48px;
+  }
+
+  .skills-headline-block,
+  .skills-stats-grid,
+  .skills-pillars-grid {
+    max-width: 1440px;
+  }
+
+  .skills-header-meta {
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+
+  .skills-header-left {
+    gap: 16px;
+  }
+
+  .skills-badge {
+    font-size: 13px;
+    padding: 6px 14px;
+    letter-spacing: 2px;
+  }
+
+  .skills-badge .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .skills-tagline {
+    font-size: 14.5px;
+    letter-spacing: 1.8px;
+  }
+
+  .skills-sys-id {
+    font-size: 13px;
+    letter-spacing: 1.8px;
+  }
+
+  .skills-headline-block {
+    margin-bottom: 56px;
+  }
+
+  .skills-title {
+    font-size: 56px;
+    line-height: 1.08;
+    max-width: 1200px;
+    margin-bottom: 24px;
+  }
+
+  .skills-description {
+    font-size: 19px;
+    line-height: 1.65;
+    max-width: 1050px;
+  }
+
+  .skills-stats-grid {
+    gap: 22px;
+    margin-bottom: 68px;
+  }
+
+  .stat-card {
+    padding: 26px 22px;
+    border-radius: 12px;
+  }
+
+  .stat-num {
+    font-size: 42px;
+    margin-bottom: 6px;
+  }
+
+  .stat-title {
+    font-size: 15.5px;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .skills-pillars-grid {
+    gap: 26px;
+  }
+
+  .pillar-card {
+    padding: 36px;
+    border-radius: 16px;
+  }
+
+  .pillar-header {
+    margin-bottom: 18px;
+    gap: 16px;
+  }
+
+  .pillar-idx {
+    font-size: 13px;
+    letter-spacing: 1.8px;
+  }
+
+  .pillar-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 5px;
+  }
+
+  .pillar-metric-badge {
+    font-size: 15px;
+    padding: 4px 12px;
+    gap: 8px;
+  }
+
+  .pillar-metric-dot {
+    width: 7.5px;
+    height: 7.5px;
+  }
+
+  .pillar-telemetry {
+    margin: 6px 0 20px 0;
+    gap: 8px;
+  }
+
+  .pillar-telemetry-meta {
+    font-size: 12px;
+  }
+
+  .pillar-telemetry-latency {
+    font-size: 11.5px;
+  }
+
+  .pillar-gauge-track {
+    height: 7px;
+  }
+
+  .pillar-title {
+    font-size: 25px;
+    margin-bottom: 12px;
+  }
+
+  .pillar-desc {
+    font-size: 15.5px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .pillar-techs {
+    gap: 9px;
+  }
+
+  .tech-chip {
+    font-size: 12.5px;
+    padding: 5px 11px;
+    gap: 7px;
+    border-radius: 6px;
+  }
+
+  .tech-chip-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .skills-section {
+    padding: 100px 60px 140px 60px;
+  }
+
+  .skills-headline-block,
+  .skills-stats-grid,
+  .skills-pillars-grid {
+    max-width: 1680px;
+  }
+
+  .skills-title {
+    font-size: 64px;
+    max-width: 1380px;
+  }
+
+  .skills-description {
+    font-size: 21px;
+    max-width: 1180px;
+  }
+
+  .skills-stats-grid {
+    gap: 26px;
+    margin-bottom: 76px;
+  }
+
+  .stat-card {
+    padding: 30px 26px;
+    border-radius: 14px;
+  }
+
+  .stat-num {
+    font-size: 48px;
+  }
+
+  .stat-title {
+    font-size: 17px;
+  }
+
+  .stat-desc {
+    font-size: 14px;
+  }
+
+  .skills-pillars-grid {
+    gap: 30px;
+  }
+
+  .pillar-card {
+    padding: 42px;
+    border-radius: 18px;
+  }
+
+  .pillar-title {
+    font-size: 28px;
+  }
+
+  .pillar-desc {
+    font-size: 17px;
+    margin-bottom: 28px;
+  }
+
+  .tech-chip {
+    font-size: 13.5px;
+    padding: 6px 13px;
+    gap: 8px;
+    border-radius: 7px;
+  }
+
+  .tech-chip-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .skills-section {
+    padding: 110px 80px 160px 80px;
+  }
+
+  .skills-headline-block,
+  .skills-stats-grid,
+  .skills-pillars-grid {
+    max-width: 1840px;
+  }
+
+  .skills-title {
+    font-size: 72px;
+    max-width: 1500px;
+  }
+
+  .skills-description {
+    font-size: 23px;
+    max-width: 1300px;
+  }
+
+  .skills-stats-grid {
+    gap: 30px;
+  }
+
+  .stat-card {
+    padding: 34px 28px;
+  }
+
+  .stat-num {
+    font-size: 54px;
+  }
+
+  .stat-title {
+    font-size: 18.5px;
+  }
+
+  .stat-desc {
+    font-size: 15px;
+  }
+
+  .skills-pillars-grid {
+    gap: 34px;
+  }
+
+  .pillar-card {
+    padding: 48px;
+  }
+
+  .pillar-title {
+    font-size: 31px;
+  }
+
+  .pillar-desc {
+    font-size: 18px;
+  }
+
+  .tech-chip {
+    font-size: 14.5px;
+    padding: 7px 15px;
+    gap: 9px;
+  }
+
+  .tech-chip-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
