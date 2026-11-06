@@ -562,7 +562,7 @@ function Projects() {
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
           <div className="w-full md:w-auto flex flex-col items-center justify-center relative [perspective:1400px] select-none py-4 sm:py-6 shrink-0">
-            <div className="relative w-[320px] sm:w-[380px] md:w-[440px] lg:w-[480px] xl:w-[500px] [@media(min-width:1440px)]:w-[580px] [@media(min-width:1600px)]:w-[660px] [@media(min-width:1920px)]:w-[740px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+            <div className="relative w-[320px] sm:w-[380px] md:w-[440px] lg:w-[480px] xl:w-[500px] [@media(min-width:1440px)]:w-[650px] [@media(min-width:1600px)]:w-[730px] [@media(min-width:1920px)]:w-[820px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
