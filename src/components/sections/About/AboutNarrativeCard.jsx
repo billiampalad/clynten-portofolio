@@ -83,7 +83,7 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
           <button
             type="button"
             onClick={() => setActiveTab(nextSection.id)}
-            className={`inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2.5 px-3 [@media(min-width:1440px)]:px-7 [@media(min-width:1440px)]:py-3.5 [@media(min-width:1600px)]:px-8 [@media(min-width:1600px)]:py-4 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold shadow-md hover:translate-x-0.5 transition-all duration-200 cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 px-3 [@media(min-width:1440px)]:px-4.5 py-1.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold shadow-md hover:translate-x-0.5 transition-all duration-200 cursor-pointer ${
               isLight
                 ? 'bg-gradient-to-b from-slate-100 to-slate-200 border border-slate-300 text-rose-600 hover:from-rose-50 hover:to-rose-100 hover:text-rose-700'
                 : 'bg-gradient-to-b from-[#35303f] to-[#221f2b] border border-white/10 text-rose-400 hover:from-[#3e242c] hover:to-[#26181d] hover:border-rose-500/40 hover:text-rose-300'
