@@ -429,13 +429,13 @@ function Projects() {
             return (
               <div
                 key={project.id}
-                className={`absolute inset-0 transition-opacity duration-700 ease-out will-change-[opacity] scale-105 [@media(min-width:1440px)]:scale-115 ${isVisible ? 'opacity-100' : 'opacity-0'
+                className={`absolute inset-0 transition-opacity duration-700 ease-out will-change-[opacity] scale-105 [@media(min-width:1440px)]:scale-125 ${isVisible ? 'opacity-100' : 'opacity-0'
                   }`}
               >
                 <img
                   src={project.image}
                   alt=""
-                  className={`w-full h-full object-cover object-center filter blur-[6px] sm:blur-[8px] md:blur-[10px] [@media(min-width:1440px)]:blur-[38px] [@media(min-width:1600px)]:blur-[48px] transform-gpu ${isLight
+                  className={`w-full h-full object-cover object-center filter blur-[6px] sm:blur-[8px] md:blur-[10px] [@media(min-width:1440px)]:blur-[80px] [@media(min-width:1600px)]:blur-[100px] [@media(min-width:1440px)]:opacity-45 transform-gpu ${isLight
                     ? 'brightness-[1.0] contrast-[1.04] saturate-[1.1]'
                     : 'brightness-[0.88] contrast-[1.08] saturate-[1.2]'
                     }`}
