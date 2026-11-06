@@ -474,7 +474,7 @@ function Projects() {
         </div>
 
         {/* Top Header Row (Pass under 50px navbar, cleanly visible) */}
-        <div className="relative z-10 w-full flex items-center justify-between mt-0">
+        <div className="relative z-10 w-full flex items-center justify-between mt-0 [@media(min-width:1440px)]:mt-4 [@media(min-width:1600px)]:mt-5">
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 [@media(min-width:1440px)]:px-4 [@media(min-width:1440px)]:py-2 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
               } border backdrop-blur-md transition-colors`}
