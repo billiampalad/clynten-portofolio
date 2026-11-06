@@ -413,7 +413,7 @@ function Projects() {
       {/* Pinned Viewport Stage (Fills full viewport cleanly) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-[60px] pb-4 px-4 sm:pt-[64px] sm:pb-5 sm:px-6 md:pt-[68px] md:pb-6 md:px-8 select-none box-border"
+        className="relative w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between pt-[60px] pb-4 px-4 sm:pt-[64px] sm:pb-5 sm:px-6 md:pt-[68px] md:pb-6 md:px-8 [@media(min-width:1440px)]:pt-[76px] [@media(min-width:1440px)]:pb-8 [@media(min-width:1440px)]:px-14 [@media(min-width:1600px)]:px-20 select-none box-border"
       >
         {/* Dynamic Project Image Background with Smooth Crossfade & Cinematic Blur */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
@@ -476,19 +476,19 @@ function Projects() {
         {/* Top Header Row (Pass under 50px navbar, cleanly visible) */}
         <div className="relative z-10 w-full flex items-center justify-between mt-0">
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
+            className={`inline-flex items-center gap-2 px-3 py-1.5 [@media(min-width:1440px)]:px-4 [@media(min-width:1440px)]:py-2 rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
               } border backdrop-blur-md transition-colors`}
           >
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="w-2 h-2 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-red-500 animate-pulse" />
             <span
-              className={`font-mono text-[10px] sm:text-xs font-bold tracking-widest ${isLight ? 'text-slate-700' : 'text-slate-300'
+              className={`font-mono text-[10px] sm:text-xs [@media(min-width:1440px)]:text-sm font-bold tracking-widest ${isLight ? 'text-slate-700' : 'text-slate-300'
                 } uppercase transition-colors`}
             >
               Projects
             </span>
           </div>
 
-          <div className="hidden sm:block h-5 overflow-hidden flex items-center">
+          <div className="hidden sm:block h-5 [@media(min-width:1440px)]:h-6 overflow-hidden flex items-center">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -496,7 +496,7 @@ function Projects() {
                 animate={{ y: '0%', opacity: 1 }}
                 exit={{ y: '-100%', opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className={`font-mono text-xs ${isLight ? 'text-slate-600' : 'text-slate-400'
+                className={`font-mono text-xs [@media(min-width:1440px)]:text-sm [@media(min-width:1600px)]:text-base ${isLight ? 'text-slate-600' : 'text-slate-400'
                   } tracking-wider transition-colors`}
               >
                 {currentProject.client}
@@ -506,9 +506,9 @@ function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 -translate-y-1 sm:-translate-y-2 md:-translate-y-3 mb-auto py-1">
+        <div className="relative z-10 w-full max-w-6xl [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12 [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 -translate-y-1 sm:-translate-y-2 md:-translate-y-3 mb-auto py-1">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
-          <div className="w-full md:w-[260px] lg:w-[280px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
+          <div className="w-full md:w-[260px] lg:w-[280px] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -518,16 +518,16 @@ function Projects() {
                 className="flex flex-col items-start w-max max-w-none"
               >
                 {/* 1. Technical Code Badge with Reveal */}
-                <div className="overflow-hidden py-0.5 mb-2">
+                <div className="overflow-hidden py-0.5 mb-2 [@media(min-width:1440px)]:mb-3">
                   <motion.div
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="inline-flex items-center gap-1.5"
+                    className="inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                    <span className="font-mono text-xs font-bold text-red-500 tracking-[0.2em] uppercase">
+                    <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-2 rounded-full bg-red-500 animate-pulse" />
+                    <span className="font-mono text-xs [@media(min-width:1440px)]:text-sm [@media(min-width:1600px)]:text-base font-bold text-red-500 tracking-[0.2em] uppercase">
                       {currentProject.code}
                     </span>
                   </motion.div>
@@ -540,7 +540,7 @@ function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl lg:text-2xl [@media(min-width:1440px)]:text-4xl [@media(min-width:1600px)]:text-5xl [@media(min-width:1920px)]:text-6xl tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -548,9 +548,9 @@ function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-2.5 w-max max-w-none">
+                <div className="overflow-hidden py-0.5 mt-2.5 [@media(min-width:1440px)]:mt-3.5 w-max max-w-none">
                   <p
-                    className={`font-mono text-xs sm:text-sm whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
+                    className={`font-mono text-xs sm:text-sm [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
                   >
                     <SplitTextReveal text={currentProject.category} className="whitespace-nowrap flex-nowrap" />
@@ -562,7 +562,7 @@ function Projects() {
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
           <div className="w-full md:w-auto flex flex-col items-center justify-center relative [perspective:1400px] select-none py-4 sm:py-6 shrink-0">
-            <div className="relative w-[320px] sm:w-[380px] md:w-[440px] lg:w-[480px] xl:w-[500px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+            <div className="relative w-[320px] sm:w-[380px] md:w-[440px] lg:w-[480px] xl:w-[500px] [@media(min-width:1440px)]:w-[580px] [@media(min-width:1600px)]:w-[660px] [@media(min-width:1920px)]:w-[740px] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
@@ -619,7 +619,7 @@ function Projects() {
                 return (
                   <motion.div
                     key={project.id}
-                    className="absolute inset-0 w-full h-full rounded-[8px] overflow-hidden pointer-events-none select-none"
+                    className="absolute inset-0 w-full h-full rounded-[8px] [@media(min-width:1440px)]:rounded-[12px] overflow-hidden pointer-events-none select-none"
                     style={{
                       transformStyle: 'preserve-3d',
                       transformOrigin: 'center center',
@@ -648,12 +648,12 @@ function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-[260px] lg:w-[280px] flex flex-col md:items-end justify-between text-left gap-4 shrink-0">
-            <div className="flex flex-col items-start text-left w-full max-w-xs min-h-[90px]">
+          <div className="w-full md:w-[260px] lg:w-[280px] [@media(min-width:1440px)]:w-[360px] [@media(min-width:1600px)]:w-[420px] flex flex-col md:items-end justify-between text-left gap-4 [@media(min-width:1440px)]:gap-6 shrink-0">
+            <div className="flex flex-col items-start text-left w-full max-w-xs [@media(min-width:1440px)]:max-w-md min-h-[90px] [@media(min-width:1440px)]:min-h-[120px]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
                   key={currentProject.id}
-                  className={`text-xs sm:text-sm md:text-[13.5px] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                  className={`text-xs sm:text-sm md:text-[13.5px] [@media(min-width:1440px)]:text-[16.5px] [@media(min-width:1600px)]:text-[18.5px] [@media(min-width:1440px)]:leading-[1.7] ${isLight ? 'text-slate-700' : 'text-slate-300'
                     } font-sans leading-normal tracking-normal text-left`}
                 >
                   <SplitWordsReveal text={currentProject.summary} />
@@ -663,7 +663,7 @@ function Projects() {
               <button
                 type="button"
                 onClick={() => handleOpenDrawer(currentProject)}
-                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/40 hover:border-red-500 text-red-500 hover:text-white font-mono text-xs font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-red-500/10 group/btn"
+                className="mt-4 [@media(min-width:1440px)]:mt-6 inline-flex items-center gap-2 [@media(min-width:1440px)]:gap-2.5 px-4 py-2 [@media(min-width:1440px)]:px-6 [@media(min-width:1440px)]:py-3 rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/40 hover:border-red-500 text-red-500 hover:text-white font-mono text-xs [@media(min-width:1440px)]:text-sm [@media(min-width:1600px)]:text-base font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-red-500/10 group/btn"
               >
                 <span>EXPLORE CASE STUDY</span>
                 <span className="transform transition-transform duration-300 group-hover/btn:translate-x-1" aria-hidden="true">→</span>
@@ -671,7 +671,7 @@ function Projects() {
             </div>
 
             {/* Circular Step Indicator (Matching Meer Mohsin Reference) */}
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center mt-2">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 [@media(min-width:1440px)]:w-28 [@media(min-width:1440px)]:h-28 [@media(min-width:1600px)]:w-32 [@media(min-width:1600px)]:h-32 flex items-center justify-center mt-2 [@media(min-width:1440px)]:mt-4">
               <svg className="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 86 86">
                 <circle
                   ref={circleRef}
@@ -691,7 +691,7 @@ function Projects() {
               {/* Step Counter Display (Static without motion) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <span
-                  className={`font-mono font-normal text-2xl sm:text-3xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                  className={`font-mono font-normal text-2xl sm:text-3xl [@media(min-width:1440px)]:text-4xl [@media(min-width:1600px)]:text-5xl leading-none ${isLight ? 'text-slate-950' : 'text-white'
                     } tracking-tight transition-colors text-center inline-block`}
                 >
                   0{currentIndex + 1}
@@ -703,17 +703,17 @@ function Projects() {
 
         {/* Bottom Status Ticker Bar */}
         <div
-          className={`relative z-10 w-full flex items-center justify-between pt-2 translate-y-1 sm:translate-y-2 ${isLight ? 'text-black' : 'text-white'
-            } font-mono text-[10px] sm:text-xs transition-colors`}
+          className={`relative z-10 w-full flex items-center justify-between pt-2 [@media(min-width:1440px)]:pt-3 translate-y-1 sm:translate-y-2 ${isLight ? 'text-black' : 'text-white'
+            } font-mono text-[10px] sm:text-xs [@media(min-width:1440px)]:text-sm [@media(min-width:1600px)]:text-base transition-colors`}
         >
           {/* Leftmost + Accent (Desktop) */}
-          <div className="hidden sm:flex h-6 items-center shrink-0">
+          <div className="hidden sm:flex h-6 [@media(min-width:1440px)]:h-8 items-center shrink-0">
             <span
               ref={rotatingIconRef0}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -721,20 +721,20 @@ function Projects() {
           </div>
 
           {/* Segment 1: tension (Centered between Leftmost + and Divider 1 +) */}
-          <div className="hidden sm:flex flex-1 h-6 items-center justify-center px-2">
+          <div className="hidden sm:flex flex-1 h-6 [@media(min-width:1440px)]:h-8 items-center justify-center px-2">
             <span className="whitespace-nowrap leading-none flex items-center uppercase tracking-widest font-bold">
               tension
             </span>
           </div>
 
           {/* Dynamic Rotating + Divider 1 (Desktop: between Left & Center) */}
-          <div className="hidden sm:flex h-6 items-center justify-center shrink-0">
+          <div className="hidden sm:flex h-6 [@media(min-width:1440px)]:h-8 items-center justify-center shrink-0">
             <span
               ref={rotatingIconRef1}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -742,20 +742,20 @@ function Projects() {
           </div>
 
           {/* Segment 2: immersion (Centered between Divider 1 + and Divider 2 +) */}
-          <div className="flex-1 h-6 overflow-hidden flex items-center justify-center px-2">
+          <div className="flex-1 h-6 [@media(min-width:1440px)]:h-8 overflow-hidden flex items-center justify-center px-2">
             <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase tracking-widest transition-colors whitespace-nowrap inline-flex items-center leading-none`}>
               immersion
             </span>
           </div>
 
           {/* Dynamic Rotating + Divider 2 (between Center & Right) */}
-          <div className="flex h-6 items-center justify-center shrink-0">
+          <div className="flex h-6 [@media(min-width:1440px)]:h-8 items-center justify-center shrink-0">
             <span
               ref={rotatingIconRef2}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -763,20 +763,20 @@ function Projects() {
           </div>
 
           {/* Segment 3: impact (Centered between Divider 2 + and Rightmost +) */}
-          <div className="flex-1 h-6 overflow-hidden flex items-center justify-center px-2">
+          <div className="flex-1 h-6 [@media(min-width:1440px)]:h-8 overflow-hidden flex items-center justify-center px-2">
             <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase tracking-widest transition-colors whitespace-nowrap inline-flex items-center leading-none`}>
               impact
             </span>
           </div>
 
           {/* Rightmost + Accent */}
-          <div className="flex h-6 items-center shrink-0">
+          <div className="flex h-6 [@media(min-width:1440px)]:h-8 items-center shrink-0">
             <span
               ref={rotatingIconRef3}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3.5 h-3.5 sm:w-4 sm:h-4 [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -815,10 +815,10 @@ function Projects() {
                 backdropFilter: 'blur(18px)',
                 WebkitBackdropFilter: 'blur(18px)',
               }}
-              className={`fixed top-0 left-0 w-full max-w-lg h-full ${isLight
+              className={`fixed top-0 left-0 w-full max-w-lg [@media(min-width:1440px)]:max-w-2xl [@media(min-width:1600px)]:max-w-3xl h-full ${isLight
                 ? 'bg-white/30 text-slate-900 border-r border-slate-200/60 shadow-2xl'
                 : 'bg-[#0a090d]/25 text-slate-100 border-r border-white/10 shadow-2xl'
-                } p-6 sm:p-8 z-[1101] overflow-y-auto overscroll-contain`}
+                } p-6 sm:p-8 [@media(min-width:1440px)]:p-12 [@media(min-width:1600px)]:p-14 z-[1101] overflow-y-auto overscroll-contain`}
               aria-label="Project Case Study"
               aria-modal="true"
               role="dialog"
@@ -827,15 +827,15 @@ function Projects() {
                 variants={drawerContentVariants}
                 initial="hidden"
                 animate="visible"
-                className="flex flex-col gap-6 font-sans"
+                className="flex flex-col gap-6 [@media(min-width:1440px)]:gap-8 font-sans"
               >
                 {/* 1. Top Bar: Code Badge, GitHub Link & Close Button */}
                 <motion.div
                   variants={drawerItemVariants}
-                  className={`flex items-center justify-between pb-4 border-b ${isLight ? 'border-slate-200' : 'border-white/10'
+                  className={`flex items-center justify-between pb-4 [@media(min-width:1440px)]:pb-5 border-b ${isLight ? 'border-slate-200' : 'border-white/10'
                     }`}
                 >
-                  <span className="font-mono text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-md">
+                  <span className="font-mono text-xs [@media(min-width:1440px)]:text-sm font-bold text-red-500 bg-red-500/10 border border-red-500/30 px-3 py-1 [@media(min-width:1440px)]:px-4 [@media(min-width:1440px)]:py-1.5 rounded-md">
                     {selectedProject.code}
                   </span>
 
@@ -844,17 +844,17 @@ function Projects() {
                       href={selectedProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all ${isLight
+                      className={`inline-flex items-center gap-2 [@media(min-width:1440px)]:gap-2.5 px-3 py-1.5 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 rounded-lg font-mono text-xs [@media(min-width:1440px)]:text-sm font-bold transition-all ${isLight
                         ? 'bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 hover:text-black shadow-sm'
                         : 'bg-white/5 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white'
                         }`}
                       title="View GitHub Repository"
                     >
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                      <svg className="w-3.5 h-3.5 [@media(min-width:1440px)]:w-4.5 [@media(min-width:1440px)]:h-4.5" viewBox="0 0 24 24" fill="currentColor">
                         <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                       </svg>
                       <span>GITHUB</span>
-                      <svg className="w-3 h-3 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="w-3 h-3 [@media(min-width:1440px)]:w-4 [@media(min-width:1440px)]:h-4 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                         <polyline points="15 3 21 3 21 9" />
                         <line x1="10" y1="14" x2="21" y2="3" />
@@ -865,10 +865,10 @@ function Projects() {
                   <button
                     type="button"
                     onClick={handleCloseDrawer}
-                    className={`px-3 py-1.5 rounded-lg ${isLight
+                    className={`px-3 py-1.5 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 rounded-lg ${isLight
                       ? 'bg-slate-100 hover:bg-red-600 hover:text-white border border-slate-200 text-slate-700'
                       : 'bg-white/5 hover:bg-red-600 hover:text-white border border-white/15 text-slate-300'
-                      } font-mono text-xs font-bold transition-all cursor-pointer`}
+                      } font-mono text-xs [@media(min-width:1440px)]:text-sm font-bold transition-all cursor-pointer`}
                   >
                     ✕ CLOSE
                   </button>
@@ -886,7 +886,7 @@ function Projects() {
                       />
                     </div>
                     {(selectedProject.date || selectedProject.period) && (
-                      <div className="flex items-center gap-2 font-mono text-xs text-red-500 font-semibold tracking-wider">
+                      <div className="flex items-center gap-2 font-mono text-xs [@media(min-width:1440px)]:text-sm text-red-500 font-semibold tracking-wider">
                         <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                         <span>{selectedProject.date || selectedProject.period}</span>
                       </div>
@@ -897,13 +897,13 @@ function Projects() {
                 {/* 2. Title & Subtitle */}
                 <motion.div variants={drawerItemVariants}>
                   <h3
-                    className={`font-mono font-black text-2xl sm:text-3xl ${isLight ? 'text-slate-900' : 'text-white'
+                    className={`font-mono font-black text-2xl sm:text-3xl [@media(min-width:1440px)]:text-4xl [@media(min-width:1600px)]:text-5xl ${isLight ? 'text-slate-900' : 'text-white'
                       } tracking-tight mb-1`}
                   >
                     {selectedProject.title}
                   </h3>
                   <p
-                    className={`mt-2.5 font-mono text-xs sm:text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-400'
+                    className={`mt-2.5 font-mono text-xs sm:text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1600px)]:text-lg leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-400'
                       }`}
                   >
                     {selectedProject.subtitle}
@@ -912,20 +912,20 @@ function Projects() {
 
                 {/* 3. Technology Badges */}
                 <motion.div variants={drawerItemVariants}>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 [@media(min-width:1440px)]:gap-2.5">
                     {selectedProject.tech.map((t) => (
                       <motion.span
                         key={t}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.15 }}
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${isLight
+                        className={`inline-flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 px-2 py-0.5 [@media(min-width:1440px)]:px-3 [@media(min-width:1440px)]:py-1.5 rounded-md [@media(min-width:1440px)]:rounded-lg ${isLight
                           ? 'bg-slate-100/90 border-slate-200 text-slate-700 hover:bg-slate-200/70'
                           : 'bg-white/[0.04] border-white/10 text-slate-300 hover:bg-white/[0.08]'
-                          } border font-mono text-[11px] font-medium transition-colors`}
+                          } border font-mono text-[11px] [@media(min-width:1440px)]:text-sm font-medium transition-colors`}
                       >
                         <TechIcon
                           name={t}
-                          className="w-3.5 h-3.5 inline-flex items-center justify-center shrink-0 [&>svg]:w-full [&>svg]:h-full"
+                          className="w-3.5 h-3.5 [@media(min-width:1440px)]:w-4.5 [@media(min-width:1440px)]:h-4.5 inline-flex items-center justify-center shrink-0 [&>svg]:w-full [&>svg]:h-full"
                         />
                         <span>{t}</span>
                       </motion.span>
@@ -937,11 +937,11 @@ function Projects() {
                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
                   <motion.div
                     variants={drawerItemVariants}
-                    className="mt-10 flex flex-col gap-4"
+                    className="mt-10 [@media(min-width:1440px)]:mt-12 flex flex-col gap-4"
                   >
                     <div className="flex flex-col gap-1.5">
                       <h3
-                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                        className={`font-mono font-black text-2xl sm:text-3xl md:text-4xl [@media(min-width:1440px)]:text-5xl tracking-tight uppercase leading-none ${isLight ? 'text-slate-950' : 'text-white'
                           }`}
                       >
                         GALLERY
@@ -976,24 +976,24 @@ function Projects() {
                 {selectedProject.contributions && selectedProject.contributions.length > 0 && (
                   <motion.div
                     variants={drawerItemVariants}
-                    className="mt-10 flex flex-col gap-3"
+                    className="mt-10 [@media(min-width:1440px)]:mt-12 flex flex-col gap-3"
                   >
                     <span
-                      className={`font-mono text-xs font-bold tracking-wider uppercase ${isLight ? 'text-slate-500' : 'text-zinc-400'
+                      className={`font-mono text-xs [@media(min-width:1440px)]:text-sm font-bold tracking-wider uppercase ${isLight ? 'text-slate-500' : 'text-zinc-400'
                         }`}
                     >
                       CONTRIBUTION
                     </span>
 
-                    <ul className="flex flex-col gap-2.5 sm:gap-3 mt-1">
+                    <ul className="flex flex-col gap-2.5 sm:gap-3 [@media(min-width:1440px)]:gap-4 mt-1">
                       {selectedProject.contributions.map((item, cIdx) => (
                         <li
                           key={cIdx}
-                          className={`flex items-center gap-3 text-sm sm:text-base font-semibold ${isLight ? 'text-slate-900' : 'text-white'
+                          className={`flex items-center gap-3 [@media(min-width:1440px)]:gap-4 text-sm sm:text-base [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold ${isLight ? 'text-slate-900' : 'text-white'
                             } tracking-tight`}
                         >
                           <svg
-                            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${isLight ? 'text-slate-500' : 'text-zinc-300'
+                            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 shrink-0 ${isLight ? 'text-slate-500' : 'text-zinc-300'
                               }`}
                             viewBox="0 0 24 24"
                             fill="none"
