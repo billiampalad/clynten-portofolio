@@ -18,7 +18,7 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
       {/* Header Tag */}
       <div className="mb-3 [@media(min-width:1440px)]:mb-5">
         <span
-          className={`inline-block font-mono text-xs [@media(min-width:1440px)]:text-base [@media(min-width:1600px)]:text-lg font-semibold tracking-[1.5px] uppercase transition-colors duration-300 ${
+          className={`inline-block font-mono text-xs [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold tracking-[1.5px] uppercase transition-colors duration-300 ${
             isLight ? 'text-rose-600' : 'text-rose-400'
           }`}
         >
@@ -27,11 +27,11 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
       </div>
 
       {/* Body Content */}
-      <div className="flex flex-col gap-3 [@media(min-width:1440px)]:gap-5 min-h-[120px] sm:min-h-[110px] [@media(min-width:1440px)]:min-h-[140px]">
+      <div className="flex flex-col gap-3 [@media(min-width:1440px)]:gap-5 min-h-[120px] sm:min-h-[110px] [@media(min-width:1440px)]:min-h-[160px] [@media(min-width:1600px)]:min-h-[180px]">
         {currentSection.paragraphs.map((p, idx) => (
           <p
             key={idx}
-            className={`text-[14px] sm:text-[14.5px] [@media(min-width:1440px)]:text-[18.5px] [@media(min-width:1600px)]:text-[20px] leading-relaxed [@media(min-width:1440px)]:leading-[1.75] font-normal m-0 transition-colors duration-300 ${
+            className={`text-[14px] sm:text-[14.5px] [@media(min-width:1440px)]:text-[22px] [@media(min-width:1600px)]:text-[24px] [@media(min-width:1920px)]:text-[26px] leading-relaxed [@media(min-width:1440px)]:leading-[1.8] font-normal m-0 transition-colors duration-300 ${
               isLight ? 'text-slate-700' : 'text-zinc-200/90'
             }`}
           >
