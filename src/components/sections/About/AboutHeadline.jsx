@@ -71,14 +71,14 @@ function AboutHeadline({ isLight = false }) {
         </h2>
 
         <div
-          className={`inline-flex items-baseline gap-2 [@media(min-width:1440px)]:gap-2.5 font-mono transition-colors duration-300 ${
+          className={`inline-flex items-baseline gap-2 [@media(min-width:1440px)]:gap-3.5 font-mono transition-colors duration-300 ${
             isLight ? 'text-slate-600' : 'text-zinc-400'
           }`}
         >
-          <span className={`text-sm sm:text-base md:text-lg [@media(min-width:1440px)]:text-[18px] [@media(min-width:1600px)]:text-[20px] font-medium ${isLight ? 'text-slate-500' : 'text-zinc-500'}`}>
+          <span className={`text-sm sm:text-base md:text-lg [@media(min-width:1440px)]:text-[24px] [@media(min-width:1600px)]:text-[28px] [@media(min-width:1920px)]:text-[32px] font-medium ${isLight ? 'text-slate-500' : 'text-zinc-500'}`}>
             And I'm a
           </span>
-          <span className={`text-base sm:text-lg md:text-xl [@media(min-width:1440px)]:text-[24px] [@media(min-width:1600px)]:text-[28px] font-bold tracking-tight ${isLight ? 'text-rose-600' : 'text-rose-400'}`}>
+          <span className={`text-base sm:text-lg md:text-xl [@media(min-width:1440px)]:text-[32px] [@media(min-width:1600px)]:text-[38px] [@media(min-width:1920px)]:text-[44px] font-bold tracking-tight ${isLight ? 'text-rose-600' : 'text-rose-400'}`}>
             {displayedText}
             <span className="text-rose-500 font-black ml-0.5 animate-pulse" aria-hidden="true">_</span>
           </span>
