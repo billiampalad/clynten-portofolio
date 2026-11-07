@@ -95,7 +95,7 @@ const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
       ref={promptRef}
-      className="absolute bottom-6 sm:bottom-9 [@media(min-width:1440px)]:bottom-12 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 flex flex-col items-center gap-1.5 [@media(min-width:1440px)]:gap-3 transition-opacity duration-100 will-change-[opacity]"
+      className="absolute bottom-6 sm:bottom-9 [@media(min-width:1440px)]:bottom-20 [@media(min-width:1600px)]:bottom-24 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 flex flex-col items-center gap-1.5 [@media(min-width:1440px)]:gap-3 transition-opacity duration-100 will-change-[opacity]"
     >
       <div className="w-4 h-7 [@media(min-width:1440px)]:w-6 [@media(min-width:1440px)]:h-10.5 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 [@media(min-width:1440px)]:p-1.5 bg-black/50">
         <span className="w-1 h-2 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-3.5 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
@@ -146,7 +146,7 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-12 [@media(min-width:1440px)]:top-10 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 hidden md:flex items-center gap-3.5 [@media(min-width:1440px)]:gap-6 px-3.5 py-2 [@media(min-width:1440px)]:px-6 [@media(min-width:1440px)]:py-4 rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
+        className="absolute top-12 [@media(min-width:1440px)]:top-20 [@media(min-width:1600px)]:top-24 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 hidden md:flex items-center gap-3.5 [@media(min-width:1440px)]:gap-6 px-3.5 py-2 [@media(min-width:1440px)]:px-6 [@media(min-width:1440px)]:py-4 rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
       >
         <RadarGauge
           needleRef={needleRef}
