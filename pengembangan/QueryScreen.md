@@ -31,8 +31,4 @@ Tugas dianggap selesai apabila:
 - Disediakan kode hasil modifikasi yang bersih, terstruktur, dan siap pakai.
 
 6. Output
-Sajikan hasil dalam Bahasa Indonesia dengan format:
-1. **Analisis Optimasi Ruang Kosong (1440px - 1800px)**: Uraian singkat strategi penataan elemen (komposisi grid, batasan kontainer, dan hierarki visual).
-2. **Aturan CSS / Tailwind Khusus Desktop (Siap Pakai)**: Blok kode styling terisolasi (menggunakan sintaks `@media only screen and (min-width: 1440px)` atau class utility Tailwind 1440px+) yang siap diterapkan langsung pada komponen target.
-3. **Pemeriksaan Isolasi Breakpoint**: Konfirmasi bahwa aturan tersebut 100% aman dan tidak menimbulkan efek samping (regression) pada tampilan layar yang lebih kecil.
-4. **Catatan Performa GPU & Rendering**: Poin ringkas mengenai efisiensi properti CSS yang dipilih agar tidak membebani pemrosesan grafis pada resolusi tinggi.
+Jangan berikut deskripsi penjelasannya, tetapi lakukan perbaikan kode saja
