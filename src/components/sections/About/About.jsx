@@ -56,9 +56,9 @@ function About({ style = {} }) {
         isLight ? 'bg-[#f8fafc]' : 'bg-[#0A0907]'
       }`}
     >
-      <div className="relative z-10 max-w-[1100px] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_280px] [@media(min-width:1440px)]:grid-cols-[1fr_380px] [@media(min-width:1600px)]:grid-cols-[1fr_420px] gap-8 lg:gap-12 [@media(min-width:1440px)]:gap-16 [@media(min-width:1600px)]:gap-20 items-center pointer-events-auto">
+      <div className="relative z-10 max-w-[1100px] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_280px] [@media(min-width:1440px)]:grid-cols-[1fr_420px] [@media(min-width:1600px)]:grid-cols-[1fr_460px] [@media(min-width:1920px)]:grid-cols-[1fr_500px] gap-8 lg:gap-12 [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 items-center pointer-events-auto">
         {/* Left Column: Headline + Story Card + Action Bar */}
-        <div className="flex flex-col gap-4 sm:gap-5 [@media(min-width:1440px)]:gap-7">
+        <div className="flex flex-col gap-4 sm:gap-5 [@media(min-width:1440px)]:gap-8 [@media(min-width:1600px)]:gap-9">
           <AboutHeadline isLight={isLight} />
           <AboutNarrativeCard
             activeTab={activeTab}
