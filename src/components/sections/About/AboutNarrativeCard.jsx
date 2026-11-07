@@ -9,16 +9,16 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
   return (
     <div
       key={currentSection.id}
-      className={`relative rounded-2xl p-5 sm:p-6 backdrop-blur-md overflow-hidden transition-all duration-300 ${
+      className={`relative rounded-2xl [@media(min-width:1440px)]:rounded-3xl p-5 sm:p-6 [@media(min-width:1440px)]:p-8 [@media(min-width:1600px)]:p-9 backdrop-blur-md overflow-hidden transition-all duration-300 ${
         isLight
           ? 'bg-white/90 border border-slate-200 shadow-[0_16px_36px_rgba(0,0,0,0.06)]'
           : 'bg-[#191720]/85 border border-white/10 shadow-[0_16px_36px_rgba(0,0,0,0.5)]'
       }`}
     >
       {/* Header Tag */}
-      <div className="mb-3">
+      <div className="mb-3 [@media(min-width:1440px)]:mb-4">
         <span
-          className={`inline-block font-mono text-xs font-semibold tracking-[1.5px] uppercase transition-colors duration-300 ${
+          className={`inline-block font-mono text-xs [@media(min-width:1440px)]:text-sm font-semibold tracking-[1.5px] uppercase transition-colors duration-300 ${
             isLight ? 'text-rose-600' : 'text-rose-400'
           }`}
         >
@@ -27,11 +27,11 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
       </div>
 
       {/* Body Content */}
-      <div className="flex flex-col gap-3 min-h-[120px] sm:min-h-[110px]">
+      <div className="flex flex-col gap-3 [@media(min-width:1440px)]:gap-4 min-h-[120px] sm:min-h-[110px]">
         {currentSection.paragraphs.map((p, idx) => (
           <p
             key={idx}
-            className={`text-[14px] sm:text-[14.5px] leading-relaxed font-normal m-0 transition-colors duration-300 ${
+            className={`text-[14px] sm:text-[14.5px] [@media(min-width:1440px)]:text-[16.5px] [@media(min-width:1600px)]:text-[17.5px] leading-relaxed font-normal m-0 transition-colors duration-300 ${
               isLight ? 'text-slate-700' : 'text-zinc-200/90'
             }`}
           >
@@ -42,7 +42,7 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
 
       {/* Footer: Pagination & Next Button */}
       <div
-        className={`flex items-center justify-between mt-4 pt-3.5 border-t transition-colors duration-300 ${
+        className={`flex items-center justify-between mt-4 [@media(min-width:1440px)]:mt-6 pt-3.5 [@media(min-width:1440px)]:pt-4.5 border-t transition-colors duration-300 ${
           isLight ? 'border-slate-200' : 'border-white/10'
         }`}
       >
@@ -57,12 +57,12 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
                 onClick={() => setActiveTab(sec.id)}
                 aria-label={`Jump to ${sec.tag}`}
                 title={sec.tag}
-                className={`relative h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                className={`relative h-1.5 [@media(min-width:1440px)]:h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'w-4 bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.7)]'
+                    ? 'w-4 [@media(min-width:1440px)]:w-6 bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.7)]'
                     : isLight
-                    ? 'w-1.5 bg-slate-300 hover:bg-slate-400'
-                    : 'w-1.5 bg-white/20 hover:bg-white/40'
+                    ? 'w-1.5 [@media(min-width:1440px)]:w-2 bg-slate-300 hover:bg-slate-400'
+                    : 'w-1.5 [@media(min-width:1440px)]:w-2 bg-white/20 hover:bg-white/40'
                 }`}
               >
                 <span className="absolute -inset-2" />
@@ -70,7 +70,7 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
             )
           })}
           <span
-            className={`ml-2 font-mono text-[11px] transition-colors duration-300 ${
+            className={`ml-2 font-mono text-[11px] [@media(min-width:1440px)]:text-[13px] transition-colors duration-300 ${
               isLight ? 'text-slate-500' : 'text-zinc-400'
             }`}
           >
@@ -83,7 +83,7 @@ function AboutNarrativeCard({ activeTab, setActiveTab, isLight = false }) {
           <button
             type="button"
             onClick={() => setActiveTab(nextSection.id)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs font-semibold shadow-md hover:translate-x-0.5 transition-all duration-200 cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3 [@media(min-width:1440px)]:px-4 py-1.5 [@media(min-width:1440px)]:py-2 rounded-lg font-mono text-xs [@media(min-width:1440px)]:text-sm font-semibold shadow-md hover:translate-x-0.5 transition-all duration-200 cursor-pointer ${
               isLight
                 ? 'bg-gradient-to-b from-slate-100 to-slate-200 border border-slate-300 text-rose-600 hover:from-rose-50 hover:to-rose-100 hover:text-rose-700'
                 : 'bg-gradient-to-b from-[#35303f] to-[#221f2b] border border-white/10 text-rose-400 hover:from-[#3e242c] hover:to-[#26181d] hover:border-rose-500/40 hover:text-rose-300'

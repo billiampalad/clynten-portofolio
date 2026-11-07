@@ -365,3 +365,32 @@
     filter: var(--pc-press);
   }
 }
+
+/* ==========================================================================
+   Desktop Wide Screen Optimization (Strict Scope: min-width: 1440px)
+   Full-screen proportion & large card scaling
+   ========================================================================== */
+@media only screen and (min-width: 1440px) {
+  .profile-card {
+    width: 380px;
+  }
+
+  .profile-card__body {
+    padding: 14px;
+    gap: 12px;
+    border-radius: calc(var(--pc-radius) + 12px);
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .profile-card {
+    width: 420px;
+  }
+
+  .profile-card__body {
+    padding: 16px;
+    gap: 14px;
+    border-radius: calc(var(--pc-radius) + 14px);
+  }
+}
+

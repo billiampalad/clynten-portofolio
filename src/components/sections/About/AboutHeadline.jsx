@@ -42,17 +42,17 @@ function AboutHeadline({ isLight = false }) {
       {/* Tagline & Greeting */}
       <div className="flex items-center gap-2.5 flex-wrap">
         <span
-          className={`inline-flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[1.5px] uppercase px-2.5 py-0.5 rounded-full transition-colors duration-300 ${
+          className={`inline-flex items-center gap-1.5 font-mono text-[10px] [@media(min-width:1440px)]:text-[12px] font-bold tracking-[1.5px] uppercase px-2.5 py-0.5 [@media(min-width:1440px)]:px-3.5 [@media(min-width:1440px)]:py-1 rounded-full transition-colors duration-300 ${
             isLight
               ? 'text-rose-600 bg-rose-50 border border-rose-200 shadow-sm'
               : 'text-rose-500 bg-rose-500/10 border border-rose-500/30 shadow-[0_0_12px_rgba(244,63,94,0.15)]'
           }`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_6px_#f43f5e] animate-pulse" />
+          <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-2 rounded-full bg-rose-500 shadow-[0_0_6px_#f43f5e] animate-pulse" />
           <span>About</span>
         </span>
         <span
-          className={`font-mono text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 ${
+          className={`font-mono text-xs md:text-sm [@media(min-width:1440px)]:text-base font-semibold tracking-wider uppercase transition-colors duration-300 ${
             isLight ? 'text-slate-700' : 'text-slate-200'
           }`}
         >
@@ -63,7 +63,7 @@ function AboutHeadline({ isLight = false }) {
       {/* Main Name & Animated Skill Rotator */}
       <div className="flex items-baseline flex-wrap gap-x-4 gap-y-1">
         <h2
-          className={`font-mono text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none transition-colors duration-300 ${
+          className={`font-mono text-3xl sm:text-4xl lg:text-5xl [@media(min-width:1440px)]:text-6xl [@media(min-width:1600px)]:text-7xl font-black tracking-tight leading-none transition-colors duration-300 ${
             isLight ? 'text-slate-900' : 'text-white'
           }`}
         >
@@ -75,10 +75,10 @@ function AboutHeadline({ isLight = false }) {
             isLight ? 'text-slate-600' : 'text-zinc-400'
           }`}
         >
-          <span className={`text-sm sm:text-base md:text-lg font-medium ${isLight ? 'text-slate-500' : 'text-zinc-500'}`}>
+          <span className={`text-sm sm:text-base md:text-lg [@media(min-width:1440px)]:text-xl font-medium ${isLight ? 'text-slate-500' : 'text-zinc-500'}`}>
             And I'm a
           </span>
-          <span className={`text-base sm:text-lg md:text-xl font-bold tracking-tight ${isLight ? 'text-rose-600' : 'text-rose-400'}`}>
+          <span className={`text-base sm:text-lg md:text-xl [@media(min-width:1440px)]:text-2xl [@media(min-width:1600px)]:text-3xl font-bold tracking-tight ${isLight ? 'text-rose-600' : 'text-rose-400'}`}>
             {displayedText}
             <span className="text-rose-500 font-black ml-0.5 animate-pulse" aria-hidden="true">_</span>
           </span>

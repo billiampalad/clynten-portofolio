@@ -52,13 +52,13 @@ function About({ style = {} }) {
     <div
       id="about"
       style={style}
-      className={`relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-hidden pointer-events-auto transition-colors duration-300 ${
+      className={`relative w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 [@media(min-width:1440px)]:px-14 [@media(min-width:1600px)]:px-20 py-16 sm:py-20 [@media(min-width:1440px)]:py-12 overflow-hidden pointer-events-auto transition-colors duration-300 ${
         isLight ? 'bg-[#f8fafc]' : 'bg-[#0A0907]'
       }`}
     >
-      <div className="relative z-10 max-w-[1100px] w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 lg:gap-12 items-center pointer-events-auto">
+      <div className="relative z-10 max-w-[1100px] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] w-full mx-auto grid grid-cols-1 lg:grid-cols-[1fr_280px] [@media(min-width:1440px)]:grid-cols-[1fr_380px] [@media(min-width:1600px)]:grid-cols-[1fr_420px] gap-8 lg:gap-12 [@media(min-width:1440px)]:gap-16 [@media(min-width:1600px)]:gap-20 items-center pointer-events-auto">
         {/* Left Column: Headline + Story Card + Action Bar */}
-        <div className="flex flex-col gap-4 sm:gap-5">
+        <div className="flex flex-col gap-4 sm:gap-5 [@media(min-width:1440px)]:gap-7">
           <AboutHeadline isLight={isLight} />
           <AboutNarrativeCard
             activeTab={activeTab}
