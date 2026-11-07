@@ -153,9 +153,9 @@ const SHADE_STYLE = {
   opacity: 'calc(var(--pc-glare) * var(--pc-tilt))'
 };
 
-const ROOT = 'relative w-[280px] [@media(min-width:1440px)]:w-[340px] [@media(min-width:1600px)]:w-[380px] [@media(min-width:1920px)]:w-[420px] max-w-full touch-pan-y [perspective:1000px] [-webkit-tap-highlight-color:transparent]';
+const ROOT = 'relative w-[280px] [@media(min-width:1440px)]:w-[380px] [@media(min-width:1600px)]:w-[420px] [@media(min-width:1920px)]:w-[460px] max-w-full touch-pan-y [perspective:1000px] [-webkit-tap-highlight-color:transparent]';
 const BODY =
-  'relative flex flex-col gap-[10px] [@media(min-width:1440px)]:gap-[12px] [@media(min-width:1600px)]:gap-[13px] rounded-[calc(var(--pc-radius)+10px)] [@media(min-width:1440px)]:rounded-[calc(var(--pc-radius)+12px)] p-[10px] [@media(min-width:1440px)]:p-[12px] [@media(min-width:1600px)]:p-[14px] backdrop-blur-[20px] backdrop-saturate-[1.6] will-change-transform [background:var(--pc-frame)] [box-shadow:var(--pc-frame-shadow)] [transform:rotateX(var(--pc-rotate-x))_rotateY(var(--pc-rotate-y))]';
+  'relative flex flex-col gap-[10px] [@media(min-width:1440px)]:gap-[13px] [@media(min-width:1600px)]:gap-[15px] rounded-[calc(var(--pc-radius)+10px)] [@media(min-width:1440px)]:rounded-[calc(var(--pc-radius)+13px)] p-[10px] [@media(min-width:1440px)]:p-[14px] [@media(min-width:1600px)]:p-[16px] backdrop-blur-[20px] backdrop-saturate-[1.6] will-change-transform [background:var(--pc-frame)] [box-shadow:var(--pc-frame-shadow)] [transform:rotateX(var(--pc-rotate-x))_rotateY(var(--pc-rotate-y))]';
 const TILE =
   'relative isolate aspect-[4/5] overflow-hidden rounded-[var(--pc-radius)] [background:var(--pc-backdrop)] [box-shadow:var(--pc-tile-shadow)]';
 const LAYER = 'pointer-events-none absolute inset-0 rounded-[inherit]';
@@ -493,11 +493,11 @@ const ProfileCard = ({
         </div>
 
         {showUserInfo && (
-          <div className="px-1.5 pt-1 pb-1 [@media(min-width:1440px)]:px-2 [@media(min-width:1440px)]:pt-1.5 [@media(min-width:1440px)]:pb-1.5">
+          <div className="px-1.5 pt-1 pb-1 [@media(min-width:1440px)]:px-2.5 [@media(min-width:1440px)]:pt-2 [@media(min-width:1440px)]:pb-2">
             <button
               type="button"
               onClick={onContactClick}
-              className={`group w-full flex items-center gap-3 [@media(min-width:1440px)]:gap-3.5 p-2 [@media(min-width:1440px)]:p-2.5 [@media(min-width:1600px)]:p-3 rounded-xl [@media(min-width:1440px)]:rounded-2xl border transition-all duration-200 cursor-pointer text-left hover:-translate-y-0.5 ${
+              className={`group w-full flex items-center gap-3 [@media(min-width:1440px)]:gap-3.5 p-2 [@media(min-width:1440px)]:p-3 [@media(min-width:1600px)]:p-3.5 rounded-xl [@media(min-width:1440px)]:rounded-2xl border transition-all duration-200 cursor-pointer text-left hover:-translate-y-0.5 ${
                 theme === 'light'
                   ? 'bg-white/90 hover:bg-rose-50/70 border-slate-200 hover:border-rose-400 shadow-sm hover:shadow-[0_4px_14px_rgba(244,63,94,0.12)]'
                   : 'bg-[#211d2a]/85 hover:bg-[#291f2c]/90 border-white/10 hover:border-rose-500/40 shadow-[0_4px_16px_rgba(0,0,0,0.45)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.22)]'
@@ -506,7 +506,7 @@ const ProfileCard = ({
             >
               {resolvedMini && (
                 <div
-                  className={`relative w-10 h-10 [@media(min-width:1440px)]:w-11 [@media(min-width:1440px)]:h-11 [@media(min-width:1600px)]:w-12 [@media(min-width:1600px)]:h-12 flex-none overflow-hidden rounded-lg [@media(min-width:1440px)]:rounded-xl border shadow-inner transition-all duration-200 ${
+                  className={`relative w-10 h-10 [@media(min-width:1440px)]:w-12 [@media(min-width:1440px)]:h-12 [@media(min-width:1600px)]:w-13 [@media(min-width:1600px)]:h-13 flex-none overflow-hidden rounded-lg [@media(min-width:1440px)]:rounded-xl border shadow-inner transition-all duration-200 ${
                     theme === 'light'
                       ? 'border-slate-200 group-hover:border-rose-300 bg-slate-100'
                       : 'border-white/15 group-hover:border-rose-500/40 bg-black/40'
@@ -528,9 +528,9 @@ const ProfileCard = ({
 
               <div className="flex flex-col min-w-0 flex-1 justify-center">
                 {/* Status Row: ONLINE + Red Glowing Dot */}
-                <div className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2">
+                <div className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2.5">
                   <span
-                    className={`font-mono text-[10.5px] [@media(min-width:1440px)]:text-[11.5px] [@media(min-width:1600px)]:text-[12.5px] font-extrabold tracking-wider uppercase leading-none transition-colors duration-200 ${
+                    className={`font-mono text-[10.5px] [@media(min-width:1440px)]:text-[12.5px] [@media(min-width:1600px)]:text-[13.5px] font-extrabold tracking-wider uppercase leading-none transition-colors duration-200 ${
                       theme === 'light'
                         ? 'text-slate-500 group-hover:text-rose-600'
                         : 'text-zinc-400 group-hover:text-rose-300'
@@ -538,16 +538,16 @@ const ProfileCard = ({
                   >
                     {status || 'ONLINE'}
                   </span>
-                  <span className="relative flex h-2.5 w-2.5 [@media(min-width:1440px)]:h-2.5 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1600px)]:h-3 [@media(min-width:1600px)]:w-3">
+                  <span className="relative flex h-2.5 w-2.5 [@media(min-width:1440px)]:h-3 [@media(min-width:1440px)]:w-3 [@media(min-width:1600px)]:h-3.5 [@media(min-width:1600px)]:w-3.5">
                     <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 [@media(min-width:1440px)]:h-2.5 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1600px)]:h-3 [@media(min-width:1600px)]:w-3 bg-rose-500 shadow-[0_0_8px_#f43f5e]" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 [@media(min-width:1440px)]:h-3 [@media(min-width:1440px)]:w-3 [@media(min-width:1600px)]:h-3.5 [@media(min-width:1600px)]:w-3.5 bg-rose-500 shadow-[0_0_8px_#f43f5e]" />
                   </span>
                 </div>
 
                 {/* Connect Text */}
-                <div className="flex items-center justify-between mt-0.5">
+                <div className="flex items-center justify-between mt-0.5 [@media(min-width:1440px)]:mt-1">
                   <span
-                    className={`text-[15px] [@media(min-width:1440px)]:text-[16px] [@media(min-width:1600px)]:text-[17px] font-bold tracking-tight leading-tight transition-colors duration-200 ${
+                    className={`text-[15px] [@media(min-width:1440px)]:text-[18px] [@media(min-width:1600px)]:text-[19.5px] font-bold tracking-tight leading-tight transition-colors duration-200 ${
                       theme === 'light'
                         ? 'text-slate-900 group-hover:text-rose-600'
                         : 'text-white group-hover:text-rose-300'
@@ -556,7 +556,7 @@ const ProfileCard = ({
                     {contactText || "Let's Connect"}
                   </span>
                   <span
-                    className="text-rose-500 text-sm [@media(min-width:1440px)]:text-base [@media(min-width:1600px)]:text-lg font-bold opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 mr-1"
+                    className="text-rose-500 text-sm [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-bold opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 mr-1"
                     aria-hidden="true"
                   >
                     →
