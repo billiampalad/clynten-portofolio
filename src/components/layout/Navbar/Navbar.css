@@ -843,7 +843,7 @@ body.dark-theme .mobile-nav-item:hover {
    ========================================================================== */
 @media only screen and (min-width: 1440px) {
   .portfolio-navbar {
-    height: 56px;
+    height: 64px;
   }
 
   .navbar-container {
@@ -854,45 +854,119 @@ body.dark-theme .mobile-nav-item:hover {
   }
 
   .navbar-brand {
-    font-size: 14.5px;
+    font-size: 16px;
     letter-spacing: 0.16em;
   }
 
   .brand-line {
-    width: 18px;
-    margin: 0 6px;
+    width: 22px;
+    height: 1.5px;
+    margin: 0 7px;
+  }
+
+  .navbar-brand:hover .brand-line {
+    width: 56px;
+  }
+
+  .brand-home-badge {
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    padding: 5px 10px;
+    border-radius: 6px;
   }
 
   .navbar-links {
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   .navbar-link,
   .nav-item {
-    font-size: 13.5px;
-    letter-spacing: 0.09em;
-    padding: 7px 14px;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 8px 16px;
+    border-radius: 6px;
+  }
+
+  .nav-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
   }
 
   .navbar-actions {
-    gap: 10px;
+    gap: 12px;
   }
 
+  .nav-icon-btn,
   .nav-theme-btn,
   .nav-mail-btn {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
   }
 
+  .nav-icon-btn svg,
   .nav-theme-btn svg,
   .nav-mail-btn svg {
-    width: 17px;
-    height: 17px;
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .nav-custom-tooltip {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
   }
 }
 
 @media only screen and (min-width: 1600px) {
+  .portfolio-navbar {
+    height: 68px;
+  }
+
   .navbar-container {
     padding: 0 56px;
+  }
+
+  .navbar-brand {
+    font-size: 17px;
+  }
+
+  .brand-line {
+    width: 26px;
+    margin: 0 8px;
+  }
+
+  .navbar-brand:hover .brand-line {
+    width: 62px;
+  }
+
+  .navbar-links {
+    gap: 2rem;
+  }
+
+  .navbar-link,
+  .nav-item {
+    font-size: 15.5px;
+    padding: 9px 18px;
+  }
+
+  .navbar-actions {
+    gap: 14px;
+  }
+
+  .nav-icon-btn,
+  .nav-theme-btn,
+  .nav-mail-btn {
+    width: 45px;
+    height: 45px;
+  }
+
+  .nav-icon-btn svg,
+  .nav-theme-btn svg,
+  .nav-mail-btn svg {
+    width: 21px !important;
+    height: 21px !important;
   }
 }
