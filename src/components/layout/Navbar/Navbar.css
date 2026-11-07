@@ -836,3 +836,63 @@ body.dark-theme .mobile-nav-item:hover {
     display: block;
   }
 }
+
+/* ==========================================================================
+   Desktop Wide Screen Optimization (Strict Scope: min-width: 1440px)
+   Full-width edge-to-edge layout & proportional typography
+   ========================================================================== */
+@media only screen and (min-width: 1440px) {
+  .portfolio-navbar {
+    height: 56px;
+  }
+
+  .navbar-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0 48px;
+  }
+
+  .navbar-brand {
+    font-size: 14.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .brand-line {
+    width: 18px;
+    margin: 0 6px;
+  }
+
+  .navbar-links {
+    gap: 1.25rem;
+  }
+
+  .navbar-link,
+  .nav-item {
+    font-size: 13.5px;
+    letter-spacing: 0.09em;
+    padding: 7px 14px;
+  }
+
+  .navbar-actions {
+    gap: 10px;
+  }
+
+  .nav-theme-btn,
+  .nav-mail-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav-theme-btn svg,
+  .nav-mail-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .navbar-container {
+    padding: 0 56px;
+  }
+}
