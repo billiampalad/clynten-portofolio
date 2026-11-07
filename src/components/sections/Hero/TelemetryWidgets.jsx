@@ -4,18 +4,18 @@ import { motion } from 'framer-motion'
 // Memoized Static Sensor Metadata (Never re-renders on scroll)
 const SensorInfo = memo(function SensorInfo() {
   return (
-    <div className="flex flex-col gap-0.5 [@media(min-width:1440px)]:gap-1.5">
-      <div className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 text-[9px] [@media(min-width:1440px)]:text-[12px] font-bold tracking-wider text-emerald-400">
-        <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#00ffaa] animate-pulse" />
+    <div className="flex flex-col gap-0.5 [@media(min-width:1440px)]:gap-2">
+      <div className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2.5 text-[9px] [@media(min-width:1440px)]:text-[14px] font-bold tracking-wider text-emerald-400">
+        <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#00ffaa] animate-pulse" />
         <span>OPTICAL SENSOR // ACTIVE</span>
       </div>
-      <div className="flex items-center justify-between gap-3 [@media(min-width:1440px)]:gap-6 text-zinc-400 text-[8px] [@media(min-width:1440px)]:text-[10px] tracking-wide">
-        <span className="text-zinc-500 [@media(min-width:1440px)]:tracking-[1px]">BANDWIDTH</span>
-        <span className="font-semibold text-zinc-300 [@media(min-width:1440px)]:text-[11px]">10.4 Gbps</span>
+      <div className="flex items-center justify-between gap-3 [@media(min-width:1440px)]:gap-7 text-zinc-400 text-[8px] [@media(min-width:1440px)]:text-[12px] tracking-wide">
+        <span className="text-zinc-500 [@media(min-width:1440px)]:tracking-[1.2px]">BANDWIDTH</span>
+        <span className="font-semibold text-zinc-300 [@media(min-width:1440px)]:text-[13px]">10.4 Gbps</span>
       </div>
-      <div className="flex items-center justify-between gap-3 [@media(min-width:1440px)]:gap-6 text-zinc-400 text-[8px] [@media(min-width:1440px)]:text-[10px] tracking-wide">
-        <span className="text-zinc-500 [@media(min-width:1440px)]:tracking-[1px]">RENDER PIPELINE</span>
-        <span className="font-semibold text-zinc-300 [@media(min-width:1440px)]:text-[11px]">4K ULTRA HD</span>
+      <div className="flex items-center justify-between gap-3 [@media(min-width:1440px)]:gap-7 text-zinc-400 text-[8px] [@media(min-width:1440px)]:text-[12px] tracking-wide">
+        <span className="text-zinc-500 [@media(min-width:1440px)]:tracking-[1.2px]">RENDER PIPELINE</span>
+        <span className="font-semibold text-zinc-300 [@media(min-width:1440px)]:text-[13px]">4K ULTRA HD</span>
       </div>
     </div>
   )
@@ -24,8 +24,8 @@ const SensorInfo = memo(function SensorInfo() {
 // Dynamic Radar Gauge (Direct GPU Transform, Zero React Re-render)
 const RadarGauge = memo(function RadarGauge({ needleRef, degreeRef, initialRotation = 0 }) {
   return (
-    <div className="relative w-12 h-12 [@media(min-width:1440px)]:w-16 [@media(min-width:1440px)]:h-16 flex items-center justify-center shrink-0">
-      <svg className="w-12 h-12 [@media(min-width:1440px)]:w-16 [@media(min-width:1440px)]:h-16 overflow-visible" viewBox="0 0 80 80">
+    <div className="relative w-12 h-12 [@media(min-width:1440px)]:w-[76px] [@media(min-width:1440px)]:h-[76px] flex items-center justify-center shrink-0">
+      <svg className="w-12 h-12 [@media(min-width:1440px)]:w-[76px] [@media(min-width:1440px)]:h-[76px] overflow-visible" viewBox="0 0 80 80">
         {/* Outer dotted track */}
         <circle
           cx="40"
@@ -82,7 +82,7 @@ const RadarGauge = memo(function RadarGauge({ needleRef, degreeRef, initialRotat
       </svg>
       <div
         ref={degreeRef}
-        className="absolute -bottom-1 -right-1 text-[8px] [@media(min-width:1440px)]:text-[10px] font-bold text-cyan-400 bg-black/90 px-1 [@media(min-width:1440px)]:px-1.5 [@media(min-width:1440px)]:py-0.5 rounded border border-cyan-500/30 tabular-nums"
+        className="absolute -bottom-1 -right-1 text-[8px] [@media(min-width:1440px)]:text-[11px] font-bold text-cyan-400 bg-black/90 px-1 [@media(min-width:1440px)]:px-2 [@media(min-width:1440px)]:py-0.5 rounded border border-cyan-500/30 tabular-nums"
       >
         {initialRotation}°
       </div>
@@ -95,12 +95,12 @@ const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
       ref={promptRef}
-      className="absolute bottom-6 sm:bottom-9 [@media(min-width:1440px)]:bottom-12 right-6 sm:right-12 [@media(min-width:1440px)]:right-12 [@media(min-width:1600px)]:right-14 flex flex-col items-center gap-1.5 [@media(min-width:1440px)]:gap-2.5 transition-opacity duration-100 will-change-[opacity]"
+      className="absolute bottom-6 sm:bottom-9 [@media(min-width:1440px)]:bottom-12 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 flex flex-col items-center gap-1.5 [@media(min-width:1440px)]:gap-3 transition-opacity duration-100 will-change-[opacity]"
     >
-      <div className="w-4 h-7 [@media(min-width:1440px)]:w-5.5 [@media(min-width:1440px)]:h-9.5 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 [@media(min-width:1440px)]:p-1.5 bg-black/50">
-        <span className="w-1 h-2 [@media(min-width:1440px)]:w-1.5 [@media(min-width:1440px)]:h-3 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
+      <div className="w-4 h-7 [@media(min-width:1440px)]:w-6 [@media(min-width:1440px)]:h-10.5 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 [@media(min-width:1440px)]:p-1.5 bg-black/50">
+        <span className="w-1 h-2 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-3.5 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
       </div>
-      <div className="flex items-center gap-1 text-[8px] sm:text-[9px] [@media(min-width:1440px)]:text-[11px] tracking-[2px] [@media(min-width:1440px)]:tracking-[3px] font-semibold text-zinc-400 uppercase">
+      <div className="flex items-center gap-1 text-[8px] sm:text-[9px] [@media(min-width:1440px)]:text-[12px] tracking-[2px] [@media(min-width:1440px)]:tracking-[3.5px] font-semibold text-zinc-400 uppercase">
         <span className="text-emerald-400">[</span>
         <span className="text-zinc-300">SCROLL TO EXPLORE TELEMETRY</span>
         <span className="text-emerald-400">]</span>
@@ -146,7 +146,7 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-12 [@media(min-width:1440px)]:top-12 right-6 sm:right-12 [@media(min-width:1440px)]:right-12 [@media(min-width:1600px)]:right-14 hidden md:flex items-center gap-3.5 [@media(min-width:1440px)]:gap-5 px-3.5 py-2 [@media(min-width:1440px)]:px-5 [@media(min-width:1440px)]:py-3.5 rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
+        className="absolute top-12 [@media(min-width:1440px)]:top-10 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 hidden md:flex items-center gap-3.5 [@media(min-width:1440px)]:gap-6 px-3.5 py-2 [@media(min-width:1440px)]:px-6 [@media(min-width:1440px)]:py-4 rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
       >
         <RadarGauge
           needleRef={needleRef}
