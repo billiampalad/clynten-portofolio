@@ -5,17 +5,17 @@ import { useTextScramble } from '@/hooks/useTextScramble'
 
 const POSITION_MAP = {
   // skil 1
-  'webdev-wrapper': 'top-[7%] left-3 lg:left-10 xl:left-[calc(50%-550px)]',
+  'webdev-wrapper': 'top-[7%] left-3 lg:left-10 xl:left-[calc(50%-550px)] [@media(min-width:1440px)]:left-[calc(50%-580px)]',
   // skil 2
-  'android-wrapper': 'top-[10%] left-[175px] lg:left-[250px] xl:left-[calc(50%-370px)]',
+  'android-wrapper': 'top-[10%] left-[175px] lg:left-[250px] xl:left-[calc(50%-370px)] [@media(min-width:1440px)]:left-[calc(50%-380px)]',
   // skil 3
-  'cyber-wrapper': 'top-[28%] left-3 lg:left-15 xl:left-[calc(50%-550px)]',
+  'cyber-wrapper': 'top-[28%] left-3 lg:left-15 xl:left-[calc(50%-550px)] [@media(min-width:1440px)]:left-[calc(50%-580px)]',
   // skil 4
-  'net-wrapper': 'top-[30%] left-[175px] lg:left-[270px] xl:left-[calc(50%-370px)]',
+  'net-wrapper': 'top-[30%] left-[175px] lg:left-[270px] xl:left-[calc(50%-370px)] [@media(min-width:1440px)]:left-[calc(50%-380px)]',
   // skil 5
-  'db-wrapper': 'top-[50%] left-3 lg:left-20 xl:left-[calc(50%-550px)]',
+  'db-wrapper': 'top-[50%] left-3 lg:left-20 xl:left-[calc(50%-550px)] [@media(min-width:1440px)]:left-[calc(50%-580px)]',
   // skil 6
-  'uiux-wrapper': 'top-[50%] left-[175px] lg:left-[290px] xl:left-[calc(50%-370px)]',
+  'uiux-wrapper': 'top-[50%] left-[175px] lg:left-[290px] xl:left-[calc(50%-370px)] [@media(min-width:1440px)]:left-[calc(50%-380px)]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
@@ -87,7 +87,7 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
       }}
       className={`absolute ${positionClass} pointer-events-none select-none z-10`}
     >
-      <div className={`relative w-[155px] sm:w-[165px] p-2 rounded-lg bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg`}>
+      <div className={`relative w-[155px] sm:w-[165px] [@media(min-width:1440px)]:w-[180px] p-2 [@media(min-width:1440px)]:p-2.5 rounded-lg bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg`}>
         <HudHeader
           text={data.header}
           tag={skill.tag}

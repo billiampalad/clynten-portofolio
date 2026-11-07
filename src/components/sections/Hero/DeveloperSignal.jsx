@@ -51,10 +51,10 @@ const SignalDetails = memo(function SignalDetails({
           </span>
         </div>
 
-        <h2 className="text-sm sm:text-[15px] font-black tracking-tight text-white mt-1.5 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
+        <h2 className="text-sm sm:text-[15px] [@media(min-width:1440px)]:text-[16px] font-black tracking-tight text-white mt-1.5 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
           {scrambledTitle}
         </h2>
-        <p className="text-[9.5px] sm:text-[10px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5">
+        <p className="text-[9.5px] sm:text-[10px] [@media(min-width:1440px)]:text-[11px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5">
           {activeSignal.subtitle}
         </p>
 
@@ -64,7 +64,7 @@ const SignalDetails = memo(function SignalDetails({
             {activeSignal.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-md text-[8.5px] sm:text-[9px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
+                className="flex items-center gap-1.5 px-2 py-1 [@media(min-width:1440px)]:py-1.5 rounded-md text-[8.5px] sm:text-[9px] [@media(min-width:1440px)]:text-[9.5px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
               >
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-300 ${tagDotClass}`} />
                 <span className="truncate">{tag}</span>
@@ -247,12 +247,12 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
   const beamHex = beamHexMap[themeColor]
 
   return (
-    <div className="absolute top-[45%] right-4 sm:right-8 md:right-10 -translate-y-1/2 z-25 pointer-events-none">
+    <div className="absolute top-[45%] right-4 sm:right-8 md:right-10 [@media(min-width:1440px)]:right-16 [@media(min-width:1600px)]:right-[calc(50%-680px)] -translate-y-1/2 z-25 pointer-events-none">
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] p-3.5 sm:p-4 rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
+        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] [@media(min-width:1440px)]:w-[390px] p-3.5 sm:p-4 [@media(min-width:1440px)]:p-5 rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
       >
         {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">

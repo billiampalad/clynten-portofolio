@@ -128,7 +128,7 @@ const SubtextBanner = memo(function SubtextBanner() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-3 mt-3 font-mono text-[9px] sm:text-[11px] tracking-[1.5px] text-zinc-400"
+      className="flex items-center gap-3 mt-3 [@media(min-width:1440px)]:mt-4 font-mono text-[9px] sm:text-[11px] [@media(min-width:1440px)]:text-[12px] tracking-[1.5px] [@media(min-width:1440px)]:tracking-[2px] text-zinc-400"
     >
       <motion.span
         initial={{ scaleX: 0 }}
@@ -210,13 +210,13 @@ const ScrollHeadline = memo(
     }, [])
 
     return (
-      <div className="absolute bottom-9 left-6 sm:left-12 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-7xl pointer-events-none select-none font-sans [contain:layout_style]">
+      <div className="absolute bottom-9 [@media(min-width:1440px)]:bottom-12 left-6 sm:left-12 [@media(min-width:1440px)]:left-16 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-7xl [@media(min-width:1440px)]:max-w-[1440px] pointer-events-none select-none font-sans [contain:layout_style]">
         {/* Main Bold Headline with Staggered Kinetic Word Reveal and 3D Fold Cursor Interactions */}
         <motion.h1
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          className="block text-[clamp(28px,3.8vw,64px)] font-black leading-[1.08] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
+          className="block text-[clamp(28px,3.8vw,64px)] [@media(min-width:1440px)]:text-[clamp(56px,4vw,74px)] font-black leading-[1.08] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
         >
           {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
           <FoldWord

@@ -3,25 +3,25 @@ import { motion } from 'framer-motion'
 
 function TargetReticle() {
   return (
-    <div className="absolute inset-4 sm:inset-6 pointer-events-none z-15 font-mono select-none">
+    <div className="absolute inset-4 sm:inset-6 [@media(min-width:1440px)]:inset-8 pointer-events-none z-15 font-mono select-none">
       {/* 4 Corner Tech HUD Brackets */}
       <motion.div
         initial={{ scale: 1.3, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.45, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-emerald-400"
+        className="absolute top-0 left-0 w-5 h-5 [@media(min-width:1440px)]:w-7 [@media(min-width:1440px)]:h-7 border-t-2 border-l-2 border-emerald-400"
       />
       <motion.div
         initial={{ scale: 1.3, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-white/25"
+        className="absolute top-0 right-0 w-5 h-5 [@media(min-width:1440px)]:w-7 [@media(min-width:1440px)]:h-7 border-t-2 border-r-2 border-white/25"
       />
       <motion.div
         initial={{ scale: 1.3, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.45, delay: 0.11, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-white/25"
+        className="absolute bottom-0 left-0 w-5 h-5 [@media(min-width:1440px)]:w-7 [@media(min-width:1440px)]:h-7 border-b-2 border-l-2 border-white/25"
       >
         {/* Spectrum Frequency Equalizer */}
         <div className="absolute bottom-0.5 left-7 flex items-end gap-[2.5px] h-3">
@@ -48,7 +48,7 @@ function TargetReticle() {
         initial={{ scale: 1.3, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.45, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-emerald-400"
+        className="absolute bottom-0 right-0 w-5 h-5 [@media(min-width:1440px)]:w-7 [@media(min-width:1440px)]:h-7 border-b-2 border-r-2 border-emerald-400"
       />
     </div>
   )
