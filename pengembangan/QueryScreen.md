@@ -31,4 +31,4 @@ Tugas dianggap selesai apabila:
 - Disediakan kode hasil modifikasi yang bersih, terstruktur, dan siap pakai.
 
 6. Output
-Jangan berikut deskripsi penjelasannya, tetapi lakukan perbaikan kode saja agar hemat token/credit
+Jangan berikan deskripsi penjelasannya, tetapi lakukan perbaikan kode saja agar hemat token/credit
