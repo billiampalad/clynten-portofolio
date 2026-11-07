@@ -372,6 +372,30 @@
    ========================================================================== */
 @media only screen and (min-width: 1440px) {
   .profile-card {
+    width: 340px;
+  }
+
+  .profile-card__body {
+    padding: 12px;
+    gap: 12px;
+    border-radius: calc(var(--pc-radius) + 12px);
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .profile-card {
+    width: 380px;
+  }
+
+  .profile-card__body {
+    padding: 14px;
+    gap: 13px;
+    border-radius: calc(var(--pc-radius) + 13px);
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .profile-card {
     width: 420px;
   }
 
@@ -379,30 +403,6 @@
     padding: 16px;
     gap: 14px;
     border-radius: calc(var(--pc-radius) + 14px);
-  }
-}
-
-@media only screen and (min-width: 1600px) {
-  .profile-card {
-    width: 460px;
-  }
-
-  .profile-card__body {
-    padding: 18px;
-    gap: 16px;
-    border-radius: calc(var(--pc-radius) + 16px);
-  }
-}
-
-@media only screen and (min-width: 1920px) {
-  .profile-card {
-    width: 500px;
-  }
-
-  .profile-card__body {
-    padding: 20px;
-    gap: 18px;
-    border-radius: calc(var(--pc-radius) + 18px);
   }
 }
 
