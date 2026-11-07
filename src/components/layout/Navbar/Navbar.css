@@ -843,7 +843,7 @@ body.dark-theme .mobile-nav-item:hover {
    ========================================================================== */
 @media only screen and (min-width: 1440px) {
   .portfolio-navbar {
-    height: 64px;
+    height: 68px;
   }
 
   .navbar-container {
@@ -854,102 +854,44 @@ body.dark-theme .mobile-nav-item:hover {
   }
 
   .navbar-brand {
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0.16em;
   }
 
   .brand-line {
-    width: 22px;
-    height: 1.5px;
-    margin: 0 7px;
-  }
-
-  .navbar-brand:hover .brand-line {
-    width: 56px;
-  }
-
-  .brand-home-badge {
-    font-size: 11px;
-    letter-spacing: 0.09em;
-    padding: 5px 10px;
-    border-radius: 6px;
-  }
-
-  .navbar-links {
-    gap: 1.5rem;
-  }
-
-  .navbar-link,
-  .nav-item {
-    font-size: 14.5px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    padding: 8px 16px;
-    border-radius: 6px;
-  }
-
-  .nav-badge {
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 4px;
-  }
-
-  .navbar-actions {
-    gap: 12px;
-  }
-
-  .nav-icon-btn,
-  .nav-theme-btn,
-  .nav-mail-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-  }
-
-  .nav-icon-btn svg,
-  .nav-theme-btn svg,
-  .nav-mail-btn svg {
-    width: 19px !important;
-    height: 19px !important;
-  }
-
-  .nav-custom-tooltip {
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 8px;
-  }
-}
-
-@media only screen and (min-width: 1600px) {
-  .portfolio-navbar {
-    height: 68px;
-  }
-
-  .navbar-container {
-    padding: 0 56px;
-  }
-
-  .navbar-brand {
-    font-size: 17px;
-  }
-
-  .brand-line {
     width: 26px;
+    height: 2px;
     margin: 0 8px;
   }
 
   .navbar-brand:hover .brand-line {
-    width: 62px;
+    width: 60px;
+  }
+
+  .brand-home-badge {
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    padding: 6px 12px;
+    border-radius: 7px;
   }
 
   .navbar-links {
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .navbar-link,
   .nav-item {
-    font-size: 15.5px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     padding: 9px 18px;
+    border-radius: 7px;
+  }
+
+  .nav-badge {
+    font-size: 11px;
+    padding: 2.5px 8px;
+    border-radius: 5px;
   }
 
   .navbar-actions {
@@ -959,14 +901,147 @@ body.dark-theme .mobile-nav-item:hover {
   .nav-icon-btn,
   .nav-theme-btn,
   .nav-mail-btn {
-    width: 45px;
-    height: 45px;
+    width: 46px;
+    height: 46px;
+    border-radius: 9px;
   }
 
   .nav-icon-btn svg,
   .nav-theme-btn svg,
   .nav-mail-btn svg {
-    width: 21px !important;
-    height: 21px !important;
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .nav-custom-tooltip {
+    font-size: 13px;
+    padding: 7px 14px;
+    border-radius: 8px;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .portfolio-navbar {
+    height: 74px;
+  }
+
+  .navbar-container {
+    padding: 0 60px;
+  }
+
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  .brand-line {
+    width: 30px;
+    height: 2px;
+    margin: 0 9px;
+  }
+
+  .navbar-brand:hover .brand-line {
+    width: 68px;
+  }
+
+  .brand-home-badge {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+
+  .navbar-links {
+    gap: 2.25rem;
+  }
+
+  .navbar-link,
+  .nav-item {
+    font-size: 17.5px;
+    padding: 10px 20px;
+  }
+
+  .nav-badge {
+    font-size: 12px;
+    padding: 3px 9px;
+  }
+
+  .navbar-actions {
+    gap: 16px;
+  }
+
+  .nav-icon-btn,
+  .nav-theme-btn,
+  .nav-mail-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .nav-icon-btn svg,
+  .nav-theme-btn svg,
+  .nav-mail-btn svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .nav-custom-tooltip {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .portfolio-navbar {
+    height: 78px;
+  }
+
+  .navbar-container {
+    padding: 0 68px;
+  }
+
+  .navbar-brand {
+    font-size: 22px;
+  }
+
+  .brand-line {
+    width: 34px;
+  }
+
+  .brand-home-badge {
+    font-size: 14px;
+  }
+
+  .navbar-links {
+    gap: 2.5rem;
+  }
+
+  .navbar-link,
+  .nav-item {
+    font-size: 19px;
+    padding: 11px 22px;
+  }
+
+  .nav-badge {
+    font-size: 13px;
+  }
+
+  .navbar-actions {
+    gap: 18px;
+  }
+
+  .nav-icon-btn,
+  .nav-theme-btn,
+  .nav-mail-btn {
+    width: 54px;
+    height: 54px;
+  }
+
+  .nav-icon-btn svg,
+  .nav-theme-btn svg,
+  .nav-mail-btn svg {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .nav-custom-tooltip {
+    font-size: 15px;
   }
 }
