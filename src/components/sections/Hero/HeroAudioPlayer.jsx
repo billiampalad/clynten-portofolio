@@ -32,7 +32,7 @@ function HeroAudioPlayer() {
         className="group flex items-center gap-2.5 [@media(min-width:1440px)]:gap-4 px-2.5 py-1.5 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-3 rounded-lg [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/90 border border-white/10 hover:border-emerald-500/40 shadow-xl backdrop-blur-md transition-all duration-200 cursor-pointer text-left"
       >
         {/* Animated Sound Wave Equalizer Bars (GPU transform: scaleY, zero layout reflow) */}
-        <div className="flex items-end gap-[2px] [@media(min-width:1440px)]:gap-[3.5px] h-[18px] [@media(min-width:1440px)]:h-[27px] px-0.5">
+        <div className="flex items-end gap-[2px] [@media(min-width:1440px)]:gap-[4px] h-[18px] [@media(min-width:1440px)]:h-[32px] px-0.5">
           {BARS.map((bar) => (
             <span
               key={bar.id}
@@ -43,7 +43,7 @@ function HeroAudioPlayer() {
                 transform: isPlaying ? undefined : 'scaleY(0.25)',
                 willChange: 'transform',
               }}
-              className={`w-[2.5px] [@media(min-width:1440px)]:w-[4px] rounded-t-[1px] transition-colors duration-200 ${
+              className={`w-[2.5px] [@media(min-width:1440px)]:w-[5px] rounded-t-[1px] transition-colors duration-200 ${
                 isPlaying
                   ? 'bg-emerald-400 shadow-[0_0_6px_#00ffaa]'
                   : 'bg-zinc-600'

@@ -24,7 +24,7 @@ function TargetReticle() {
         className="absolute bottom-0 left-0 w-5 h-5 [@media(min-width:1440px)]:w-7 [@media(min-width:1440px)]:h-7 border-b-2 border-l-2 border-white/25"
       >
         {/* Spectrum Frequency Equalizer */}
-        <div className="absolute bottom-0.5 left-7 flex items-end gap-[2.5px] h-3">
+        <div className="absolute bottom-0.5 left-7 [@media(min-width:1440px)]:left-9 flex items-end gap-[2.5px] [@media(min-width:1440px)]:gap-1 h-3 [@media(min-width:1440px)]:h-6">
           {[
             { height: '40%', delay: 0.15 },
             { height: '75%', delay: 0.2 },
@@ -39,7 +39,7 @@ function TargetReticle() {
               animate={{ scaleY: 1, opacity: 1 }}
               transition={{ duration: 0.35, delay: bar.delay, ease: 'easeOut' }}
               style={{ height: bar.height }}
-              className="w-[2px] bg-emerald-400 rounded-[1px] shadow-[0_0_4px_#00ffaa] origin-bottom animate-pulse"
+              className="w-[2px] [@media(min-width:1440px)]:w-[4px] bg-emerald-400 rounded-[1px] shadow-[0_0_4px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_10px_#00ffaa] origin-bottom animate-pulse"
             />
           ))}
         </div>
