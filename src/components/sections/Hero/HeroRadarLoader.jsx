@@ -142,9 +142,9 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
             <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-500 to-transparent shadow-[0_0_12px_#f43f5e]" />
 
             {/* Slat Tactical Micro Identifier */}
-            <div className="absolute bottom-5 [@media(min-width:1440px)]:bottom-8 inset-x-0 flex flex-col items-center gap-0.5 text-[8px] sm:text-[9px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-zinc-600 select-none">
+            <div className="absolute bottom-5 lg:bottom-6 [@media(min-width:1440px)]:bottom-8 inset-x-0 flex flex-col items-center gap-0.5 text-[8px] sm:text-[9px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-zinc-600 select-none">
               <span>// {slat.id}</span>
-              <span className="hidden sm:inline-block text-[7px] [@media(min-width:1440px)]:text-[10px] text-zinc-600 font-semibold">
+              <span className="hidden sm:inline-block text-[7px] lg:text-[8.5px] [@media(min-width:1440px)]:text-[10px] text-zinc-600 font-semibold">
                 {slat.code}
               </span>
             </div>
@@ -170,21 +170,21 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
         />
 
         {/* Main Radar Scope */}
-        <div className="relative flex items-center justify-center w-72 h-72 sm:w-80 sm:h-80 [@media(min-width:1440px)]:w-[430px] [@media(min-width:1440px)]:h-[430px] [@media(min-width:1600px)]:w-[470px] [@media(min-width:1600px)]:h-[470px] max-w-[82vw] max-h-[82vw]">
+        <div className="relative flex items-center justify-center w-72 h-72 sm:w-80 sm:h-80 lg:w-[clamp(340px,28vw,390px)] lg:h-[clamp(340px,28vw,390px)] [@media(min-width:1440px)]:w-[430px] [@media(min-width:1440px)]:h-[430px] [@media(min-width:1600px)]:w-[470px] [@media(min-width:1600px)]:h-[470px] max-w-[82vw] max-h-[82vw]">
           {/* Outer Rotating Compass Degree Ring - Neon Red */}
           <div className="absolute inset-0 rounded-full border border-dashed border-rose-500/35 animate-[spin_35s_linear_infinite] will-change-transform" />
 
           {/* Cardinal Azimuth Degrees in Neon Red */}
-          <span className="absolute top-1 [@media(min-width:1440px)]:top-2 text-[8px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
+          <span className="absolute top-1 lg:top-1.5 [@media(min-width:1440px)]:top-2 text-[8px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
             000°
           </span>
-          <span className="absolute right-1 [@media(min-width:1440px)]:right-2 text-[8px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
+          <span className="absolute right-1 lg:right-1.5 [@media(min-width:1440px)]:right-2 text-[8px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
             090°
           </span>
-          <span className="absolute bottom-1 [@media(min-width:1440px)]:bottom-2 text-[8px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
+          <span className="absolute bottom-1 lg:bottom-1.5 [@media(min-width:1440px)]:bottom-2 text-[8px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
             180°
           </span>
-          <span className="absolute left-1 [@media(min-width:1440px)]:left-2 text-[8px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
+          <span className="absolute left-1 lg:left-1.5 [@media(min-width:1440px)]:left-2 text-[8px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-rose-400/80 font-bold">
             270°
           </span>
 
@@ -207,7 +207,7 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
           >
             {/* Laser Sweep Leading Ray with Active Red Glow */}
             <div
-              className="absolute top-0 left-1/2 w-1/2 h-[1.5px] [@media(min-width:1440px)]:h-[2px]"
+              className="absolute top-0 left-1/2 w-1/2 h-[1.5px] lg:h-[1.75px] [@media(min-width:1440px)]:h-[2px]"
               style={{
                 background: 'linear-gradient(to right, transparent, #f43f5e)',
                 boxShadow: '0 0 10px #f43f5e',
@@ -218,40 +218,40 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
           {/* Simulated Detected Signal Blip Targets (Neon Red) */}
           {/* 1. Red Signal Blip (Sector Alpha) */}
           <div className="absolute top-[26%] left-[70%] flex items-center gap-1 pointer-events-none">
-            <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-ping" />
-            <span className="text-[7px] [@media(min-width:1440px)]:text-[10px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-01</span>
+            <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-ping" />
+            <span className="text-[7px] lg:text-[8.5px] [@media(min-width:1440px)]:text-[10px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-01</span>
           </div>
 
           {/* 2. Red Signal Blip (Sector Beta) */}
           <div className="absolute top-[72%] left-[32%] flex items-center gap-1 pointer-events-none">
-            <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse" />
-            <span className="text-[7px] [@media(min-width:1440px)]:text-[10px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-02</span>
+            <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse" />
+            <span className="text-[7px] lg:text-[8.5px] [@media(min-width:1440px)]:text-[10px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-02</span>
           </div>
 
           {/* 3. Red Signal Blip (Sector Gamma) */}
           <div className="absolute top-[36%] left-[24%] flex items-center gap-1 pointer-events-none">
-            <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse" />
-            <span className="text-[7px] [@media(min-width:1440px)]:text-[10px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-03</span>
+            <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 [@media(min-width:1440px)]:w-2.5 [@media(min-width:1440px)]:h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e] animate-pulse" />
+            <span className="text-[7px] lg:text-[8.5px] [@media(min-width:1440px)]:text-[10px] text-rose-400/80 font-mono tracking-widest hidden sm:inline">R-03</span>
           </div>
 
           {/* Center Digital HUD Target Hub (Solid High-Depth Dark background eliminates heavy Gaussian blur over spinning beam) */}
-          <div className="relative z-10 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 [@media(min-width:1440px)]:w-44 [@media(min-width:1440px)]:h-44 [@media(min-width:1600px)]:w-48 [@media(min-width:1600px)]:h-48 rounded-full bg-[#0A0907]/95 border border-rose-500/40 shadow-[0_0_35px_rgba(244,63,94,0.35)]">
+          <div className="relative z-10 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 lg:w-[clamp(142px,11.5vw,162px)] lg:h-[clamp(142px,11.5vw,162px)] [@media(min-width:1440px)]:w-44 [@media(min-width:1440px)]:h-44 [@media(min-width:1600px)]:w-48 [@media(min-width:1600px)]:h-48 rounded-full bg-[#0A0907]/95 border border-rose-500/40 shadow-[0_0_35px_rgba(244,63,94,0.35)]">
             {/* Rotating Hub Trim Ring */}
-            <div className="absolute inset-[-4px] [@media(min-width:1440px)]:inset-[-6px] rounded-full border border-dashed border-rose-500/30 animate-[spin_18s_linear_infinite] will-change-transform" />
+            <div className="absolute inset-[-4px] lg:inset-[-5px] [@media(min-width:1440px)]:inset-[-6px] rounded-full border border-dashed border-rose-500/30 animate-[spin_18s_linear_infinite] will-change-transform" />
 
             {/* Percentage Value */}
             <div className="flex items-baseline justify-center text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.7)]">
-              <span className="text-2xl sm:text-3xl [@media(min-width:1440px)]:text-5xl font-extrabold tracking-tight">
+              <span className="text-2xl sm:text-3xl lg:text-[clamp(34px,2.8vw,42px)] [@media(min-width:1440px)]:text-5xl font-extrabold tracking-tight">
                 {formattedPercentage}
               </span>
-              <span className="text-xs sm:text-sm [@media(min-width:1440px)]:text-xl font-medium ml-0.5 opacity-80">
+              <span className="text-xs sm:text-sm lg:text-base [@media(min-width:1440px)]:text-xl font-medium ml-0.5 opacity-80">
                 %
               </span>
             </div>
 
             {/* Target Status Badge */}
             <span
-              className={`mt-1 [@media(min-width:1440px)]:mt-2 text-[8px] sm:text-[9px] [@media(min-width:1440px)]:text-[12px] tracking-widest font-bold uppercase ${
+              className={`mt-1 lg:mt-1.5 [@media(min-width:1440px)]:mt-2 text-[8px] sm:text-[9px] lg:text-[10.5px] [@media(min-width:1440px)]:text-[12px] tracking-widest font-bold uppercase ${
                 isComplete
                   ? 'text-rose-300 drop-shadow-[0_0_8px_#f43f5e]'
                   : 'text-rose-400/90'
@@ -263,17 +263,17 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
         </div>
 
         {/* Bottom Telemetry Information & Micro Progress Bar */}
-        <div className="mt-8 sm:mt-10 [@media(min-width:1440px)]:mt-14 flex flex-col items-center gap-3 [@media(min-width:1440px)]:gap-4 w-72 sm:w-84 [@media(min-width:1440px)]:w-[430px] [@media(min-width:1600px)]:w-[470px] max-w-[85vw] pointer-events-none">
+        <div className="mt-8 sm:mt-10 lg:mt-11 [@media(min-width:1440px)]:mt-14 flex flex-col items-center gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-4 w-72 sm:w-84 lg:w-[clamp(340px,28vw,390px)] [@media(min-width:1440px)]:w-[430px] [@media(min-width:1600px)]:w-[470px] max-w-[85vw] pointer-events-none">
           {/* Dynamic Status Text Line */}
-          <div className="flex items-center gap-2 text-[10px] sm:text-xs [@media(min-width:1440px)]:text-[15px] tracking-widest text-zinc-300 text-center font-medium">
-            <span className="font-bold animate-pulse text-rose-400 [@media(min-width:1440px)]:text-[16px]">
+          <div className="flex items-center gap-2 text-[10px] sm:text-xs lg:text-[12.5px] [@media(min-width:1440px)]:text-[15px] tracking-widest text-zinc-300 text-center font-medium">
+            <span className="font-bold animate-pulse text-rose-400 lg:text-[13.5px] [@media(min-width:1440px)]:text-[16px]">
               &gt;
             </span>
             <span className="truncate">{statusText}</span>
           </div>
 
           {/* Modern Sleek Neon Red Progress Bar */}
-          <div className="w-full h-1.5 [@media(min-width:1440px)]:h-2.5 bg-zinc-900/90 border border-rose-500/25 rounded-full overflow-hidden p-[1px] shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]">
+          <div className="w-full h-1.5 lg:h-2 [@media(min-width:1440px)]:h-2.5 bg-zinc-900/90 border border-rose-500/25 rounded-full overflow-hidden p-[1px] shadow-[inset_0_0_6px_rgba(0,0,0,0.8)]">
             <div
               className="h-full rounded-full bg-gradient-to-r from-rose-600 via-rose-500 to-red-500 shadow-[0_0_12px_#f43f5e] transition-[width] duration-75 ease-out"
               style={{ width: `${percentage}%` }}
@@ -281,14 +281,14 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
           </div>
 
           {/* 10 Segmented Cyber Data Blocks in Neon Red (Using static pre-allocated array) */}
-          <div className="flex items-center justify-between w-full gap-1 [@media(min-width:1440px)]:gap-1.5 pt-1">
+          <div className="flex items-center justify-between w-full gap-1 lg:gap-1.25 [@media(min-width:1440px)]:gap-1.5 pt-1">
             {BLOCKS_ARRAY.map((idx) => {
               const isBlockActive = idx < activeBlocks
 
               return (
                 <div
                   key={idx}
-                  className={`h-1 [@media(min-width:1440px)]:h-2 flex-1 rounded-[1px] transition-[background-color,box-shadow] duration-150 ${
+                  className={`h-1 lg:h-1.5 [@media(min-width:1440px)]:h-2 flex-1 rounded-[1px] transition-[background-color,box-shadow] duration-150 ${
                     isBlockActive ? 'bg-rose-500 shadow-[0_0_5px_#f43f5e]' : 'bg-zinc-800'
                   }`}
                 />
@@ -297,7 +297,7 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
           </div>
 
           {/* Coordinates Metadata Row */}
-          <div className="flex items-center justify-between w-full text-[8px] sm:text-[9px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-zinc-500 pt-0.5 [@media(min-width:1440px)]:pt-1.5">
+          <div className="flex items-center justify-between w-full text-[8px] sm:text-[9px] lg:text-[10px] [@media(min-width:1440px)]:text-[12px] tracking-widest text-zinc-500 pt-0.5 lg:pt-1 [@media(min-width:1440px)]:pt-1.5">
             <span>LAT: 07°14'N // LON: 112°45'E</span>
             <span className="font-semibold text-rose-400/80">
               CBP-SIGNAL 99.4%
@@ -312,9 +312,9 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
                 e.stopPropagation()
                 heroAudio.play()
               }}
-              className="mt-2 [@media(min-width:1440px)]:mt-3 flex items-center gap-2 [@media(min-width:1440px)]:gap-3 px-3 py-1 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-1.5 rounded-full border border-emerald-500/50 bg-emerald-950/70 text-emerald-400 text-[8.5px] [@media(min-width:1440px)]:text-[11px] tracking-widest font-bold uppercase pointer-events-auto hover:bg-emerald-900/60 hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,170,0.35)] cursor-pointer"
+              className="mt-2 lg:mt-2.5 [@media(min-width:1440px)]:mt-3 flex items-center gap-2 lg:gap-2.5 [@media(min-width:1440px)]:gap-3 px-3 py-1 lg:px-3.5 lg:py-1.25 [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-1.5 rounded-full border border-emerald-500/50 bg-emerald-950/70 text-emerald-400 text-[8.5px] lg:text-[9.5px] [@media(min-width:1440px)]:text-[11px] tracking-widest font-bold uppercase pointer-events-auto hover:bg-emerald-900/60 hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,170,0.35)] cursor-pointer"
             >
-              <span className="w-1.5 h-1.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-emerald-400 animate-ping" />
               <span>TAP ANYWHERE TO ACTIVATE AUDIO</span>
             </button>
           )}
