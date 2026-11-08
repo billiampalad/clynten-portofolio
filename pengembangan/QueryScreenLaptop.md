@@ -33,10 +33,10 @@ Dalam implementasi CSS / Tailwind:
   /* Rumus umum clamp linier: */
   /* clamp(Nilai_Min_1024, (Nilai_Max_1439 / 1439 * 100)vw, Nilai_Max_1439) */
   ```
-- **Metode Tailwind Arbitrary Media Query:**
+- **Metode Tailwind Responsive Modifier (Tailwind v4 Valid):**
   ```html
   <!-- Kelas laptop tunggal yang seragam tanpa pemisahan lg: vs xl: -->
-  <div class="[@media(min-width:1024px)_and_(max-width:1439px)]:w-[clamp(190px,18vw,260px)] ...">
+  <div class="min-[1024px]:max-[1440px]:w-[clamp(180px,17.37vw,250px)] ...">
   ```
 
 ---
