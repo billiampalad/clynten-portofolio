@@ -6,22 +6,22 @@ import { useTextScramble } from '@/hooks/useTextScramble'
 const POSITION_MAP = {
   // skil 1 (Web Development)
   'webdev-wrapper':
-    'top-[7%] [@media(min-width:1440px)]:top-[6%] left-3 [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(12px,1.4vw,20px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+    'top-[7%] [@media(min-width:1440px)]:top-[6%] left-3 [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(24px,2.2vw,32px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 2 (Android Development)
   'android-wrapper':
-    'top-[10%] [@media(min-width:1440px)]:top-[9%] left-[175px] [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(172px,13.5vw,195px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[10%] [@media(min-width:1440px)]:top-[9%] left-[175px] [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(192px,15.0vw,216px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
-    'top-[28%] [@media(min-width:1440px)]:top-[26%] left-3 [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(16px,1.7vw,24px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+    'top-[28%] [@media(min-width:1440px)]:top-[26%] left-3 [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 4 (Cloud & Networking)
   'net-wrapper':
-    'top-[30%] [@media(min-width:1440px)]:top-[29%] left-[175px] [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(184px,14.3vw,206px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[30%] [@media(min-width:1440px)]:top-[29%] left-[175px] [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(204px,15.8vw,228px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 5 (Database Architecture)
   'db-wrapper':
-    'top-[50%] [@media(min-width:1440px)]:top-[46%] left-3 [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(20px,2.0vw,28px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+    'top-[50%] [@media(min-width:1440px)]:top-[46%] left-3 [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(32px,2.8vw,40px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 6 (UI/UX Engineering)
   'uiux-wrapper':
-    'top-[50%] [@media(min-width:1440px)]:top-[49%] left-[175px] [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(196px,15.1vw,218px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[50%] [@media(min-width:1440px)]:top-[49%] left-[175px] [@media(min-width:1024px)_and_(max-width:1439px)]:left-[clamp(216px,16.6vw,240px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
