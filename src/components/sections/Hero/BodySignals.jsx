@@ -6,22 +6,22 @@ import { useTextScramble } from '@/hooks/useTextScramble'
 const POSITION_MAP = {
   // skil 1 (Web Development)
   'webdev-wrapper':
-    'top-[5%] left-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+    'top-[6%] left-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 2 (Android Development)
   'android-wrapper':
-    'top-[8%] left-[clamp(246px,22.8vw,328px)] [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[9%] left-[clamp(236px,21.8vw,314px)] [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
-    'top-[26.5%] left-[clamp(32px,2.78vw,40px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+    'top-[25%] left-[clamp(32px,2.78vw,40px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 4 (Cloud & Networking)
   'net-wrapper':
-    'top-[29.5%] left-[clamp(256px,23.6vw,340px)] [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[28%] left-[clamp(244px,22.5vw,324px)] [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 5 (Database Architecture)
   'db-wrapper':
-    'top-[48%] left-[clamp(36px,3.05vw,44px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+    'top-[44%] left-[clamp(36px,3.05vw,44px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 6 (UI/UX Engineering)
   'uiux-wrapper':
-    'top-[51%] left-[clamp(266px,24.4vw,352px)] [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[47%] left-[clamp(252px,23.2vw,334px)] [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
