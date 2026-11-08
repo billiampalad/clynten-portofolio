@@ -95,12 +95,12 @@ const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
       ref={promptRef}
-      className="absolute bottom-6 sm:bottom-9 [@media(min-width:1440px)]:bottom-20 [@media(min-width:1600px)]:bottom-24 right-6 sm:right-12 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 flex flex-col items-center gap-1.5 [@media(min-width:1440px)]:gap-3 transition-opacity duration-100 will-change-[opacity]"
+      className="absolute bottom-6 sm:bottom-9 lg:bottom-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:bottom-20 [@media(min-width:1600px)]:bottom-24 right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 flex flex-col items-center gap-1.5 lg:gap-2.5 [@media(min-width:1440px)]:gap-3 transition-opacity duration-100 will-change-[opacity]"
     >
-      <div className="w-4 h-7 [@media(min-width:1440px)]:w-6 [@media(min-width:1440px)]:h-10.5 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 [@media(min-width:1440px)]:p-1.5 bg-black/50">
-        <span className="w-1 h-2 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-3.5 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
+      <div className="w-4 h-7 lg:w-5 lg:h-9 [@media(min-width:1440px)]:w-6 [@media(min-width:1440px)]:h-10.5 border border-emerald-400/50 rounded-full flex items-start justify-center p-1 lg:p-1.2 [@media(min-width:1440px)]:p-1.5 bg-black/50">
+        <span className="w-1 h-2 lg:w-1.5 lg:h-2.5 [@media(min-width:1440px)]:w-2 [@media(min-width:1440px)]:h-3.5 bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
       </div>
-      <div className="flex items-center gap-1 text-[8px] sm:text-[9px] [@media(min-width:1440px)]:text-[12px] tracking-[2px] [@media(min-width:1440px)]:tracking-[3.5px] font-semibold text-zinc-400 uppercase">
+      <div className="flex items-center gap-1 text-[8px] sm:text-[9px] lg:text-[10.5px] [@media(min-width:1440px)]:text-[12px] tracking-[2px] lg:tracking-[2.8px] [@media(min-width:1440px)]:tracking-[3.5px] font-semibold text-zinc-400 uppercase">
         <span className="text-emerald-400">[</span>
         <span className="text-zinc-300">SCROLL TO EXPLORE TELEMETRY</span>
         <span className="text-emerald-400">]</span>
