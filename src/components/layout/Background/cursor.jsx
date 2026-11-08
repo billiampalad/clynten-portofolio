@@ -569,14 +569,14 @@ const GhostCursor = ({
     let introStart = -1;
 
     let isClicking = false;
-    let tipX = 5.7;
+    let tipX = 5.1;
     let tipY = 1.0;
 
     const updateTip = () => {
       if (!pointerEl) return;
       const rect = pointerEl.getBoundingClientRect();
-      const w = rect.width || 38;
-      const h = rect.height || 38;
+      const w = rect.width || 34;
+      const h = rect.height || 34;
       tipX = w * (60.5 / 404);
       tipY = h * (13.0 / 463);
       pointerEl.style.transformOrigin = `${tipX}px ${tipY}px`;
@@ -969,7 +969,7 @@ const GhostCursor = ({
       {showPointer && (
         <div
           ref={pointerRef}
-          className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-150 w-[38px] h-[38px] [@media(min-width:1440px)]:w-[46px] [@media(min-width:1440px)]:h-[46px] [@media(min-width:1600px)]:w-[50px] [@media(min-width:1600px)]:h-[50px] [@media(min-width:1920px)]:w-[56px] [@media(min-width:1920px)]:h-[56px]"
+          className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-150 w-[34px] h-[34px] [@media(min-width:1440px)]:w-[38px] [@media(min-width:1440px)]:h-[38px] [@media(min-width:1600px)]:w-[42px] [@media(min-width:1600px)]:h-[42px] [@media(min-width:1920px)]:w-[46px] [@media(min-width:1920px)]:h-[46px]"
           aria-hidden="true"
         >
           <img
