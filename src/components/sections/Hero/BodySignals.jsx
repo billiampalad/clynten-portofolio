@@ -9,28 +9,28 @@ const POSITION_MAP = {
     'top-[6%] left-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 2 (Android Development)
   'android-wrapper':
-    'top-[9%] left-[clamp(236px,21.8vw,314px)] [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[9%] left-[clamp(218px,20.15vw,290px)] [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
     'top-[25%] left-[clamp(32px,2.78vw,40px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 4 (Cloud & Networking)
   'net-wrapper':
-    'top-[28%] left-[clamp(244px,22.5vw,324px)] [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[28%] left-[clamp(226px,20.85vw,300px)] [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 5 (Database Architecture)
   'db-wrapper':
     'top-[44%] left-[clamp(36px,3.05vw,44px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 6 (UI/UX Engineering)
   'uiux-wrapper':
-    'top-[47%] left-[clamp(252px,23.2vw,334px)] [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+    'top-[47%] left-[clamp(234px,21.55vw,310px)] [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
   const scrambledVal = useTextScramble(value, speed, false)
 
   return (
-    <div className="flex items-center justify-between text-[9px] [@media(min-width:1440px)]:text-[10.5px] tracking-wider py-0.5 [@media(min-width:1440px)]:py-1.5 border-b border-white/[0.04] last:border-none whitespace-nowrap">
+    <div className="flex items-center justify-between text-[8.5px] [@media(min-width:1440px)]:text-[10.5px] tracking-wider py-0.5 [@media(min-width:1440px)]:py-1.5 border-b border-white/[0.04] last:border-none whitespace-nowrap">
       <span className="text-zinc-500 uppercase shrink-0 [@media(min-width:1440px)]:tracking-[1px]">{label}</span>
-      <span className={`font-semibold truncate max-w-[145px] [@media(min-width:1440px)]:max-w-[170px] ml-1 shrink-0 ${highlightColor || 'text-zinc-300'}`}>
+      <span className={`font-semibold truncate max-w-[130px] [@media(min-width:1440px)]:max-w-[170px] ml-1 shrink-0 ${highlightColor || 'text-zinc-300'}`}>
         {scrambledVal}
       </span>
     </div>
@@ -49,12 +49,12 @@ const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18 }) {
 
   return (
     <div className="flex items-center justify-between pb-0.5 mb-1 [@media(min-width:1440px)]:pb-2 [@media(min-width:1440px)]:mb-2 border-b border-white/10 whitespace-nowrap">
-      <div className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 text-[10.5px] [@media(min-width:1440px)]:text-[13px] font-bold tracking-wider text-white whitespace-nowrap">
-        <span className={`text-[9px] [@media(min-width:1440px)]:text-[11px] ${squareColor}`}>■</span>
-        <span className="truncate max-w-[160px] [@media(min-width:1440px)]:max-w-[175px]">{scrambledText}</span>
+      <div className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2 text-[10px] [@media(min-width:1440px)]:text-[13px] font-bold tracking-wider text-white whitespace-nowrap">
+        <span className={`text-[8.5px] [@media(min-width:1440px)]:text-[11px] ${squareColor}`}>■</span>
+        <span className="truncate max-w-[145px] [@media(min-width:1440px)]:max-w-[175px]">{scrambledText}</span>
       </div>
       {tag && (
-        <span className="text-[8px] [@media(min-width:1440px)]:text-[10px] tracking-widest font-mono px-1 py-0.2 [@media(min-width:1440px)]:px-1.5 [@media(min-width:1440px)]:py-0.5 rounded bg-white/5 border border-white/10 text-zinc-400 shrink-0">
+        <span className="text-[7.5px] [@media(min-width:1440px)]:text-[10px] tracking-widest font-mono px-1 py-0.2 [@media(min-width:1440px)]:px-1.5 [@media(min-width:1440px)]:py-0.5 rounded bg-white/5 border border-white/10 text-zinc-400 shrink-0">
           {tag}
         </span>
       )}
@@ -93,7 +93,7 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved }) {
       }}
       className={`absolute ${positionClass} pointer-events-none select-none z-10`}
     >
-      <div className={`relative w-[clamp(195px,17.72vw,255px)] [@media(min-width:1440px)]:w-[286px] p-2 [@media(min-width:1440px)]:p-[18px] rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg`}>
+      <div className={`relative w-[clamp(178px,16.2vw,233px)] [@media(min-width:1440px)]:w-[286px] p-2 [@media(min-width:1440px)]:p-[18px] rounded-xl [@media(min-width:1440px)]:rounded-2xl bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg`}>
         <HudHeader
           text={data.header}
           tag={skill.tag}
