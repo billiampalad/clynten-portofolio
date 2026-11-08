@@ -128,18 +128,18 @@ const SubtextBanner = memo(function SubtextBanner() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-3 [@media(min-width:1440px)]:gap-5 mt-3 [@media(min-width:1440px)]:mt-6 font-mono text-[9px] sm:text-[11px] [@media(min-width:1440px)]:text-[20px] [@media(min-width:1600px)]:text-[22px] tracking-[1.5px] [@media(min-width:1440px)]:tracking-[3.5px] text-zinc-400"
+      className="flex items-center gap-3 lg:gap-3.5 [@media(min-width:1440px)]:gap-5 mt-3 lg:mt-3.5 [@media(min-width:1440px)]:mt-6 font-mono text-[9px] sm:text-[11px] lg:text-[13px] [@media(min-width:1440px)]:text-[20px] [@media(min-width:1600px)]:text-[22px] tracking-[1.5px] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[3.5px] text-zinc-400"
     >
       <motion.span
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.55, delay: 0.75, ease: 'easeOut' }}
         style={{ transformOrigin: 'left' }}
-        className="w-8 sm:w-12 [@media(min-width:1440px)]:w-28 [@media(min-width:1600px)]:w-36 h-[1px] [@media(min-width:1440px)]:h-[3.5px] bg-emerald-400/90 shadow-[0_0_6px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_16px_#00ffaa] rounded-full"
+        className="w-8 sm:w-12 lg:w-[clamp(48px,4.5vw,68px)] [@media(min-width:1440px)]:w-28 [@media(min-width:1600px)]:w-36 h-[1px] lg:h-[2px] [@media(min-width:1440px)]:h-[3.5px] bg-emerald-400/90 shadow-[0_0_6px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_16px_#00ffaa] rounded-full shrink-0"
       />
-      <span className="text-zinc-300 font-semibold [@media(min-width:1440px)]:font-bold">
+      <span className="text-zinc-300 font-semibold [@media(min-width:1440px)]:font-bold truncate">
         {scrambledSubtext}
-        <span className="animate-pulse text-emerald-400 font-black ml-1 [@media(min-width:1440px)]:text-[24px]">_</span>
+        <span className="animate-pulse text-emerald-400 font-black ml-1 lg:text-[16px] [@media(min-width:1440px)]:text-[24px]">_</span>
       </span>
     </motion.div>
   )
@@ -210,13 +210,13 @@ const ScrollHeadline = memo(
     }, [])
 
     return (
-      <div className="absolute bottom-9 [@media(min-width:1440px)]:bottom-12 left-6 sm:left-12 [@media(min-width:1440px)]:left-16 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-7xl [@media(min-width:1440px)]:max-w-[1440px] pointer-events-none select-none font-sans [contain:layout_style]">
+      <div className="absolute bottom-9 lg:bottom-[clamp(36px,3.0vw,44px)] [@media(min-width:1440px)]:bottom-12 left-6 sm:left-12 lg:left-[clamp(32px,2.8vw,40px)] [@media(min-width:1440px)]:left-16 z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] max-w-7xl [@media(min-width:1440px)]:max-w-[1440px] pointer-events-none select-none font-sans [contain:layout_style]">
         {/* Main Bold Headline with Staggered Kinetic Word Reveal and 3D Fold Cursor Interactions */}
         <motion.h1
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          className="block text-[clamp(28px,3.8vw,64px)] [@media(min-width:1440px)]:text-[clamp(56px,4vw,74px)] font-black leading-[1.08] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
+          className="block text-[clamp(28px,3.8vw,64px)] lg:text-[clamp(30px,2.9vw,42px)] [@media(min-width:1440px)]:text-[clamp(56px,4vw,74px)] font-black leading-[1.08] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
         >
           {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
           <FoldWord
