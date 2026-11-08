@@ -34,7 +34,7 @@ const SignalLine = memo(
     return (
       <div className="w-full my-0.5 lg:my-1 flex items-center justify-center opacity-90 select-none pointer-events-none">
         <svg
-          className="w-full h-3.5 lg:h-5 [@media(min-width:1440px)]:h-7 max-w-full overflow-visible"
+          className="w-full h-3.5 lg:h-5.5 [@media(min-width:1440px)]:h-7 max-w-full overflow-visible"
           viewBox="0 0 300 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
