@@ -1,33 +1,71 @@
-# MASTER PROMPT
+# MASTER PROMPT: STANDARISASI RESPONSIVE LAYAR LAPTOP (1024px - 1439px)
+# MODEL TATA LETAK TERKUNCI & SKALA PROPORSIONAL FLUIDA (LOCKED MASTER ANCHOR)
 
-1. Role
-Bertindaklah sebagai Senior Frontend Performance Architect dan Specialist Responsive UI Optimization (Ahli Modern CSS Grid/Flexbox, Tailwind CSS Breakpoints, dan Hardware-Accelerated Rendering). Prioritas utama Anda adalah mengoptimalkan dan mengkalibrasi skala antarmuka khusus untuk rentang layar laptop standar pada media query `@media only screen and (min-width: 1024px) and (max-width: 1439px)`. Anda harus mempertahankan 100% konsistensi tata letak, posisi, dan struktur visual agar identik dengan desain acuan tanpa perbedaan layout yang drastis (hanya penyesuaian skala ukuran dan densitas ruang), mengisolasi aturan styling secara ketat tanpa merusak breakpoint lain, serta menjamin performa rendering di laptop tetap sangat ringan, bebas lag, dan tidak membebani CPU maupun GPU.
+## 1. Role
+Bertindaklah sebagai Senior Frontend Performance Architect dan Specialist Responsive UI Optimization (Ahli Modern CSS Grid/Flexbox, Tailwind CSS Breakpoints, Fluid Scaling Mathematics, dan Hardware-Accelerated Rendering). Fokus utama Anda adalah mengunci konsistensi tata letak pada seluruh rentang layar laptop standar `@media only screen and (min-width: 1024px) and (max-width: 1439px)`. Desain dipatok dan dikunci pada acuan `max-width: 1439px`, dan ketika lebar layar diperkecil turun hingga `min-width: 1024px`, posisi dan komposisi tata letak **100% SAMA PERSIS (identik)** tanpa lompatan atau pergeseran posisi, hanya dimensinya (ukuran kartu, tipografi, padding, gap) yang mengecil secara proporsional dan fluida mengikuti penyusutan layar.
 
-2. Task
-Lakukan audit, kalibrasi skala proporsional, dan penyesuaian styling CSS/Tailwind khusus untuk rentang viewport laptop (`min-width: 1024px` hingga `max-width: 1439px`). Sesuaikan ukuran elemen, dimensi container/kartu, skala tipografi, padding, dan margin agar pas dan nyaman dipandang di monitor laptop (13–15 inci) dengan mempertahankan tata letak serta posisi elemen yang sudah ada. Pastikan penyesuaian ini terisolasi murni di dalam batas rentang tersebut tanpa menimbulkan efek samping (regression) pada layar mobile, tablet, maupun desktop lebar (>= 1440px), serta menerapkan praktik CSS performa tinggi yang mencegah layout thrashing dan repaint berlebih.
+---
 
-3. Context
-- Target Breakpoint Spesifik: `@media only screen and (min-width: 1024px) and (max-width: 1439px)` (rentang layar laptop/notebook 1024px sampai 1439px).
-- Prinsip Desain & Batasan Ketat (Strict Scope):
-  * FOKUS 100% HANYA PADA RENTANG LAPTOP (1024px - 1439px). DILARANG KERAS mengubah perilaku, susunan, atau styling pada breakpoint mobile (< 768px), tablet (768px - 1023px), maupun desktop lebar (>= 1440px).
-  * TATA LETAK & POSISI TETAP SAMA: Tidak boleh mengubah posisi susunan komponen (misal urutan grid, layout kolom, atau letak tombol tetap sama), hanya besaran dimensi (skala font, batas container, gap, padding, atau card size) yang disesuaikan secara proporsional dengan lebar layar laptop.
-- Bagian / Komponen Target yang Perlu Dikalibrasi:
-  * [Sebutkan bagian atau komponen spesifik, misal: section Hero/kanvas, grid Skills/Bento card, ukuran modal, atau padding kontainer halaman utama].
-- Batasan Performa & Hardware (Anti-Lag & Hemat CPU Laptop):
-  * Hindari penulisan kalkulasi JavaScript dinamis saat event resize/scroll; maksimalkan penggunaan CSS murni berbasis unit proporsional (`rem`, `clamp()`, persentase, atau flex/grid minmax).
-  * Hindari pemicu layout reflow berulang pada container besar; gunakan `box-sizing: border-box`, batasi area render jika perlu (`contain: layout style`), dan pastikan efek transisi tetap mengandalkan `transform` serta `opacity`.
-- Kode Tampilan / Komponen Saat Ini:
-[Tempelkan kode HTML/JSX dan CSS/Tailwind dari halaman atau komponen yang ingin dioptimalkan di sini]
+## 2. Task
+1. Lakukan standarisasi, kalibrasi skala proporsional fluida, dan perbaikan styling CSS/Tailwind khusus untuk rentang viewport laptop (`min-width: 1024px` hingga `max-width: 1439px`).
+2. Hilangkan segala bentuk pemecahan breakpoint sekunder (seperti Tailwind `xl:` pada 1280px) yang memicu perbedaan tampilan/posisi di antara laptop 13-14 inci (1024-1279px) dan laptop 15.6 inci (1280-1439px). Seluruh rentang laptop harus menggunakan satu aturan posisi yang seragam.
+3. Terapkan formula *Linear Fluid Downscaling* berbasis anchor `1439px`, di mana ukuran elemen saat `1024px` menyusut proporsional sekitar ~71%–75% dari ukurannya saat `1439px`.
+4. Pastikan aturan terkunci murni di dalam batas `@media only screen and (min-width: 1024px) and (max-width: 1439px)` tanpa memengaruhi tampilan layar tablet/mobile (< 1024px) atau desktop monitor lebar (>= 1440px).
 
-4. Reasoning
-Layar laptop standar (rentang 1024px hingga 1439px, umumnya monitor 13 sampai 15.6 inci dengan resolusi HD/FHD dan scaling OS 125%-150%) memiliki ruang vertikal dan horizontal yang lebih padat dibandingkan monitor desktop eksternal. Sering kali elemen yang dirancang untuk layar besar terasa terlalu memakan tempat atau teksnya kelewat besar saat dibuka di laptop, meskipun posisi dan tata letaknya sudah benar. Melakukan kalibrasi skala yang presisi dan terisolasi secara ketat pada rentang ini menjaga keutuhan komposisi desain sekaligus memastikan perangkat laptop yang menggunakan baterai atau GPU terintegrasi tetap dingin, hemat daya, dan bebas dari frame drop.
+---
 
-5. Stop Conditions
-Tugas dianggap selesai apabila:
-- Seluruh penyesuaian CSS/Tailwind terkunci secara ketat di dalam blok `@media only screen and (min-width: 1024px) and (max-width: 1439px)` (atau utilitas Tailwind yang dipetakan khusus pada rentang tersebut) tanpa mengubah aturan di bawah 1024px atau di atas 1439px.
-- Tata letak, alur hierarki, dan posisi elemen terbukti tetap sama persis dengan desain awal, hanya ukuran dimensi dan kerapatan visualnya yang disesuaikan secara proporsional untuk layar laptop.
-- Tidak ada properti CSS yang memicu lag, reflow berat, atau lonjakan penggunaan CPU saat diuji di layar laptop.
-- Disediakan blok kode hasil kalibrasi yang bersih, rapi, dan siap langsung diterapkan ke dalam file proyek.
+## 3. Context & Formula Skala Proporsional
 
-6. Output
-Jangan berikan deskripsi penjelasannya, tetapi lakukan perbaikan kode saja agar hemat token/credit
+### A. Target Breakpoint Spesifik
+- **Rentang Target Laptop:** `@media only screen and (min-width: 1024px) and (max-width: 1439px)`
+- **Anchor Acuan Utama (Locked Anchor):** `1439px` (Nilai maksimal tampilan laptop sebelum masuk ke query desktop 1440px+).
+
+### B. Rumus Skala Fluida (Fluid Interpolation Formula)
+Untuk memastikan elemen mengecil mulus dari `1439px` ke `1024px` tanpa layout shift:
+$$\text{Scale Ratio} = \frac{\text{Viewport Width}}{1439\text{px}} \quad (1.00 \text{ pada } 1439\text{px} \searrow 0.71 \text{ pada } 1024\text{px})$$
+
+Dalam implementasi CSS / Tailwind:
+- **Metode CSS `clamp()` Linier:**
+  ```css
+  /* Contoh: Elemen berukuran 280px pada 1439px yang menyusut ke 200px pada 1024px */
+  width: clamp(200px, 19.45vw, 280px);
+  
+  /* Rumus umum clamp linier: */
+  /* clamp(Nilai_Min_1024, (Nilai_Max_1439 / 1439 * 100)vw, Nilai_Max_1439) */
+  ```
+- **Metode Tailwind Arbitrary Media Query:**
+  ```html
+  <!-- Kelas laptop tunggal yang seragam tanpa pemisahan lg: vs xl: -->
+  <div class="[@media(min-width:1024px)_and_(max-width:1439px)]:w-[clamp(190px,18vw,260px)] ...">
+  ```
+
+---
+
+## 4. Prinsip Desain & Batasan Ketat (Strict Scope)
+
+1. **Tata Letak & Posisi Terkunci (Locked Hierarchy):**
+   - Tidak boleh ada perubahan susunan grid, urutan flexbox, atau lompatan koordinat absolut antara 1024px dan 1439px.
+   - Posisi elemen `left`, `right`, `top`, dan `bottom` pada layar laptop harus menggunakan formula proporsional fluida atau offset persentase yang stabil sehingga relasi visual antar-elemen (misalnya kartu terhadap subjek 3D/tengah) tetap konstan.
+
+2. **Dilarang Menggunakan Breakpoint Split `xl` (1280px) di Rentang Laptop:**
+   - Dilarang memberi kelas `lg:left-10 xl:left-28` yang membuat tampilan di 1279px berbeda dengan 1280px.
+   - Gunakan satu aturan posisi yang konsisten di seluruh 1024px–1439px.
+
+3. **Performa Ringan (Hardware-Accelerated & Anti-Lag):**
+   - Skala fluida sepenuhnya dihitung oleh CSS engine browser melalui `clamp()`, `calc()`, dan unit `vw`/`%`.
+   - Hindari manipulasi JavaScript window resize listener untuk kalkulasi dimensi.
+   - Gunakan `contain: paint` atau `contain: layout` pada kartu-kartu HUD untuk mencegah reflow global saat resolusi berubah.
+
+---
+
+## 5. Checklist Verifikasi Stop Conditions
+Tugas perbaikan dianggap selesai dan valid jika:
+1. Saat browser di-resize perlahan dari `1439px` turun ke `1024px`, seluruh tata letak tidak mengalami lompatan (zero layout shift/jump); posisi relatif elemen tetap sama, hanya ukurannya yang mengecil secara serentak.
+2. Aturan styling terisolasi murni pada rentang `(min-width: 1024px) and (max-width: 1439px)`.
+3. Tampilan pada tablet/mobile (`< 1024px`) dan desktop lebar (`>= 1440px`) tetap utuh tanpa efek samping (no regressions).
+4. Kode bersih, teruji, dan siap dipakai langsung pada proyek.
+
+---
+
+## 6. Output Rule
+Jangan berikan deskripsi penjelasannya, tetapi lakukan perbaikan kode saja agar hemat token/credit.
