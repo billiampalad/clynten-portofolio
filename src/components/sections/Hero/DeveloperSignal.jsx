@@ -42,31 +42,31 @@ const SignalDetails = memo(function SignalDetails({
     <>
       {/* Main Signal Display Card */}
       <div className="flex flex-col mt-0.5 relative z-10">
-        <div className="flex items-center justify-between text-[8.5px] sm:text-[9px] [@media(min-width:1440px)]:text-[13.5px] tracking-widest text-zinc-400 whitespace-nowrap">
-          <span className={`font-semibold px-1.5 py-0.5 [@media(min-width:1440px)]:px-3 [@media(min-width:1440px)]:py-1.5 rounded border shrink-0 transition-colors duration-300 ${phasePillClass}`}>
+        <div className="flex items-center justify-between text-[8.5px] sm:text-[9px] lg:text-[11px] [@media(min-width:1440px)]:text-[13.5px] tracking-widest text-zinc-400 whitespace-nowrap">
+          <span className={`font-semibold px-1.5 py-0.5 lg:px-2 lg:py-1 [@media(min-width:1440px)]:px-3 [@media(min-width:1440px)]:py-1.5 rounded border shrink-0 transition-colors duration-300 ${phasePillClass}`}>
             PHASE // {activeSignal.phase}
           </span>
-          <span className="text-zinc-500 font-medium truncate ml-2 text-[9px] sm:text-[9.5px] [@media(min-width:1440px)]:text-[14px]">
+          <span className="text-zinc-500 font-medium truncate ml-2 text-[9px] sm:text-[9.5px] lg:text-[11.5px] [@media(min-width:1440px)]:text-[14px]">
             {scrambledLabel}
           </span>
         </div>
 
-        <h2 className="text-sm sm:text-[15px] [@media(min-width:1440px)]:text-[24px] font-black tracking-tight text-white mt-1.5 [@media(min-width:1440px)]:mt-3 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
+        <h2 className="text-sm sm:text-[15px] lg:text-[19px] [@media(min-width:1440px)]:text-[24px] font-black tracking-tight text-white mt-1.5 lg:mt-2 [@media(min-width:1440px)]:mt-3 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
           {scrambledTitle}
         </h2>
-        <p className="text-[9.5px] sm:text-[10px] [@media(min-width:1440px)]:text-[15px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5 [@media(min-width:1440px)]:mt-1.5">
+        <p className="text-[9.5px] sm:text-[10px] lg:text-[12px] [@media(min-width:1440px)]:text-[15px] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-0.5 lg:mt-1 [@media(min-width:1440px)]:mt-1.5">
           {activeSignal.subtitle}
         </p>
 
         {/* Dynamic Skill Stack Badges - 2x2 Grid */}
         {activeSignal.tags && (
-          <div className="grid grid-cols-2 gap-1.5 [@media(min-width:1440px)]:gap-3.5 mt-2 [@media(min-width:1440px)]:mt-4">
+          <div className="grid grid-cols-2 gap-1.5 lg:gap-2.5 [@media(min-width:1440px)]:gap-3.5 mt-2 lg:mt-3 [@media(min-width:1440px)]:mt-4">
             {activeSignal.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-1.5 [@media(min-width:1440px)]:gap-3 px-2 py-1 [@media(min-width:1440px)]:px-4 [@media(min-width:1440px)]:py-2.5 rounded-md [@media(min-width:1440px)]:rounded-lg text-[8.5px] sm:text-[9px] [@media(min-width:1440px)]:text-[13.5px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
+                className="flex items-center gap-1.5 lg:gap-2 [@media(min-width:1440px)]:gap-3 px-2 py-1 lg:px-3 lg:py-1.5 [@media(min-width:1440px)]:px-4 [@media(min-width:1440px)]:py-2.5 rounded-md [@media(min-width:1440px)]:rounded-lg text-[8.5px] sm:text-[9px] lg:text-[11px] [@media(min-width:1440px)]:text-[13.5px] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
               >
-                <span className={`w-1.5 h-1.5 [@media(min-width:1440px)]:w-3 [@media(min-width:1440px)]:h-3 rounded-full shrink-0 transition-colors duration-300 ${tagDotClass}`} />
+                <span className={`w-1.5 h-1.5 lg:w-2 lg:h-2 [@media(min-width:1440px)]:w-3 [@media(min-width:1440px)]:h-3 rounded-full shrink-0 transition-colors duration-300 ${tagDotClass}`} />
                 <span className="truncate">{tag}</span>
               </span>
             ))}
@@ -75,35 +75,35 @@ const SignalDetails = memo(function SignalDetails({
       </div>
 
       {/* Bottom Diagnostics Matrix */}
-      <div className="grid grid-cols-4 gap-1.5 [@media(min-width:1440px)]:gap-3 pt-2 [@media(min-width:1440px)]:pt-4 mt-2 [@media(min-width:1440px)]:mt-4 border-t border-white/10 text-center whitespace-nowrap relative z-10">
+      <div className="grid grid-cols-4 gap-1.5 lg:gap-2.5 [@media(min-width:1440px)]:gap-3 pt-2 lg:pt-3 [@media(min-width:1440px)]:pt-4 mt-2 lg:mt-3 [@media(min-width:1440px)]:mt-4 border-t border-white/10 text-center whitespace-nowrap relative z-10">
         <div className="flex flex-col">
-          <span className="text-[7.5px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">FREQ</span>
-          <span className={`text-[9.5px] sm:text-[10px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
+          <span className="text-[7.5px] lg:text-[9px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">FREQ</span>
+          <span className={`text-[9.5px] sm:text-[10px] lg:text-[12.5px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
             {activeSignal.metrics?.freq || '3.20 GHz'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[7.5px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">LATENCY</span>
-          <span className={`text-[9.5px] sm:text-[10px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
+          <span className="text-[7.5px] lg:text-[9px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">LATENCY</span>
+          <span className={`text-[9.5px] sm:text-[10px] lg:text-[12.5px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
             {activeSignal.metrics?.latency || '< 0.02 ms'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[7.5px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">ACCURACY</span>
-          <span className={`text-[9.5px] sm:text-[10px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
+          <span className="text-[7.5px] lg:text-[9px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">ACCURACY</span>
+          <span className={`text-[9.5px] sm:text-[10px] lg:text-[12.5px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
             {activeSignal.metrics?.accuracy || '99.8%'}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[7.5px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">ENCRYPT</span>
-          <span className={`text-[9.5px] sm:text-[10px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
+          <span className="text-[7.5px] lg:text-[9px] [@media(min-width:1440px)]:text-[11.5px] tracking-wider text-zinc-500 uppercase">ENCRYPT</span>
+          <span className={`text-[9.5px] sm:text-[10px] lg:text-[12.5px] [@media(min-width:1440px)]:text-[15.5px] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
             AES-256
           </span>
         </div>
       </div>
 
       {/* Micro Status Bar */}
-      <div className="flex items-center justify-between text-[8px] sm:text-[8.5px] [@media(min-width:1440px)]:text-[12.5px] tracking-widest text-zinc-500 pt-2 [@media(min-width:1440px)]:pt-4 whitespace-nowrap relative z-10">
+      <div className="flex items-center justify-between text-[8px] sm:text-[8.5px] lg:text-[10px] [@media(min-width:1440px)]:text-[12.5px] tracking-widest text-zinc-500 pt-2 lg:pt-3 [@media(min-width:1440px)]:pt-4 whitespace-nowrap relative z-10">
         <span>SYS_ID: CLYNTEN-DEV</span>
         <span className={`font-semibold transition-colors duration-300 ${statusTextClass}`}>
           ONLINE // STREAM
@@ -151,7 +151,7 @@ const beamHexMap = {
 
 const TOTAL_BLOCKS = 10
 const BASE_BLOCK_CLASS =
-  'h-1.5 w-1 [@media(min-width:1440px)]:h-3 [@media(min-width:1440px)]:w-2 rounded-[1px] transition-colors duration-150'
+  'h-1.5 w-1 lg:h-2 lg:w-1.5 [@media(min-width:1440px)]:h-3 [@media(min-width:1440px)]:w-2 rounded-[1px] transition-colors duration-150'
 
 const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, ref) {
   const getPhaseIndex = (prog) => {
@@ -258,12 +258,12 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
   const beamHex = beamHexMap[themeColor]
 
   return (
-    <div className="absolute top-[45%] right-4 sm:right-8 md:right-10 [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 -translate-y-1/2 z-25 pointer-events-none">
+    <div className="absolute top-[45%] right-4 sm:right-8 md:right-10 lg:right-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:right-10 [@media(min-width:1600px)]:right-12 -translate-y-1/2 z-25 pointer-events-none">
       <motion.div
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] [@media(min-width:1440px)]:w-[580px] p-3.5 sm:p-4 [@media(min-width:1440px)]:p-8 rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
+        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] lg:w-[clamp(360px,32vw,460px)] [@media(min-width:1440px)]:w-[580px] p-3.5 sm:p-4 lg:p-[clamp(18px,1.66vw,24px)] [@media(min-width:1440px)]:p-8 rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
       >
         {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">
@@ -316,9 +316,9 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
         </svg>
 
         {/* Top Telemetry Header */}
-        <div className="flex items-center justify-between pb-1.5 [@media(min-width:1440px)]:pb-3.5 border-b border-white/10 whitespace-nowrap relative z-10">
+        <div className="flex items-center justify-between pb-1.5 lg:pb-2.5 [@media(min-width:1440px)]:pb-3.5 border-b border-white/10 whitespace-nowrap relative z-10">
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[8.5px] sm:text-[9.5px] [@media(min-width:1440px)]:text-[14px] tracking-wider text-zinc-400 font-semibold uppercase">
+            <span className="text-[8.5px] sm:text-[9.5px] lg:text-[11px] [@media(min-width:1440px)]:text-[14px] tracking-wider text-zinc-400 font-semibold uppercase">
               PROFILE SCANNED
             </span>
             <div className="flex items-center gap-0.5">
@@ -337,12 +337,12 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
           <div className="flex items-center gap-2 shrink-0">
             <span
               ref={percentRef}
-              className={`text-[12px] sm:text-[13px] [@media(min-width:1440px)]:text-[20px] font-bold font-mono transition-colors duration-300 ${percentTextClasses[themeColor]}`}
+              className={`text-[12px] sm:text-[13px] lg:text-[15.5px] [@media(min-width:1440px)]:text-[20px] font-bold font-mono transition-colors duration-300 ${percentTextClasses[themeColor]}`}
             >
               {initialPct}%
             </span>
-            <div className={`flex items-center gap-1.5 [@media(min-width:1440px)]:gap-2.5 px-2 py-0.5 [@media(min-width:1440px)]:px-3.5 [@media(min-width:1440px)]:py-1.5 rounded-full text-[8px] [@media(min-width:1440px)]:text-[12.5px] font-bold tracking-widest uppercase border shrink-0 transition-colors duration-300 ${badgeClassesMap[themeColor]}`}>
-              <span className={`w-1.5 h-1.5 [@media(min-width:1440px)]:w-3 [@media(min-width:1440px)]:h-3 rounded-full animate-pulse ${dotClassesMap[themeColor]}`} />
+            <div className={`flex items-center gap-1.5 lg:gap-2 [@media(min-width:1440px)]:gap-2.5 px-2 py-0.5 lg:px-2.5 lg:py-1 [@media(min-width:1440px)]:px-3.5 [@media(min-width:1440px)]:py-1.5 rounded-full text-[8px] lg:text-[9.5px] [@media(min-width:1440px)]:text-[12.5px] font-bold tracking-widest uppercase border shrink-0 transition-colors duration-300 ${badgeClassesMap[themeColor]}`}>
+              <span className={`w-1.5 h-1.5 lg:w-2 lg:h-2 [@media(min-width:1440px)]:w-3 [@media(min-width:1440px)]:h-3 rounded-full animate-pulse ${dotClassesMap[themeColor]}`} />
               <span>{activeSignal.status}</span>
             </div>
           </div>
