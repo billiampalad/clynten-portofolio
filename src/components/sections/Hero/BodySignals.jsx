@@ -5,17 +5,17 @@ import { useTextScramble } from '@/hooks/useTextScramble'
 
 const POSITION_MAP = {
   // skil 1 (Web Development)
-  'webdev-wrapper': 'top-[7%] [@media(min-width:1440px)]:top-[6%] left-3 lg:left-10 xl:left-[calc(50%-550px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+  'webdev-wrapper': 'top-[7%] [@media(min-width:1440px)]:top-[6%] left-3 lg:left-5 xl:left-[calc(50%-600px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 2 (Android Development)
-  'android-wrapper': 'top-[10%] [@media(min-width:1440px)]:top-[9%] left-[175px] lg:left-[250px] xl:left-[calc(50%-370px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+  'android-wrapper': 'top-[10%] [@media(min-width:1440px)]:top-[9%] left-[175px] lg:left-[195px] xl:left-[calc(50%-420px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 3 (Cyber Security)
-  'cyber-wrapper': 'top-[28%] [@media(min-width:1440px)]:top-[26%] left-3 lg:left-15 xl:left-[calc(50%-550px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+  'cyber-wrapper': 'top-[28%] [@media(min-width:1440px)]:top-[26%] left-3 lg:left-7 xl:left-[calc(50%-600px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 4 (Cloud & Networking)
-  'net-wrapper': 'top-[30%] [@media(min-width:1440px)]:top-[29%] left-[175px] lg:left-[270px] xl:left-[calc(50%-370px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+  'net-wrapper': 'top-[30%] [@media(min-width:1440px)]:top-[29%] left-[175px] lg:left-[210px] xl:left-[calc(50%-420px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
   // skil 5 (Database Architecture)
-  'db-wrapper': 'top-[50%] [@media(min-width:1440px)]:top-[46%] left-3 lg:left-20 xl:left-[calc(50%-550px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
+  'db-wrapper': 'top-[50%] [@media(min-width:1440px)]:top-[46%] left-3 lg:left-9 xl:left-[calc(50%-600px)] [@media(min-width:1440px)]:left-10 [@media(min-width:1600px)]:left-12',
   // skil 6 (UI/UX Engineering)
-  'uiux-wrapper': 'top-[50%] [@media(min-width:1440px)]:top-[49%] left-[175px] lg:left-[290px] xl:left-[calc(50%-370px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
+  'uiux-wrapper': 'top-[50%] [@media(min-width:1440px)]:top-[49%] left-[175px] lg:left-[225px] xl:left-[calc(50%-420px)] [@media(min-width:1440px)]:left-[350px] [@media(min-width:1600px)]:left-[364px]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
