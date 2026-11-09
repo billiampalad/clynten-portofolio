@@ -24,7 +24,7 @@ function TargetReticle() {
         className="absolute bottom-0 left-0 w-5 h-5 [@media(min-width:1440px)]:w-[clamp(21px,1.46vw,28px)] [@media(min-width:1440px)]:h-[clamp(21px,1.46vw,28px)] border-b-2 border-l-2 border-white/25"
       >
         {/* Spectrum Frequency Equalizer */}
-        <div className="absolute bottom-0.5 left-7 [@media(min-width:1440px)]:left-[clamp(27px,1.88vw,36px)] flex items-end gap-[2.5px] [@media(min-width:1440px)]:gap-[clamp(3px,0.21vw,4px)] h-3 [@media(min-width:1440px)]:h-[clamp(18px,2.22vh,24px)]">
+        <div className="absolute bottom-0.5 [@media(min-width:1440px)]:bottom-[clamp(1px,0.19vh,2px)] left-7 [@media(min-width:1440px)]:left-[clamp(27px,1.88vw,36px)] flex items-end gap-[2.5px] [@media(min-width:1440px)]:gap-[clamp(3px,0.21vw,4px)] h-3 [@media(min-width:1440px)]:h-[clamp(18px,2.22vh,24px)]">
           {[
             { height: '40%', delay: 0.15 },
             { height: '75%', delay: 0.2 },
