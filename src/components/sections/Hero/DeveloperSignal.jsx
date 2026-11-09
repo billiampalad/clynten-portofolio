@@ -263,7 +263,7 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] lg:w-[clamp(320px,min(31vw,46vh),430px)] [@media(min-width:1439px)_and_(max-width:1439px)]:w-[480px] [@media(min-width:1440px)]:w-[clamp(435px,30.21vw,580px)] p-3.5 sm:p-4 lg:p-[clamp(12px,1.9vh,22px)] [@media(min-width:1440px)]:px-[clamp(24px,1.67vw,32px)] [@media(min-width:1440px)]:py-[clamp(24px,2.96vh,32px)] rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
+        className={`relative font-mono select-none w-[calc(100vw-32px)] sm:w-[336px] md:w-[350px] lg:w-[clamp(340px,33.36vw,480px)] [@media(min-width:1440px)]:w-[clamp(435px,30.21vw,580px)] p-3.5 sm:p-4 lg:p-[clamp(12px,1.9vh,22px)] [@media(min-width:1440px)]:px-[clamp(24px,1.67vw,32px)] [@media(min-width:1440px)]:py-[clamp(24px,2.96vh,32px)] rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
       >
         {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">
