@@ -12,16 +12,16 @@ const POSITION_MAP = {
     'top-[7%] left-[clamp(217px,21.19vw,305px)] [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 3 (Cyber Security)
   'cyber-wrapper':
-    'top-[20%] left-[clamp(31px,3.06vw,44px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[22.5%] left-[clamp(31px,3.06vw,44px)] [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 4 (Cloud & Networking)
   'net-wrapper':
-    'top-[22%] left-[clamp(217px,21.19vw,305px)] [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[24.5%] left-[clamp(217px,21.19vw,305px)] [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 5 (Database Architecture)
   'db-wrapper':
-    'top-[35%] left-[clamp(31px,3.06vw,44px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[40%] left-[clamp(31px,3.06vw,44px)] [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 6 (UI/UX Engineering)
   'uiux-wrapper':
-    'top-[37%] left-[clamp(217px,21.19vw,305px)] [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[42%] left-[clamp(217px,21.19vw,305px)] [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
