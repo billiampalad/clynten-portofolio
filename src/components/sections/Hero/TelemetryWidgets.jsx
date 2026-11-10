@@ -5,18 +5,18 @@ import HeroAudioPlayer from './HeroAudioPlayer'
 // Memoized Static Sensor Metadata (Never re-renders on scroll)
 const SensorInfo = memo(function SensorInfo() {
   return (
-    <div className="flex flex-col gap-0.5 lg:gap-[clamp(2px,0.6vh,6px)] [@media(min-width:1440px)]:gap-[clamp(5px,0.74vh,8px)]">
-      <div className="flex items-center gap-1.5 lg:gap-2 [@media(min-width:1440px)]:gap-[clamp(7.5px,0.52vw,10px)] text-[9px] lg:text-[clamp(9.5px,1.35vh,11.5px)] [@media(min-width:1440px)]:text-[clamp(11px,0.73vw,14px)] font-bold tracking-wider text-emerald-400 whitespace-nowrap">
-        <span className="w-1.5 h-1.5 lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-[clamp(7.5px,0.52vw,10px)] [@media(min-width:1440px)]:h-[clamp(7.5px,0.52vw,10px)] rounded-full bg-emerald-400 shadow-[0_0_6px_#00ffaa] animate-pulse shrink-0" />
+    <div className="flex flex-col gap-0.5 md:max-lg:gap-[clamp(1.5px,0.4vh,3px)] lg:gap-[clamp(2px,0.6vh,6px)] [@media(min-width:1440px)]:gap-[clamp(5px,0.74vh,8px)]">
+      <div className="flex items-center gap-1.5 md:max-lg:gap-[clamp(5px,0.6vw,7px)] lg:gap-2 [@media(min-width:1440px)]:gap-[clamp(7.5px,0.52vw,10px)] text-[9px] md:max-lg:text-[clamp(9.5px,1.2vh,11px)] lg:text-[clamp(9.5px,1.35vh,11.5px)] [@media(min-width:1440px)]:text-[clamp(11px,0.73vw,14px)] font-bold tracking-wider text-emerald-400 whitespace-nowrap">
+        <span className="w-1.5 h-1.5 md:max-lg:w-[clamp(5.5px,0.7vh,7px)] md:max-lg:h-[clamp(5.5px,0.7vh,7px)] lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-[clamp(7.5px,0.52vw,10px)] [@media(min-width:1440px)]:h-[clamp(7.5px,0.52vw,10px)] rounded-full bg-emerald-400 shadow-[0_0_6px_#00ffaa] animate-pulse shrink-0" />
         <span>OPTICAL SENSOR // ACTIVE</span>
       </div>
-      <div className="flex items-center justify-between gap-3 lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(20px,1.46vw,28px)] text-zinc-400 text-[8px] lg:text-[clamp(8px,1.15vh,10px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-wide whitespace-nowrap">
-        <span className="text-zinc-500 lg:tracking-[0.8px] [@media(min-width:1440px)]:tracking-[clamp(0.8px,0.06vw,1.2px)]">BANDWIDTH</span>
-        <span className="font-semibold text-zinc-300 lg:text-[clamp(8.5px,1.25vh,10.5px)] [@media(min-width:1440px)]:text-[clamp(10px,0.68vw,13px)]">10.4 Gbps</span>
+      <div className="flex items-center justify-between gap-3 md:max-lg:gap-[clamp(10px,1.2vw,14px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(20px,1.46vw,28px)] text-zinc-400 text-[8px] md:max-lg:text-[clamp(8px,1.05vh,9.5px)] lg:text-[clamp(8px,1.15vh,10px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-wide whitespace-nowrap">
+        <span className="text-zinc-500 md:max-lg:tracking-[0.7px] lg:tracking-[0.8px] [@media(min-width:1440px)]:tracking-[clamp(0.8px,0.06vw,1.2px)]">BANDWIDTH</span>
+        <span className="font-semibold text-zinc-300 md:max-lg:text-[clamp(8.5px,1.15vh,10.5px)] lg:text-[clamp(8.5px,1.25vh,10.5px)] [@media(min-width:1440px)]:text-[clamp(10px,0.68vw,13px)]">10.4 Gbps</span>
       </div>
-      <div className="flex items-center justify-between gap-3 lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(20px,1.46vw,28px)] text-zinc-400 text-[8px] lg:text-[clamp(8px,1.15vh,10px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-wide whitespace-nowrap">
-        <span className="text-zinc-500 lg:tracking-[0.8px] [@media(min-width:1440px)]:tracking-[clamp(0.8px,0.06vw,1.2px)]">RENDER PIPELINE</span>
-        <span className="font-semibold text-zinc-300 lg:text-[clamp(8.5px,1.25vh,10.5px)] [@media(min-width:1440px)]:text-[clamp(10px,0.68vw,13px)]">4K ULTRA HD</span>
+      <div className="flex items-center justify-between gap-3 md:max-lg:gap-[clamp(10px,1.2vw,14px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(20px,1.46vw,28px)] text-zinc-400 text-[8px] md:max-lg:text-[clamp(8px,1.05vh,9.5px)] lg:text-[clamp(8px,1.15vh,10px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-wide whitespace-nowrap">
+        <span className="text-zinc-500 md:max-lg:tracking-[0.7px] lg:tracking-[0.8px] [@media(min-width:1440px)]:tracking-[clamp(0.8px,0.06vw,1.2px)]">RENDER PIPELINE</span>
+        <span className="font-semibold text-zinc-300 md:max-lg:text-[clamp(8.5px,1.15vh,10.5px)] lg:text-[clamp(8.5px,1.25vh,10.5px)] [@media(min-width:1440px)]:text-[clamp(10px,0.68vw,13px)]">4K ULTRA HD</span>
       </div>
     </div>
   )
@@ -25,8 +25,8 @@ const SensorInfo = memo(function SensorInfo() {
 // Dynamic Radar Gauge (Direct GPU Transform, Zero React Re-render)
 const RadarGauge = memo(function RadarGauge({ needleRef, degreeRef, initialRotation = 0 }) {
   return (
-    <div className="relative w-12 h-12 lg:w-[clamp(38px,5.8vh,54px)] lg:h-[clamp(38px,5.8vh,54px)] [@media(min-width:1440px)]:w-[clamp(57px,3.96vw,76px)] [@media(min-width:1440px)]:h-[clamp(57px,3.96vw,76px)] flex items-center justify-center shrink-0">
-      <svg className="w-12 h-12 lg:w-[clamp(38px,5.8vh,54px)] lg:h-[clamp(38px,5.8vh,54px)] [@media(min-width:1440px)]:w-[clamp(57px,3.96vw,76px)] [@media(min-width:1440px)]:h-[clamp(57px,3.96vw,76px)] overflow-visible" viewBox="0 0 80 80">
+    <div className="relative w-12 h-12 md:max-lg:w-[clamp(36px,4.5vh,44px)] md:max-lg:h-[clamp(36px,4.5vh,44px)] lg:w-[clamp(38px,5.8vh,54px)] lg:h-[clamp(38px,5.8vh,54px)] [@media(min-width:1440px)]:w-[clamp(57px,3.96vw,76px)] [@media(min-width:1440px)]:h-[clamp(57px,3.96vw,76px)] flex items-center justify-center shrink-0">
+      <svg className="w-12 h-12 md:max-lg:w-[clamp(36px,4.5vh,44px)] md:max-lg:h-[clamp(36px,4.5vh,44px)] lg:w-[clamp(38px,5.8vh,54px)] lg:h-[clamp(38px,5.8vh,54px)] [@media(min-width:1440px)]:w-[clamp(57px,3.96vw,76px)] [@media(min-width:1440px)]:h-[clamp(57px,3.96vw,76px)] overflow-visible" viewBox="0 0 80 80">
         {/* Outer dotted track */}
         <circle
           cx="40"
@@ -142,24 +142,27 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
-      {/* 1. Top Right Holographic Radar Widget (Zero backdrop-blur overhead over canvas) */}
-      <motion.div
-        initial={{ x: 40, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-12 lg:top-[clamp(36px,5.5vh,60px)] [@media(min-width:1440px)]:top-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] hidden md:flex items-center gap-3.5 lg:gap-[clamp(10px,1.5vh,16px)] [@media(min-width:1440px)]:gap-[clamp(18px,1.25vw,24px)] px-3.5 py-2 lg:px-[clamp(12px,1.3vw,18px)] lg:py-[clamp(6px,1.1vh,12px)] [@media(min-width:1440px)]:px-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:py-[clamp(12px,1.48vh,16px)] rounded-xl [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
-      >
-        <RadarGauge
-          needleRef={needleRef}
-          degreeRef={degreeRef}
-          initialRotation={Math.round(progress * 360)}
-        />
-        <SensorInfo />
-      </motion.div>
+      {/* Right Cluster: Optical Sensor (Above), Audio Player (Middle), Scroll Prompt (Bottom) */}
+      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(168px,21vh,205px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25">
+        {/* 1. Holographic Radar Optical Sensor Widget */}
+        <motion.div
+          initial={{ x: 40, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute top-12 lg:top-[clamp(36px,5.5vh,60px)] [@media(min-width:1440px)]:top-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] hidden md:flex md:max-lg:static md:max-lg:pointer-events-auto items-center gap-3.5 md:max-lg:gap-[clamp(10px,1.2vw,14px)] lg:gap-[clamp(10px,1.5vh,16px)] [@media(min-width:1440px)]:gap-[clamp(18px,1.25vw,24px)] px-3.5 py-2 md:max-lg:px-[clamp(11px,1.37vw,15px)] md:max-lg:py-[clamp(7px,0.9vh,10px)] lg:px-[clamp(12px,1.3vw,18px)] lg:py-[clamp(6px,1.1vh,12px)] [@media(min-width:1440px)]:px-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:py-[clamp(12px,1.48vh,16px)] rounded-xl [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
+        >
+          <RadarGauge
+            needleRef={needleRef}
+            degreeRef={degreeRef}
+            initialRotation={Math.round(progress * 360)}
+          />
+          <SensorInfo />
+        </motion.div>
 
-      {/* 2. Ambient Futuristic Scroll Prompt & Audio Player on Right of Profile Scanned */}
-      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(168px,21vh,205px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center md:max-lg:justify-end md:max-lg:gap-[clamp(14px,1.8vh,20px)] md:max-lg:pointer-events-none md:max-lg:z-25">
+        {/* 2. Audio Player ('BGM // MUTED') */}
         <HeroAudioPlayer />
+
+        {/* 3. Ambient Futuristic Scroll Prompt */}
         <ScrollPrompt promptRef={promptRef} />
       </div>
     </div>
