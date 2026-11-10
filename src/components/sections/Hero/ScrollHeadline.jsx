@@ -128,7 +128,7 @@ const SubtextBanner = memo(function SubtextBanner() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-2.5 sm:gap-3 md:max-lg:gap-[clamp(12px,1.37vw,16px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(15px,1.04vw,20px)] mt-2.5 sm:mt-3 md:max-lg:mt-[clamp(12px,1.56vh,16px)] lg:mt-4 [@media(min-width:1440px)]:mt-[clamp(18px,2.22vh,24px)] font-mono text-[9px] sm:text-[11px] md:max-lg:text-[clamp(13.5px,min(1.71vw,1.86vh),17.5px)] lg:text-[clamp(12px,1.05vw,14.5px)] [@media(min-width:1440px)]:text-[clamp(16.5px,min(1.15vw,2.04vh),22px)] tracking-[1.4px] sm:tracking-[1.5px] md:max-lg:tracking-[clamp(1.8px,0.22vw,2.5px)] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] text-zinc-400"
+      className="flex items-center gap-2.5 sm:gap-3 md:max-lg:gap-[clamp(12px,1.37vw,16px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(15px,1.04vw,20px)] mt-2.5 sm:mt-3 md:max-lg:mt-[clamp(12px,1.56vh,16px)] lg:mt-4 [@media(min-width:1440px)]:mt-[clamp(18px,2.22vh,24px)] md:max-lg:pl-[clamp(22px,2.74vw,28px)] font-mono text-[9px] sm:text-[11px] md:max-lg:text-[clamp(13.5px,min(1.71vw,1.86vh),17.5px)] lg:text-[clamp(12px,1.05vw,14.5px)] [@media(min-width:1440px)]:text-[clamp(16.5px,min(1.15vw,2.04vh),22px)] tracking-[1.4px] sm:tracking-[1.5px] md:max-lg:tracking-[clamp(1.8px,0.22vw,2.5px)] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] text-zinc-400"
     >
       <motion.span
         initial={{ scaleX: 0 }}
