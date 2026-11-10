@@ -981,7 +981,7 @@ const GhostCursor = ({
       {showPointer && (
         <div
           ref={pointerRef}
-          className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-150 w-[26px] h-[26px] sm:w-[28px] sm:h-[28px] lg:w-[28px] lg:h-[28px] xl:w-[30px] xl:h-[30px] [@media(min-width:1440px)]:w-[clamp(34.5px,min(2.4vw,4.26vh),46px)] [@media(min-width:1440px)]:h-[clamp(34.5px,min(2.4vw,4.26vh),46px)] aspect-square"
+          className="fixed top-0 left-0 pointer-events-none z-[999999] opacity-0 will-change-transform select-none transition-[opacity,filter] duration-150 w-[26px] h-[26px] sm:w-[28px] sm:h-[28px] md:max-[1023px]:w-[clamp(21px,min(2.74vw,3.65vh),28px)] md:max-[1023px]:h-[clamp(21px,min(2.74vw,3.65vh),28px)] lg:w-[28px] lg:h-[28px] xl:w-[30px] xl:h-[30px] [@media(min-width:1440px)]:w-[clamp(34.5px,min(2.4vw,4.26vh),46px)] [@media(min-width:1440px)]:h-[clamp(34.5px,min(2.4vw,4.26vh),46px)] aspect-square"
           aria-hidden="true"
         >
           <img
