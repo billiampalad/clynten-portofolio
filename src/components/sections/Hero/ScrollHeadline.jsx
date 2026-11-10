@@ -128,18 +128,18 @@ const SubtextBanner = memo(function SubtextBanner() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-2.5 sm:gap-3 md:max-lg:gap-[clamp(10px,1.17vw,12px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(15px,1.04vw,20px)] mt-2.5 sm:mt-3 md:max-lg:mt-[clamp(10px,1.37vh,14px)] lg:mt-4 [@media(min-width:1440px)]:mt-[clamp(18px,2.22vh,24px)] font-mono text-[9px] sm:text-[11px] md:max-lg:text-[clamp(10.5px,min(1.22vw,1.56vh),12.5px)] lg:text-[clamp(12px,1.05vw,14.5px)] [@media(min-width:1440px)]:text-[clamp(16.5px,min(1.15vw,2.04vh),22px)] tracking-[1.4px] sm:tracking-[1.5px] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] text-zinc-400"
+      className="flex items-center gap-2.5 sm:gap-3 md:max-lg:gap-[clamp(12px,1.37vw,16px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(15px,1.04vw,20px)] mt-2.5 sm:mt-3 md:max-lg:mt-[clamp(12px,1.56vh,16px)] lg:mt-4 [@media(min-width:1440px)]:mt-[clamp(18px,2.22vh,24px)] font-mono text-[9px] sm:text-[11px] md:max-lg:text-[clamp(12px,min(1.52vw,1.66vh),15.5px)] lg:text-[clamp(12px,1.05vw,14.5px)] [@media(min-width:1440px)]:text-[clamp(16.5px,min(1.15vw,2.04vh),22px)] tracking-[1.4px] sm:tracking-[1.5px] md:max-lg:tracking-[clamp(1.6px,0.2vw,2.2px)] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] text-zinc-400"
     >
       <motion.span
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.55, delay: 0.75, ease: 'easeOut' }}
         style={{ transformOrigin: 'left' }}
-        className="w-7 sm:w-10 md:max-lg:w-[clamp(36px,4.4vw,45px)] md:max-lg:h-[1.5px] lg:w-[clamp(48px,4.2vw,64px)] [@media(min-width:1440px)]:w-[clamp(108px,7.5vw,144px)] h-[1px] lg:h-[2.5px] [@media(min-width:1440px)]:h-[clamp(2.5px,0.18vw,3.5px)] bg-emerald-400/90 shadow-[0_0_6px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_16px_#00ffaa] rounded-full shrink-0"
+        className="w-7 sm:w-10 md:max-lg:w-[clamp(44px,5.47vw,56px)] md:max-lg:h-[2px] lg:w-[clamp(48px,4.2vw,64px)] [@media(min-width:1440px)]:w-[clamp(108px,7.5vw,144px)] h-[1px] lg:h-[2.5px] [@media(min-width:1440px)]:h-[clamp(2.5px,0.18vw,3.5px)] bg-emerald-400/90 shadow-[0_0_6px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_16px_#00ffaa] rounded-full shrink-0"
       />
       <span className="text-zinc-300 font-semibold [@media(min-width:1440px)]:font-bold truncate">
         {scrambledSubtext}
-        <span className="animate-pulse text-emerald-400 font-black ml-1 lg:text-[17px] [@media(min-width:1440px)]:text-[clamp(18px,1.25vw,24px)]">_</span>
+        <span className="animate-pulse text-emerald-400 font-black ml-1 md:max-lg:text-[clamp(15px,1.66vh,18px)] lg:text-[17px] [@media(min-width:1440px)]:text-[clamp(18px,1.25vw,24px)]">_</span>
       </span>
     </motion.div>
   )
