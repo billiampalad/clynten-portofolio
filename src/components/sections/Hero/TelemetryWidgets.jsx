@@ -144,13 +144,13 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
       {/* Right Cluster: Optical Sensor (Above), Audio Player (Middle), Scroll Prompt (Bottom) */}
-      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25">
+      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-stretch md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25">
         {/* 1. Holographic Radar Optical Sensor Widget */}
         <motion.div
           initial={{ x: 40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute top-12 lg:top-[clamp(36px,5.5vh,60px)] [@media(min-width:1440px)]:top-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] hidden md:flex md:max-lg:static md:max-lg:pointer-events-auto items-center gap-3.5 md:max-lg:gap-[clamp(10px,1.2vw,14px)] lg:gap-[clamp(10px,1.5vh,16px)] [@media(min-width:1440px)]:gap-[clamp(18px,1.25vw,24px)] px-3.5 py-2 md:max-lg:px-[clamp(11px,1.37vw,15px)] md:max-lg:py-[clamp(7px,0.9vh,10px)] lg:px-[clamp(12px,1.3vw,18px)] lg:py-[clamp(6px,1.1vh,12px)] [@media(min-width:1440px)]:px-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:py-[clamp(12px,1.48vh,16px)] rounded-xl [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
+          className="absolute top-12 lg:top-[clamp(36px,5.5vh,60px)] [@media(min-width:1440px)]:top-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] hidden md:flex md:max-lg:static md:max-lg:w-full md:max-lg:box-border md:max-lg:pointer-events-auto items-center gap-3.5 md:max-lg:gap-[clamp(10px,1.2vw,14px)] lg:gap-[clamp(10px,1.5vh,16px)] [@media(min-width:1440px)]:gap-[clamp(18px,1.25vw,24px)] px-3.5 py-2 md:max-lg:px-[clamp(11px,1.37vw,15px)] md:max-lg:py-[clamp(7px,0.9vh,10px)] lg:px-[clamp(12px,1.3vw,18px)] lg:py-[clamp(6px,1.1vh,12px)] [@media(min-width:1440px)]:px-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:py-[clamp(12px,1.48vh,16px)] rounded-xl [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 border border-white/10 shadow-2xl [contain:paint]"
         >
           <RadarGauge
             needleRef={needleRef}
