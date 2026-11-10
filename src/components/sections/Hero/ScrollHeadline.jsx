@@ -216,92 +216,98 @@ const ScrollHeadline = memo(
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          className="block text-[clamp(28px,3.8vw,64px)] md:max-lg:text-[clamp(38px,min(5.28vw,6.6vh),54px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.03] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
+          className="block text-[clamp(28px,3.8vw,64px)] md:max-lg:text-[clamp(30px,min(4.35vw,5.2vh),44.5px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.03] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
         >
-          {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-cyan-400"
-            glowColor="#06b6d4"
-          >
-            CONTINUOUSLY
-          </FoldWord>
+          {/* Line 1: Guaranteed single line on tablet */}
+          <span className="inline md:max-lg:inline-block md:max-lg:whitespace-nowrap">
+            {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-cyan-400"
+              glowColor="#06b6d4"
+            >
+              CONTINUOUSLY
+            </FoldWord>
 
-          {/* Word: LEARNING, (3D Fold: Rose / Red with Shutter Laser Block) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-rose-400"
-            glowColor="#f43f5e"
-            shutter={
-              <ShutterBlock
-                blockRef={shutterBlock1Ref}
-                laserRef={shutterLaser1Ref}
-              />
-            }
-          >
-            LEARNING,
-          </FoldWord>
+            {/* Word: LEARNING, (3D Fold: Rose / Red with Shutter Laser Block) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-rose-400"
+              glowColor="#f43f5e"
+              shutter={
+                <ShutterBlock
+                  blockRef={shutterBlock1Ref}
+                  laserRef={shutterLaser1Ref}
+                />
+              }
+            >
+              LEARNING,
+            </FoldWord>
 
-          {/* Word: BUILDING, (3D Fold: Cyan / Blue with Shutter Laser Block) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-cyan-400"
-            glowColor="#06b6d4"
-            shutter={
-              <ShutterBlock
-                blockRef={shutterBlock2Ref}
-                laserRef={shutterLaser2Ref}
-              />
-            }
-          >
-            BUILDING,
-          </FoldWord>
+            {/* Word: BUILDING, (3D Fold: Cyan / Blue with Shutter Laser Block) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-cyan-400"
+              glowColor="#06b6d4"
+              shutter={
+                <ShutterBlock
+                  blockRef={shutterBlock2Ref}
+                  laserRef={shutterLaser2Ref}
+                />
+              }
+            >
+              BUILDING,
+            </FoldWord>
+          </span>
 
           {/* Guaranteed 100% Reliable Line Break for All Laptop/Desktop Screens */}
           <span className="block w-full h-0 pointer-events-none select-none" />
 
-          {/* Word: AND (3D Fold: Rose / Red) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-rose-400"
-            glowColor="#f43f5e"
-          >
-            AND
-          </FoldWord>
+          {/* Line 2: Guaranteed single line on tablet */}
+          <span className="inline md:max-lg:inline-block md:max-lg:whitespace-nowrap">
+            {/* Word: AND (3D Fold: Rose / Red) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-rose-400"
+              glowColor="#f43f5e"
+            >
+              AND
+            </FoldWord>
 
-          {/* Word: GROWING (3D Fold: Emerald / Green with Shutter Laser Block) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-emerald-400"
-            glowColor="#10b981"
-            shutter={
-              <ShutterBlock
-                blockRef={shutterBlock3Ref}
-                laserRef={shutterLaser3Ref}
-              />
-            }
-          >
-            GROWING
-          </FoldWord>
+            {/* Word: GROWING (3D Fold: Emerald / Green with Shutter Laser Block) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-emerald-400"
+              glowColor="#10b981"
+              shutter={
+                <ShutterBlock
+                  blockRef={shutterBlock3Ref}
+                  laserRef={shutterLaser3Ref}
+                />
+              }
+            >
+              GROWING
+            </FoldWord>
 
-          {/* Word: THROUGH (3D Fold: Cyan / Blue) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-cyan-400"
-            glowColor="#06b6d4"
-          >
-            THROUGH
-          </FoldWord>
+            {/* Word: THROUGH (3D Fold: Cyan / Blue) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-cyan-400"
+              glowColor="#06b6d4"
+            >
+              THROUGH
+            </FoldWord>
 
-          {/* Word: TECHNOLOGY (3D Fold: Emerald / Green) */}
-          <FoldWord
-            isUnlocked={isUnlocked}
-            colorClass="text-emerald-400"
-            glowColor="#10b981"
-            mr=""
-          >
-            TECHNOLOGY
-          </FoldWord>
+            {/* Word: TECHNOLOGY (3D Fold: Emerald / Green) */}
+            <FoldWord
+              isUnlocked={isUnlocked}
+              colorClass="text-emerald-400"
+              glowColor="#10b981"
+              mr=""
+            >
+              TECHNOLOGY
+            </FoldWord>
+          </span>
         </motion.h1>
 
         {/* 3. High-Tech Subtext with Laser Indicator Line & Text Decrypt (Isolated) */}
