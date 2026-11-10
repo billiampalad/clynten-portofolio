@@ -210,13 +210,13 @@ const ScrollHeadline = memo(
     }, [])
 
     return (
-      <div className="absolute bottom-9 md:max-lg:bottom-[clamp(28px,3.91vh,34px)] lg:bottom-[clamp(36px,3.0vw,44px)] [@media(min-width:1440px)]:bottom-[clamp(38px,4.44vh,48px)] left-6 sm:left-12 md:max-lg:left-[clamp(20px,2.44vw,25px)] lg:left-[clamp(32px,2.8vw,40px)] [@media(min-width:1440px)]:left-[clamp(48px,3.33vw,64px)] z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] md:max-lg:w-[calc(100%-clamp(40px,4.88vw,50px))] max-w-7xl md:max-lg:max-w-full [@media(min-width:1440px)]:max-w-[clamp(1080px,75vw,1440px)] pointer-events-none select-none font-sans [contain:layout_style]">
+      <div className="absolute bottom-9 md:max-lg:bottom-[clamp(24px,3.2vh,32px)] lg:bottom-[clamp(36px,3.0vw,44px)] [@media(min-width:1440px)]:bottom-[clamp(38px,4.44vh,48px)] left-6 sm:left-12 md:max-lg:left-[clamp(16px,1.95vw,20px)] lg:left-[clamp(32px,2.8vw,40px)] [@media(min-width:1440px)]:left-[clamp(48px,3.33vw,64px)] z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] md:max-lg:w-[calc(100%-clamp(32px,3.9vw,40px))] max-w-7xl md:max-lg:max-w-full [@media(min-width:1440px)]:max-w-[clamp(1080px,75vw,1440px)] pointer-events-none select-none font-sans [contain:layout_style]">
         {/* Main Bold Headline with Staggered Kinetic Word Reveal and 3D Fold Cursor Interactions */}
         <motion.h1
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          className="block text-[clamp(28px,3.8vw,64px)] md:max-lg:text-[clamp(30px,min(4.35vw,5.2vh),44.5px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.03] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
+          className="block text-[clamp(28px,3.8vw,64px)] md:max-lg:text-[clamp(37px,min(4.95vw,5.8vh),50.5px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.02] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
         >
           {/* Line 1: Guaranteed single line on tablet */}
           <span className="inline md:max-lg:inline-block md:max-lg:whitespace-nowrap">
