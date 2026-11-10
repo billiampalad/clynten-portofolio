@@ -128,14 +128,14 @@ const SubtextBanner = memo(function SubtextBanner() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-2.5 sm:gap-3 md:max-[1023px]:gap-[clamp(10px,1.17vw,12px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(15px,1.04vw,20px)] mt-2.5 sm:mt-3 md:max-[1023px]:mt-[clamp(10px,1.37vh,14px)] lg:mt-4 [@media(min-width:1440px)]:mt-[clamp(18px,2.22vh,24px)] font-mono text-[9px] sm:text-[11px] md:max-[1023px]:text-[clamp(10.5px,min(1.22vw,1.56vh),12.5px)] lg:text-[clamp(12px,1.05vw,14.5px)] [@media(min-width:1440px)]:text-[clamp(16.5px,min(1.15vw,2.04vh),22px)] tracking-[1.4px] sm:tracking-[1.5px] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] text-zinc-400"
+      className="flex items-center gap-2.5 sm:gap-3 md:max-lg:gap-[clamp(10px,1.17vw,12px)] lg:gap-4 [@media(min-width:1440px)]:gap-[clamp(15px,1.04vw,20px)] mt-2.5 sm:mt-3 md:max-lg:mt-[clamp(10px,1.37vh,14px)] lg:mt-4 [@media(min-width:1440px)]:mt-[clamp(18px,2.22vh,24px)] font-mono text-[9px] sm:text-[11px] md:max-lg:text-[clamp(10.5px,min(1.22vw,1.56vh),12.5px)] lg:text-[clamp(12px,1.05vw,14.5px)] [@media(min-width:1440px)]:text-[clamp(16.5px,min(1.15vw,2.04vh),22px)] tracking-[1.4px] sm:tracking-[1.5px] lg:tracking-[2px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] text-zinc-400"
     >
       <motion.span
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.55, delay: 0.75, ease: 'easeOut' }}
         style={{ transformOrigin: 'left' }}
-        className="w-7 sm:w-10 md:max-[1023px]:w-[clamp(36px,4.4vw,45px)] md:max-[1023px]:h-[1.5px] lg:w-[clamp(48px,4.2vw,64px)] [@media(min-width:1440px)]:w-[clamp(108px,7.5vw,144px)] h-[1px] lg:h-[2.5px] [@media(min-width:1440px)]:h-[clamp(2.5px,0.18vw,3.5px)] bg-emerald-400/90 shadow-[0_0_6px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_16px_#00ffaa] rounded-full shrink-0"
+        className="w-7 sm:w-10 md:max-lg:w-[clamp(36px,4.4vw,45px)] md:max-lg:h-[1.5px] lg:w-[clamp(48px,4.2vw,64px)] [@media(min-width:1440px)]:w-[clamp(108px,7.5vw,144px)] h-[1px] lg:h-[2.5px] [@media(min-width:1440px)]:h-[clamp(2.5px,0.18vw,3.5px)] bg-emerald-400/90 shadow-[0_0_6px_#00ffaa] [@media(min-width:1440px)]:shadow-[0_0_16px_#00ffaa] rounded-full shrink-0"
       />
       <span className="text-zinc-300 font-semibold [@media(min-width:1440px)]:font-bold truncate">
         {scrambledSubtext}
@@ -210,13 +210,13 @@ const ScrollHeadline = memo(
     }, [])
 
     return (
-      <div className="absolute bottom-9 md:max-[1023px]:bottom-[clamp(28px,3.91vh,40px)] lg:bottom-[clamp(36px,3.0vw,44px)] [@media(min-width:1440px)]:bottom-[clamp(38px,4.44vh,48px)] left-6 sm:left-12 md:max-[1023px]:left-[clamp(20px,2.44vw,25px)] lg:left-[clamp(32px,2.8vw,40px)] [@media(min-width:1440px)]:left-[clamp(48px,3.33vw,64px)] z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] md:max-[1023px]:w-[calc(100%-clamp(40px,4.88vw,50px))] max-w-7xl md:max-[1023px]:max-w-full [@media(min-width:1440px)]:max-w-[clamp(1080px,75vw,1440px)] pointer-events-none select-none font-sans [contain:layout_style]">
+      <div className="absolute bottom-9 md:max-lg:bottom-[clamp(28px,3.91vh,34px)] lg:bottom-[clamp(36px,3.0vw,44px)] [@media(min-width:1440px)]:bottom-[clamp(38px,4.44vh,48px)] left-6 sm:left-12 md:max-lg:left-[clamp(20px,2.44vw,25px)] lg:left-[clamp(32px,2.8vw,40px)] [@media(min-width:1440px)]:left-[clamp(48px,3.33vw,64px)] z-24 w-[calc(100%-48px)] sm:w-[calc(100%-96px)] md:max-lg:w-[calc(100%-clamp(40px,4.88vw,50px))] max-w-7xl md:max-lg:max-w-full [@media(min-width:1440px)]:max-w-[clamp(1080px,75vw,1440px)] pointer-events-none select-none font-sans [contain:layout_style]">
         {/* Main Bold Headline with Staggered Kinetic Word Reveal and 3D Fold Cursor Interactions */}
         <motion.h1
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          className="block text-[clamp(28px,3.8vw,64px)] md:max-[1023px]:text-[clamp(34px,min(4.49vw,5.6vh),46px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-[1023px]:leading-[1.04] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
+          className="block text-[clamp(28px,3.8vw,64px)] md:max-lg:text-[clamp(38px,min(5.28vw,6.6vh),54px)] lg:text-[clamp(38px,3.61vw,52px)] [@media(min-width:1440px)]:text-[clamp(54px,min(3.85vw,6.85vh),74px)] font-black leading-[1.08] md:max-lg:leading-[1.03] lg:leading-[1.05] [@media(min-width:1440px)]:leading-[1.04] tracking-tighter text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.95)]"
         >
           {/* Word: CONTINUOUSLY (3D Fold: Cyan / Blue) */}
           <FoldWord
