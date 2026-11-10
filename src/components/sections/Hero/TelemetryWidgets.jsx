@@ -1,5 +1,6 @@
 import { memo, useRef, useEffect, useImperativeHandle, forwardRef } from 'react'
 import { motion } from 'framer-motion'
+import HeroAudioPlayer from './HeroAudioPlayer'
 
 // Memoized Static Sensor Metadata (Never re-renders on scroll)
 const SensorInfo = memo(function SensorInfo() {
@@ -95,12 +96,12 @@ const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
       ref={promptRef}
-      className="absolute bottom-6 sm:bottom-9 md:max-lg:bottom-[clamp(18px,2.25vh,24px)] lg:bottom-[clamp(44px,3.8vw,56px)] [@media(min-width:1440px)]:bottom-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 md:max-lg:right-auto md:max-lg:left-1/2 md:max-lg:-translate-x-1/2 lg:right-[clamp(28px,2.5vw,36px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] flex flex-col items-center gap-1.5 md:max-lg:gap-[clamp(4px,0.5vh,6px)] lg:gap-2.5 [@media(min-width:1440px)]:gap-[clamp(9px,1.11vh,12px)] transition-opacity duration-100 will-change-[opacity]"
+      className="absolute bottom-6 sm:bottom-9 md:max-lg:static lg:bottom-[clamp(44px,3.8vw,56px)] [@media(min-width:1440px)]:bottom-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 md:max-lg:right-auto md:max-lg:left-auto md:max-lg:translate-x-0 lg:right-[clamp(28px,2.5vw,36px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] flex flex-col items-center gap-1.5 md:max-lg:gap-[clamp(8px,1.07vh,12px)] lg:gap-2.5 [@media(min-width:1440px)]:gap-[clamp(9px,1.11vh,12px)] transition-opacity duration-100 will-change-[opacity]"
     >
-      <div className="w-4 h-7 md:max-lg:w-[clamp(13px,1.56vw,16px)] md:max-lg:h-[clamp(23px,2.64vh,28px)] lg:w-5 lg:h-9 [@media(min-width:1440px)]:w-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:h-[clamp(35px,3.89vh,42px)] border border-emerald-400/50 rounded-full flex items-start justify-center p-1 md:max-lg:p-[clamp(2.5px,0.3vw,3.5px)] lg:p-1.2 [@media(min-width:1440px)]:p-[clamp(4.5px,0.31vw,6px)] bg-black/50">
-        <span className="w-1 h-2 md:max-lg:w-[clamp(3px,0.35vw,4px)] md:max-lg:h-[clamp(5px,0.68vh,7px)] lg:w-1.5 lg:h-2.5 [@media(min-width:1440px)]:w-[clamp(6px,0.42vw,8px)] [@media(min-width:1440px)]:h-[clamp(11.5px,1.3vh,14px)] bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
+      <div className="w-4 h-7 md:max-lg:w-[clamp(20px,2.35vw,26px)] md:max-lg:h-[clamp(34px,3.91vh,42px)] lg:w-5 lg:h-9 [@media(min-width:1440px)]:w-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:h-[clamp(35px,3.89vh,42px)] border border-emerald-400/50 md:max-lg:border-[1.5px] rounded-full flex items-start justify-center p-1 md:max-lg:p-[clamp(4px,0.45vw,5.5px)] lg:p-1.2 [@media(min-width:1440px)]:p-[clamp(4.5px,0.31vw,6px)] bg-black/50">
+        <span className="w-1 h-2 md:max-lg:w-[clamp(5px,0.59vw,7px)] md:max-lg:h-[clamp(9px,1.07vh,12px)] lg:w-1.5 lg:h-2.5 [@media(min-width:1440px)]:w-[clamp(6px,0.42vw,8px)] [@media(min-width:1440px)]:h-[clamp(11.5px,1.3vh,14px)] bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
       </div>
-      <div className="flex items-center gap-1 md:max-lg:gap-[clamp(2.5px,0.3vw,3.5px)] text-[8px] sm:text-[9px] md:max-lg:text-[clamp(7px,0.88vh,8.5px)] lg:text-[10.5px] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-[2px] md:max-lg:tracking-[clamp(1.4px,0.18vw,2px)] lg:tracking-[2.8px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] font-semibold text-zinc-400 uppercase whitespace-nowrap">
+      <div className="flex items-center gap-1 md:max-lg:gap-[clamp(4px,0.49vw,6px)] text-[8px] sm:text-[9px] md:max-lg:text-[clamp(10.5px,1.27vh,13px)] lg:text-[10.5px] [@media(min-width:1440px)]:text-[clamp(9.5px,0.63vw,12px)] tracking-[2px] md:max-lg:tracking-[clamp(2px,0.24vw,3px)] lg:tracking-[2.8px] [@media(min-width:1440px)]:tracking-[clamp(2.5px,0.18vw,3.5px)] font-semibold text-zinc-400 uppercase whitespace-nowrap">
         <span className="text-emerald-400">[</span>
         <span className="text-zinc-300">SCROLL TO EXPLORE TELEMETRY</span>
         <span className="text-emerald-400">]</span>
@@ -156,8 +157,11 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
         <SensorInfo />
       </motion.div>
 
-      {/* 2. Right Bottom Ambient Futuristic Scroll Prompt */}
-      <ScrollPrompt promptRef={promptRef} />
+      {/* 2. Middle Body Ambient Futuristic Scroll Prompt & Audio Player */}
+      <div className="contents md:max-lg:absolute md:max-lg:inset-0 md:max-lg:flex md:max-lg:flex-col md:max-lg:justify-center md:max-lg:items-center md:max-lg:gap-[clamp(18px,2.44vh,28px)] md:max-lg:pointer-events-none md:max-lg:z-25">
+        <HeroAudioPlayer />
+        <ScrollPrompt promptRef={promptRef} />
+      </div>
     </div>
   )
 })
