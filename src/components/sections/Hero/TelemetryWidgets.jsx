@@ -157,8 +157,8 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
         <SensorInfo />
       </motion.div>
 
-      {/* 2. Middle Body Ambient Futuristic Scroll Prompt & Audio Player */}
-      <div className="contents md:max-lg:absolute md:max-lg:inset-0 md:max-lg:flex md:max-lg:flex-col md:max-lg:justify-center md:max-lg:items-center md:max-lg:gap-[clamp(18px,2.44vh,28px)] md:max-lg:pointer-events-none md:max-lg:z-25">
+      {/* 2. Ambient Futuristic Scroll Prompt & Audio Player on Right of Profile Scanned */}
+      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(168px,21vh,205px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center md:max-lg:justify-end md:max-lg:gap-[clamp(14px,1.8vh,20px)] md:max-lg:pointer-events-none md:max-lg:z-25">
         <HeroAudioPlayer />
         <ScrollPrompt promptRef={promptRef} />
       </div>
