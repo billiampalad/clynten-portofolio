@@ -96,7 +96,7 @@ const ScrollPrompt = memo(function ScrollPrompt({ promptRef }) {
   return (
     <div
       ref={promptRef}
-      className="absolute bottom-6 sm:bottom-9 md:max-lg:static lg:bottom-[clamp(44px,3.8vw,56px)] [@media(min-width:1440px)]:bottom-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 md:max-lg:right-auto md:max-lg:left-auto md:max-lg:translate-x-0 lg:right-[clamp(28px,2.5vw,36px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] flex flex-col items-center gap-1.5 md:max-lg:gap-[clamp(8px,1.07vh,12px)] lg:gap-2.5 [@media(min-width:1440px)]:gap-[clamp(9px,1.11vh,12px)] transition-opacity duration-100 will-change-[opacity]"
+      className="absolute bottom-6 sm:bottom-9 md:max-lg:absolute md:max-lg:top-full md:max-lg:bottom-auto md:max-lg:left-1/2 md:max-lg:-translate-x-1/2 md:max-lg:right-auto md:max-lg:mt-[clamp(10px,1.3vh,14px)] lg:bottom-[clamp(44px,3.8vw,56px)] [@media(min-width:1440px)]:bottom-[clamp(80px,8.89vh,96px)] right-6 sm:right-12 lg:right-[clamp(28px,2.5vw,36px)] lg:left-auto lg:translate-x-0 [@media(min-width:1440px)]:right-[clamp(36px,2.5vw,48px)] flex flex-col items-center gap-1.5 md:max-lg:gap-[clamp(8px,1.07vh,12px)] lg:gap-2.5 [@media(min-width:1440px)]:gap-[clamp(9px,1.11vh,12px)] transition-opacity duration-100 will-change-[opacity]"
     >
       <div className="w-4 h-7 md:max-lg:w-[clamp(20px,2.35vw,26px)] md:max-lg:h-[clamp(34px,3.91vh,42px)] lg:w-5 lg:h-9 [@media(min-width:1440px)]:w-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:h-[clamp(35px,3.89vh,42px)] border border-emerald-400/50 md:max-lg:border-[1.5px] rounded-full flex items-start justify-center p-1 md:max-lg:p-[clamp(4px,0.45vw,5.5px)] lg:p-1.2 [@media(min-width:1440px)]:p-[clamp(4.5px,0.31vw,6px)] bg-black/50">
         <span className="w-1 h-2 md:max-lg:w-[clamp(5px,0.59vw,7px)] md:max-lg:h-[clamp(9px,1.07vh,12px)] lg:w-1.5 lg:h-2.5 [@media(min-width:1440px)]:w-[clamp(6px,0.42vw,8px)] [@media(min-width:1440px)]:h-[clamp(11.5px,1.3vh,14px)] bg-emerald-400 rounded-full shadow-[0_0_6px_#00ffaa] animate-bounce" />
@@ -126,7 +126,8 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
     if (promptRef.current) {
       const opacity = Math.max(0, 1 - prog * 4)
       promptRef.current.style.opacity = opacity.toFixed(2)
-      promptRef.current.style.display = opacity <= 0 ? 'none' : 'flex'
+      promptRef.current.style.visibility = opacity <= 0 ? 'hidden' : 'visible'
+      promptRef.current.style.pointerEvents = opacity <= 0 ? 'none' : 'auto'
     }
   }
 
@@ -143,7 +144,7 @@ const TelemetryWidgets = forwardRef(function TelemetryWidgets({ progress = 0 }, 
   return (
     <div className="absolute inset-0 pointer-events-none z-20 font-mono select-none">
       {/* Right Cluster: Optical Sensor (Above), Audio Player (Middle), Scroll Prompt (Bottom) */}
-      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(168px,21vh,205px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25">
+      <div className="contents md:max-lg:absolute md:max-lg:bottom-[clamp(236px,29.5vh,286px)] md:max-lg:right-[clamp(16px,1.95vw,24px)] md:max-lg:left-auto md:max-lg:top-auto md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center md:max-lg:justify-end md:max-lg:gap-[clamp(10px,1.3vh,14px)] md:max-lg:pointer-events-none md:max-lg:z-25">
         {/* 1. Holographic Radar Optical Sensor Widget */}
         <motion.div
           initial={{ x: 40, opacity: 0 }}
