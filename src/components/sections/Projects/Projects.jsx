@@ -561,8 +561,8 @@ function Projects() {
           </div>
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) - Positioned cleanly below Display Title on tablet */}
-          <div className="w-full md:w-auto md:max-lg:w-full md:max-lg:order-2 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 md:max-lg:py-0 md:max-lg:mt-0 md:max-lg:translate-y-[clamp(140px,calc(18vh+10px),220px)] shrink-0">
-            <div className="relative w-[300px] sm:w-[360px] md:w-[400px] md:max-lg:w-[clamp(540px,min(72vw,56vh),720px)] lg:w-[clamp(440px,36vw,530px)] [@media(min-width:1440px)]:w-[clamp(615px,42.7vw,820px)] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
+          <div className="w-full md:w-auto md:max-lg:w-full md:max-lg:order-2 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 md:max-lg:py-0 md:max-lg:mt-0 md:max-lg:translate-y-[clamp(165px,min(21.5vw,21.5vh),220px)] shrink-0">
+            <div className="relative w-[300px] sm:w-[360px] md:w-[400px] md:max-lg:w-[clamp(540px,min(70.38vw,56vh),720px)] lg:w-[clamp(440px,36vw,530px)] [@media(min-width:1440px)]:w-[clamp(615px,42.7vw,820px)] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
                 const isFocus = offset === 0
