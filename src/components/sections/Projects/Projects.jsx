@@ -506,9 +506,9 @@ function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-full md:max-lg:max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto flex-1 flex flex-col md:max-lg:flex-col md:flex-row items-center md:max-lg:items-center md:max-lg:justify-center justify-between gap-4 md:gap-6 md:max-lg:gap-[clamp(8px,1.2vh,14px)] lg:gap-[clamp(16px,2vw,36px)] [@media(min-width:1440px)]:gap-[clamp(48px,3.33vw,64px)] -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 md:max-lg:mt-[clamp(4px,0.8vh,10px)] mb-auto py-0.5">
-          {/* Left Column: Big Display Title (Matching CODENARTS reference) - Positioned at top center on tablet */}
-          <div className="w-full md:w-[240px] md:max-lg:w-full md:max-lg:order-1 lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col items-start md:max-lg:items-center justify-center text-left md:max-lg:text-center relative z-30 shrink-0">
+        <div className="relative z-10 w-full max-w-full md:max-lg:max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto flex-1 flex flex-col md:max-lg:flex-col md:flex-row items-center md:max-lg:items-center md:max-lg:justify-start justify-between gap-4 md:gap-6 md:max-lg:gap-[clamp(8px,1.2vh,14px)] lg:gap-[clamp(16px,2vw,36px)] [@media(min-width:1440px)]:gap-[clamp(48px,3.33vw,64px)] -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 md:max-lg:mt-[clamp(12px,2vh,24px)] mb-auto py-0.5">
+          {/* Left Column: Big Display Title (Matching CODENARTS reference) - Positioned directly below Top Header Row on tablet */}
+          <div className="w-full md:w-[240px] md:max-lg:w-full md:max-lg:order-1 lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col items-start md:max-lg:items-center justify-center text-left md:max-lg:text-center relative z-30 shrink-0 md:max-lg:pt-[clamp(4px,0.8vh,10px)] md:max-lg:pb-[clamp(4px,0.6vh,8px)]">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
