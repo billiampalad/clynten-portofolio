@@ -508,7 +508,7 @@ function Projects() {
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
         <div className="relative z-10 w-full max-w-full md:max-lg:max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto flex-1 flex flex-col md:max-lg:flex-col md:flex-row items-center md:max-lg:items-center md:max-lg:justify-between justify-between gap-4 md:gap-6 md:max-lg:gap-0 lg:gap-[clamp(16px,2vw,36px)] [@media(min-width:1440px)]:gap-[clamp(48px,3.33vw,64px)] -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 md:max-lg:mt-[clamp(6px,1vh,14px)] mb-auto py-0.5">
           {/* Left Column: Big Display Title (Matching CODENARTS reference) - Positioned directly below Top Header Row on tablet */}
-          <div className="w-full md:w-[240px] md:max-lg:w-full md:max-lg:order-1 lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col items-start md:max-lg:items-center justify-center text-left md:max-lg:text-center relative z-30 shrink-0 md:max-lg:pt-[clamp(2px,0.4vh,6px)] md:max-lg:pb-[clamp(6px,1vh,12px)]">
+          <div className="w-full md:w-[240px] md:max-lg:w-full md:max-lg:order-1 lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col items-start md:max-lg:items-center justify-center text-left md:max-lg:text-center relative z-30 shrink-0 md:max-lg:pt-0 md:max-lg:pb-0">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -518,7 +518,7 @@ function Projects() {
                 className="flex flex-col items-start md:max-lg:items-center text-left md:max-lg:text-center w-max max-w-none"
               >
                 {/* 1. Technical Code Badge with Reveal */}
-                <div className="overflow-hidden py-0.5 mb-1.5 md:max-lg:mb-[clamp(3px,0.5vh,6px)] lg:mb-2.5 [@media(min-width:1440px)]:mb-[clamp(10px,1.11vh,12px)] flex justify-center">
+                <div className="overflow-hidden py-0.5 mb-1.5 md:max-lg:mb-[clamp(1px,0.2vh,3px)] lg:mb-2.5 [@media(min-width:1440px)]:mb-[clamp(10px,1.11vh,12px)] flex justify-center">
                   <motion.div
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
@@ -534,7 +534,7 @@ function Projects() {
                 </div>
 
                 {/* 2. Main Title - Simple Smooth Slide Reveal */}
-                <div className="overflow-hidden py-1 w-max max-w-none text-left md:max-lg:text-center">
+                <div className="overflow-hidden py-0.5 md:max-lg:py-0 w-max max-w-none text-left md:max-lg:text-center">
                   <motion.h2
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
@@ -548,7 +548,7 @@ function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-2 md:max-lg:mt-[clamp(4px,0.6vh,8px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] w-max max-w-none text-left md:max-lg:text-center">
+                <div className="overflow-hidden py-0.5 mt-2 md:max-lg:mt-[clamp(2px,0.3vh,4px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] w-max max-w-none text-left md:max-lg:text-center">
                   <p
                     className={`font-mono text-xs sm:text-sm md:max-lg:text-[clamp(15px,1.9vw,19px)] lg:text-[clamp(13.5px,1.1vw,16px)] [@media(min-width:1440px)]:text-[clamp(14.5px,0.94vw,18px)] whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none text-left md:max-lg:text-center ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
@@ -561,7 +561,7 @@ function Projects() {
           </div>
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) - Positioned cleanly below Display Title on tablet */}
-          <div className="w-full md:w-auto md:max-lg:w-full md:max-lg:order-2 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 md:max-lg:py-0 md:max-lg:my-[clamp(6px,1.2vh,14px)] shrink-0">
+          <div className="w-full md:w-auto md:max-lg:w-full md:max-lg:order-2 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 md:max-lg:py-0 md:max-lg:mt-[clamp(2px,0.5vh,6px)] md:max-lg:mb-[clamp(4px,0.8vh,10px)] shrink-0">
             <div className="relative w-[300px] sm:w-[360px] md:w-[400px] md:max-lg:w-[clamp(520px,min(68vw,52vh),680px)] lg:w-[clamp(440px,36vw,530px)] [@media(min-width:1440px)]:w-[clamp(615px,42.7vw,820px)] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
