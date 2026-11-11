@@ -703,17 +703,17 @@ function Projects() {
 
         {/* Bottom Status Ticker Bar */}
         <div
-          className={`relative z-10 w-full flex items-center justify-between pt-1 md:max-lg:pt-[clamp(3px,0.5vh,6px)] lg:pt-1.5 [@media(min-width:1440px)]:pt-[clamp(10px,1.38vh,15px)] translate-y-0.5 sm:translate-y-1 ${isLight ? 'text-black' : 'text-white'
-            } font-mono text-[9px] sm:text-xs md:max-lg:text-[clamp(9px,1.1vw,11px)] lg:text-[clamp(10px,0.8vw,11.5px)] [@media(min-width:1440px)]:text-[clamp(12px,0.83vw,16px)] transition-colors max-w-full [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto`}
+          className={`relative z-10 w-full flex items-center justify-between pt-1 md:max-lg:pt-[clamp(4px,0.7vh,8px)] lg:pt-1.5 [@media(min-width:1440px)]:pt-[clamp(10px,1.38vh,15px)] translate-y-0.5 sm:translate-y-1 ${isLight ? 'text-black' : 'text-white'
+            } font-mono text-[9px] sm:text-xs md:max-lg:text-[clamp(11px,1.4vw,13.5px)] lg:text-[clamp(10px,0.8vw,11.5px)] [@media(min-width:1440px)]:text-[clamp(12px,0.83vw,16px)] transition-colors max-w-full [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto`}
         >
           {/* Leftmost + Accent (Desktop) */}
-          <div className="hidden sm:flex h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center shrink-0">
+          <div className="hidden sm:flex h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center shrink-0">
             <span
               ref={rotatingIconRef0}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(11px,1.4vw,14px)] md:max-lg:h-[clamp(11px,1.4vw,14px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(13px,1.7vw,17px)] md:max-lg:h-[clamp(13px,1.7vw,17px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -721,20 +721,20 @@ function Projects() {
           </div>
 
           {/* Segment 1: tension (Centered between Leftmost + and Divider 1 +) */}
-          <div className="hidden sm:flex flex-1 h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center justify-center px-2">
+          <div className="hidden sm:flex flex-1 h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center justify-center px-2">
             <span className="whitespace-nowrap leading-none flex items-center uppercase tracking-widest font-bold">
               tension
             </span>
           </div>
 
           {/* Dynamic Rotating + Divider 1 (Desktop: between Left & Center) */}
-          <div className="hidden sm:flex h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center justify-center shrink-0">
+          <div className="hidden sm:flex h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center justify-center shrink-0">
             <span
               ref={rotatingIconRef1}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(11px,1.4vw,14px)] md:max-lg:h-[clamp(11px,1.4vw,14px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(13px,1.7vw,17px)] md:max-lg:h-[clamp(13px,1.7vw,17px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -742,20 +742,20 @@ function Projects() {
           </div>
 
           {/* Segment 2: immersion (Centered between Divider 1 + and Divider 2 +) */}
-          <div className="flex-1 h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] overflow-hidden flex items-center justify-center px-2">
+          <div className="flex-1 h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] overflow-hidden flex items-center justify-center px-2">
             <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase tracking-widest transition-colors whitespace-nowrap inline-flex items-center leading-none`}>
               immersion
             </span>
           </div>
 
           {/* Dynamic Rotating + Divider 2 (between Center & Right) */}
-          <div className="flex h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center justify-center shrink-0">
+          <div className="flex h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center justify-center shrink-0">
             <span
               ref={rotatingIconRef2}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(11px,1.4vw,14px)] md:max-lg:h-[clamp(11px,1.4vw,14px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(13px,1.7vw,17px)] md:max-lg:h-[clamp(13px,1.7vw,17px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
@@ -763,20 +763,20 @@ function Projects() {
           </div>
 
           {/* Segment 3: impact (Centered between Divider 2 + and Rightmost +) */}
-          <div className="flex-1 h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] overflow-hidden flex items-center justify-center px-2">
+          <div className="flex-1 h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] overflow-hidden flex items-center justify-center px-2">
             <span className={`${isLight ? 'text-black' : 'text-white'} font-bold uppercase tracking-widest transition-colors whitespace-nowrap inline-flex items-center leading-none`}>
               impact
             </span>
           </div>
 
           {/* Rightmost + Accent */}
-          <div className="flex h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center shrink-0">
+          <div className="flex h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-6 [@media(min-width:1440px)]:h-[clamp(24px,2.96vh,32px)] items-center shrink-0">
             <span
               ref={rotatingIconRef3}
               className="inline-flex items-center justify-center text-red-500 select-none origin-center will-change-transform"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(11px,1.4vw,14px)] md:max-lg:h-[clamp(11px,1.4vw,14px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
+              <svg viewBox="0 0 12 12" className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:max-lg:w-[clamp(13px,1.7vw,17px)] md:max-lg:h-[clamp(13px,1.7vw,17px)] lg:w-3.5 lg:h-3.5 [@media(min-width:1440px)]:w-[clamp(16px,1.04vw,20px)] [@media(min-width:1440px)]:h-[clamp(16px,1.04vw,20px)] stroke-current stroke-[2.2]">
                 <line x1="6" y1="1" x2="6" y2="11" />
                 <line x1="1" y1="6" x2="11" y2="6" />
               </svg>
