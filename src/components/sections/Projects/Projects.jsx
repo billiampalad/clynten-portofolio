@@ -506,19 +506,19 @@ function Projects() {
         </div>
 
         {/* Main 3-Column Stage (Left Display Title, Center Workstation Mockup, Right Narrative) */}
-        <div className="relative z-10 w-full max-w-full md:max-lg:max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto flex-1 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 md:max-lg:gap-[clamp(12px,1.8vw,20px)] lg:gap-[clamp(16px,2vw,36px)] [@media(min-width:1440px)]:gap-[clamp(48px,3.33vw,64px)] -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 mb-auto py-0.5">
-          {/* Left Column: Big Display Title (Matching CODENARTS reference) */}
-          <div className="w-full md:w-[240px] md:max-lg:w-[clamp(185px,24vw,235px)] lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col items-start justify-center text-left relative z-30 shrink-0">
+        <div className="relative z-10 w-full max-w-full md:max-lg:max-w-full lg:max-w-[96vw] [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto flex-1 flex flex-col md:max-lg:flex-col md:flex-row items-center md:max-lg:justify-center justify-between gap-4 md:gap-6 md:max-lg:gap-[clamp(10px,1.4vh,16px)] lg:gap-[clamp(16px,2vw,36px)] [@media(min-width:1440px)]:gap-[clamp(48px,3.33vw,64px)] -translate-y-0.5 sm:-translate-y-1 md:-translate-y-1 mb-auto py-0.5">
+          {/* Left Column: Big Display Title (Matching CODENARTS reference) - Positioned at the top on tablet */}
+          <div className="w-full md:w-[240px] md:max-lg:w-full md:max-lg:order-1 lg:w-[clamp(230px,19vw,290px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col items-start md:max-lg:items-center justify-center text-left md:max-lg:text-center relative z-30 shrink-0">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="flex flex-col items-start w-max max-w-none"
+                className="flex flex-col items-start md:max-lg:items-center w-max max-w-none"
               >
                 {/* 1. Technical Code Badge with Reveal */}
-                <div className="overflow-hidden py-0.5 mb-1.5 md:max-lg:mb-[clamp(4px,0.6vh,8px)] lg:mb-2.5 [@media(min-width:1440px)]:mb-[clamp(10px,1.11vh,12px)]">
+                <div className="overflow-hidden py-0.5 mb-1.5 md:max-lg:mb-[clamp(3px,0.5vh,6px)] lg:mb-2.5 [@media(min-width:1440px)]:mb-[clamp(10px,1.11vh,12px)]">
                   <motion.div
                     initial={{ y: '100%', opacity: 0 }}
                     animate={{ y: '0%', opacity: 1 }}
@@ -540,7 +540,7 @@ function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-base sm:text-lg md:text-xl md:max-lg:text-[clamp(18px,min(2.4vw,2.8vh),24px)] lg:text-[clamp(24px,2.05vw,30px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl md:max-lg:text-[clamp(20px,min(2.8vw,3.2vh),28px)] lg:text-[clamp(24px,2.05vw,30px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -548,7 +548,7 @@ function Projects() {
                 </div>
 
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
-                <div className="overflow-hidden py-0.5 mt-2 md:max-lg:mt-[clamp(6px,0.8vh,10px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] w-max max-w-none">
+                <div className="overflow-hidden py-0.5 mt-2 md:max-lg:mt-[clamp(4px,0.6vh,8px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] w-max max-w-none">
                   <p
                     className={`font-mono text-xs sm:text-sm md:max-lg:text-[clamp(10.5px,1.2vw,13px)] lg:text-[clamp(13.5px,1.1vw,16px)] [@media(min-width:1440px)]:text-[clamp(14.5px,0.94vw,18px)] whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
@@ -561,7 +561,7 @@ function Projects() {
           </div>
 
           {/* Center Column: 3D Vertical Cover Flow Stage (Framer Motion Continuous Physics) */}
-          <div className="w-full md:w-auto flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 shrink-0">
+          <div className="w-full md:w-auto md:max-lg:w-full md:max-lg:order-2 flex flex-col items-center justify-center relative [perspective:1400px] select-none py-1 sm:py-2 md:max-lg:py-0 shrink-0">
             <div className="relative w-[300px] sm:w-[360px] md:w-[400px] md:max-lg:w-[clamp(275px,min(36vw,38vh),370px)] lg:w-[clamp(440px,36vw,530px)] [@media(min-width:1440px)]:w-[clamp(615px,42.7vw,820px)] aspect-[16/10] flex items-center justify-center [transform-style:preserve-3d]">
               {PROJECTS_DATA.map((project, index) => {
                 const offset = index - currentIndex
@@ -648,8 +648,8 @@ function Projects() {
           </div>
 
           {/* Right Column: Narrative Summary & Circular Step Progress */}
-          <div className="w-full md:w-[260px] md:max-lg:w-[clamp(200px,26vw,255px)] lg:w-[clamp(275px,24vw,370px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col md:items-end lg:items-start [@media(min-width:1440px)]:items-end justify-between text-left gap-3 md:max-lg:gap-[clamp(8px,1vh,12px)] lg:gap-3.5 [@media(min-width:1440px)]:gap-[clamp(18px,2.22vh,24px)] shrink-0 lg:-translate-x-[clamp(14px,1.6vw,30px)] [@media(min-width:1440px)]:translate-x-0">
-            <div className="flex flex-col items-start text-left w-full max-w-none md:max-lg:max-w-full lg:max-w-[clamp(290px,25vw,380px)] [@media(min-width:1440px)]:max-w-[clamp(340px,21.87vw,420px)] min-h-[70px] md:max-lg:min-h-[clamp(55px,7vh,70px)] lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[clamp(105px,12.03vh,130px)]">
+          <div className="w-full md:w-[260px] md:max-lg:w-full md:max-lg:order-3 md:max-lg:flex-row md:max-lg:items-center md:max-lg:justify-between lg:w-[clamp(275px,24vw,370px)] [@media(min-width:1440px)]:w-[clamp(315px,21.87vw,420px)] flex flex-col md:items-end lg:items-start [@media(min-width:1440px)]:items-end justify-between text-left gap-3 md:max-lg:gap-[clamp(12px,1.8vw,20px)] lg:gap-3.5 [@media(min-width:1440px)]:gap-[clamp(18px,2.22vh,24px)] shrink-0 lg:-translate-x-[clamp(14px,1.6vw,30px)] [@media(min-width:1440px)]:translate-x-0">
+            <div className="flex flex-col items-start text-left w-full max-w-none md:max-lg:max-w-[70%] lg:max-w-[clamp(290px,25vw,380px)] [@media(min-width:1440px)]:max-w-[clamp(340px,21.87vw,420px)] min-h-[70px] md:max-lg:min-h-0 lg:min-h-[75px] [@media(min-width:1440px)]:min-h-[clamp(105px,12.03vh,130px)]">
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
                   key={currentProject.id}
