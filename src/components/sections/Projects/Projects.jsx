@@ -476,19 +476,19 @@ function Projects() {
         {/* Top Header Row (Pass under 50px navbar, cleanly visible) */}
         <div className="relative z-10 w-full flex items-center justify-between mt-0 md:max-lg:mt-0 lg:mt-0.5 [@media(min-width:1440px)]:mt-[clamp(16px,1.85vh,20px)] max-w-full [@media(min-width:1440px)]:max-w-[clamp(1440px,95.83vw,1840px)] mx-auto">
           <div
-            className={`inline-flex items-center gap-2 md:max-lg:gap-[clamp(6px,0.8vw,8px)] px-3 py-1.5 md:max-lg:px-[clamp(10px,1.2vw,14px)] md:max-lg:py-[clamp(4px,0.6vh,6px)] lg:px-3.5 lg:py-1.5 [@media(min-width:1440px)]:px-[clamp(14px,0.83vw,16px)] [@media(min-width:1440px)]:py-[clamp(6px,0.74vh,8px)] rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
+            className={`inline-flex items-center gap-2 md:max-lg:gap-[clamp(8px,1vw,10px)] px-3 py-1.5 md:max-lg:px-[clamp(12px,1.5vw,16px)] md:max-lg:py-[clamp(6px,0.8vh,8px)] lg:px-3.5 lg:py-1.5 [@media(min-width:1440px)]:px-[clamp(14px,0.83vw,16px)] [@media(min-width:1440px)]:py-[clamp(6px,0.74vh,8px)] rounded-full ${isLight ? 'bg-slate-900/5 border-slate-900/10' : 'bg-white/5 border-white/10'
               } border backdrop-blur-md transition-colors`}
           >
-            <span className="w-2 h-2 md:max-lg:w-[clamp(6px,0.7vw,8px)] md:max-lg:h-[clamp(6px,0.7vw,8px)] lg:w-2 lg:h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="w-2 h-2 md:max-lg:w-[clamp(7px,0.9vw,9px)] md:max-lg:h-[clamp(7px,0.9vw,9px)] lg:w-2 lg:h-2 rounded-full bg-red-500 animate-pulse" />
             <span
-              className={`font-mono text-[10px] sm:text-xs md:max-lg:text-[clamp(9.5px,1.1vw,11.5px)] lg:text-[clamp(11px,0.9vw,12.5px)] [@media(min-width:1440px)]:text-[clamp(12.5px,0.73vw,14px)] font-bold tracking-widest ${isLight ? 'text-slate-700' : 'text-slate-300'
+              className={`font-mono text-[10px] sm:text-xs md:max-lg:text-[clamp(12px,1.5vw,14px)] lg:text-[clamp(11px,0.9vw,12.5px)] [@media(min-width:1440px)]:text-[clamp(12.5px,0.73vw,14px)] font-bold tracking-widest ${isLight ? 'text-slate-700' : 'text-slate-300'
                 } uppercase transition-colors`}
             >
               Projects
             </span>
           </div>
 
-          <div className="hidden sm:block h-5 md:max-lg:h-[clamp(16px,2vh,20px)] lg:h-5 overflow-hidden flex items-center">
+          <div className="hidden sm:block h-5 md:max-lg:h-[clamp(18px,2.4vh,24px)] lg:h-5 overflow-hidden flex items-center">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={currentProject.id}
@@ -496,7 +496,7 @@ function Projects() {
                 animate={{ y: '0%', opacity: 1 }}
                 exit={{ y: '-100%', opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className={`font-mono text-xs md:max-lg:text-[clamp(10px,1.2vw,12.5px)] lg:text-[clamp(11.5px,0.95vw,13.5px)] [@media(min-width:1440px)]:text-[clamp(13.5px,0.83vw,16px)] ${isLight ? 'text-slate-600' : 'text-slate-400'
+                className={`font-mono text-xs md:max-lg:text-[clamp(12px,1.5vw,14px)] lg:text-[clamp(11.5px,0.95vw,13.5px)] [@media(min-width:1440px)]:text-[clamp(13.5px,0.83vw,16px)] ${isLight ? 'text-slate-600' : 'text-slate-400'
                   } tracking-wider transition-colors`}
               >
                 {currentProject.client}
@@ -653,7 +653,7 @@ function Projects() {
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
                   key={currentProject.id}
-                  className={`text-xs sm:text-sm md:text-[12.5px] md:max-lg:text-[clamp(13px,min(1.7vw,1.9vh),16px)] lg:text-[clamp(11.5px,0.92vw,13.5px)] [@media(min-width:1440px)]:text-[clamp(15px,0.96vw,18.5px)] leading-relaxed md:max-lg:leading-[1.55] lg:leading-[1.55] [@media(min-width:1440px)]:leading-[clamp(1.55,1.6vh,1.7)] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                  className={`text-xs sm:text-sm md:text-[12.5px] md:max-lg:text-[clamp(15px,min(2vw,2.2vh),18px)] lg:text-[clamp(11.5px,0.92vw,13.5px)] [@media(min-width:1440px)]:text-[clamp(15px,0.96vw,18.5px)] leading-relaxed md:max-lg:leading-[1.6] lg:leading-[1.55] [@media(min-width:1440px)]:leading-[clamp(1.55,1.6vh,1.7)] ${isLight ? 'text-slate-700' : 'text-slate-300'
                     } font-sans tracking-normal text-left`}
                 >
                   <SplitWordsReveal text={currentProject.summary} />
@@ -671,7 +671,7 @@ function Projects() {
             </div>
 
             {/* Circular Step Indicator (Matching Meer Mohsin Reference) */}
-            <div className="relative w-16 h-16 sm:w-18 sm:h-18 md:max-lg:w-[clamp(64px,min(8vw,8vh),80px)] md:max-lg:h-[clamp(64px,min(8vw,8vh),80px)] lg:w-[clamp(68px,5.4vw,78px)] lg:h-[clamp(68px,5.4vw,78px)] [@media(min-width:1440px)]:w-[clamp(96px,6.67vw,128px)] [@media(min-width:1440px)]:h-[clamp(96px,6.67vw,128px)] flex items-center justify-center mt-1.5 md:max-lg:mt-0 lg:mt-2 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] self-end">
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 md:max-lg:w-[clamp(74px,min(9.5vw,9.5vh),92px)] md:max-lg:h-[clamp(74px,min(9.5vw,9.5vh),92px)] lg:w-[clamp(68px,5.4vw,78px)] lg:h-[clamp(68px,5.4vw,78px)] [@media(min-width:1440px)]:w-[clamp(96px,6.67vw,128px)] [@media(min-width:1440px)]:h-[clamp(96px,6.67vw,128px)] flex items-center justify-center mt-1.5 md:max-lg:mt-0 lg:mt-2 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] self-end">
               <svg className="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 86 86">
                 <circle
                   ref={circleRef}
@@ -691,7 +691,7 @@ function Projects() {
               {/* Step Counter Display (Static without motion) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <span
-                  className={`font-mono font-normal text-xl sm:text-2xl md:max-lg:text-[clamp(24px,min(3vw,3.2vh),30px)] lg:text-[clamp(22px,1.8vw,27px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                  className={`font-mono font-normal text-xl sm:text-2xl md:max-lg:text-[clamp(28px,min(3.6vw,3.8vh),36px)] lg:text-[clamp(22px,1.8vw,27px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] leading-none ${isLight ? 'text-slate-950' : 'text-white'
                     } tracking-tight transition-colors text-center inline-block`}
                 >
                   0{currentIndex + 1}
