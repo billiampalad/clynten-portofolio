@@ -524,10 +524,10 @@ function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="inline-flex items-center gap-1.5 md:max-lg:gap-[clamp(5px,0.8vw,8px)] lg:gap-2"
+                    className="inline-flex items-center gap-1.5 md:max-lg:gap-[clamp(6px,0.9vw,10px)] lg:gap-2"
                   >
-                    <span className="w-1.5 h-1.5 md:max-lg:w-[clamp(6px,0.8vw,8px)] md:max-lg:h-[clamp(6px,0.8vw,8px)] lg:w-2.5 lg:h-2.5 rounded-full bg-red-500 animate-pulse" />
-                    <span className="font-mono text-xs md:max-lg:text-[clamp(12px,1.5vw,15px)] lg:text-[clamp(13px,1.05vw,15.5px)] [@media(min-width:1440px)]:text-[clamp(14px,0.94vw,18px)] font-bold text-red-500 tracking-[0.2em] uppercase">
+                    <span className="w-1.5 h-1.5 md:max-lg:w-[clamp(7px,0.9vw,9px)] md:max-lg:h-[clamp(7px,0.9vw,9px)] lg:w-2.5 lg:h-2.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="font-mono text-xs md:max-lg:text-[clamp(14px,1.8vw,18px)] lg:text-[clamp(13px,1.05vw,15.5px)] [@media(min-width:1440px)]:text-[clamp(14px,0.94vw,18px)] font-bold text-red-500 tracking-[0.2em] uppercase">
                       {currentProject.code}
                     </span>
                   </motion.div>
@@ -540,7 +540,7 @@ function Projects() {
                     animate={{ y: '0%', opacity: 1 }}
                     exit={{ y: '-100%', opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className={`font-mono font-black text-base sm:text-lg md:text-xl md:max-lg:text-[clamp(26px,min(3.6vw,4.2vh),36px)] lg:text-[clamp(24px,2.05vw,30px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none text-left md:max-lg:text-center ${isLight ? 'text-slate-950' : 'text-white'
+                    className={`font-mono font-black text-base sm:text-lg md:text-xl md:max-lg:text-[clamp(34px,min(4.8vw,5.5vh),48px)] lg:text-[clamp(24px,2.05vw,30px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] tracking-tight whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none text-left md:max-lg:text-center ${isLight ? 'text-slate-950' : 'text-white'
                       } uppercase leading-none`}
                   >
                     {currentProject.shortTitle}
@@ -550,7 +550,7 @@ function Projects() {
                 {/* 3. Category Subtitle with Kinetic Character Stagger Reveal */}
                 <div className="overflow-hidden py-0.5 mt-2 md:max-lg:mt-[clamp(4px,0.6vh,8px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] w-max max-w-none text-left md:max-lg:text-center">
                   <p
-                    className={`font-mono text-xs sm:text-sm md:max-lg:text-[clamp(13px,1.6vw,16px)] lg:text-[clamp(13.5px,1.1vw,16px)] [@media(min-width:1440px)]:text-[clamp(14.5px,0.94vw,18px)] whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none text-left md:max-lg:text-center ${isLight ? 'text-slate-600' : 'text-slate-300'
+                    className={`font-mono text-xs sm:text-sm md:max-lg:text-[clamp(15px,1.9vw,19px)] lg:text-[clamp(13.5px,1.1vw,16px)] [@media(min-width:1440px)]:text-[clamp(14.5px,0.94vw,18px)] whitespace-nowrap flex-nowrap relative z-30 pointer-events-none select-none text-left md:max-lg:text-center ${isLight ? 'text-slate-600' : 'text-slate-300'
                       } font-medium`}
                   >
                     <SplitTextReveal text={currentProject.category} className="whitespace-nowrap flex-nowrap" />
