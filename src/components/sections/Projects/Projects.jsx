@@ -653,7 +653,7 @@ function Projects() {
               <AnimatePresence mode="popLayout" initial={false}>
                 <div
                   key={currentProject.id}
-                  className={`text-xs sm:text-sm md:text-[12.5px] md:max-lg:text-[clamp(10px,min(1.2vw,1.3vh),12px)] lg:text-[clamp(11.5px,0.92vw,13.5px)] [@media(min-width:1440px)]:text-[clamp(15px,0.96vw,18.5px)] leading-relaxed md:max-lg:leading-[1.45] lg:leading-[1.55] [@media(min-width:1440px)]:leading-[clamp(1.55,1.6vh,1.7)] ${isLight ? 'text-slate-700' : 'text-slate-300'
+                  className={`text-xs sm:text-sm md:text-[12.5px] md:max-lg:text-[clamp(13px,min(1.7vw,1.9vh),16px)] lg:text-[clamp(11.5px,0.92vw,13.5px)] [@media(min-width:1440px)]:text-[clamp(15px,0.96vw,18.5px)] leading-relaxed md:max-lg:leading-[1.55] lg:leading-[1.55] [@media(min-width:1440px)]:leading-[clamp(1.55,1.6vh,1.7)] ${isLight ? 'text-slate-700' : 'text-slate-300'
                     } font-sans tracking-normal text-left`}
                 >
                   <SplitWordsReveal text={currentProject.summary} />
@@ -663,7 +663,7 @@ function Projects() {
               <button
                 type="button"
                 onClick={() => handleOpenDrawer(currentProject)}
-                className="mt-2.5 md:max-lg:mt-[clamp(6px,0.8vh,10px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(16px,2.22vh,24px)] inline-flex items-center gap-2 md:max-lg:gap-[clamp(4px,0.6vw,6px)] lg:gap-2 px-3.5 py-1.5 md:max-lg:px-[clamp(10px,1.2vw,13px)] md:max-lg:py-[clamp(4px,0.5vh,6px)] lg:px-4 lg:py-2 [@media(min-width:1440px)]:px-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:py-[clamp(9px,1.11vh,12px)] rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/40 hover:border-red-500 text-red-500 hover:text-white font-mono text-xs md:max-lg:text-[clamp(9.5px,1.1vw,11px)] lg:text-[11.5px] [@media(min-width:1440px)]:text-[clamp(13px,0.83vw,16px)] font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-red-500/10 group/btn"
+                className="mt-2.5 md:max-lg:mt-[clamp(8px,1.2vh,14px)] lg:mt-3 [@media(min-width:1440px)]:mt-[clamp(16px,2.22vh,24px)] inline-flex items-center gap-2 md:max-lg:gap-[clamp(6px,0.8vw,8px)] lg:gap-2 px-3.5 py-1.5 md:max-lg:px-[clamp(14px,1.8vw,18px)] md:max-lg:py-[clamp(6px,0.9vh,9px)] lg:px-4 lg:py-2 [@media(min-width:1440px)]:px-[clamp(18px,1.25vw,24px)] [@media(min-width:1440px)]:py-[clamp(9px,1.11vh,12px)] rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/40 hover:border-red-500 text-red-500 hover:text-white font-mono text-xs md:max-lg:text-[clamp(12px,1.4vw,14px)] lg:text-[11.5px] [@media(min-width:1440px)]:text-[clamp(13px,0.83vw,16px)] font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-red-500/10 group/btn"
               >
                 <span>EXPLORE CASE STUDY</span>
                 <span className="transform transition-transform duration-300 group-hover/btn:translate-x-1" aria-hidden="true">→</span>
@@ -671,7 +671,7 @@ function Projects() {
             </div>
 
             {/* Circular Step Indicator (Matching Meer Mohsin Reference) */}
-            <div className="relative w-16 h-16 sm:w-18 sm:h-18 md:max-lg:w-[clamp(48px,min(6vw,6vh),60px)] md:max-lg:h-[clamp(48px,min(6vw,6vh),60px)] lg:w-[clamp(68px,5.4vw,78px)] lg:h-[clamp(68px,5.4vw,78px)] [@media(min-width:1440px)]:w-[clamp(96px,6.67vw,128px)] [@media(min-width:1440px)]:h-[clamp(96px,6.67vw,128px)] flex items-center justify-center mt-1.5 md:max-lg:mt-[clamp(4px,0.6vh,8px)] lg:mt-2 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] self-end">
+            <div className="relative w-16 h-16 sm:w-18 sm:h-18 md:max-lg:w-[clamp(64px,min(8vw,8vh),80px)] md:max-lg:h-[clamp(64px,min(8vw,8vh),80px)] lg:w-[clamp(68px,5.4vw,78px)] lg:h-[clamp(68px,5.4vw,78px)] [@media(min-width:1440px)]:w-[clamp(96px,6.67vw,128px)] [@media(min-width:1440px)]:h-[clamp(96px,6.67vw,128px)] flex items-center justify-center mt-1.5 md:max-lg:mt-0 lg:mt-2 [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)] self-end">
               <svg className="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 86 86">
                 <circle
                   ref={circleRef}
@@ -691,7 +691,7 @@ function Projects() {
               {/* Step Counter Display (Static without motion) */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 <span
-                  className={`font-mono font-normal text-xl sm:text-2xl md:max-lg:text-[clamp(17px,min(2.1vw,2.3vh),21px)] lg:text-[clamp(22px,1.8vw,27px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] leading-none ${isLight ? 'text-slate-950' : 'text-white'
+                  className={`font-mono font-normal text-xl sm:text-2xl md:max-lg:text-[clamp(24px,min(3vw,3.2vh),30px)] lg:text-[clamp(22px,1.8vw,27px)] [@media(min-width:1440px)]:text-[clamp(36px,2.5vw,48px)] leading-none ${isLight ? 'text-slate-950' : 'text-white'
                     } tracking-tight transition-colors text-center inline-block`}
                 >
                   0{currentIndex + 1}
