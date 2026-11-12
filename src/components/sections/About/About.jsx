@@ -143,15 +143,15 @@ function About({ style = {} }) {
         </div>
       </div>
 
-      {/* Mobile Floating Profile Avatar Button (Visible only on mobile when About section is in view) */}
+      {/* Mobile Floating Profile Avatar Button (Visible only on mobile when About section is in view, positioned top-right) */}
       <button
         type="button"
         onClick={() => setIsModalOpen(true)}
         aria-label="Open profile card modal"
-        className={`fixed bottom-[calc(18px+env(safe-area-inset-bottom))] left-4 z-40 md:hidden w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-rose-500 via-rose-400 to-amber-400 shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all duration-300 active:scale-90 pointer-events-auto ${
+        className={`fixed top-[calc(60px+env(safe-area-inset-top))] right-4 z-40 md:hidden w-11 h-11 sm:w-12 sm:h-12 rounded-full p-[2px] bg-gradient-to-tr from-rose-500 via-rose-400 to-amber-400 shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all duration-300 active:scale-90 pointer-events-auto ${
           isAboutInView
             ? 'opacity-100 translate-y-0 scale-100'
-            : 'opacity-0 translate-y-4 scale-90 pointer-events-none'
+            : 'opacity-0 -translate-y-4 scale-90 pointer-events-none'
         }`}
       >
         <div className="relative w-full h-full rounded-full overflow-hidden bg-slate-900 border border-black/40">
@@ -161,7 +161,7 @@ function About({ style = {} }) {
             className="w-full h-full object-cover object-top"
           />
         </div>
-        <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#0A0907] shadow-[0_0_6px_#22c55e]" />
+        <span className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 border-2 border-[#0A0907] shadow-[0_0_6px_#22c55e]" />
         <span className="sr-only">Open Profile Card</span>
       </button>
 
