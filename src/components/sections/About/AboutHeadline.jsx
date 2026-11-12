@@ -71,14 +71,14 @@ function AboutHeadline({ isLight = false }) {
         </h2>
 
         <div
-          className={`inline-flex items-baseline gap-2 md:max-lg:gap-[clamp(6px,0.8vw,8px)] [@media(min-width:1440px)]:gap-3.5 font-mono transition-colors duration-300 ${
+          className={`inline-flex items-baseline gap-2 sm:gap-2.5 md:max-lg:gap-[clamp(6px,0.8vw,8px)] [@media(min-width:1440px)]:gap-3.5 font-mono transition-colors duration-300 ${
             isLight ? 'text-slate-600' : 'text-zinc-400'
           }`}
         >
-          <span className={`text-sm sm:text-base md:text-lg md:max-lg:text-[clamp(13px,min(1.8vw,2.1vh),18px)] [@media(min-width:1440px)]:text-[24px] [@media(min-width:1600px)]:text-[28px] [@media(min-width:1920px)]:text-[32px] font-medium ${isLight ? 'text-slate-500' : 'text-zinc-500'}`}>
+          <span className={`text-[clamp(15px,3.8vw,17px)] md:text-lg md:max-lg:text-[clamp(13px,min(1.8vw,2.1vh),18px)] [@media(min-width:1440px)]:text-[24px] [@media(min-width:1600px)]:text-[28px] [@media(min-width:1920px)]:text-[32px] font-medium ${isLight ? 'text-slate-500' : 'text-zinc-500'}`}>
             And I'm a
           </span>
-          <span className={`text-base sm:text-lg md:text-xl md:max-lg:text-[clamp(15px,min(2.1vw,2.4vh),20px)] [@media(min-width:1440px)]:text-[32px] [@media(min-width:1600px)]:text-[38px] [@media(min-width:1920px)]:text-[44px] font-bold tracking-tight ${isLight ? 'text-rose-600' : 'text-rose-400'}`}>
+          <span className={`text-[clamp(18px,4.8vw,22px)] md:text-xl md:max-lg:text-[clamp(15px,min(2.1vw,2.4vh),20px)] [@media(min-width:1440px)]:text-[32px] [@media(min-width:1600px)]:text-[38px] [@media(min-width:1920px)]:text-[44px] font-bold tracking-tight ${isLight ? 'text-rose-600' : 'text-rose-400'}`}>
             {displayedText}
             <span className="text-rose-500 font-black ml-0.5 animate-pulse" aria-hidden="true">_</span>
           </span>
