@@ -43,7 +43,7 @@ const SignalDetails = memo(function SignalDetails({
       {/* Main Signal Display Card */}
       <div className="flex flex-col mt-0.5 relative z-10">
         <div className="flex items-center justify-between text-[clamp(7px,2.06vw,11px)] md:max-lg:text-[clamp(10px,1.2vh,12px)] lg:text-[clamp(9.5px,1.3vh,11px)] [@media(min-width:1440px)]:text-[clamp(10.5px,0.7vw,13.5px)] tracking-widest text-zinc-400 whitespace-nowrap">
-          <span className={`font-semibold px-[clamp(5px,1.46vw,8px)] py-[clamp(1.5px,0.24dvh,3.5px)] md:max-lg:px-[clamp(6px,0.78vw,8px)] md:max-lg:py-[clamp(2px,0.3vh,3.5px)] lg:px-[clamp(6px,0.8vw,8px)] lg:py-[clamp(2px,0.4vh,4px)] [@media(min-width:1440px)]:px-[clamp(9px,0.63vw,12px)] [@media(min-width:1440px)]:py-[clamp(4px,0.56vh,6px)] rounded border shrink-0 transition-colors duration-300 ${phasePillClass}`}>
+          <span className={`font-semibold px-[clamp(5px,1.46vw,8px)] py-[clamp(1px,0.18dvh,2.5px)] md:max-lg:px-[clamp(6px,0.78vw,8px)] md:max-lg:py-[clamp(2px,0.3vh,3.5px)] lg:px-[clamp(6px,0.8vw,8px)] lg:py-[clamp(2px,0.4vh,4px)] [@media(min-width:1440px)]:px-[clamp(9px,0.63vw,12px)] [@media(min-width:1440px)]:py-[clamp(4px,0.56vh,6px)] rounded border shrink-0 transition-colors duration-300 ${phasePillClass}`}>
             PHASE // {activeSignal.phase}
           </span>
           <span className="text-zinc-500 font-medium truncate ml-2 text-[clamp(7.5px,2.18vw,11.5px)] md:max-lg:text-[clamp(10.5px,1.25vh,12.5px)] lg:text-[clamp(9.5px,1.3vh,11.5px)] [@media(min-width:1440px)]:text-[clamp(11px,0.73vw,14px)]">
@@ -51,22 +51,22 @@ const SignalDetails = memo(function SignalDetails({
           </span>
         </div>
 
-        <h2 className="text-[clamp(12px,3.4vw,18.5px)] md:max-lg:text-[clamp(16.5px,2.1vh,20.5px)] lg:text-[clamp(15px,2.2vh,18.5px)] [@media(min-width:1440px)]:text-[clamp(18px,1.25vw,24px)] font-black tracking-tight text-white mt-[clamp(3.5px,0.71dvh,9px)] md:max-lg:mt-[clamp(5px,0.7vh,8px)] lg:mt-[clamp(4px,0.7vh,8px)] [@media(min-width:1440px)]:mt-[clamp(8px,1.11vh,12px)] drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
+        <h2 className="text-[clamp(12px,3.4vw,18.5px)] md:max-lg:text-[clamp(16.5px,2.1vh,20.5px)] lg:text-[clamp(15px,2.2vh,18.5px)] [@media(min-width:1440px)]:text-[clamp(18px,1.25vw,24px)] font-black tracking-tight text-white mt-[clamp(2px,0.47dvh,5px)] md:max-lg:mt-[clamp(5px,0.7vh,8px)] lg:mt-[clamp(4px,0.7vh,8px)] [@media(min-width:1440px)]:mt-[clamp(8px,1.11vh,12px)] drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] whitespace-nowrap truncate leading-tight">
           {scrambledTitle}
         </h2>
-        <p className="text-[clamp(8px,2.31vw,12.5px)] md:max-lg:text-[clamp(11px,1.35vh,13px)] lg:text-[clamp(10px,1.35vh,12px)] [@media(min-width:1440px)]:text-[clamp(11.5px,0.78vw,15px)] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-[clamp(1px,0.24dvh,3.5px)] md:max-lg:mt-[clamp(3px,0.4vh,5px)] lg:mt-[clamp(2px,0.35vh,4px)] [@media(min-width:1440px)]:mt-[clamp(4px,0.56vh,6px)]">
+        <p className="text-[clamp(8px,2.31vw,12.5px)] md:max-lg:text-[clamp(11px,1.35vh,13px)] lg:text-[clamp(10px,1.35vh,12px)] [@media(min-width:1440px)]:text-[clamp(11.5px,0.78vw,15px)] text-zinc-400 font-normal leading-normal whitespace-nowrap truncate mt-[clamp(0.5px,0.12dvh,2px)] md:max-lg:mt-[clamp(3px,0.4vh,5px)] lg:mt-[clamp(2px,0.35vh,4px)] [@media(min-width:1440px)]:mt-[clamp(4px,0.56vh,6px)]">
           {activeSignal.subtitle}
         </p>
 
         {/* Dynamic Skill Stack Badges - 2x2 Grid */}
         {activeSignal.tags && (
-          <div className="grid grid-cols-2 gap-x-[clamp(4.5px,1.46vw,11px)] gap-y-[clamp(3.5px,0.71dvh,9px)] md:max-lg:gap-[clamp(6px,0.8vh,9px)] lg:gap-[clamp(5px,0.8vh,9px)] [@media(min-width:1440px)]:gap-[clamp(10px,0.73vw,14px)] mt-[clamp(5px,0.95dvh,12px)] md:max-lg:mt-[clamp(7px,1vh,11px)] lg:mt-[clamp(6px,1vh,11px)] [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)]">
+          <div className="grid grid-cols-2 gap-x-[clamp(4.5px,1.46vw,11px)] gap-y-[clamp(2px,0.36dvh,5px)] md:max-lg:gap-[clamp(6px,0.8vh,9px)] lg:gap-[clamp(5px,0.8vh,9px)] [@media(min-width:1440px)]:gap-[clamp(10px,0.73vw,14px)] mt-[clamp(3.5px,0.6dvh,7px)] md:max-lg:mt-[clamp(7px,1vh,11px)] lg:mt-[clamp(6px,1vh,11px)] [@media(min-width:1440px)]:mt-[clamp(12px,1.48vh,16px)]">
             {activeSignal.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="flex items-center gap-[clamp(4.5px,1.46vw,8px)] md:max-lg:gap-[clamp(6px,0.75vh,9px)] lg:gap-[clamp(5px,0.7vh,8px)] [@media(min-width:1440px)]:gap-[clamp(9px,0.63vw,12px)] px-[clamp(6px,1.94vw,14px)] py-[clamp(2.5px,0.47dvh,6px)] md:max-lg:px-[clamp(9px,1.1vw,13px)] md:max-lg:py-[clamp(4px,0.55vh,7px)] lg:px-[clamp(8px,1vw,12px)] lg:py-[clamp(3px,0.5vh,6px)] [@media(min-width:1440px)]:px-[clamp(12px,0.83vw,16px)] [@media(min-width:1440px)]:py-[clamp(7px,0.93vh,10px)] rounded-md [@media(min-width:1440px)]:rounded-lg text-[clamp(7px,2.06vw,11px)] md:max-lg:text-[clamp(10px,1.25vh,12px)] lg:text-[clamp(9px,1.25vh,11px)] [@media(min-width:1440px)]:text-[clamp(10.5px,0.7vw,13.5px)] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
+                className="flex items-center gap-[clamp(4.5px,1.46vw,8px)] md:max-lg:gap-[clamp(6px,0.75vh,9px)] lg:gap-[clamp(5px,0.7vh,8px)] [@media(min-width:1440px)]:gap-[clamp(9px,0.63vw,12px)] px-[clamp(6px,1.94vw,14px)] py-[clamp(1.5px,0.3dvh,3.5px)] md:max-lg:px-[clamp(9px,1.1vw,13px)] md:max-lg:py-[clamp(4px,0.55vh,7px)] lg:px-[clamp(8px,1vw,12px)] lg:py-[clamp(3px,0.5vh,6px)] [@media(min-width:1440px)]:px-[clamp(12px,0.83vw,16px)] [@media(min-width:1440px)]:py-[clamp(7px,0.93vh,10px)] rounded-md [@media(min-width:1440px)]:rounded-lg text-[clamp(7px,2.06vw,11px)] md:max-lg:text-[clamp(10px,1.25vh,12px)] lg:text-[clamp(9px,1.25vh,11px)] [@media(min-width:1440px)]:text-[clamp(10.5px,0.7vw,13.5px)] font-medium bg-zinc-900/90 border border-white/10 text-zinc-300 shadow-sm whitespace-nowrap overflow-hidden"
               >
-                <span className={`w-[clamp(4.5px,1.46vw,10px)] h-[clamp(4.5px,0.71dvh,9px)] md:max-lg:w-[clamp(6px,0.8vh,7.5px)] md:max-lg:h-[clamp(6px,0.8vh,7.5px)] lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-[clamp(9px,0.63vw,12px)] [@media(min-width:1440px)]:h-[clamp(9px,0.63vw,12px)] rounded-full shrink-0 transition-colors duration-300 ${tagDotClass}`} />
+                <span className={`w-[clamp(4.5px,1.46vw,10px)] h-[clamp(3.5px,0.55dvh,6.5px)] md:max-lg:w-[clamp(6px,0.8vh,7.5px)] md:max-lg:h-[clamp(6px,0.8vh,7.5px)] lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-[clamp(9px,0.63vw,12px)] [@media(min-width:1440px)]:h-[clamp(9px,0.63vw,12px)] rounded-full shrink-0 transition-colors duration-300 ${tagDotClass}`} />
                 <span className="truncate">{tag}</span>
               </span>
             ))}
@@ -75,7 +75,7 @@ const SignalDetails = memo(function SignalDetails({
       </div>
 
       {/* Bottom Diagnostics Matrix */}
-      <div className="grid grid-cols-4 gap-[clamp(4.5px,1.46vw,11px)] md:max-lg:gap-[clamp(6px,0.8vh,9px)] lg:gap-[clamp(5px,0.8vh,9px)] [@media(min-width:1440px)]:gap-[clamp(8px,0.63vw,12px)] pt-[clamp(5px,0.95dvh,12px)] md:max-lg:pt-[clamp(7px,1vh,11px)] lg:pt-[clamp(6px,1vh,11px)] [@media(min-width:1440px)]:pt-[clamp(11px,1.48vh,16px)] mt-[clamp(5px,0.95dvh,12px)] md:max-lg:mt-[clamp(7px,1vh,11px)] lg:mt-[clamp(6px,1vh,11px)] [@media(min-width:1440px)]:mt-[clamp(11px,1.48vh,16px)] border-t border-white/10 text-center whitespace-nowrap relative z-10">
+      <div className="grid grid-cols-4 gap-[clamp(4.5px,1.46vw,11px)] md:max-lg:gap-[clamp(6px,0.8vh,9px)] lg:gap-[clamp(5px,0.8vh,9px)] [@media(min-width:1440px)]:gap-[clamp(8px,0.63vw,12px)] pt-[clamp(3.5px,0.6dvh,7px)] md:max-lg:pt-[clamp(7px,1vh,11px)] lg:pt-[clamp(6px,1vh,11px)] [@media(min-width:1440px)]:pt-[clamp(11px,1.48vh,16px)] mt-[clamp(3.5px,0.6dvh,7px)] md:max-lg:mt-[clamp(7px,1vh,11px)] lg:mt-[clamp(6px,1vh,11px)] [@media(min-width:1440px)]:mt-[clamp(11px,1.48vh,16px)] border-t border-white/10 text-center whitespace-nowrap relative z-10">
         <div className="flex flex-col">
           <span className="text-[clamp(6.5px,1.82vw,10px)] md:max-lg:text-[clamp(8.5px,1.05vh,10px)] lg:text-[clamp(7.5px,1.1vh,9px)] [@media(min-width:1440px)]:text-[clamp(9px,0.6vw,11.5px)] tracking-wider text-zinc-500 uppercase">FREQ</span>
           <span className={`text-[clamp(8px,2.31vw,12.5px)] md:max-lg:text-[clamp(11px,1.4vh,13.5px)] lg:text-[clamp(10px,1.45vh,12.5px)] [@media(min-width:1440px)]:text-[clamp(12px,0.81vw,15.5px)] font-bold truncate transition-colors duration-300 ${metricValueClass}`}>
@@ -103,7 +103,7 @@ const SignalDetails = memo(function SignalDetails({
       </div>
 
       {/* Micro Status Bar */}
-      <div className="flex items-center justify-between text-[clamp(7px,1.94vw,10.5px)] md:max-lg:text-[clamp(9px,1.15vh,11px)] lg:text-[clamp(8px,1.2vh,10px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.65vw,12.5px)] tracking-widest text-zinc-500 pt-[clamp(5px,0.95dvh,12px)] md:max-lg:pt-[clamp(6px,0.8vh,9px)] lg:pt-[clamp(4px,0.8vh,10px)] [@media(min-width:1440px)]:pt-[clamp(11px,1.48vh,16px)] whitespace-nowrap relative z-10">
+      <div className="flex items-center justify-between text-[clamp(7px,1.94vw,10.5px)] md:max-lg:text-[clamp(9px,1.15vh,11px)] lg:text-[clamp(8px,1.2vh,10px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.65vw,12.5px)] tracking-widest text-zinc-500 pt-[clamp(3.5px,0.6dvh,7px)] md:max-lg:pt-[clamp(6px,0.8vh,9px)] lg:pt-[clamp(4px,0.8vh,10px)] [@media(min-width:1440px)]:pt-[clamp(11px,1.48vh,16px)] whitespace-nowrap relative z-10">
         <span>SYS_ID: CLYNTEN-DEV</span>
         <span className={`font-semibold transition-colors duration-300 ${statusTextClass}`}>
           ONLINE // STREAM
@@ -151,7 +151,7 @@ const beamHexMap = {
 
 const TOTAL_BLOCKS = 10
 const BASE_BLOCK_CLASS =
-  'h-[clamp(4.5px,0.71dvh,9px)] w-[clamp(3px,0.97vw,7px)] md:max-lg:h-[clamp(7px,0.88vh,9px)] md:max-lg:w-[clamp(4.5px,0.55vw,6px)] lg:h-2 lg:w-1.5 [@media(min-width:1440px)]:h-[clamp(9px,1.11vh,12px)] [@media(min-width:1440px)]:w-[clamp(6px,0.42vw,8px)] rounded-[1px] transition-colors duration-150'
+  'h-[clamp(3.5px,0.55dvh,6.5px)] w-[clamp(3px,0.97vw,7px)] md:max-lg:h-[clamp(7px,0.88vh,9px)] md:max-lg:w-[clamp(4.5px,0.55vw,6px)] lg:h-2 lg:w-1.5 [@media(min-width:1440px)]:h-[clamp(9px,1.11vh,12px)] [@media(min-width:1440px)]:w-[clamp(6px,0.42vw,8px)] rounded-[1px] transition-colors duration-150'
 
 const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, ref) {
   const getPhaseIndex = (prog) => {
@@ -263,7 +263,7 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
         initial={{ x: 40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative font-mono select-none w-[clamp(272px,88.35vw,680px)] md:max-lg:w-[clamp(435px,min(58vw,66vh),585px)] lg:w-[clamp(340px,33.36vw,480px)] [@media(min-width:1440px)]:w-[clamp(435px,30.21vw,580px)] px-[clamp(9px,2.91vw,22px)] py-[clamp(8px,1.42dvh,18px)] md:max-lg:px-[clamp(18px,2.15vw,26px)] md:max-lg:py-[clamp(14px,1.66vh,19px)] lg:p-[clamp(12px,1.9vh,22px)] [@media(min-width:1440px)]:px-[clamp(24px,1.67vw,32px)] [@media(min-width:1440px)]:py-[clamp(24px,2.96vh,32px)] rounded-[clamp(12px,3.88vw,20px)] md:max-lg:rounded-2xl lg:rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
+        className={`relative font-mono select-none w-[clamp(272px,88.35vw,680px)] md:max-lg:w-[clamp(435px,min(58vw,66vh),585px)] lg:w-[clamp(340px,33.36vw,480px)] [@media(min-width:1440px)]:w-[clamp(435px,30.21vw,580px)] px-[clamp(9px,2.91vw,22px)] py-[clamp(6px,0.95dvh,12px)] md:max-lg:px-[clamp(18px,2.15vw,26px)] md:max-lg:py-[clamp(14px,1.66vh,19px)] lg:p-[clamp(12px,1.9vh,22px)] [@media(min-width:1440px)]:px-[clamp(24px,1.67vw,32px)] [@media(min-width:1440px)]:py-[clamp(24px,2.96vh,32px)] rounded-[clamp(12px,3.88vw,20px)] md:max-lg:rounded-2xl lg:rounded-2xl bg-zinc-950/95 border ${cardBorderClasses[themeColor]} shadow-2xl [contain:paint] transition-colors duration-200`}
       >
         {/* Animated Glowing Light Beam Running Around Card Border Perimeter */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl overflow-visible z-20">
@@ -316,7 +316,7 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
         </svg>
 
         {/* Top Telemetry Header */}
-        <div className="flex items-center justify-between pb-[clamp(4px,0.71dvh,9px)] md:max-lg:pb-[clamp(6px,0.8vh,9px)] lg:pb-[clamp(5px,0.9vh,9px)] [@media(min-width:1440px)]:pb-[clamp(10px,1.3vh,14px)] border-b border-white/10 whitespace-nowrap relative z-10">
+        <div className="flex items-center justify-between pb-[clamp(3px,0.47dvh,6px)] md:max-lg:pb-[clamp(6px,0.8vh,9px)] lg:pb-[clamp(5px,0.9vh,9px)] [@media(min-width:1440px)]:pb-[clamp(10px,1.3vh,14px)] border-b border-white/10 whitespace-nowrap relative z-10">
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-[clamp(7.5px,2.06vw,11.5px)] md:max-lg:text-[clamp(10.5px,1.3vh,12.5px)] lg:text-[clamp(9.5px,1.35vh,11px)] [@media(min-width:1440px)]:text-[clamp(11px,0.73vw,14px)] tracking-wider text-zinc-400 font-semibold uppercase">
               PROFILE SCANNED
@@ -341,15 +341,15 @@ const DeveloperSignal = forwardRef(function DeveloperSignal({ progress = 0 }, re
             >
               {initialPct}%
             </span>
-            <div className={`flex items-center gap-1.5 md:max-lg:gap-2 lg:gap-2 [@media(min-width:1440px)]:gap-[clamp(7.5px,0.52vw,10px)] px-[clamp(6px,1.94vw,14px)] py-[clamp(1.5px,0.24dvh,3.5px)] md:max-lg:px-[clamp(8px,1vw,11px)] md:max-lg:py-[clamp(3px,0.4vh,5px)] lg:px-2.5 lg:py-1 [@media(min-width:1440px)]:px-[clamp(10px,0.73vw,14px)] [@media(min-width:1440px)]:py-[clamp(4.5px,0.56vh,6px)] rounded-full text-[clamp(6.5px,1.94vw,10.5px)] md:max-lg:text-[clamp(9px,1.15vh,11px)] lg:text-[clamp(8px,1.2vh,9.5px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.65vw,12.5px)] font-bold tracking-widest uppercase border shrink-0 transition-colors duration-300 ${badgeClassesMap[themeColor]}`}>
-              <span className={`w-[clamp(4.5px,1.46vw,8px)] h-[clamp(4.5px,0.71dvh,8px)] md:max-lg:w-[clamp(6px,0.8vh,7.5px)] md:max-lg:h-[clamp(6px,0.8vh,7.5px)] lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-[clamp(9px,0.63vw,12px)] [@media(min-width:1440px)]:h-[clamp(9px,0.63vw,12px)] rounded-full animate-pulse ${dotClassesMap[themeColor]}`} />
+            <div className={`flex items-center gap-1.5 md:max-lg:gap-2 lg:gap-2 [@media(min-width:1440px)]:gap-[clamp(7.5px,0.52vw,10px)] px-[clamp(6px,1.94vw,14px)] py-[clamp(1px,0.18dvh,2.5px)] md:max-lg:px-[clamp(8px,1vw,11px)] md:max-lg:py-[clamp(3px,0.4vh,5px)] lg:px-2.5 lg:py-1 [@media(min-width:1440px)]:px-[clamp(10px,0.73vw,14px)] [@media(min-width:1440px)]:py-[clamp(4.5px,0.56vh,6px)] rounded-full text-[clamp(6.5px,1.94vw,10.5px)] md:max-lg:text-[clamp(9px,1.15vh,11px)] lg:text-[clamp(8px,1.2vh,9.5px)] [@media(min-width:1440px)]:text-[clamp(9.5px,0.65vw,12.5px)] font-bold tracking-widest uppercase border shrink-0 transition-colors duration-300 ${badgeClassesMap[themeColor]}`}>
+              <span className={`w-[clamp(4.5px,1.46vw,8px)] h-[clamp(3.5px,0.55dvh,6.5px)] md:max-lg:w-[clamp(6px,0.8vh,7.5px)] md:max-lg:h-[clamp(6px,0.8vh,7.5px)] lg:w-[clamp(6px,0.9vh,8px)] lg:h-[clamp(6px,0.9vh,8px)] [@media(min-width:1440px)]:w-[clamp(9px,0.63vw,12px)] [@media(min-width:1440px)]:h-[clamp(9px,0.63vw,12px)] rounded-full animate-pulse ${dotClassesMap[themeColor]}`} />
               <span>{activeSignal.status}</span>
             </div>
           </div>
         </div>
 
         {/* Dynamic ECG Waveform Line (Zero Framer Motion overhead on scroll) */}
-        <div className="my-[clamp(2.5px,0.47dvh,6px)] lg:my-[clamp(2px,0.5vh,4px)] [@media(min-width:1440px)]:my-[clamp(3px,0.46vh,5px)] relative z-10">
+        <div className="my-[clamp(1.5px,0.24dvh,3.5px)] lg:my-[clamp(2px,0.5vh,4px)] [@media(min-width:1440px)]:my-[clamp(3px,0.46vh,5px)] relative z-10">
           <SignalLine ref={signalLineRef} progress={progress} color={beamHex} />
         </div>
 
