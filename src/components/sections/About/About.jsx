@@ -57,8 +57,8 @@ function About({ style = {} }) {
       }`}
     >
       <div className="relative z-10 max-w-[1100px] [@media(min-width:1440px)]:max-w-[1440px] [@media(min-width:1600px)]:max-w-[1680px] [@media(min-width:1920px)]:max-w-[1840px] w-full mx-auto grid grid-cols-1 md:max-lg:flex md:max-lg:flex-col md:max-lg:items-center lg:grid-cols-[1fr_280px] [@media(min-width:1440px)]:grid-cols-[1fr_380px] [@media(min-width:1600px)]:grid-cols-[1fr_420px] [@media(min-width:1920px)]:grid-cols-[1fr_460px] gap-8 md:max-lg:gap-[clamp(14px,min(2vw,2vh),22px)] lg:gap-12 [@media(min-width:1440px)]:gap-14 [@media(min-width:1600px)]:gap-16 items-center pointer-events-auto">
-        {/* Left Column: Headline + Story Card + Action Bar (Positioned 2nd on tablet) */}
-        <div className="flex flex-col gap-4 sm:gap-5 md:max-lg:gap-[clamp(10px,1.4vh,16px)] md:max-lg:w-full md:max-lg:max-w-[clamp(520px,72vw,760px)] md:max-lg:order-2 lg:order-1 [@media(min-width:1440px)]:gap-8 [@media(min-width:1600px)]:gap-9">
+        {/* Left Column: Headline + Story Card + Action Bar (Positioned 2nd on mobile & tablet) */}
+        <div className="flex flex-col gap-4 sm:gap-5 md:max-lg:gap-[clamp(10px,1.4vh,16px)] md:max-lg:w-full md:max-lg:max-w-[clamp(520px,72vw,760px)] order-2 lg:order-1 [@media(min-width:1440px)]:gap-8 [@media(min-width:1600px)]:gap-9">
           <AboutHeadline isLight={isLight} />
           <AboutNarrativeCard
             activeTab={activeTab}
@@ -71,10 +71,10 @@ function About({ style = {} }) {
           />
         </div>
 
-        {/* Right Column: 3D Holographic ProfileCard (Positioned AT THE TOP on tablet) */}
-        <div className="flex justify-center items-center perspective-[1200px] md:max-lg:order-1 lg:order-2">
+        {/* Right Column: 3D Holographic ProfileCard (Positioned AT THE TOP on mobile & tablet) */}
+        <div className="flex justify-center items-center perspective-[1200px] order-1 lg:order-2">
           <ProfileCard
-            className="md:max-lg:!w-[clamp(260px,min(38vw,42vh),340px)]"
+            className="max-md:!w-[clamp(240px,70vw,280px)] md:max-lg:!w-[clamp(260px,min(38vw,42vh),340px)]"
             name=""
             title=""
             handle="clyntenbilliam"
