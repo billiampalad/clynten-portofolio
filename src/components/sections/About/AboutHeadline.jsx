@@ -61,7 +61,7 @@ function AboutHeadline({ isLight = false }) {
       </div>
 
       {/* Main Name & Animated Skill Rotator */}
-      <div className="flex items-baseline flex-wrap gap-x-4 md:max-lg:gap-x-[clamp(10px,1.6vw,16px)] [@media(min-width:1440px)]:gap-x-5 gap-y-1 md:max-lg:gap-y-[clamp(2px,0.5vh,4px)] [@media(min-width:1440px)]:gap-y-1.5">
+      <div className="flex flex-col items-start gap-y-1.5 sm:gap-y-2 md:flex-row md:items-baseline md:flex-wrap gap-x-4 md:max-lg:gap-x-[clamp(10px,1.6vw,16px)] [@media(min-width:1440px)]:gap-x-5 md:gap-y-1 md:max-lg:gap-y-[clamp(2px,0.5vh,4px)] [@media(min-width:1440px)]:gap-y-1.5">
         <h2
           className={`font-mono text-3xl sm:text-4xl md:max-lg:text-[clamp(27px,min(3.6vw,4.2vh),36px)] lg:text-5xl [@media(min-width:1440px)]:text-[52px] [@media(min-width:1600px)]:text-[62px] font-black tracking-tight leading-none transition-colors duration-300 ${
             isLight ? 'text-slate-900' : 'text-white'
