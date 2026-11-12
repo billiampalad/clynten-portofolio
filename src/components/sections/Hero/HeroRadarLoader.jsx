@@ -103,8 +103,8 @@ function HeroRadarLoader({ progress = 0, onComplete }) {
     return 'SIGNAL LOCKED // INITIALIZING HUD'
   }, [percentage, isShutterOpen])
 
-  // Formatted percentage with leading zero (e.g., 007%, 048%, 100%)
-  const formattedPercentage = String(percentage).padStart(3, '0')
+  // Percentage value without leading zeros
+  const formattedPercentage = percentage
 
   // 10 Segmented Cyber Blocks for visual telemetry
   const totalBlocks = 10
