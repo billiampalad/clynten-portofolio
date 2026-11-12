@@ -15,23 +15,60 @@ function About({ style = {} }) {
   const [isAboutInView, setIsAboutInView] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // IntersectionObserver to detect when About section is in view on mobile
+  // Dynamic visibility detector that works seamlessly with GSAP pinned Hero and Lenis/window scroll
   useEffect(() => {
-    const target = aboutSectionRef.current
-    if (!target) return
+    let animationFrameId = null
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsAboutInView(entry.isIntersecting)
-      },
-      {
-        root: null,
-        threshold: 0.1,
+    const updateVisibility = () => {
+      const el = aboutSectionRef.current
+      if (!el) return
+
+      // 1. Check parent backdrop layer (Hero's backdropLayerRef opacity & visibility)
+      const parent = el.parentElement
+      if (parent) {
+        const computed = window.getComputedStyle(parent)
+        const isHidden =
+          computed.visibility === 'hidden' ||
+          parseFloat(computed.opacity || '0') < 0.35
+        if (isHidden) {
+          setIsAboutInView(false)
+          return
+        }
       }
-    )
 
-    observer.observe(target)
-    return () => observer.disconnect()
+      // 2. Check position within viewport (detects when scrolled past into Skills or other sections)
+      const rect = el.getBoundingClientRect()
+      const isVisibleInViewport = rect.top < window.innerHeight && rect.bottom > 80
+
+      setIsAboutInView(isVisibleInViewport)
+    }
+
+    const onScrollOrUpdate = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(updateVisibility)
+    }
+
+    // Run check immediately on mount
+    updateVisibility()
+
+    // Listen to scroll and resize events
+    window.addEventListener('scroll', onScrollOrUpdate, { passive: true })
+    window.addEventListener('resize', onScrollOrUpdate, { passive: true })
+
+    // Observe parent element style changes (when Hero modifies opacity/visibility on scrub)
+    const parent = aboutSectionRef.current?.parentElement
+    let observer = null
+    if (parent && typeof MutationObserver !== 'undefined') {
+      observer = new MutationObserver(onScrollOrUpdate)
+      observer.observe(parent, { attributes: true, attributeFilter: ['style', 'class'] })
+    }
+
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      window.removeEventListener('scroll', onScrollOrUpdate)
+      window.removeEventListener('resize', onScrollOrUpdate)
+      if (observer) observer.disconnect()
+    }
   }, [])
 
   // Lock body scroll and listen for ESC key when modal is open
@@ -143,32 +180,38 @@ function About({ style = {} }) {
         </div>
       </div>
 
-      {/* Mobile Floating Profile Avatar Button (Visible only on mobile when About section is in view, positioned top-right) */}
-      <button
-        type="button"
-        onClick={() => setIsModalOpen(true)}
-        aria-label="Open profile card modal"
-        className={`fixed top-[calc(60px+env(safe-area-inset-top))] right-4 z-40 md:hidden w-11 h-11 sm:w-12 sm:h-12 rounded-full p-[2px] bg-gradient-to-tr from-rose-500 via-rose-400 to-amber-400 shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all duration-300 active:scale-90 pointer-events-auto ${
-          isAboutInView
-            ? 'opacity-100 translate-y-0 scale-100'
-            : 'opacity-0 -translate-y-4 scale-90 pointer-events-none'
-        }`}
-      >
-        <div className="relative w-full h-full rounded-full overflow-hidden bg-slate-900 border border-black/40">
-          <img
-            src={profileAvatar}
-            alt="Clynten Palad profile avatar"
-            className="w-full h-full object-cover object-top"
-          />
-        </div>
-        <span className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 border-2 border-[#0A0907] shadow-[0_0_6px_#22c55e]" />
-        <span className="sr-only">Open Profile Card</span>
-      </button>
+      {/* Mobile Floating Profile Avatar Button (Rendered via Portal to document.body for true viewport fixing & touch priority) */}
+      {typeof document !== 'undefined' && createPortal(
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation()
+            setIsModalOpen(true)
+          }}
+          aria-label="Open profile card modal"
+          className={`fixed top-[calc(60px+env(safe-area-inset-top))] right-4 z-[999] md:hidden w-11 h-11 sm:w-12 sm:h-12 rounded-full p-[2px] bg-gradient-to-tr from-rose-500 via-rose-400 to-amber-400 shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all duration-300 active:scale-90 cursor-pointer touch-manipulation select-none pointer-events-auto ${
+            isAboutInView
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 -translate-y-4 scale-90 pointer-events-none'
+          }`}
+        >
+          <div className="relative w-full h-full rounded-full overflow-hidden bg-slate-900 border border-black/40 pointer-events-none">
+            <img
+              src={profileAvatar}
+              alt="Clynten Palad profile avatar"
+              className="w-full h-full object-cover object-top pointer-events-none"
+            />
+          </div>
+          <span className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 border-2 border-[#0A0907] shadow-[0_0_6px_#22c55e] pointer-events-none" />
+          <span className="sr-only">Open Profile Card</span>
+        </button>,
+        document.body
+      )}
 
-      {/* Mobile Profile Modal (Rendered via React Portal to prevent overflow clipping) */}
+      {/* Mobile Profile Modal (Rendered via React Portal with higher z-index to cover navbar) */}
       {isModalOpen && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md md:hidden transition-opacity duration-300"
+          className="fixed inset-0 z-[1050] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md md:hidden transition-opacity duration-300"
           onClick={() => setIsModalOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -183,7 +226,7 @@ function About({ style = {} }) {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-rose-500 text-white border border-white/20 transition-colors shadow-lg active:scale-95"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-rose-500 text-white border border-white/20 transition-colors shadow-lg active:scale-95 cursor-pointer touch-manipulation"
                 aria-label="Close Profile Card"
               >
                 <X className="w-5 h-5" />
