@@ -5,25 +5,25 @@ import { PROJECT_TECH_STACK } from './aboutData'
 function AboutActionBar({ onContactClick, isLight = false }) {
   return (
     <div
-      className={`relative z-20 flex flex-wrap items-center justify-between gap-3.5 md:max-lg:gap-[clamp(10px,1.4vw,14px)] p-3 sm:px-4 sm:py-3 md:max-lg:px-[clamp(12px,1.6vw,16px)] md:max-lg:py-[clamp(9px,1.2vh,12px)] [@media(min-width:1440px)]:px-7 [@media(min-width:1440px)]:py-3.5 [@media(min-width:1600px)]:px-8 [@media(min-width:1600px)]:py-4 [@media(min-width:1440px)]:rounded-2xl [@media(min-width:1440px)]:gap-5 rounded-xl backdrop-blur-md transition-all duration-300 ${
+      className={`relative z-20 flex flex-col md:flex-row items-center justify-between w-full gap-3 md:gap-3.5 md:max-lg:gap-[clamp(10px,1.4vw,14px)] p-3 sm:px-4 sm:py-3 md:max-lg:px-[clamp(12px,1.6vw,16px)] md:max-lg:py-[clamp(9px,1.2vh,12px)] [@media(min-width:1440px)]:px-7 [@media(min-width:1440px)]:py-3.5 [@media(min-width:1600px)]:px-8 [@media(min-width:1600px)]:py-4 [@media(min-width:1440px)]:rounded-2xl [@media(min-width:1440px)]:gap-5 rounded-xl backdrop-blur-md transition-all duration-300 ${
         isLight
           ? 'bg-white/90 border border-slate-200 shadow-[0_12px_28px_rgba(0,0,0,0.06)]'
           : 'bg-[#191720]/85 border border-white/10 shadow-[0_12px_28px_rgba(0,0,0,0.4)]'
       }`}
     >
-      {/* Left: Project Tech Stack Icons */}
-      <div className="flex items-center gap-1.5 md:max-lg:gap-[clamp(4px,0.6vw,6px)] [@media(min-width:1440px)]:gap-2.5 flex-wrap">
+      {/* Left: Project Tech Stack Icons (Full width 7-col grid on mobile, flex on desktop) */}
+      <div className="w-full grid grid-cols-7 gap-1.5 sm:gap-2 md:flex md:w-auto md:items-center md:gap-1.5 md:max-lg:gap-[clamp(4px,0.6vw,6px)] [@media(min-width:1440px)]:gap-2.5">
         {PROJECT_TECH_STACK.map((tech) => (
           <div
             key={tech.key}
-            className={`group relative w-8 h-8 md:max-lg:w-[clamp(26px,min(3.2vw,3.6vh),32px)] md:max-lg:h-[clamp(26px,min(3.2vw,3.6vh),32px)] [@media(min-width:1440px)]:w-10.5 [@media(min-width:1440px)]:h-10.5 [@media(min-width:1600px)]:w-11.5 [@media(min-width:1600px)]:h-11.5 rounded-lg [@media(min-width:1440px)]:rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${
+            className={`group relative w-full aspect-square min-h-[38px] md:min-h-0 md:w-8 md:h-8 md:max-lg:w-[clamp(26px,min(3.2vw,3.6vh),32px)] md:max-lg:h-[clamp(26px,min(3.2vw,3.6vh),32px)] [@media(min-width:1440px)]:w-10.5 [@media(min-width:1440px)]:h-10.5 [@media(min-width:1600px)]:w-11.5 [@media(min-width:1600px)]:h-11.5 rounded-lg [@media(min-width:1440px)]:rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer ${
               isLight
                 ? 'bg-slate-100/90 border border-slate-200/90 hover:bg-rose-50 hover:border-rose-300 hover:-translate-y-0.5'
                 : 'bg-white/[0.04] border border-white/[0.08] hover:bg-rose-500/15 hover:border-rose-500/40 hover:-translate-y-0.5'
             }`}
             aria-label={tech.name}
           >
-            <TechIcon name={tech.key} className="w-4 h-4 md:max-lg:w-[clamp(13px,1.6vw,16px)] md:max-lg:h-[clamp(13px,1.6vw,16px)] [@media(min-width:1440px)]:w-5.5 [@media(min-width:1440px)]:h-5.5 [@media(min-width:1600px)]:w-6 [@media(min-width:1600px)]:h-6" />
+            <TechIcon name={tech.key} className="w-[clamp(16px,4.2vw,20px)] h-[clamp(16px,4.2vw,20px)] md:w-4 md:h-4 md:max-lg:w-[clamp(13px,1.6vw,16px)] md:max-lg:h-[clamp(13px,1.6vw,16px)] [@media(min-width:1440px)]:w-5.5 [@media(min-width:1440px)]:h-5.5 [@media(min-width:1600px)]:w-6 [@media(min-width:1600px)]:h-6" />
 
             {/* Micro Tooltip */}
             <div
@@ -36,13 +36,13 @@ function AboutActionBar({ onContactClick, isLight = false }) {
         ))}
       </div>
 
-      {/* Right: Actions (Contact + Resume + LinkedIn) */}
-      <div className="flex items-center gap-2.5 md:max-lg:gap-[clamp(6px,0.9vw,10px)] [@media(min-width:1440px)]:gap-3.5 flex-wrap">
+      {/* Right: Actions (Full width flex distribution on mobile, flex on desktop) */}
+      <div className="w-full flex items-stretch gap-2 sm:gap-2.5 md:w-auto md:items-center md:gap-2.5 md:max-lg:gap-[clamp(6px,0.9vw,10px)] [@media(min-width:1440px)]:gap-3.5">
         {/* Get in Touch CTA */}
         <a
           href="#contact"
           onClick={onContactClick}
-          className="inline-flex items-center gap-1.5 md:max-lg:gap-[clamp(4px,0.6vw,6px)] [@media(min-width:1440px)]:gap-2 px-3 md:max-lg:px-[clamp(9px,1.2vw,12px)] py-1.5 md:max-lg:py-[clamp(5px,0.7vh,6px)] [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs md:max-lg:text-[clamp(10px,1.2vw,12px)] [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold text-white bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 border border-white/20 shadow-[0_4px_14px_rgba(244,63,94,0.35)] hover:shadow-[0_6px_18px_rgba(244,63,94,0.5)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+          className="flex-1 md:flex-initial inline-flex items-center justify-center gap-1.5 min-h-[44px] md:min-h-0 md:max-lg:gap-[clamp(4px,0.6vw,6px)] [@media(min-width:1440px)]:gap-2 px-3 py-2.5 md:py-1.5 md:max-lg:px-[clamp(9px,1.2vw,12px)] md:max-lg:py-[clamp(5px,0.7vh,6px)] [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs md:max-lg:text-[clamp(10px,1.2vw,12px)] [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold text-white bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 border border-white/20 shadow-[0_4px_14px_rgba(244,63,94,0.35)] hover:shadow-[0_6px_18px_rgba(244,63,94,0.5)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
         >
           <span>Get in touch</span>
           <span className="font-bold transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
@@ -55,13 +55,13 @@ function AboutActionBar({ onContactClick, isLight = false }) {
           target="_blank"
           rel="noopener noreferrer"
           title="Download Resume (ATS Format)"
-          className={`inline-flex items-center gap-1.5 md:max-lg:gap-[clamp(4px,0.6vw,6px)] [@media(min-width:1440px)]:gap-2 px-3 md:max-lg:px-[clamp(9px,1.2vw,12px)] py-1.5 md:max-lg:py-[clamp(5px,0.7vh,6px)] [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs md:max-lg:text-[clamp(10px,1.2vw,12px)] [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold transition-all duration-200 cursor-pointer ${
+          className={`flex-1 md:flex-initial inline-flex items-center justify-center gap-1.5 min-h-[44px] md:min-h-0 md:max-lg:gap-[clamp(4px,0.6vw,6px)] [@media(min-width:1440px)]:gap-2 px-3 py-2.5 md:py-1.5 md:max-lg:px-[clamp(9px,1.2vw,12px)] md:max-lg:py-[clamp(5px,0.7vh,6px)] [@media(min-width:1440px)]:px-4.5 [@media(min-width:1440px)]:py-2 [@media(min-width:1600px)]:px-5 [@media(min-width:1600px)]:py-2.5 rounded-lg [@media(min-width:1440px)]:rounded-xl font-mono text-xs md:max-lg:text-[clamp(10px,1.2vw,12px)] [@media(min-width:1440px)]:text-lg [@media(min-width:1600px)]:text-xl font-semibold transition-all duration-200 cursor-pointer ${
             isLight
               ? 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 hover:border-rose-400 hover:text-rose-600 hover:-translate-y-0.5'
               : 'text-zinc-200 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-rose-500/40 hover:text-rose-300 hover:-translate-y-0.5'
           }`}
         >
-          <svg className="w-3.5 h-3.5 md:max-lg:w-[clamp(11px,1.4vw,14px)] md:max-lg:h-[clamp(11px,1.4vw,14px)] [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 [@media(min-width:1600px)]:w-5.5 [@media(min-width:1600px)]:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="w-4 h-4 md:w-3.5 md:h-3.5 md:max-lg:w-[clamp(11px,1.4vw,14px)] md:max-lg:h-[clamp(11px,1.4vw,14px)] [@media(min-width:1440px)]:w-5 [@media(min-width:1440px)]:h-5 [@media(min-width:1600px)]:w-5.5 [@media(min-width:1600px)]:h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" strokeLinecap="round" strokeLinejoin="round" />
             <polyline points="7 10 12 15 17 10" strokeLinecap="round" strokeLinejoin="round" />
             <line x1="12" y1="15" x2="12" y2="3" strokeLinecap="round" strokeLinejoin="round" />
@@ -75,13 +75,13 @@ function AboutActionBar({ onContactClick, isLight = false }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn Profile"
-          className={`group relative w-8 h-8 md:max-lg:w-[clamp(26px,min(3.2vw,3.6vh),32px)] md:max-lg:h-[clamp(26px,min(3.2vw,3.6vh),32px)] [@media(min-width:1440px)]:w-10.5 [@media(min-width:1440px)]:h-10.5 [@media(min-width:1600px)]:w-11.5 [@media(min-width:1600px)]:h-11.5 rounded-lg [@media(min-width:1440px)]:rounded-xl inline-flex items-center justify-center text-[#0a66c2] transition-all duration-200 cursor-pointer ${
+          className={`group relative w-11 h-11 min-h-[44px] flex-shrink-0 md:w-8 md:h-8 md:min-h-0 md:max-lg:w-[clamp(26px,min(3.2vw,3.6vh),32px)] md:max-lg:h-[clamp(26px,min(3.2vw,3.6vh),32px)] [@media(min-width:1440px)]:w-10.5 [@media(min-width:1440px)]:h-10.5 [@media(min-width:1600px)]:w-11.5 [@media(min-width:1600px)]:h-11.5 rounded-lg [@media(min-width:1440px)]:rounded-xl inline-flex items-center justify-center text-[#0a66c2] transition-all duration-200 cursor-pointer ${
             isLight
               ? 'bg-slate-100 border border-slate-200 hover:bg-[#0a66c2]/10 hover:border-[#0a66c2]/40 hover:-translate-y-0.5'
               : 'bg-white/[0.05] border border-white/10 hover:bg-[#0a66c2]/15 hover:border-[#0a66c2]/50 hover:-translate-y-0.5'
           }`}
         >
-          <svg className="w-4 h-4 md:max-lg:w-[clamp(13px,1.6vw,16px)] md:max-lg:h-[clamp(13px,1.6vw,16px)] [@media(min-width:1440px)]:w-5.5 [@media(min-width:1440px)]:h-5.5 [@media(min-width:1600px)]:w-6 [@media(min-width:1600px)]:h-6" viewBox="0 0 24 24" fill="currentColor">
+          <svg className="w-[18px] h-[18px] md:w-4 md:h-4 md:max-lg:w-[clamp(13px,1.6vw,16px)] md:max-lg:h-[clamp(13px,1.6vw,16px)] [@media(min-width:1440px)]:w-5.5 [@media(min-width:1440px)]:h-5.5 [@media(min-width:1600px)]:w-6 [@media(min-width:1600px)]:h-6" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
           </svg>
 
