@@ -6,31 +6,31 @@ import { useTextScramble } from '@/hooks/useTextScramble'
 const POSITION_MAP = {
   // skil 1 (Web Development) - Pair 0 Left
   'webdev-wrapper':
-    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[4%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[clamp(18px,min(5.58vw,2.7dvh),32px)] left-[clamp(14px,min(4.5vw,2.15dvh),28px)] right-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[4%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[6%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 2 (Android Development) - Pair 0 Right
   'android-wrapper':
-    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[6.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[clamp(18px,min(5.58vw,2.7dvh),32px)] right-[clamp(14px,min(4.5vw,2.15dvh),28px)] left-auto md:max-lg:top-[clamp(16px,2.2vh,32px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[6.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[9%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 3 (Cyber Security) - Pair 1 Left
   'cyber-wrapper':
-    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[22.5%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[clamp(18px,min(5.58vw,2.7dvh),32px)] left-[clamp(14px,min(4.5vw,2.15dvh),28px)] right-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[22.5%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[26%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 4 (Cloud & Networking) - Pair 1 Right
   'net-wrapper':
-    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[25%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[clamp(18px,min(5.58vw,2.7dvh),32px)] right-[clamp(14px,min(4.5vw,2.15dvh),28px)] left-auto md:max-lg:top-[clamp(110px,17vh,205px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[25%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[29%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
   // skil 5 (Database Architecture) - Pair 2 Left
   'db-wrapper':
-    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] left-[clamp(16px,min(4.5vw,2.5dvh),28px)] right-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[41%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
+    'top-[clamp(18px,min(5.58vw,2.7dvh),32px)] left-[clamp(14px,min(4.5vw,2.15dvh),28px)] right-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-[clamp(16px,2vw,28px)] md:max-lg:right-auto lg:top-[41%] lg:left-[clamp(31px,3.06vw,44px)] lg:right-auto [@media(min-width:1440px)]:top-[46%] [@media(min-width:1440px)]:left-[clamp(36px,2.5vw,48px)]',
   // skil 6 (UI/UX Engineering) - Pair 2 Right
   'uiux-wrapper':
-    'top-[clamp(22px,min(5.5vw,3.2dvh),32px)] right-[clamp(16px,min(4.5vw,2.5dvh),28px)] left-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[43.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
+    'top-[clamp(18px,min(5.58vw,2.7dvh),32px)] right-[clamp(14px,min(4.5vw,2.15dvh),28px)] left-auto md:max-lg:top-[clamp(205px,32vh,385px)] md:max-lg:left-auto md:max-lg:right-[clamp(16px,2vw,28px)] lg:top-[43.5%] lg:left-[clamp(210px,20.57vw,296px)] lg:right-auto [@media(min-width:1440px)]:top-[49%] [@media(min-width:1440px)]:left-[clamp(273px,18.96vw,364px)]',
 }
 
 const HudRow = memo(function HudRow({ label, value, highlightColor = '', speed = 20 }) {
   const scrambledVal = useTextScramble(value, speed, false)
 
   return (
-    <div className="flex items-center justify-between text-[clamp(5.2px,min(1.3vw,0.72dvh),7px)] md:max-lg:text-[clamp(6.5px,min(0.8vw,0.85vh),8.5px)] lg:text-[clamp(6.5px,0.62vw,9px)] [@media(min-width:1440px)]:text-[clamp(8.5px,0.55vw,10.5px)] tracking-wider py-[clamp(1px,0.18dvh,1.8px)] md:max-lg:py-[clamp(1.5px,0.25vh,2.5px)] lg:py-[clamp(2.5px,0.39vh,3.5px)] [@media(min-width:1440px)]:py-[clamp(3.5px,0.56vh,6px)] border-b border-white/[0.04] last:border-none whitespace-nowrap">
+    <div className="flex items-center justify-between text-[clamp(4.8px,min(1.33vw,0.65dvh),6.8px)] md:max-lg:text-[clamp(6.5px,min(0.8vw,0.85vh),8.5px)] lg:text-[clamp(6.5px,0.62vw,9px)] [@media(min-width:1440px)]:text-[clamp(8.5px,0.55vw,10.5px)] tracking-wider py-[clamp(0.8px,0.18dvh,1.6px)] md:max-lg:py-[clamp(1.5px,0.25vh,2.5px)] lg:py-[clamp(2.5px,0.39vh,3.5px)] [@media(min-width:1440px)]:py-[clamp(3.5px,0.56vh,6px)] border-b border-white/[0.04] last:border-none whitespace-nowrap">
       <span className="text-zinc-500 uppercase shrink-0 tracking-[clamp(0.2px,0.05vw,0.5px)] md:max-lg:tracking-[clamp(0.4px,0.06vw,0.7px)] [@media(min-width:1440px)]:tracking-[clamp(0.5px,0.05vw,1px)]">{label}</span>
-      <span className={`font-semibold truncate max-w-[clamp(58px,min(17vw,9dvh),80px)] md:max-lg:max-w-[clamp(76px,10vw,115px)] lg:max-w-[clamp(95px,9.66vw,139px)] [@media(min-width:1440px)]:max-w-[clamp(125px,8.85vw,170px)] ml-1 shrink-0 ${highlightColor || 'text-zinc-300'}`}>
+      <span className={`font-semibold truncate max-w-[clamp(52px,min(17vw,8dvh),78px)] md:max-lg:max-w-[clamp(76px,10vw,115px)] lg:max-w-[clamp(95px,9.66vw,139px)] [@media(min-width:1440px)]:max-w-[clamp(125px,8.85vw,170px)] ml-1 shrink-0 ${highlightColor || 'text-zinc-300'}`}>
         {scrambledVal}
       </span>
     </div>
@@ -48,13 +48,13 @@ const HudHeader = memo(function HudHeader({ text, tag, color, speed = 18 }) {
         : 'text-emerald-400'
 
   return (
-    <div className="flex items-center justify-between pb-[clamp(2px,0.3dvh,3.5px)] mb-[clamp(2px,0.3dvh,3.5px)] md:max-lg:pb-[clamp(2px,0.35vh,3.5px)] md:max-lg:mb-[clamp(2px,0.35vh,3.5px)] lg:pb-[clamp(4px,0.61vh,5.5px)] lg:mb-[clamp(4px,0.61vh,5.5px)] [@media(min-width:1440px)]:pb-[clamp(5px,0.74vh,8px)] [@media(min-width:1440px)]:mb-[clamp(5px,0.74vh,8px)] border-b border-white/10 whitespace-nowrap">
-      <div className="flex items-center gap-[clamp(2.5px,min(0.8vw,0.4dvh),4px)] md:max-lg:gap-[clamp(4px,0.5vw,6px)] lg:gap-[clamp(4.5px,0.4vw,6px)] [@media(min-width:1440px)]:gap-[clamp(6px,0.42vw,8px)] text-[clamp(6.5px,min(1.7vw,0.9dvh),8.5px)] md:max-lg:text-[clamp(7.5px,min(0.95vw,1vh),10px)] lg:text-[clamp(8px,0.78vw,11.5px)] [@media(min-width:1440px)]:text-[clamp(10px,0.68vw,13px)] font-bold tracking-wider text-white whitespace-nowrap">
-        <span className={`text-[clamp(5px,min(1.2vw,0.65dvh),6.5px)] md:max-lg:text-[clamp(6px,min(0.75vw,0.8vh),8px)] lg:text-[clamp(6.5px,0.64vw,9px)] [@media(min-width:1440px)]:text-[clamp(8.5px,0.57vw,11px)] ${squareColor}`}>■</span>
-        <span className="truncate max-w-[clamp(60px,min(18vw,9dvh),85px)] md:max-lg:max-w-[clamp(85px,11vw,120px)] lg:max-w-[clamp(100px,10.15vw,146px)] [@media(min-width:1440px)]:max-w-[clamp(130px,9.11vw,175px)]">{scrambledText}</span>
+    <div className="flex items-center justify-between pb-[clamp(1.5px,0.25dvh,3px)] mb-[clamp(1.5px,0.25dvh,3px)] md:max-lg:pb-[clamp(2px,0.35vh,3.5px)] md:max-lg:mb-[clamp(2px,0.35vh,3.5px)] lg:pb-[clamp(4px,0.61vh,5.5px)] lg:mb-[clamp(4px,0.61vh,5.5px)] [@media(min-width:1440px)]:pb-[clamp(5px,0.74vh,8px)] [@media(min-width:1440px)]:mb-[clamp(5px,0.74vh,8px)] border-b border-white/10 whitespace-nowrap">
+      <div className="flex items-center gap-[clamp(2px,min(0.75vw,0.35dvh),3.5px)] md:max-lg:gap-[clamp(4px,0.5vw,6px)] lg:gap-[clamp(4.5px,0.4vw,6px)] [@media(min-width:1440px)]:gap-[clamp(6px,0.42vw,8px)] text-[clamp(5.8px,min(1.7vw,0.8dvh),8px)] md:max-lg:text-[clamp(7.5px,min(0.95vw,1vh),10px)] lg:text-[clamp(8px,0.78vw,11.5px)] [@media(min-width:1440px)]:text-[clamp(10px,0.68vw,13px)] font-bold tracking-wider text-white whitespace-nowrap">
+        <span className={`text-[clamp(4.5px,min(1.2vw,0.6dvh),6.5px)] md:max-lg:text-[clamp(6px,min(0.75vw,0.8vh),8px)] lg:text-[clamp(6.5px,0.64vw,9px)] [@media(min-width:1440px)]:text-[clamp(8.5px,0.57vw,11px)] ${squareColor}`}>■</span>
+        <span className="truncate max-w-[clamp(54px,min(18vw,9dvh),85px)] md:max-lg:max-w-[clamp(85px,11vw,120px)] lg:max-w-[clamp(100px,10.15vw,146px)] [@media(min-width:1440px)]:max-w-[clamp(130px,9.11vw,175px)]">{scrambledText}</span>
       </div>
       {tag && (
-        <span className="text-[clamp(4.5px,min(1.1vw,0.6dvh),6px)] md:max-lg:text-[clamp(5.5px,min(0.7vw,0.75vh),7.5px)] lg:text-[clamp(6px,0.56vw,8px)] [@media(min-width:1440px)]:text-[clamp(8px,0.52vw,10px)] tracking-widest font-mono px-[clamp(2px,0.5vw,3px)] py-[clamp(0.5px,0.08dvh,1px)] md:max-lg:px-[clamp(3px,0.4vw,4.5px)] md:max-lg:py-[clamp(0.5px,0.15vh,1px)] lg:px-[clamp(3.5px,0.35vw,5px)] lg:py-[clamp(0.5px,0.15vh,1.5px)] rounded md:max-lg:rounded-[2px] bg-white/5 border border-white/10 text-zinc-400 shrink-0">
+        <span className="text-[clamp(4px,min(1.1vw,0.55dvh),6px)] md:max-lg:text-[clamp(5.5px,min(0.7vw,0.75vh),7.5px)] lg:text-[clamp(6px,0.56vw,8px)] [@media(min-width:1440px)]:text-[clamp(8px,0.52vw,10px)] tracking-widest font-mono px-[clamp(2px,0.5vw,3px)] py-[clamp(0.5px,0.08dvh,1px)] md:max-lg:px-[clamp(3px,0.4vw,4.5px)] md:max-lg:py-[clamp(0.5px,0.15vh,1px)] lg:px-[clamp(3.5px,0.35vw,5px)] lg:py-[clamp(0.5px,0.15vh,1.5px)] rounded md:max-lg:rounded-[2px] bg-white/5 border border-white/10 text-zinc-400 shrink-0">
           {tag}
         </span>
       )}
@@ -97,7 +97,7 @@ const SkillCard = memo(function SkillCard({ skill, index, isResolved, isMobileAc
       }}
       className={`absolute ${positionClass} ${mobileVisibilityClass} transition-all duration-300 ease-out pointer-events-none select-none z-10`}
     >
-      <div className={`relative w-[clamp(112px,min(34vw,17dvh),154px)] md:max-lg:w-[clamp(138px,min(18vw,20vh),192px)] lg:w-[clamp(166px,16.26vw,234px)] [@media(min-width:1440px)]:w-[clamp(215px,14.9vw,286px)] px-[clamp(5px,min(1.3vw,0.7dvh),7.5px)] py-[clamp(4px,min(1vw,0.7dvh),7px)] md:max-lg:px-[clamp(7px,0.9vw,11px)] md:max-lg:py-[clamp(6px,0.9vh,10px)] lg:px-[clamp(8px,0.76vw,11px)] lg:py-[clamp(11px,1.67vh,15px)] [@media(min-width:1440px)]:px-[clamp(14px,0.94vw,18px)] [@media(min-width:1440px)]:py-[clamp(12px,1.67vh,18px)] rounded-lg md:max-lg:rounded-[clamp(6px,0.8vw,10px)] [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg [contain:paint]`}>
+      <div className={`relative w-[clamp(110px,min(34vw,15.3dvh),154px)] md:max-lg:w-[clamp(138px,min(18vw,20vh),192px)] lg:w-[clamp(166px,16.26vw,234px)] [@media(min-width:1440px)]:w-[clamp(215px,14.9vw,286px)] px-[clamp(4.5px,min(1.33vw,0.65dvh),7.5px)] py-[clamp(3.5px,min(1.1vw,0.55dvh),6.5px)] md:max-lg:px-[clamp(7px,0.9vw,11px)] md:max-lg:py-[clamp(6px,0.9vh,10px)] lg:px-[clamp(8px,0.76vw,11px)] lg:py-[clamp(11px,1.67vh,15px)] [@media(min-width:1440px)]:px-[clamp(14px,0.94vw,18px)] [@media(min-width:1440px)]:py-[clamp(12px,1.67vh,18px)] rounded-lg md:max-lg:rounded-[clamp(6px,0.8vw,10px)] [@media(min-width:1440px)]:rounded-[clamp(12px,0.83vw,16px)] bg-zinc-950/95 backdrop-blur-sm border ${borderColor} shadow-lg [contain:paint]`}>
         <HudHeader
           text={data.header}
           tag={skill.tag}
