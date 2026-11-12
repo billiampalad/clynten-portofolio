@@ -264,15 +264,15 @@ function Skills({ style = {} }) {
         viewport={{ once: true, amount: 0.2 }}
       >
         {/* Header Metadata */}
-        <motion.div variants={itemFadeUpVariants} className="skills-header-meta">
-          <div className="skills-header-left">
-            <div className="skills-badge">
+        <motion.div variants={itemFadeUpVariants} className="skills-header-meta max-md:gap-y-2">
+          <div className="skills-header-left max-md:contents">
+            <div className="skills-badge max-md:order-1">
               <span className="dot" />
               <span>Skills</span>
             </div>
-            <span className="skills-tagline">Technical Stack & Competencies</span>
+            <span className="skills-tagline max-md:order-3 max-md:w-full max-md:mt-1 max-md:text-[clamp(11px,2.9vw,13px)]">Technical Stack & Competencies</span>
           </div>
-          <span className="skills-sys-id">SPEC_ID: {profile.systemId}</span>
+          <span className="skills-sys-id max-md:order-2 max-md:text-[clamp(9.5px,2.5vw,11px)]">SPEC_ID: {profile.systemId}</span>
         </motion.div>
         <motion.h2 variants={itemFadeUpVariants} className="skills-title">
           Production-grade systems <span className="highlight">engineered for scale</span> and high resilience.
