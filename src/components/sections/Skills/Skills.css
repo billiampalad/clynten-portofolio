@@ -618,10 +618,10 @@ body.light-theme .tech-chip:hover {
   }
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .skills-section {
-    padding: 40px 16px 50px 16px;
-    scroll-margin-top: 50px;
+    padding: clamp(30px, 4.74dvh, 50px) clamp(12px, 3.88vw, 20px) clamp(40px, 5.92dvh, 60px) clamp(12px, 3.88vw, 20px);
+    scroll-margin-top: clamp(35px, 5.92dvh, 60px);
   }
 
   .skills-stats-grid {
@@ -630,10 +630,92 @@ body.light-theme .tech-chip:hover {
 
   .skills-pillars-grid {
     grid-template-columns: 1fr;
+    gap: clamp(14px, 2.37dvh, 26px);
   }
 
   .skills-title {
     font-size: 28px;
+  }
+
+  .pillar-card {
+    padding: clamp(18px, 3.32dvh, 36px) clamp(18px, 6.80vw, 36px);
+    border-radius: clamp(8px, 2.43vw, 14px);
+  }
+
+  .pillar-header {
+    margin-bottom: clamp(10px, 1.66dvh, 18px);
+    gap: clamp(8px, 2.91vw, 16px);
+  }
+
+  .pillar-header-left {
+    gap: clamp(6px, 2.43vw, 14px);
+  }
+
+  .pillar-idx {
+    font-size: clamp(9px, 2.67vw, 13px);
+    letter-spacing: clamp(1px, 0.36vw, 2px);
+  }
+
+  .pillar-tag {
+    font-size: clamp(8px, 2.43vw, 12px);
+    letter-spacing: clamp(0.8px, 0.29vw, 1.5px);
+    padding: clamp(1.5px, 0.24dvh, 4px) clamp(5px, 1.94vw, 11px);
+    border-radius: clamp(3px, 0.97vw, 6px);
+  }
+
+  .pillar-metric-badge {
+    gap: clamp(4px, 1.46vw, 8px);
+    font-size: clamp(11px, 3.16vw, 15px);
+    padding: clamp(2px, 0.36dvh, 5px) clamp(7px, 2.43vw, 13px);
+  }
+
+  .pillar-metric-dot {
+    width: clamp(4.5px, 1.46vw, 8px);
+    height: clamp(4.5px, 0.71dvh, 8px);
+  }
+
+  .pillar-telemetry {
+    margin-top: clamp(2px, 0.47dvh, 6px);
+    margin-bottom: clamp(10px, 1.90dvh, 20px);
+    gap: clamp(4px, 0.71dvh, 8px);
+  }
+
+  .pillar-telemetry-meta {
+    font-size: clamp(8px, 2.43vw, 12px);
+  }
+
+  .pillar-telemetry-latency {
+    font-size: clamp(8px, 2.31vw, 11px);
+  }
+
+  .pillar-gauge-track {
+    height: clamp(4px, 0.59dvh, 7px);
+  }
+
+  .pillar-title {
+    font-size: clamp(16px, 4.85vw, 24px);
+    margin-bottom: clamp(7px, 1.18dvh, 14px);
+  }
+
+  .pillar-desc {
+    font-size: clamp(11px, 3.16vw, 15px);
+    margin-bottom: clamp(13px, 2.37dvh, 26px);
+  }
+
+  .pillar-techs {
+    gap: clamp(4px, 0.71dvh, 8px) clamp(4px, 1.46vw, 8px);
+  }
+
+  .tech-chip {
+    gap: clamp(3.5px, 1.21vw, 7px);
+    font-size: clamp(8.5px, 2.43vw, 12px);
+    padding: clamp(2px, 0.36dvh, 5px) clamp(5px, 1.94vw, 11px);
+    border-radius: clamp(3px, 0.97vw, 6px);
+  }
+
+  .tech-chip-icon {
+    width: clamp(9.5px, 2.91vw, 15px);
+    height: clamp(9.5px, 1.42dvh, 15px);
   }
 }
 

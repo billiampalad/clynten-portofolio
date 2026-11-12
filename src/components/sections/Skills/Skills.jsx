@@ -198,18 +198,18 @@ const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
   return (
     <motion.div
       ref={cardRef}
-      className="pillar-card"
+      className="pillar-card max-md:px-[clamp(18px,6.80vw,36px)] max-md:py-[clamp(18px,3.32dvh,36px)] max-md:rounded-[clamp(8px,2.43vw,14px)]"
       variants={pillarCardVariants}
       whileHover={{ y: -4, transition: { duration: 0.25 } }}
     >
       {/* Card Header: Index, Stack Tag, and Dynamic Metric Badge */}
-      <div className="pillar-header">
-        <div className="pillar-header-left">
-          <span className="pillar-idx">{domain.idx}</span>
-          <span className="pillar-tag">{domain.tag}</span>
+      <div className="pillar-header max-md:mb-[clamp(10px,1.66dvh,18px)] max-md:gap-[clamp(8px,2.91vw,16px)]">
+        <div className="pillar-header-left max-md:gap-[clamp(6px,2.43vw,14px)]">
+          <span className="pillar-idx max-md:text-[clamp(9px,2.67vw,13px)]">{domain.idx}</span>
+          <span className="pillar-tag max-md:text-[clamp(8px,2.43vw,12px)] max-md:px-[clamp(5px,1.94vw,11px)] max-md:py-[clamp(1.5px,0.24dvh,4px)] max-md:rounded-[clamp(3px,0.97vw,6px)]">{domain.tag}</span>
         </div>
-        <div className="pillar-metric-badge" title={`Confidence: ${domain.confidence}`}>
-          <span className="pillar-metric-dot" />
+        <div className="pillar-metric-badge max-md:gap-[clamp(4px,1.46vw,8px)] max-md:text-[clamp(11px,3.16vw,15px)] max-md:px-[clamp(7px,2.43vw,13px)] max-md:py-[clamp(2px,0.36dvh,5px)]" title={`Confidence: ${domain.confidence}`}>
+          <span className="pillar-metric-dot max-md:w-[clamp(4.5px,1.46vw,8px)] max-md:h-[clamp(4.5px,0.71dvh,8px)]" />
           <span ref={numRef} className="pillar-metric-num">
             {domain.confidence}
           </span>
@@ -217,12 +217,12 @@ const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
       </div>
 
       {/* Cyber Telemetry / Progress Gauge */}
-      <div className="pillar-telemetry">
+      <div className="pillar-telemetry max-md:mt-[clamp(2px,0.47dvh,6px)] max-md:mb-[clamp(10px,1.90dvh,20px)] max-md:gap-[clamp(4px,0.71dvh,8px)]">
         <div className="pillar-telemetry-meta">
-          <span className="pillar-telemetry-label">PROFICIENCY // CONFIDENCE</span>
-          <span className="pillar-telemetry-latency">{domain.latency}</span>
+          <span className="pillar-telemetry-label max-md:text-[clamp(8px,2.43vw,12px)]">PROFICIENCY // CONFIDENCE</span>
+          <span className="pillar-telemetry-latency max-md:text-[clamp(8px,2.31vw,11px)]">{domain.latency}</span>
         </div>
-        <div className="pillar-gauge-track">
+        <div className="pillar-gauge-track max-md:h-[clamp(4px,0.59dvh,7px)]">
           <div
             className="pillar-gauge-fill"
             style={{
@@ -236,14 +236,14 @@ const SkillDomainCard = memo(function SkillDomainCard({ domain }) {
       </div>
 
       {/* Domain Title & Description */}
-      <h3 className="pillar-title">{domain.title}</h3>
-      <p className="pillar-desc">{domain.desc}</p>
+      <h3 className="pillar-title max-md:text-[clamp(16px,4.85vw,24px)] max-md:mb-[clamp(7px,1.18dvh,14px)]">{domain.title}</h3>
+      <p className="pillar-desc max-md:text-[clamp(11px,3.16vw,15px)] max-md:mb-[clamp(13px,2.37dvh,26px)]">{domain.desc}</p>
 
       {/* Tech Stack Chips with Brand Icons */}
-      <div className="pillar-techs">
+      <div className="pillar-techs max-md:gap-[clamp(4px,1.46vw,8px)]">
         {domain.techs.map((tech, tIdx) => (
-          <span key={tIdx} className="tech-chip">
-            <TechIcon name={tech} />
+          <span key={tIdx} className="tech-chip max-md:gap-[clamp(3.5px,1.21vw,7px)] max-md:text-[clamp(8.5px,2.43vw,12px)] max-md:px-[clamp(5px,1.94vw,11px)] max-md:py-[clamp(2px,0.36dvh,5px)] max-md:rounded-[clamp(3px,0.97vw,6px)]">
+            <TechIcon name={tech} className="tech-chip-icon max-md:w-[clamp(9.5px,2.91vw,15px)] max-md:h-[clamp(9.5px,1.42dvh,15px)]" />
             <span>{tech}</span>
           </span>
         ))}
@@ -306,7 +306,7 @@ function Skills({ style = {} }) {
 
       {/* Domain Pillars (Synchronized with skills.js) */}
       <motion.div
-        className="skills-pillars-grid relative z-10"
+        className="skills-pillars-grid relative z-10 max-md:gap-[clamp(14px,2.37dvh,26px)]"
         variants={pillarsGridVariants}
         initial="hidden"
         whileInView="visible"
